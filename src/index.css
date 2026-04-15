@@ -1,0 +1,3 @@
+/* Borra todo lo que haya en tu archivo src/index.css y pega solo esta línea. 
+   Esta es la nueva forma en la que Tailwind v4 carga los estilos. */
+@import "tailwindcss";
