@@ -1026,11 +1026,7 @@ export default function App() {
     acc[tab.group].push(tab);
     return acc;
   }, {});
-  const orderedSectionGroups = Object.entries(sectionGroups).sort(([groupA], [groupB]) => {
-    if (groupA === expandedSectionGroup) return -1;
-    if (groupB === expandedSectionGroup) return 1;
-    return 0;
-  });
+  const orderedSectionGroups = Object.entries(sectionGroups);
   
   // Estado 3D para el Módulo 1
   const [rotation, setRotation] = useState({ x: 60, z: -40 });
