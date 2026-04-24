@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import { 
-  // Hardware & Nube
-  Cpu, HardDrive, Monitor, Keyboard, Mouse, Speaker, Plug, 
-  CircuitBoard, Fan, Microchip, Gamepad2, Info, Server, 
-  Rotate3D, Cloud, Laptop, ShieldCheck, Zap, Users, 
-  Database, Globe, FolderSync, XCircle, CheckCircle2,
-  // Internet & Archivos
-  Search, AppWindow, FileText, Image as ImageIcon, Music, 
-  FolderOpen, Download, Usb, Briefcase, 
-  ShoppingBag, ShieldAlert, FileQuestion, AlertTriangle,
-  // Amenazas & IA
-  MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain, 
-  Terminal, Library, Flame, BrainCircuit, Headphones, 
+import {
+  Cpu, HardDrive, Monitor, Keyboard, Mouse, Speaker, Plug,
+  CircuitBoard, Fan, Microchip, Gamepad2, Server,
+  Rotate3D, Cloud, Laptop, ShieldCheck, Users,
+  Database, Globe, FolderSync,
+  Search, AppWindow, FileText, Image as ImageIcon, Music,
+  FolderOpen, Download, Usb, Briefcase,
+  ShoppingBag, ShieldAlert, FileQuestion,
+  MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
+  Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  // Multimedia
   Palette, Video, Mic, ImagePlus
 } from 'lucide-react';
+import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, TabButton } from './components/ui.jsx';
 
 // ==========================================
 // 1. BASE DE DATOS: HARDWARE (AMPLIADA)
@@ -293,6 +290,206 @@ const aiData = {
 };
 
 // ==========================================
+// 6. BASE DE DATOS: PRODUCTIVIDAD Y ATAJOS
+// ==========================================
+const keyboardData = {
+  shortcut_basics: {
+    id: 'shortcut_basics', name: 'Atajos Base', category: 'Fundamentos del Teclado', icon: Keyboard, color: 'indigo',
+    desc: 'Los atajos de teclado son combinaciones de teclas que permiten ejecutar acciones sin apartar las manos del teclado. Reducen clics, aceleran tareas repetitivas y ayudan a desarrollar memoria muscular digital.\n\nLa idea no es memorizarlo todo en un dia, sino dominar primero un pequeno grupo de comandos que se repiten constantemente en clase, en oficina y al navegar.',
+    details: 'Formula general:\nâ€¢ Ctrl: Activa la mayoria de comandos de accion en Windows.\nâ€¢ Shift: Modifica el comportamiento para ampliar, seleccionar o invertir.\nâ€¢ Alt: Accede a funciones secundarias o menus.\nâ€¢ La practica diaria convierte el atajo en habito y reduce errores.',
+    examples: 'Empieza con 5 combinaciones: copiar, pegar, cortar, deshacer y guardar. Solo con eso ya se nota una mejora clara de velocidad.',
+    keys: ['Ctrl', 'C', 'V', 'X', 'Z', 'S'],
+    shortcutList: [
+      { combo: 'Ctrl + C', action: 'Copiar', why: 'Duplica texto, archivos o bloques seleccionados sin mover el original.' },
+      { combo: 'Ctrl + V', action: 'Pegar', why: 'Inserta el contenido copiado o cortado en la nueva posicion.' },
+      { combo: 'Ctrl + X', action: 'Cortar', why: 'Mueve el elemento seleccionado a otro lugar.' },
+      { combo: 'Ctrl + Z', action: 'Deshacer', why: 'Revierte el ultimo paso cuando cometes un error.' },
+      { combo: 'Ctrl + S', action: 'Guardar', why: 'Protege tu trabajo y evita perder cambios recientes.' }
+    ],
+    tips: [
+      'Practica el atajo justo despues de usar la opcion con raton para reforzar el aprendizaje.',
+      'Mantener el pulgar cerca de la barra espaciadora y el meñique cerca de Ctrl agiliza mucho el gesto.',
+      'Conviene repetir los mismos atajos en Word, navegador, editor de texto y explorador de archivos.'
+    ]
+  },
+  navigation_flow: {
+    id: 'navigation_flow', name: 'Moverse Mas Rapido', category: 'Navegacion y Seleccion', icon: Search, color: 'blue',
+    desc: 'Una gran parte de la productividad no depende de escribir mas rapido, sino de desplazarte mejor por documentos, formularios, paginas web y ventanas. Estos atajos te permiten cambiar de zona, buscar informacion y seleccionar contenido sin romper el ritmo.\n\nCuando una persona domina este bloque, nota enseguida menos fatiga y menos dependencia del raton.',
+    details: 'Patrones utiles:\nâ€¢ Ctrl + F: Busca informacion dentro de la pagina o documento actual.\nâ€¢ Tab y Shift + Tab: Saltan entre campos de un formulario.\nâ€¢ Ctrl + A: Selecciona todo el contenido activo.\nâ€¢ Inicio / Fin: Van al principio o al final de la linea o del bloque segun la app.',
+    examples: 'Muy util para rellenar formularios online, localizar un termino en PDFs o revisar apuntes largos sin perder tiempo desplazandote manualmente.',
+    keys: ['Ctrl', 'F', 'A', 'Tab', 'Shift', 'Home', 'End'],
+    shortcutList: [
+      { combo: 'Ctrl + F', action: 'Buscar dentro', why: 'Encuentra palabras clave en documentos, webs o apuntes extensos.' },
+      { combo: 'Tab', action: 'Siguiente campo', why: 'Avanza por formularios, menus y cuadros de dialogo.' },
+      { combo: 'Shift + Tab', action: 'Campo anterior', why: 'Retrocede sin tocar el raton.' },
+      { combo: 'Ctrl + A', action: 'Seleccionar todo', why: 'Permite copiar, borrar o formatear el contenido completo.' },
+      { combo: 'Inicio / Fin', action: 'Ir al borde', why: 'Ahorra tiempo al navegar lineas, listas o bloques de texto.' }
+    ],
+    tips: [
+      'Combinar seleccion y busqueda hace que editar y revisar sea mucho mas fluido.',
+      'En formularios largos, Tab puede sustituir casi por completo al raton.',
+      'En muchos programas, Ctrl + Inicio y Ctrl + Fin saltan al principio o final del documento completo.'
+    ]
+  },
+  editing_power: {
+    id: 'editing_power', name: 'Edicion Inteligente', category: 'Texto y Documentos', icon: FileText, color: 'purple',
+    desc: 'Editar bien significa corregir, reorganizar y rehacer con seguridad. Este bloque se centra en los atajos que mas ayudan cuando redactas apuntes, preparas trabajos o arreglas documentos.\n\nSon especialmente valiosos en procesadores de texto, correos, plataformas educativas y herramientas de ofimatica.',
+    details: 'Combinaciones frecuentes:\nâ€¢ Ctrl + B: Negrita en muchos editores.\nâ€¢ Ctrl + I: Cursiva.\nâ€¢ Ctrl + Y: Rehacer lo que acabas de deshacer.\nâ€¢ Ctrl + Retroceso: Borra la palabra anterior en muchos entornos.',
+    examples: 'Perfecto para alumnos que redactan tareas, profesorado que prepara contenidos o usuarios que pasan mucho tiempo escribiendo correos y documentos.',
+    keys: ['Ctrl', 'B', 'I', 'Y', 'Backspace', 'ArrowLeft', 'ArrowRight'],
+    shortcutList: [
+      { combo: 'Ctrl + B', action: 'Negrita', why: 'Resalta conceptos clave sin cambiar de contexto.' },
+      { combo: 'Ctrl + I', action: 'Cursiva', why: 'Ayuda a marcar titulos, citas o ideas importantes.' },
+      { combo: 'Ctrl + Y', action: 'Rehacer', why: 'Recupera una accion deshecha por error.' },
+      { combo: 'Ctrl + Backspace', action: 'Borrar palabra', why: 'Limpia texto rapido sin ir letra por letra.' },
+      { combo: 'Shift + Flechas', action: 'Seleccion progresiva', why: 'Selecciona texto con precision desde el teclado.' }
+    ],
+    tips: [
+      'Deshacer y rehacer forman una pareja clave: cuanto antes se automaticen, mejor.',
+      'Las combinaciones de formato cambian un poco segun la aplicacion, pero muchas coinciden.',
+      'Seleccionar con Shift + flechas es ideal para no perder el punto de lectura.'
+    ]
+  },
+  browser_mastery: {
+    id: 'browser_mastery', name: 'Navegador Eficiente', category: 'Web y Pestanas', icon: Globe, color: 'emerald',
+    desc: 'Gran parte del aprendizaje digital ocurre dentro del navegador. Por eso conviene dominar los atajos que aceleran la gestion de pestanas, la barra de direcciones y la actualizacion de contenido.\n\nEste bloque convierte la navegacion diaria en una experiencia mas limpia, rapida y controlada.',
+    details: 'Atajos recomendados:\nâ€¢ Ctrl + T: Nueva pestana.\nâ€¢ Ctrl + W: Cierra la pestana actual.\nâ€¢ Ctrl + L: Situa el foco en la barra de direcciones.\nâ€¢ Ctrl + Shift + T: Recupera la ultima pestana cerrada.',
+    examples: 'Muy util al investigar para clase, comparar fuentes, abrir recursos, volver a una pagina cerrada por error o lanzar una busqueda nueva al instante.',
+    keys: ['Ctrl', 'T', 'W', 'L', 'Shift', 'R'],
+    shortcutList: [
+      { combo: 'Ctrl + T', action: 'Nueva pestana', why: 'Abre una nueva tarea sin abandonar la actual.' },
+      { combo: 'Ctrl + W', action: 'Cerrar pestana', why: 'Limpia rapidamente el navegador.' },
+      { combo: 'Ctrl + Shift + T', action: 'Reabrir pestana', why: 'Recupera lo que cerraste por error.' },
+      { combo: 'Ctrl + L', action: 'Ir a la barra', why: 'Permite escribir una URL o busqueda de inmediato.' },
+      { combo: 'Ctrl + R', action: 'Recargar', why: 'Actualiza una pagina cuando cambia contenido o falla una carga.' }
+    ],
+    tips: [
+      'Reabrir pestanas cerradas es uno de los atajos mas agradecidos del navegador.',
+      'Ctrl + L reduce mucho el tiempo al empezar una nueva busqueda.',
+      'Si el usuario trabaja con muchas fuentes abiertas, este bloque aporta una mejora inmediata.'
+    ]
+  },
+  system_control: {
+    id: 'system_control', name: 'Control de Ventanas', category: 'Multitarea del Sistema', icon: Monitor, color: 'amber',
+    desc: 'La productividad moderna depende de poder alternar entre aplicaciones, organizar ventanas y capturar contenido sin caos. Este bloque enseña combinaciones utiles para el sistema operativo y la multitarea.\n\nSon atajos muy valiosos para clases online, trabajo administrativo y preparacion de materiales.',
+    details: 'Comandos destacados:\nâ€¢ Alt + Tab: Cambia entre ventanas abiertas.\nâ€¢ Win + Shift + S: Herramienta de recorte en Windows.\nâ€¢ Win + Flechas: Ajusta la ventana a los lados o maximiza.\nâ€¢ Ctrl + Shift + Esc: Abre el Administrador de tareas.',
+    examples: 'Ideal para hacer capturas de una clase, trabajar con dos ventanas a la vez o cambiar entre navegador y documento sin perder segundos en cada salto.',
+    keys: ['Alt', 'Tab', 'Win', 'Shift', 'S', 'Ctrl', 'Esc', 'ArrowUp', 'ArrowLeft', 'ArrowRight'],
+    shortcutList: [
+      { combo: 'Alt + Tab', action: 'Cambiar de ventana', why: 'Alterna entre programas abiertos de forma inmediata.' },
+      { combo: 'Win + Shift + S', action: 'Captura parcial', why: 'Permite recortar la pantalla y compartir fragmentos concretos.' },
+      { combo: 'Win + Flecha Izquierda', action: 'Ajustar a la izquierda', why: 'Ordena el escritorio para trabajar con dos apps en paralelo.' },
+      { combo: 'Win + Flecha Arriba', action: 'Maximizar', why: 'Amplia la ventana actual con un gesto rapido.' },
+      { combo: 'Ctrl + Shift + Esc', action: 'Administrador de tareas', why: 'Abre una herramienta clave cuando una app deja de responder.' }
+    ],
+    tips: [
+      'La captura parcial es muy buena para materiales didacticos y soporte tecnico.',
+      'Ajustar ventanas por mitades mejora mucho la multitarea en pantallas grandes.',
+      'Alt + Tab se vuelve natural muy rapido y ahorra cientos de clics.'
+    ]
+  }
+};
+
+const keyboardLayout = [
+  [
+    { label: 'Esc', wide: 'w-12' }, { label: '1', wide: 'w-12' }, { label: '2', wide: 'w-12' }, { label: '3', wide: 'w-12' },
+    { label: '4', wide: 'w-12' }, { label: '5', wide: 'w-12' }, { label: '6', wide: 'w-12' }, { label: '7', wide: 'w-12' },
+    { label: '8', wide: 'w-12' }, { label: '9', wide: 'w-12' }, { label: '0', wide: 'w-12' }, { label: 'Backspace', wide: 'w-24' }
+  ],
+  [
+    { label: 'Tab', wide: 'w-16' }, { label: 'Q', wide: 'w-12' }, { label: 'W', wide: 'w-12' }, { label: 'E', wide: 'w-12' },
+    { label: 'R', wide: 'w-12' }, { label: 'T', wide: 'w-12' }, { label: 'Y', wide: 'w-12' }, { label: 'U', wide: 'w-12' },
+    { label: 'I', wide: 'w-12' }, { label: 'O', wide: 'w-12' }, { label: 'P', wide: 'w-12' }, { label: 'Home', wide: 'w-16' }, { label: 'End', wide: 'w-16' }
+  ],
+  [
+    { label: 'Caps', wide: 'w-20' }, { label: 'A', wide: 'w-12' }, { label: 'S', wide: 'w-12' }, { label: 'D', wide: 'w-12' },
+    { label: 'F', wide: 'w-12' }, { label: 'G', wide: 'w-12' }, { label: 'H', wide: 'w-12' }, { label: 'J', wide: 'w-12' },
+    { label: 'K', wide: 'w-12' }, { label: 'L', wide: 'w-12' }, { label: 'Enter', wide: 'w-24' }
+  ],
+  [
+    { label: 'Shift', wide: 'w-24' }, { label: 'Z', wide: 'w-12' }, { label: 'X', wide: 'w-12' }, { label: 'C', wide: 'w-12' },
+    { label: 'V', wide: 'w-12' }, { label: 'B', wide: 'w-12' }, { label: 'N', wide: 'w-12' }, { label: 'M', wide: 'w-12' },
+    { label: 'ArrowLeft', wide: 'w-16' }, { label: 'ArrowRight', wide: 'w-16' }, { label: 'ArrowUp', wide: 'w-16' }
+  ],
+  [
+    { label: 'Ctrl', wide: 'w-16' }, { label: 'Win', wide: 'w-16' }, { label: 'Alt', wide: 'w-16' }, { label: 'Space', wide: 'w-56' },
+    { label: 'Alt', wide: 'w-16' }, { label: 'Ctrl', wide: 'w-16' }, { label: 'ArrowDown', wide: 'w-16' }, { label: 'Delete', wide: 'w-16' }
+  ]
+];
+
+const tabConfig = [
+  {
+    id: 'hardware',
+    step: '01',
+    title: 'Hardware',
+    subtitle: 'Entiende el equipo por dentro',
+    description: 'Visualiza las piezas del ordenador y como trabajan juntas.',
+    icon: Rotate3D,
+    activeClass: 'bg-emerald-600 text-white shadow-xl border-emerald-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'cloud',
+    step: '02',
+    title: 'Redes',
+    subtitle: 'Local, nube y sincronizacion',
+    description: 'Aclara como viajan los archivos y donde vive la informacion.',
+    icon: Cloud,
+    activeClass: 'bg-blue-600 text-white shadow-xl border-blue-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-blue-50 hover:text-blue-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'internet',
+    step: '03',
+    title: 'Navegacion',
+    subtitle: 'Buscar, contrastar y protegerse',
+    description: 'Aprende a moverte por Internet con criterio y seguridad.',
+    icon: Globe,
+    activeClass: 'bg-purple-600 text-white shadow-xl border-purple-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-purple-50 hover:text-purple-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'files',
+    step: '04',
+    title: 'Archivos',
+    subtitle: 'Orden, formatos y carpetas',
+    description: 'Organiza documentos y entiende como se almacenan.',
+    icon: FolderOpen,
+    activeClass: 'bg-amber-500 text-white shadow-xl border-amber-700 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-amber-50 hover:text-amber-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'keyboard',
+    step: '05',
+    title: 'Atajos',
+    subtitle: 'Productividad con teclado',
+    description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
+    icon: Keyboard,
+    activeClass: 'bg-indigo-600 text-white shadow-xl border-indigo-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-indigo-50 hover:text-indigo-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'ai',
+    step: '06',
+    title: 'Inteligencia IA',
+    subtitle: 'Herramientas y usos reales',
+    description: 'Explora modelos, asistentes y creadores multimedia.',
+    icon: Bot,
+    activeClass: 'bg-emerald-500 text-white shadow-xl border-emerald-700 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm',
+  }
+];
+
+const tabDataMap = {
+  hardware: hardwareData,
+  cloud: cloudData,
+  internet: internetData,
+  files: filesData,
+  keyboard: keyboardData,
+  ai: aiData,
+};
+
+// ==========================================
 // MAPEADO DE COLORES DE TAILWIND (SEGURIDAD)
 // ==========================================
 const colorMap = {
@@ -308,214 +505,13 @@ const colorMap = {
   slate: { bgBase: 'bg-slate-600', bgLight: 'bg-slate-100', text: 'text-slate-800', borderLight: 'border-slate-200', borderHeavy: 'border-slate-500', ring: 'ring-slate-400', glow: 'shadow-[0_0_15px_rgba(100,116,139,0.4)]' },
 };
 
-// === COMPONENTES REUTILIZABLES ===
-const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, onSelect }) => {
-  const comp = dataSet[id];
-  if (!comp) return null;
-  const isSelected = selectedItem?.id === id;
-  const colors = colorMap[comp.color] || colorMap['slate'];
-  
-  const activeClass = isSelected 
-    ? `ring-4 ${colors.ring} shadow-lg scale-105 ${colors.bgLight} ${colors.text} ${colors.borderHeavy} z-10` 
-    : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400';
-  
-  return (
-    <button
-      onClick={(e) => onSelect(id, e, dataSet)}
-      className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-300 ${activeClass} ${extraClass}`}
-    >
-      <comp.icon size={36} className={`mb-3 ${isSelected ? `text-${comp.color}-600` : 'text-slate-500'}`} strokeWidth={1.5} />
-      <span className="text-[15px] font-bold text-center leading-tight">{comp.name}</span>
-      {isSelected && (
-        <span className="absolute -top-2 -right-2 flex h-4 w-4">
-          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colors.bgBase} opacity-75`}></span>
-          <span className={`relative inline-flex rounded-full h-4 w-4 ${colors.bgBase}`}></span>
-        </span>
-      )}
-    </button>
-  );
-};
-
-const Layer3D = ({ id, style, baseZ, children, customClass = "", selectedItem, onSelect }) => {
-  const comp = hardwareData[id];
-  const isSelected = selectedItem?.id === id;
-  const currentZ = isSelected ? baseZ + 40 : baseZ;
-  const glow = colorMap[comp.color]?.glow || '';
-
-  const theme3D = {
-    emerald: `bg-emerald-900/90 border-2 border-emerald-400 ${glow} text-emerald-200`,
-    blue: `bg-blue-600/95 border-2 border-blue-300 ${glow} text-blue-100`,
-    purple: `bg-purple-700/95 border-2 border-purple-400 ${glow} text-purple-100`,
-    red: `bg-red-600/80 border-2 border-red-400 ${glow} text-red-100 backdrop-blur-sm`,
-    amber: `bg-amber-700/95 border-2 border-amber-400 ${glow} text-amber-100`,
-    zinc: `bg-zinc-800/95 border-2 border-zinc-500 ${glow} text-zinc-200`,
-    cyan: `bg-cyan-900/60 border-2 border-cyan-400 ${glow} text-cyan-200 backdrop-blur-md`,
-  };
-
-  return (
-    <div 
-      onClick={(e) => onSelect(id, e, hardwareData)}
-      style={{ ...style, transform: `translateZ(${currentZ}px)`, transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-      className={`absolute rounded-lg flex flex-col items-center justify-center cursor-pointer group hover:brightness-125 ${theme3D[comp.color]} ${customClass}`}
-      title={comp.name}
-    >
-      {children || (
-        <div className="flex flex-col items-center justify-center pointer-events-none">
-          <comp.icon className={`w-8 h-8 transition-transform group-hover:scale-110 ${isSelected ? 'animate-pulse' : ''}`} />
-          <span className="text-xs font-bold text-center mt-1 px-2 bg-black/30 rounded-full">{comp.name}</span>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const PanelDerecho = ({ selectedItem }) => {
-  if (!selectedItem) {
-    return (
-      <div className="text-center flex flex-col items-center justify-center text-slate-400 h-full py-20 px-6">
-        <Info size={100} className="mb-8 opacity-20 text-blue-500" />
-        <p className="text-2xl font-bold text-slate-600 mb-4">Módulo de Estudio</p>
-        <p className="text-lg leading-relaxed max-w-sm text-slate-500">
-          Explora la parte interactiva de la izquierda y <strong className="text-blue-600">haz clic en cualquier componente o concepto</strong>. Aquí aparecerá el desglose formativo detallado.
-        </p>
-      </div>
-    );
-  }
-
-  const colors = colorMap[selectedItem.color] || colorMap['slate'];
-
-  return (
-    <div className="animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col h-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-      
-      {/* Header del Panel */}
-      <div className={`px-8 py-6 flex items-center gap-4 ${colors.bgBase} text-white shadow-md z-10 relative`}>
-        <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm border border-white/30 shrink-0">
-          <selectedItem.icon size={36} className="drop-shadow-md" />
-        </div>
-        <div>
-          <h3 className="text-2xl font-black drop-shadow-sm leading-tight tracking-tight">{selectedItem.name}</h3>
-          <span className="text-white/80 text-sm font-semibold tracking-wide uppercase mt-1 block">{selectedItem.category}</span>
-        </div>
-      </div>
-
-      {/* Cuerpo del Panel Scrolleable */}
-      <div className="p-8 flex-grow overflow-y-auto space-y-8 custom-scrollbar">
-        
-        {/* Bloque: ¿Qué es? (Descripción con saltos de línea procesados) */}
-        <section>
-          <h4 className="text-xl font-bold text-slate-800 mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2">
-            <FileText size={20} className={colors.text.replace('text-', 'text-opacity-80 text-')} /> 
-            Concepto y Personalidad
-          </h4>
-          <div className="space-y-4">
-            {selectedItem.desc.split('\n\n').map((paragraph, idx) => {
-              // Si el párrafo está entre comillas latinas « », lo destacamos como "Personalidad"
-              if (paragraph.startsWith('«') && paragraph.endsWith('».')) {
-                return (
-                  <div key={idx} className={`p-4 rounded-xl font-medium italic ${colors.bgLight} ${colors.text} border ${colors.borderLight}`}>
-                    {paragraph}
-                  </div>
-                );
-              }
-              return (
-                <p key={idx} className="text-slate-600 text-[16px] leading-relaxed text-justify">
-                  {paragraph}
-                </p>
-              );
-            })}
-          </div>
-        </section>
-        
-        {/* Bloque: Detalles Técnicos o Especificaciones (Hardware/Internet/Files) */}
-        {selectedItem.details && (
-          <section className={`${colors.bgLight} p-6 rounded-2xl border ${colors.borderLight} shadow-inner`}>
-            <h4 className={`text-sm font-black ${colors.text} uppercase tracking-widest mb-4 flex items-center gap-2`}>
-              <Info size={18} /> Profundización / Ficha Técnica
-            </h4>
-            <div className="space-y-3">
-              {selectedItem.details.split('\n').map((line, idx) => {
-                if (line.startsWith('•')) {
-                  return (
-                    <div key={idx} className="flex gap-3 items-start">
-                       <span className={`mt-1 font-bold ${colors.text}`}>&rarr;</span>
-                       <p className="text-slate-700 text-[15px] leading-relaxed flex-1">
-                         {/* Destacamos en negrita la palabra antes de los dos puntos si existe */}
-                         {line.substring(1).includes(':') ? (
-                           <>
-                             <strong className="text-slate-900">{line.substring(1).split(':')[0]}:</strong>
-                             {line.substring(1).substring(line.substring(1).indexOf(':') + 1)}
-                           </>
-                         ) : (
-                           line.substring(1)
-                         )}
-                       </p>
-                    </div>
-                  );
-                }
-                return <p key={idx} className="text-slate-700 text-[15px] font-semibold mb-2">{line}</p>;
-              })}
-            </div>
-          </section>
-        )}
-
-        {/* Bloque Especial: Pros, Contras (Cloud, AI y Amenazas) */}
-        {selectedItem.pros && (
-           <section className="space-y-6">
-             <div className="grid grid-cols-1 gap-4">
-               {/* Ventajas */}
-               <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                 <h4 className="text-[13px] font-black text-emerald-800 uppercase tracking-widest mb-4 flex items-center gap-2">
-                   <CheckCircle2 size={18} className="text-emerald-600"/> Mejores Aspectos (Pros)
-                 </h4>
-                 <ul className="space-y-3">
-                   {selectedItem.pros.map((p,i)=>(
-                     <li key={i} className="text-[15px] text-slate-700 flex items-start gap-3 leading-relaxed">
-                       <span className="text-emerald-500 mt-0.5"><CheckCircle2 size={16}/></span>{p}
-                     </li>
-                   ))}
-                 </ul>
-               </div>
-               
-               {/* Inconvenientes */}
-               <div className="bg-red-50 border border-red-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                 <h4 className="text-[13px] font-black text-red-800 uppercase tracking-widest mb-4 flex items-center gap-2">
-                   <XCircle size={18} className="text-red-600"/> Debilidades (Contras)
-                 </h4>
-                 <ul className="space-y-3">
-                   {selectedItem.cons.map((c,i)=>(
-                     <li key={i} className="text-[15px] text-slate-700 flex items-start gap-3 leading-relaxed">
-                       <span className="text-red-500 mt-0.5"><AlertTriangle size={16}/></span>{c}
-                     </li>
-                   ))}
-                 </ul>
-               </div>
-             </div>
-           </section>
-        )}
-
-        {/* Casos de uso y Ejemplos - Independiente */}
-        {selectedItem.examples && (
-           <section className="space-y-6 mt-2">
-             <div className="bg-slate-800 text-white p-6 rounded-2xl border border-slate-700 shadow-xl relative overflow-hidden">
-               <Zap size={100} className="absolute -right-6 -bottom-6 text-slate-700 opacity-30" />
-               <h4 className="text-[13px] font-black text-blue-300 uppercase tracking-widest mb-3 flex items-center gap-2 relative z-10">
-                 <Zap size={18} /> Ejemplos del Mundo Real
-               </h4>
-               <p className="text-[15px] text-slate-200 leading-relaxed relative z-10 italic">
-                 "{selectedItem.examples}"
-               </p>
-             </div>
-           </section>
-        )}
-
-      </div>
-    </div>
-  );
-};
-
 export default function App() {
-  const [activeTab, setActiveTab] = useState('ai'); // Default ahora a 'ai' para mostrar lo nuevo, cámbialo a 'hardware' si prefieres
+  const [activeTab, setActiveTab] = useState('hardware');
   const [selectedItem, setSelectedItem] = useState(null);
+  const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
+  const currentDataSet = tabDataMap[activeTab] || {};
+  const currentItems = Object.values(currentDataSet);
+  const itemCount = currentItems.length;
   
   // Estado 3D para el Módulo 1
   const [rotation, setRotation] = useState({ x: 60, z: -40 });
@@ -524,13 +520,20 @@ export default function App() {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setSelectedItem(null);
+    setSelectedItem(tab === 'keyboard' ? keyboardData.shortcut_basics : null);
   };
 
   const handleSelect = (id, e, dataSet) => {
     if (e) e.stopPropagation();
     setSelectedItem(dataSet[id]);
   };
+
+  const handleStartModule = () => {
+    if (!currentItems.length) return;
+    setSelectedItem(currentItems[0]);
+  };
+
+  const handleClearSelection = () => setSelectedItem(null);
 
   // === Lógica Drag 3D ===
   const handleDragStart = (x, y) => { setIsDragging(true); setStartPos({ x, y }); };
@@ -842,6 +845,104 @@ export default function App() {
     </div>
   );
 
+  const renderKeyboardTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
+      <div className="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 rounded-3xl p-8 shadow-2xl border border-indigo-900/60 overflow-hidden relative">
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_left,rgba(129,140,248,0.35),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.25),transparent_35%)]"></div>
+        <div className="relative z-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div>
+              <span className="inline-flex items-center rounded-full border border-indigo-400/30 bg-indigo-500/10 px-4 py-2 text-xs font-black uppercase tracking-[0.25em] text-indigo-200">
+                Productividad Digital
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mt-4 flex items-center gap-3">
+                <Keyboard className="text-indigo-300" size={36} />
+                Laboratorio de Teclado Virtual
+              </h2>
+              <p className="text-slate-300 mt-4 text-lg max-w-3xl leading-relaxed">
+                Explora las combinaciones mas utiles para estudiar, redactar, navegar y controlar ventanas. Al seleccionar una familia de atajos, el mapa del teclado ilumina las teclas que necesitas.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 min-w-[260px]">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-black">Meta</p>
+                <p className="text-white font-bold mt-2">Menos clics, mas fluidez</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-black">Metodo</p>
+                <p className="text-white font-bold mt-2">Practica guiada por bloques</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-[1.25fr_0.75fr] gap-6">
+            <div className="rounded-[28px] border border-white/10 bg-slate-950/60 p-5 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+              <div className="flex items-center justify-between gap-4 mb-5">
+                <div>
+                  <h3 className="text-white text-xl font-black">Mapa de Teclas</h3>
+                  <p className="text-slate-400 text-sm mt-1">Se resaltan las teclas del bloque seleccionado.</p>
+                </div>
+                <div className="rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1 text-xs font-black uppercase tracking-widest text-indigo-200">
+                  {selectedItem?.name || 'Selecciona un bloque'}
+                </div>
+              </div>
+              <div className="space-y-2 overflow-x-auto pb-2">
+                {keyboardLayout.map((row, rowIndex) => (
+                  <div key={rowIndex} className="flex gap-2 min-w-[720px]">
+                    {row.map((key) => (
+                      <div key={`${rowIndex}-${key.label}`} className={key.wide}>
+                        <KeyboardKey label={key.label} selectedKeys={selectedItem?.keys || []} />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 md:p-6 backdrop-blur-sm">
+              <h3 className="text-white text-xl font-black mb-4">Bloques de Aprendizaje</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-3">
+                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div>
+            <h3 className="text-2xl font-black text-slate-900">Combinaciones de Alto Impacto</h3>
+            <p className="text-slate-500 mt-2 max-w-3xl">
+              Una seleccion de atajos pensados para acelerar las tareas mas frecuentes dentro del aula tecnologica.
+            </p>
+          </div>
+          <div className="text-sm font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-4 py-2">
+            Consejo: practica un bloque por semana
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {(selectedItem?.shortcutList || keyboardData.shortcut_basics.shortcutList).map((shortcut) => (
+            <article key={shortcut.combo} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <span className="inline-flex rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-black uppercase tracking-widest">
+                  {shortcut.combo}
+                </span>
+                <span className="text-sm font-bold text-slate-700">{shortcut.action}</span>
+              </div>
+              <p className="text-slate-600 leading-relaxed text-[15px]">{shortcut.why}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans p-4 md:p-8 flex flex-col">
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
@@ -854,29 +955,77 @@ export default function App() {
               Aula de Competencias Digitales
             </h1>
             <p className="text-slate-500 mt-4 text-xl font-medium max-w-3xl leading-relaxed">
-              Un viaje interactivo desde el interior físico de tu ordenador hasta la inmensidad de Internet y la Inteligencia Artificial.
+              Un recorrido interactivo por hardware, redes, archivos, navegacion, atajos de teclado y herramientas de inteligencia artificial para aprender con mas autonomia.
             </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 min-w-[280px]">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Modulo activo</p>
+              <p className="text-lg font-black text-slate-900 mt-2">{activeTabMeta.title}</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Temas</p>
+              <p className="text-lg font-black text-slate-900 mt-2">{itemCount}</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 col-span-2 md:col-span-1">
+              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Foco</p>
+              <p className="text-lg font-black text-slate-900 mt-2">{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
+            </div>
           </div>
         </div>
 
-        {/* Tabs de Navegación - Ahora con 5 botones (Scrollable en móvil) */}
+        <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
+          <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6">
+            <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
+            <h2 className="text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
+            <p className="text-slate-300 leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <button
+                onClick={handleStartModule}
+                className="rounded-2xl bg-white text-slate-900 px-5 py-3 font-black hover:bg-slate-100 transition-colors"
+              >
+                Empezar recorrido
+              </button>
+              <button
+                onClick={handleClearSelection}
+                className="rounded-2xl border border-white/15 bg-white/5 text-white px-5 py-3 font-black hover:bg-white/10 transition-colors"
+              >
+                Reiniciar foco
+              </button>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-xs uppercase tracking-[0.25em] text-slate-400 font-black">Criterios UX/UI</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3 mt-5">
+              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <p className="font-black text-slate-900">Orientacion clara</p>
+                <p className="text-sm text-slate-500 mt-2">El usuario siempre sabe en que modulo esta y que puede hacer despues.</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <p className="font-black text-slate-900">Menos ruido</p>
+                <p className="text-sm text-slate-500 mt-2">Mostramos contexto y accion antes de saturar con lectura larga.</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <p className="font-black text-slate-900">Progreso visible</p>
+                <p className="text-sm text-slate-500 mt-2">La interfaz comunica foco, contenido disponible y siguiente paso.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs de Navegación - Ahora con 6 botones (Scrollable en móvil) */}
         <div className="flex overflow-x-auto pb-4 hide-scrollbar">
-          <div className="flex w-full min-w-max md:grid md:grid-cols-5 gap-3 md:gap-4">
-            <button onClick={() => handleTabChange('hardware')} className={`flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl font-black text-[13px] md:text-[14px] uppercase tracking-wide transition-all duration-300 gap-2 md:gap-3 border-b-4 flex-1 ${activeTab === 'hardware' ? 'bg-emerald-600 text-white shadow-xl border-emerald-800 scale-105 z-10' : 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm'}`}>
-              <Rotate3D size={28} /> 1. Hardware
-            </button>
-            <button onClick={() => handleTabChange('cloud')} className={`flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl font-black text-[13px] md:text-[14px] uppercase tracking-wide transition-all duration-300 gap-2 md:gap-3 border-b-4 flex-1 ${activeTab === 'cloud' ? 'bg-blue-600 text-white shadow-xl border-blue-800 scale-105 z-10' : 'bg-white text-slate-500 hover:bg-blue-50 hover:text-blue-700 border-slate-200 shadow-sm'}`}>
-              <Cloud size={28} /> 2. Redes
-            </button>
-            <button onClick={() => handleTabChange('internet')} className={`flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl font-black text-[13px] md:text-[14px] uppercase tracking-wide transition-all duration-300 gap-2 md:gap-3 border-b-4 flex-1 ${activeTab === 'internet' ? 'bg-purple-600 text-white shadow-xl border-purple-800 scale-105 z-10' : 'bg-white text-slate-500 hover:bg-purple-50 hover:text-purple-700 border-slate-200 shadow-sm'}`}>
-              <Globe size={28} /> 3. Navegación
-            </button>
-            <button onClick={() => handleTabChange('files')} className={`flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl font-black text-[13px] md:text-[14px] uppercase tracking-wide transition-all duration-300 gap-2 md:gap-3 border-b-4 flex-1 ${activeTab === 'files' ? 'bg-amber-500 text-white shadow-xl border-amber-700 scale-105 z-10' : 'bg-white text-slate-500 hover:bg-amber-50 hover:text-amber-700 border-slate-200 shadow-sm'}`}>
-              <FolderOpen size={28} /> 4. Archivos
-            </button>
-            <button onClick={() => handleTabChange('ai')} className={`flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl font-black text-[13px] md:text-[14px] uppercase tracking-wide transition-all duration-300 gap-2 md:gap-3 border-b-4 flex-1 ${activeTab === 'ai' ? 'bg-emerald-500 text-white shadow-xl border-emerald-700 scale-105 z-10' : 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm'}`}>
-              <Bot size={28} /> 5. Inteligencia IA
-            </button>
+          <div className="flex w-full min-w-max md:grid md:grid-cols-6 gap-3 md:gap-4">
+            {tabConfig.map((tab) => (
+              <TabButton
+                key={tab.id}
+                tab={tab}
+                isActive={activeTab === tab.id}
+                onClick={handleTabChange}
+              />
+            ))}
           </div>
         </div>
       </header>
@@ -890,13 +1039,21 @@ export default function App() {
           {activeTab === 'cloud' && renderCloudTab()}
           {activeTab === 'internet' && renderInternetTab()}
           {activeTab === 'files' && renderFilesTab()}
+          {activeTab === 'keyboard' && renderKeyboardTab()}
           {activeTab === 'ai' && renderAITab()}
         </div>
 
         {/* ZONA DERECHA: Panel Lector Dinámico (40%) */}
         <div className="w-full lg:w-[40%]">
           <div className="sticky top-8 h-full min-h-[600px] lg:max-h-[85vh] lg:h-[85vh]">
-            <PanelDerecho selectedItem={selectedItem} />
+            <PanelDerecho
+              selectedItem={selectedItem}
+              activeTabMeta={activeTabMeta}
+              itemCount={itemCount}
+              onStartModule={handleStartModule}
+              onClearSelection={handleClearSelection}
+             
+            />
           </div>
         </div>
 
@@ -910,3 +1067,6 @@ export default function App() {
     </div>
   );
 }
+
+
+

@@ -1,16 +1,31 @@
-# React + Vite
+# Mi Aula Virtual
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto hecho con React y Vite, preparado para publicarse como GitHub Pages.
 
-Currently, two official plugins are available:
+## Publicacion automatica
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+El repositorio ya queda preparado para que GitHub Pages se actualice automaticamente cada vez que hagas un `push` a la rama `main`.
 
-## React Compiler
+Flujo normal de trabajo:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Haz tus cambios en el proyecto.
+2. Comprueba que todo funciona con `npm run build`.
+3. Sube los cambios con `git add .`, `git commit -m "tu mensaje"` y `git push origin main`.
+4. GitHub Actions compilara el proyecto y publicara la carpeta `dist` en GitHub Pages.
 
-## Expanding the ESLint configuration
+## Configuracion necesaria en GitHub
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+En el repositorio de GitHub:
+
+1. Entra en `Settings > Pages`.
+2. En `Source`, selecciona `GitHub Actions`.
+
+La web quedara publicada en:
+
+`https://splurtch.github.io/aula-tecnologica/`
+
+## Desarrollo local
+
+- `npm install` instala dependencias
+- `npm run dev` inicia el entorno local
+- `npm run build` genera la version de produccion
