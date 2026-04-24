@@ -576,31 +576,31 @@ export default function App() {
             className="relative w-[280px] h-[350px] md:w-[350px] md:h-[450px]"
             style={{ transformStyle: 'preserve-3d', transform: `rotateX(${rotation.x}deg) rotateZ(${rotation.z}deg)`, transition: isDragging ? 'none' : 'transform 0.15s ease-out' }}
           >
-            <Layer3D id="motherboard" baseZ={0} style={{ top: '0', left: '0', width: '100%', height: '100%' }} selectedItem={selectedItem} onSelect={handleSelect}>
+            <Layer3D id="motherboard" baseZ={0} style={{ top: '0', left: '0', width: '100%', height: '100%' }} selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap}>
               <div className="w-full h-full flex items-end justify-end p-4 opacity-50 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDM5LTVoNDB2MUgweiIgZmlsbD0icmdiYSg1MiwgMjExLCAxNTMsIDAuMikiLz48cGF0aCBkPSJNMzkuNSAwSDRwdjQwaC0xdnoiIGZpbGw9InJnYmEoNTIsIDIxMSwgMTUzLCAwLjIpIi8+PC9zdmc+')]"></div>
                 <CircuitBoard className="w-16 h-16 mr-2" />
                 <span className="text-xl font-bold tracking-widest uppercase text-emerald-100">Placa Base</span>
               </div>
             </Layer3D>
-            <Layer3D id="cpu" baseZ={15} style={{ top: '15%', left: '35%', width: '25%', height: '20%' }} selectedItem={selectedItem} onSelect={handleSelect} />
-            <Layer3D id="ram" baseZ={20} style={{ top: '12%', left: '65%', width: '20%', height: '26%' }} customClass="!bg-transparent !border-none !shadow-none" selectedItem={selectedItem} onSelect={handleSelect}>
+            <Layer3D id="cpu" baseZ={15} style={{ top: '15%', left: '35%', width: '25%', height: '20%' }} selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap} />
+            <Layer3D id="ram" baseZ={20} style={{ top: '12%', left: '65%', width: '20%', height: '26%' }} customClass="!bg-transparent !border-none !shadow-none" selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap}>
                <div className="flex justify-between w-full h-full">
                  <div className="w-[40%] h-full bg-purple-600/90 border border-purple-400 rounded shadow-[0_0_15px_rgba(192,132,252,0.6)]"></div>
                  <div className="w-[40%] h-full bg-purple-600/90 border border-purple-400 rounded shadow-[0_0_15px_rgba(192,132,252,0.6)]"></div>
                </div>
                <span className="absolute -bottom-6 text-xs font-bold text-purple-200 bg-black/60 px-3 py-1 rounded-full shadow-lg">RAM</span>
             </Layer3D>
-            <Layer3D id="gpu" baseZ={40} style={{ top: '48%', left: '5%', width: '80%', height: '22%' }} selectedItem={selectedItem} onSelect={handleSelect}>
+            <Layer3D id="gpu" baseZ={40} style={{ top: '48%', left: '5%', width: '80%', height: '22%' }} selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap}>
               <div className="flex w-full h-full items-center justify-around px-4 relative pointer-events-none">
                 <span className="absolute -top-3 left-2 text-xs font-bold bg-black/80 text-white px-2 py-1 rounded shadow-md border border-red-500/30">GPU RTX</span>
                 <Fan className="w-12 h-12 opacity-80" />
                 <Fan className="w-12 h-12 opacity-80" />
               </div>
             </Layer3D>
-            <Layer3D id="storage" baseZ={10} style={{ bottom: '5%', left: '10%', width: '30%', height: '18%' }} selectedItem={selectedItem} onSelect={handleSelect} />
-            <Layer3D id="psu" baseZ={20} style={{ bottom: '2%', right: '5%', width: '45%', height: '25%' }} selectedItem={selectedItem} onSelect={handleSelect} />
-            <Layer3D id="cooling" baseZ={60} style={{ top: '12%', left: '32.5%', width: '30%', height: '26%' }} customClass="!rounded-full" selectedItem={selectedItem} onSelect={handleSelect}>
+            <Layer3D id="storage" baseZ={10} style={{ bottom: '5%', left: '10%', width: '30%', height: '18%' }} selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap} />
+            <Layer3D id="psu" baseZ={20} style={{ bottom: '2%', right: '5%', width: '45%', height: '25%' }} selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap} />
+            <Layer3D id="cooling" baseZ={60} style={{ top: '12%', left: '32.5%', width: '30%', height: '26%' }} customClass="!rounded-full" selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap}>
               <div className="flex flex-col items-center justify-center pointer-events-none w-full h-full">
                 <Fan className={`w-3/4 h-3/4 ${selectedItem?.id === 'cooling' || !selectedItem ? 'animate-spin' : ''}`} style={{ animationDuration: '2.5s' }} />
               </div>
@@ -632,14 +632,14 @@ export default function App() {
               <Laptop className="text-emerald-400 w-16 h-16" strokeWidth={1.2} />
             </div>
             <h3 className="text-white font-black text-xl mb-6">Tu Entorno Físico</h3>
-            <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-8 bg-slate-700/50 border-slate-600 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
+            <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-8 bg-slate-700/50 border-slate-600 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
           </div>
         </div>
         <div className="w-full md:w-1/5 flex flex-col items-center justify-center relative h-40 md:h-auto z-10">
           <div className="hidden md:block absolute top-1/2 left-0 w-full h-1.5 bg-slate-800 -translate-y-1/2 -z-10 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-blue-500 w-[200%] animate-[slide_2s_linear_infinite]"></div>
           </div>
-          <InteractiveButton id="internet_sync" dataSet={cloudData} extraClass="rounded-full !p-6 shadow-[0_0_30px_rgba(251,191,36,0.3)] bg-slate-800/90 border-amber-500/50" selectedItem={selectedItem} onSelect={handleSelect} />
+          <InteractiveButton id="internet_sync" dataSet={cloudData} extraClass="rounded-full !p-6 shadow-[0_0_30px_rgba(251,191,36,0.3)] bg-slate-800/90 border-amber-500/50" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
         </div>
         <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
           <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full scale-150 -z-10"></div>
@@ -650,8 +650,8 @@ export default function App() {
             </div>
             <h3 className="text-white font-black text-xl mb-6 text-center">Megacentros de Datos</h3>
             <div className="flex flex-col gap-4 w-full">
-              <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full bg-blue-900/50 border-blue-800/80 text-blue-100" selectedItem={selectedItem} onSelect={handleSelect} />
-              <InteractiveButton id="collaboration" dataSet={cloudData} extraClass="w-full bg-purple-900/30 border-purple-800/60 text-purple-200" selectedItem={selectedItem} onSelect={handleSelect} />
+              <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full bg-blue-900/50 border-blue-800/80 text-blue-100" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+              <InteractiveButton id="collaboration" dataSet={cloudData} extraClass="w-full bg-purple-900/30 border-purple-800/60 text-purple-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
             </div>
           </div>
         </div>
@@ -691,8 +691,8 @@ export default function App() {
               <span className={`text-[17px] ${selectedItem?.id === 'search_engine' ? 'text-purple-800 font-bold' : 'text-slate-400 font-medium'}`}>Escribe tus palabras clave aquí... (ej. "cursos gratuitos")</span>
             </button>
             <div className="flex flex-wrap justify-center gap-4 mt-10 z-10">
-              <InteractiveButton id="scenario_personal" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} />
-              <InteractiveButton id="scenario_work" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} />
+              <InteractiveButton id="scenario_personal" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+              <InteractiveButton id="scenario_work" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
             </div>
           </div>
         </div>
@@ -707,10 +707,10 @@ export default function App() {
         </div>
         <p className="text-slate-600 mb-8 max-w-3xl leading-relaxed">Navegar por Internet es como caminar por una gran ciudad: hay lugares increíbles, pero también carteristas y estafadores. Explora los principales peligros que existen y aprende a identificarlos para proteger tu información y tu dinero.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InteractiveButton id="reliable_sources" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} />
-          <InteractiveButton id="phishing" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} />
-          <InteractiveButton id="malware" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} />
-          <InteractiveButton id="scams" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} />
+          <InteractiveButton id="reliable_sources" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="phishing" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="malware" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="scams" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
         </div>
       </div>
     </div>
@@ -750,7 +750,7 @@ export default function App() {
           <div>
             <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4">Estructura del Árbol (Jerarquía)</h3>
             <div className="grid grid-cols-2 gap-4">
-              <InteractiveButton id="folders_org" dataSet={filesData} extraClass="!flex-row !justify-start gap-4 !p-5 shadow-sm" selectedItem={selectedItem} onSelect={handleSelect} />
+              <InteractiveButton id="folders_org" dataSet={filesData} extraClass="!flex-row !justify-start gap-4 !p-5 shadow-sm" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
               <button onClick={(e) => handleSelect('folders_org', e, filesData)} className={`relative flex items-center p-5 rounded-xl border-2 transition-all duration-300 gap-4 ${selectedItem?.id === 'folders_org' ? 'ring-4 ring-amber-400 shadow-lg scale-105 bg-amber-100 text-amber-900 border-amber-500 z-10' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400'}`}>
                 <FolderOpen size={36} className="text-amber-500" />
                 <div className="text-left"><p className="font-bold text-[15px]">1_Trabajo</p><p className="text-[12px] text-slate-500">24 elementos</p></div>
@@ -795,11 +795,11 @@ export default function App() {
             <Brain size={18} className="text-slate-500" /> 1. Los Gigantes Generalistas
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <InteractiveButton id="chatgpt" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="claude" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="gemini" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="copilot" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="grok" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
+            <InteractiveButton id="chatgpt" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="claude" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="gemini" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="copilot" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="grok" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
           </div>
         </div>
 
@@ -809,9 +809,9 @@ export default function App() {
             <Library size={18} className="text-slate-500" /> 2. Los Investigadores y Lectores
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <InteractiveButton id="perplexity" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="notebooklm" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="kimi" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} />
+            <InteractiveButton id="perplexity" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="notebooklm" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="kimi" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
           </div>
         </div>
 
@@ -821,10 +821,10 @@ export default function App() {
             <Terminal size={18} className="text-slate-500" /> 3. Desarrolladores y Agentes Autónomos
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="deepseek" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="lovable" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="gamma" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="manus" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
+            <InteractiveButton id="deepseek" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="lovable" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="gamma" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="manus" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
           </div>
         </div>
 
@@ -834,10 +834,10 @@ export default function App() {
             <ImagePlus size={18} className="text-slate-500" /> 4. Creadores Multimedia (Audio, Vídeo e Imagen)
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="midjourney" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="suno" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="runway" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
-            <InteractiveButton id="elevenlabs" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} />
+            <InteractiveButton id="midjourney" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="suno" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="runway" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="elevenlabs" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
           </div>
         </div>
         
@@ -902,11 +902,11 @@ export default function App() {
             <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 md:p-6 backdrop-blur-sm">
               <h3 className="text-white text-xl font-black mb-4">Bloques de Aprendizaje</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-3">
-                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
-                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
-                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
-                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
-                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} />
+                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
               </div>
             </div>
           </div>
@@ -1052,7 +1052,7 @@ export default function App() {
               itemCount={itemCount}
               onStartModule={handleStartModule}
               onClearSelection={handleClearSelection}
-             
+              colorMap={colorMap}
             />
           </div>
         </div>
@@ -1067,6 +1067,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
