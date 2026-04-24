@@ -1035,6 +1035,17 @@ const keyboardLayout = [
 
 const tabConfig = [
   {
+    id: 'home',
+    group: 'Inicio',
+    step: '00',
+    title: 'Inicio',
+    subtitle: 'Bienvenido al aula',
+    description: 'Tu viaje comienza aqui.',
+    icon: Sparkles,
+    activeClass: 'bg-gradient-to-r from-blue-600 via-violet-600 to-cyan-500 text-white shadow-xl border-blue-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-gradient-to-r hover:from-blue-50 hover:via-violet-50 hover:to-cyan-50 hover:text-blue-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'hardware',
     group: 'Base tecnologica',
     step: '01',
@@ -1113,8 +1124,8 @@ const tabConfig = [
   },
   {
     id: 'content',
-    group: 'Comunicacion digital',
-    step: '08',
+    group: 'Productividad',
+    step: '09',
     title: 'Contenido',
     subtitle: 'Creacion de contenido digital',
     description: 'Aprende a crear contenido efectivo: copywriting, blogs, redes sociales, video, podcast y buenas practicas.',
@@ -1125,7 +1136,7 @@ const tabConfig = [
   {
     id: 'files',
     group: 'Navegacion y organizacion',
-    step: '08',
+    step: '09',
     title: 'Archivos',
     subtitle: 'Orden, formatos y carpetas',
     description: 'Organiza documentos y entiende como se almacenan.',
@@ -1136,7 +1147,7 @@ const tabConfig = [
   {
     id: 'keyboard',
     group: 'Productividad',
-    step: '09',
+    step: '10',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
     description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
@@ -1147,7 +1158,7 @@ const tabConfig = [
   {
     id: 'office',
     group: 'Productividad',
-    step: '10',
+    step: '11',
     title: 'Ofimatica',
     subtitle: 'Documentos, calculo y presentacion',
     description: 'Elige la herramienta adecuada para redactar, calcular, presentar y compartir.',
@@ -1158,7 +1169,7 @@ const tabConfig = [
   {
     id: 'ai',
     group: 'Inteligencia artificial',
-    step: '11',
+    step: '12',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
     description: 'Explora modelos, asistentes y creadores multimedia.',
@@ -1169,7 +1180,7 @@ const tabConfig = [
   {
     id: 'assessment',
     group: 'Evaluacion final',
-    step: '12',
+    step: '13',
     title: 'Ponte a prueba',
     subtitle: 'Retos, orden y clasificacion',
     description: 'Reune todo lo aprendido en quizzes, arrastre, orden y retos finales.',
@@ -1180,6 +1191,7 @@ const tabConfig = [
 ];
 
 const tabDataMap = {
+  home: {},
   hardware: hardwareData,
   peripherals: peripheralData,
   cloud: cloudData,
@@ -1196,17 +1208,17 @@ const tabDataMap = {
 };
 
 const sectionGroupMeta = {
+  Inicio: {
+    summary: 'Tu punto de partida en el aula virtual.',
+  },
   'Base tecnologica': {
     summary: 'Infraestructura, periféricos, red y software base para entender como funciona el entorno digital.',
   },
   'Navegacion y organizacion': {
     summary: 'Busqueda, criterio, archivos y orden para moverse con autonomia.',
   },
-  'Comunicacion digital': {
-    summary: 'Correo electronico y creacion de contenido digital para comunicar y crear valor.',
-  },
   Productividad: {
-    summary: 'Atajos y flujos de trabajo para reducir friccion y ganar velocidad.',
+    summary: 'Atajos, herramientas y flujos de trabajo para reducir friccion y ganar velocidad.',
   },
   'Inteligencia artificial': {
     summary: 'Herramientas, asistentes y creadores para ampliar capacidades.',
@@ -1382,6 +1394,149 @@ export default function App() {
   const handleDragEnd = () => setIsDragging(false);
 
   // === RENDERIZADOS DE LAS PESTAÑAS PRINCIPALES ===
+
+  // PESTAÑA 0: HOME / INICIO
+  const renderHomeTab = () => {
+    const totalModules = tabConfig.filter(t => t.id !== 'home').length;
+    const completedModules = new Set(Object.keys(localStorage).filter(k => k.startsWith('module_') && localStorage.getItem(k) === 'completed')).size;
+    const progressPercent = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;
+
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        {/* Hero Welcome Section */}
+        <div className="relative overflow-hidden rounded-sm border bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/60 p-8 md:p-12">
+          {/* Background Glow Effects */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            {/* Left: Text Content */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-bold uppercase tracking-widest mb-4">
+                <Sparkles size={12} />
+                <span>Bienvenido al Aula Tecnologica</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+                Tu Viaje Hacia el{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-400">
+                  Dominio Digital
+                </span>
+              </h1>
+              
+              <p className="mt-6 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Esto no es un curso normal. Esto es una <strong className="text-white font-bold">Transformation</strong>. 
+                Voy a darte todas las herramientas, atajos y mentalidad que necesitas para convertirte en alguien 
+                que realmente <strong className="text-white font-bold">domine su entorno digital</strong>.
+              </p>
+              
+              <p className="mt-4 text-base text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Trabajo, estudio, comunicación, creación de contenido, inteligencia artificial... 
+                todo pasa por aqui. Y lo mejor: vas a aprender haciendo, no escuchando.
+              </p>
+
+              {/* CTA Button with Animation */}
+              <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                <button 
+                  onClick={() => handleTabChange('hardware')}
+                  className="group relative px-8 py-4 rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white font-black text-lg shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 animate-glow-pulse"
+                >
+                  <span className="relative z-10 flex items-center gap-3">
+                    EMPEZAR EL VIAJE
+                    <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+                  </span>
+                </button>
+                <p className="text-xs text-slate-500 font-medium tracking-wider uppercase">
+                  13 modulos • 70+ temas • Aprendizaje real
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Stats Grid */}
+            <div className="lg:w-80 w-full grid grid-cols-2 gap-4">
+              <div className="rounded-sm border border-slate-800 bg-slate-900/80 p-4 text-center backdrop-blur-sm">
+                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">{totalModules}</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Modulos Totales</p>
+              </div>
+              <div className="rounded-sm border border-slate-800 bg-slate-900/80 p-4 text-center backdrop-blur-sm">
+                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400">{completedModules}</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Completados</p>
+              </div>
+              <div className="col-span-2 rounded-sm border border-slate-800 bg-slate-900/80 p-5 backdrop-blur-sm">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progreso del Curso</p>
+                  <p className="text-sm font-black text-white">{progressPercent}%</p>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-700 shadow-lg shadow-blue-500/30"
+                    style={{ width: `${progressPercent}%` }}
+                  ></div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2">
+                  {completedModules === 0 ? 'Pulsa en EMPEZAR para comenzar' : `${completedModules} modulos completados`}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* GaryVee Style Motivation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300">
+            <div className="w-10 h-10 rounded-sm bg-blue-500/20 flex items-center justify-center mb-4">
+              <Zap size={20} className="text-blue-400" />
+            </div>
+            <h3 className="text-white font-black text-lg">Juego Largo</h3>
+            <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+              No busques atajos. Cada modulo que completes te hace mas valioso. Invierte en ti mismo cada dia.
+            </p>
+          </div>
+          
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-violet-500/30 transition-all duration-300">
+            <div className="w-10 h-10 rounded-sm bg-violet-500/20 flex items-center justify-center mb-4">
+              <Brain size={20} className="text-violet-400" />
+            </div>
+            <h3 className="text-white font-black text-lg">Document, Don't Create</h3>
+            <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+              Este aula es tu dokumentacion. Vuelve aqui cuando necesites recordar cualquier konzept.
+            </p>
+          </div>
+          
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
+            <div className="w-10 h-10 rounded-sm bg-cyan-500/20 flex items-center justify-center mb-4">
+              <Trophy size={20} className="text-cyan-400" />
+            </div>
+            <h3 className="text-white font-black text-lg">Empezar Antes que Ser Perfecto</h3>
+            <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+              No esperes a estar preparado. Nadie lo esta. Salta al primer modulo y aprende sobre la marcha.
+            </p>
+          </div>
+        </div>
+
+        {/* Quick Navigation to First Module */}
+        <div className="rounded-sm border border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-violet-500/5 p-6 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-sm bg-blue-500/20 flex items-center justify-center">
+              <Rotate3D size={24} className="text-blue-400" />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Tu Primera Parada</p>
+              <p className="text-white font-black text-lg">Hardware: Arquitectura Interna</p>
+              <p className="text-sm text-slate-400">Entiende como funciona tu ordenador por dentro</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => handleTabChange('hardware')}
+            className="shrink-0 px-6 py-3 rounded-sm bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group flex items-center gap-2"
+          >
+            IR AL MODULO
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   // PESTAÑA 1: HARDWARE
   const renderHardwareTab = () => (
@@ -2803,20 +2958,20 @@ export default function App() {
   );
 
   return (
-    <div className={`min-h-screen font-sans flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
-      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
-      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
+    <div className={`min-h-screen font-sans flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#1a1f3c] text-slate-100'}`}>
+      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.15),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.1),transparent_22%)] circuit-pattern-light' : 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.12),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.08),transparent_28%)] circuit-pattern-light'}`}></div>
+      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/30' : 'bg-[#1a1f3c]/40 backdrop-blur-[1px]'}`}></div>
       <div className="relative flex flex-col">
       <header className={`hidden lg:block fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-500`}>
         <div className={`max-w-[1600px] mx-auto transition-all duration-500 ${
           isScrolled
             ? isDark
-              ? 'rounded-sm border border-slate-800 bg-slate-950/82 shadow-[0_28px_70px_rgba(15,23,42,0.32)] backdrop-blur-2xl'
-              : 'rounded-sm border border-white/80 bg-slate-950/86 shadow-[0_28px_70px_rgba(15,23,42,0.22)] backdrop-blur-2xl'
-            : 'rounded-sm border border-white/10 bg-slate-950/72 shadow-[0_14px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl'
+              ? 'rounded-sm border border-slate-700/50 bg-slate-950/85 shadow-[0_28px_70px_rgba(0,0,0,0.4)] backdrop-blur-2xl'
+              : 'rounded-sm border border-white/20 bg-[#0f1229]/90 shadow-[0_28px_70px_rgba(0,0,0,0.25)] backdrop-blur-2xl'
+            : 'rounded-sm border border-white/10 bg-slate-950/70 shadow-[0_14px_40px_rgba(0,0,0,0.15)] backdrop-blur-xl'
         }`}>
           <div className={`flex items-center justify-between gap-4 transition-all duration-500 ${isScrolled ? 'px-4 py-3 sm:px-5 md:px-6' : 'px-3 py-2.5 sm:px-4 md:px-5'}`}>
-            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-4 group min-w-0 text-left">
+            <button onClick={() => handleTabChange('home')} className="flex items-center gap-4 group min-w-0 text-left">
               <div className="relative w-10 h-10 shrink-0">
                 <div className="absolute inset-0 bg-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                 <div className="relative w-full h-full flex items-center justify-center">
@@ -2963,7 +3118,7 @@ export default function App() {
           isDark ? 'border-slate-800 bg-slate-950/88' : 'border-white/80 bg-white/92'
         }`}>
           <div className="flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
-            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-2 min-w-0 text-left">
+            <button onClick={() => handleTabChange('home')} className="flex items-center gap-2 min-w-0 text-left">
               <div className="w-7 h-7 flex items-center justify-center shrink-0">
                 <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -3274,6 +3429,7 @@ export default function App() {
         
         {/* ZONA IZQUIERDA: Interactuador Visual (60%) */}
         <div className={`w-full flex flex-col gap-6 min-w-0 transition-all duration-300 ${hasActiveDetail ? 'xl:w-[64%]' : 'xl:w-full'}`}>
+          {activeTab === 'home' && renderHomeTab()}
           {activeTab === 'hardware' && renderHardwareTab()}
           {activeTab === 'peripherals' && renderPeripheralsTab()}
           {activeTab === 'cloud' && renderCloudTab()}
