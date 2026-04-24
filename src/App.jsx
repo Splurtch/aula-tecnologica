@@ -1803,66 +1803,97 @@ export default function App() {
     </div>
   );
 
-  const renderOfficeTab = () => (
+  const renderOfficeTab = () => {
+    const officeProgramIds = ['text_docs', 'spreadsheets', 'presentations_tools', 'pdf_export', 'collaboration_templates'];
+    const activeOfficeId = officeData[selectedItem?.id] ? selectedItem.id : 'text_docs';
+    const activeOfficeView = officeWorkspaceViews[activeOfficeId];
+    const activeOfficeZone = activeOfficeView.zones.find((zone) => zone.id === officeWorkspaceZone) || activeOfficeView.zones[0];
+
+    const handleOfficeProgramSelect = (id) => {
+      setSelectedItem(officeData[id]);
+      setOfficeWorkspaceZone(officeWorkspaceViews[id].zones[0].id);
+    };
+
+    return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-teal-600/70'}`}>Ofimatica y productividad</p>
-            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elegir bien la herramienta</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Redactar, calcular, presentar, exportar y colaborar son tareas distintas. Este bloque ayuda a decidir con criterio y trabajar mejor.</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>El simulador es la puerta de entrada</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Como en Navegacion, eliges el programa desde el propio entorno de trabajo. Asi el usuario entiende mejor para que sirve cada herramienta antes de leer la ficha detallada.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">{[['Redactar', 'Textos y CV'], ['Calcular', 'Tablas y cifras'], ['Compartir', 'PDF y colaboracion']].map(([label, value]) => <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p><p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p></div>)}</div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-          <InteractiveButton id="text_docs" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="spreadsheets" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="presentations_tools" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="pdf_export" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="collaboration_templates" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-        </div>
       </div>
 
-      {!officeData[selectedItem?.id] && (
-        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-          <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige una herramienta para abrir su zona de trabajo</h3>
-          <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Las comparativas, flujos y ejercicios quedan ocultos hasta que abras una ficha concreta. Asi el bloque se siente mas ligero y mas facil de recorrer.</p>
-        </div>
-      )}
-
-      <div className={`grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6 ${officeData[selectedItem?.id] ? '' : 'hidden'}`}>
-        <section className={`order-2 xl:order-1 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+      <div className="grid grid-cols-1 xl:grid-cols-[1.25fr_0.75fr] gap-6">
+        <section className={`order-2 xl:order-2 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Que herramienta usarias?</h3></div>
           <div className="grid grid-cols-1 gap-3 mt-5">{[['cv', 'Preparar un CV'], ['budget', 'Hacer un presupuesto'], ['pitch', 'Exponer un proyecto']].map(([key, label]) => <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[24px] border px-4 py-4 text-left ${officeTaskView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'}`}><p className="font-black">{label}</p></button>)}</div>
           <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p><p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{officeTaskSuggestions[officeTaskView].why}</p></div>
         </section>
 
-        <section className={`order-1 xl:order-2 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`order-1 xl:order-1 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeWorkspaceViews[selectedItem?.id]?.title}</h3>
-            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{officeWorkspaceViews[selectedItem?.id]?.subtitle}</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{activeOfficeView.subtitle}</p>
           </div>
-          <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
-            <div className={`flex items-center gap-3 px-4 py-3 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+          <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-700 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-slate-100">
               <div className="flex gap-2">
                 <span className="w-3 h-3 rounded-full bg-red-400" />
                 <span className="w-3 h-3 rounded-full bg-amber-400" />
                 <span className="w-3 h-3 rounded-full bg-emerald-400" />
               </div>
-              <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeWorkspaceViews[selectedItem?.id]?.title}</p>
+              <div className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500">
+                suite-ofimatica://panel-de-trabajo/{activeOfficeId}
+              </div>
             </div>
-            <div className={`grid grid-cols-1 lg:grid-cols-[220px_1fr] ${isDark ? 'bg-slate-950' : 'bg-white'}`}>
-              <aside className={`border-r p-4 space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-slate-50'}`}>
-                {(officeWorkspaceViews[selectedItem?.id]?.zones || []).map((zone) => (
+            <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 p-4 sm:p-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
+                {officeProgramIds.map((id) => {
+                  const item = officeData[id];
+                  const Icon = item.icon;
+                  const isActive = activeOfficeId === id;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => handleOfficeProgramSelect(id)}
+                      className={`rounded-[24px] border p-4 text-left transition-all ${
+                        isActive
+                          ? 'border-blue-300 bg-white text-slate-900 shadow-[0_14px_35px_rgba(59,130,246,0.18)]'
+                          : 'border-slate-200 bg-slate-900 text-white hover:-translate-y-0.5 hover:bg-slate-800'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border ${isActive ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-700 bg-slate-950 text-slate-300'}`}>
+                          <Icon size={20} />
+                        </span>
+                        <span className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-blue-500' : 'text-slate-400'}`}>Explorar</span>
+                      </div>
+                      <p className={`mt-4 text-[11px] font-black uppercase tracking-[0.22em] ${isActive ? 'text-slate-500' : 'text-slate-500'}`}>{item.category}</p>
+                      <h4 className={`mt-2 text-base font-black leading-tight ${isActive ? 'text-slate-900' : 'text-white'}`}>{item.name}</h4>
+                      <p className={`mt-3 text-sm leading-relaxed ${isActive ? 'text-slate-600' : 'text-slate-300'}`}>{isActive ? 'Ficha activa dentro del simulador.' : 'Abre una vista guiada con zonas y ejemplos.'}</p>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4">
+              <aside className="rounded-[26px] border border-slate-200 bg-slate-900 p-4 space-y-3">
+                <div className="rounded-[20px] border border-slate-700 bg-slate-950 px-4 py-3">
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Programa activo</p>
+                  <p className="mt-2 text-sm font-black text-white">{activeOfficeView.title}</p>
+                </div>
+                {activeOfficeView.zones.map((zone) => (
                   <button
                     key={zone.id}
                     onClick={() => setOfficeWorkspaceZone(zone.id)}
-                    className={`w-full rounded-[18px] px-4 py-3 text-left text-sm font-black ${
+                    className={`w-full rounded-[18px] border px-4 py-3 text-left text-sm font-black ${
                       officeWorkspaceZone === zone.id
-                        ? isDark ? 'bg-white text-slate-950' : 'bg-slate-900 text-white'
-                        : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-white text-slate-700 border border-slate-200'
+                        ? 'border-white bg-white text-slate-950'
+                        : 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-900'
                     }`}
                   >
                     {zone.label}
@@ -1870,31 +1901,31 @@ export default function App() {
                 ))}
               </aside>
               <div className="p-4 sm:p-5 space-y-4">
-                <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+                <div className="rounded-[24px] border border-slate-200 bg-white p-4">
                   <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                    {(officeWorkspaceViews[selectedItem?.id]?.zones || []).map((zone) => (
+                    {activeOfficeView.zones.map((zone) => (
                       <button
                         key={zone.id}
                         onClick={() => setOfficeWorkspaceZone(zone.id)}
                         className={`rounded-[20px] border p-4 text-left ${
                           officeWorkspaceZone === zone.id
-                            ? isDark ? 'border-teal-400/30 bg-teal-500/10 text-teal-100' : 'border-teal-200 bg-teal-50 text-teal-800'
-                            : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-white text-slate-700'
+                            ? 'border-blue-200 bg-blue-50 text-blue-800'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'
                         }`}
                       >
                         <p className="text-xs font-black uppercase tracking-[0.22em]">{zone.label}</p>
                       </button>
                     ))}
                   </div>
-                  <div className={`mt-4 rounded-[22px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
-                    <p className={`text-xs font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Zona activa</p>
-                    <h4 className={`mt-2 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                      {(officeWorkspaceViews[selectedItem?.id]?.zones || []).find((zone) => zone.id === officeWorkspaceZone)?.heading}
+                  <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-5">
+                    <p className="text-xs font-black uppercase tracking-[0.24em] text-slate-400">Zona activa</p>
+                    <h4 className="mt-2 text-lg font-black text-slate-900">
+                      {activeOfficeZone.heading}
                     </h4>
-                    <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                      {(officeWorkspaceViews[selectedItem?.id]?.zones || []).find((zone) => zone.id === officeWorkspaceZone)?.text}
+                    <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                      {activeOfficeZone.text}
                     </p>
-                    {selectedItem?.id === 'presentations_tools' && (
+                    {activeOfficeId === 'presentations_tools' && (
                       <div className="mt-5 grid grid-cols-1 xl:grid-cols-[180px_1fr] gap-4">
                         <div className={`rounded-[20px] border p-3 ${officeWorkspaceZone === 'slides' ? isDark ? 'border-violet-400/30 bg-violet-500/10' : 'border-violet-200 bg-violet-50' : isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
                           <p className="text-[11px] font-black uppercase tracking-[0.22em]">Secuencia</p>
@@ -1972,6 +2003,7 @@ export default function App() {
               </div>
             </div>
           </div>
+          </div>
         </section>
       </div>
 
@@ -1989,7 +2021,8 @@ export default function App() {
         </div>
       </section>
     </div>
-  );
+    );
+  };
 
   const renderSoftwareTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
