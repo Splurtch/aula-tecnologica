@@ -1113,16 +1113,16 @@ const sectionGroupMeta = {
 // MAPEADO DE COLORES DE TAILWIND (SEGURIDAD)
 // ==========================================
 const colorMap = {
-  emerald: { bgBase: 'bg-emerald-600', bgLight: 'bg-emerald-100', text: 'text-emerald-800', borderLight: 'border-emerald-200', borderHeavy: 'border-emerald-500', ring: 'ring-emerald-400', glow: 'shadow-[0_0_20px_rgba(52,211,153,0.3)]' },
-  blue: { bgBase: 'bg-blue-600', bgLight: 'bg-blue-100', text: 'text-blue-800', borderLight: 'border-blue-200', borderHeavy: 'border-blue-500', ring: 'ring-blue-400', glow: 'shadow-[0_0_15px_rgba(59,130,246,0.5)]' },
-  purple: { bgBase: 'bg-purple-600', bgLight: 'bg-purple-100', text: 'text-purple-800', borderLight: 'border-purple-200', borderHeavy: 'border-purple-500', ring: 'ring-purple-400', glow: 'shadow-[0_0_15px_rgba(168,85,247,0.5)]' },
-  red: { bgBase: 'bg-red-600', bgLight: 'bg-red-100', text: 'text-red-800', borderLight: 'border-red-200', borderHeavy: 'border-red-500', ring: 'ring-red-400', glow: 'shadow-[0_0_25px_rgba(239,68,68,0.4)]' },
-  amber: { bgBase: 'bg-amber-600', bgLight: 'bg-amber-100', text: 'text-amber-800', borderLight: 'border-amber-200', borderHeavy: 'border-amber-500', ring: 'ring-amber-400', glow: 'shadow-[0_0_15px_rgba(245,158,11,0.5)]' },
-  zinc: { bgBase: 'bg-zinc-600', bgLight: 'bg-zinc-100', text: 'text-zinc-800', borderLight: 'border-zinc-200', borderHeavy: 'border-zinc-500', ring: 'ring-zinc-400', glow: 'shadow-[0_0_15px_rgba(113,113,122,0.5)]' },
-  cyan: { bgBase: 'bg-cyan-600', bgLight: 'bg-cyan-100', text: 'text-cyan-800', borderLight: 'border-cyan-200', borderHeavy: 'border-cyan-500', ring: 'ring-cyan-400', glow: 'shadow-[0_0_30px_rgba(6,182,212,0.5)]' },
-  indigo: { bgBase: 'bg-indigo-600', bgLight: 'bg-indigo-100', text: 'text-indigo-800', borderLight: 'border-indigo-200', borderHeavy: 'border-indigo-500', ring: 'ring-indigo-400', glow: 'shadow-[0_0_20px_rgba(99,102,241,0.4)]' },
-  fuchsia: { bgBase: 'bg-fuchsia-600', bgLight: 'bg-fuchsia-100', text: 'text-fuchsia-800', borderLight: 'border-fuchsia-200', borderHeavy: 'border-fuchsia-500', ring: 'ring-fuchsia-400', glow: 'shadow-[0_0_20px_rgba(217,70,239,0.4)]' },
-  slate: { bgBase: 'bg-slate-600', bgLight: 'bg-slate-100', text: 'text-slate-800', borderLight: 'border-slate-200', borderHeavy: 'border-slate-500', ring: 'ring-slate-400', glow: 'shadow-[0_0_15px_rgba(100,116,139,0.4)]' },
+  emerald: { bgBase: 'bg-gradient-to-r from-emerald-500 to-teal-500', bgLight: 'bg-emerald-50/80', text: 'text-emerald-700', borderLight: 'border-emerald-200/50', borderHeavy: 'border-emerald-400', ring: 'ring-emerald-400/50', glow: 'shadow-[0_0_25px_rgba(52,211,153,0.35)]' },
+  blue: { bgBase: 'bg-gradient-to-r from-blue-500 to-indigo-500', bgLight: 'bg-blue-50/80', text: 'text-blue-700', borderLight: 'border-blue-200/50', borderHeavy: 'border-blue-400', ring: 'ring-blue-400/50', glow: 'shadow-[0_0_25px_rgba(59,130,246,0.4)]' },
+  purple: { bgBase: 'bg-gradient-to-r from-purple-500 to-violet-500', bgLight: 'bg-purple-50/80', text: 'text-purple-700', borderLight: 'border-purple-200/50', borderHeavy: 'border-purple-400', ring: 'ring-purple-400/50', glow: 'shadow-[0_0_25px_rgba(168,85,247,0.4)]' },
+  red: { bgBase: 'bg-gradient-to-r from-red-500 to-rose-500', bgLight: 'bg-red-50/80', text: 'text-red-700', borderLight: 'border-red-200/50', borderHeavy: 'border-red-400', ring: 'ring-red-400/50', glow: 'shadow-[0_0_25px_rgba(239,68,68,0.4)]' },
+  amber: { bgBase: 'bg-gradient-to-r from-amber-500 to-orange-500', bgLight: 'bg-amber-50/80', text: 'text-amber-700', borderLight: 'border-amber-200/50', borderHeavy: 'border-amber-400', ring: 'ring-amber-400/50', glow: 'shadow-[0_0_25px_rgba(245,158,11,0.4)]' },
+  zinc: { bgBase: 'bg-gradient-to-r from-zinc-500 to-slate-500', bgLight: 'bg-zinc-50/80', text: 'text-zinc-700', borderLight: 'border-zinc-200/50', borderHeavy: 'border-zinc-400', ring: 'ring-zinc-400/50', glow: 'shadow-[0_0_25px_rgba(113,113,122,0.4)]' },
+  cyan: { bgBase: 'bg-gradient-to-r from-cyan-500 to-teal-500', bgLight: 'bg-cyan-50/80', text: 'text-cyan-700', borderLight: 'border-cyan-200/50', borderHeavy: 'border-cyan-400', ring: 'ring-cyan-400/50', glow: 'shadow-[0_0_30px_rgba(6,182,212,0.45)]' },
+  indigo: { bgBase: 'bg-gradient-to-r from-indigo-500 to-purple-500', bgLight: 'bg-indigo-50/80', text: 'text-indigo-700', borderLight: 'border-indigo-200/50', borderHeavy: 'border-indigo-400', ring: 'ring-indigo-400/50', glow: 'shadow-[0_0_25px_rgba(99,102,241,0.4)]' },
+  fuchsia: { bgBase: 'bg-gradient-to-r from-fuchsia-500 to-pink-500', bgLight: 'bg-fuchsia-50/80', text: 'text-fuchsia-700', borderLight: 'border-fuchsia-200/50', borderHeavy: 'border-fuchsia-400', ring: 'ring-fuchsia-400/50', glow: 'shadow-[0_0_25px_rgba(217,70,239,0.4)]' },
+  slate: { bgBase: 'bg-gradient-to-r from-slate-500 to-zinc-500', bgLight: 'bg-slate-50/80', text: 'text-slate-700', borderLight: 'border-slate-200/50', borderHeavy: 'border-slate-400', ring: 'ring-slate-400/50', glow: 'shadow-[0_0_25px_rgba(100,116,139,0.4)]' },
 };
 
 export default function App() {
