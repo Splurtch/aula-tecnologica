@@ -627,8 +627,8 @@ export default function App() {
         <button onClick={() => setRotation({ x: 60, z: -40 })} className="absolute bottom-6 right-6 z-20 bg-slate-800/80 hover:bg-slate-700 backdrop-blur-sm text-white text-xs font-bold px-4 py-3 rounded-xl border border-slate-600 shadow-2xl flex items-center gap-2 transition-all hover:scale-105">
           <Rotate3D size={16} /> Restaurar Ángulo
         </button>
+        </div>
       </div>
-    </div>
   );
 
   // PESTAÑA 2: NUBE
@@ -863,7 +863,7 @@ export default function App() {
   );
 
   const renderKeyboardTab = () => (
-    <div className="grid grid-cols-1 2xl:grid-cols-[minmax(0,1.4fr)_360px] gap-6 animate-in fade-in duration-500 h-full">
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className={`rounded-[32px] border p-5 md:p-6 overflow-hidden relative ${
         isDark
           ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 border-slate-800 shadow-[0_24px_80px_rgba(15,23,42,0.55)]'
@@ -874,14 +874,36 @@ export default function App() {
             ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_30%)]'
             : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.7),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(79,70,229,0.08),transparent_30%)]'
         }`}></div>
-        <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_250px] gap-6 items-start">
+        <div className="relative z-10 space-y-6">
+          <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-5">
+            <div className="max-w-3xl">
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-400' : 'text-indigo-500/70'}`}>Productividad Digital</p>
+              <h2 className={`text-3xl md:text-4xl font-black tracking-tight mt-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Laboratorio de Teclado Virtual
+              </h2>
+              <p className={`mt-4 leading-relaxed text-sm md:text-base ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                Explora combinaciones utiles para estudiar, redactar y navegar. Selecciona una familia de atajos y el mapa se iluminara automaticamente.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Meta</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos clics, mas fluidez</p>
+              </div>
+              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Metodo</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Practica guiada</p>
+              </div>
+            </div>
+          </div>
+
           <div className={`rounded-[28px] border p-5 md:p-6 ${
-            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-[#252b47] border-[#3d4267] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]'
+            isDark ? 'bg-slate-950/84 border-slate-800' : 'bg-[#252b47] border-[#3d4267] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]'
           }`}>
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
               <div>
-                <h3 className="text-white text-xl font-black">Mapa de Teclas</h3>
-                <p className="text-slate-400 text-sm mt-2">Se resaltan las teclas del bloque seleccionado.</p>
+                <h3 className="text-white text-xl md:text-2xl font-black">Mapa de Teclas</h3>
+                <p className="text-slate-400 text-sm mt-2">Se resaltan las teclas del bloque seleccionado y el teclado ocupa la parte central del recorrido.</p>
               </div>
               <div className="rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1 text-xs font-black uppercase tracking-widest text-indigo-200 w-fit">
                 {selectedItem?.name || 'Selecciona un bloque'}
@@ -889,7 +911,7 @@ export default function App() {
             </div>
             <div className="space-y-2 overflow-x-auto overflow-y-hidden pb-2">
               {keyboardLayout.map((row, rowIndex) => (
-                <div key={rowIndex} className="flex gap-2 min-w-[720px]">
+                <div key={rowIndex} className="flex gap-2 min-w-[920px]">
                   {row.map((key) => (
                     <div key={`${rowIndex}-${key.label}`} className={key.wide}>
                       <KeyboardKey label={key.label} selectedKeys={selectedItem?.keys || []} />
@@ -899,47 +921,24 @@ export default function App() {
               ))}
             </div>
           </div>
-
-          <div className="space-y-4">
-            <div className={`rounded-[28px] border p-5 ${
-              isDark ? 'bg-slate-900/80 border-slate-800 text-slate-100' : 'bg-white/78 border-white/80 text-slate-900 backdrop-blur-xl'
-            }`}>
-              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-400' : 'text-indigo-500/70'}`}>Productividad Digital</p>
-              <h2 className={`text-3xl font-black tracking-tight mt-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                Laboratorio de Teclado Virtual
-              </h2>
-              <p className={`mt-4 leading-relaxed text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                Explora combinaciones utiles para estudiar, redactar y navegar. Selecciona una familia de atajos y el mapa se iluminara automaticamente.
-              </p>
-              <div className="grid grid-cols-2 gap-3 mt-5">
-                <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
-                  <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Meta</p>
-                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos clics, mas fluidez</p>
-                </div>
-                <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
-                  <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Metodo</p>
-                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Practica guiada</p>
-                </div>
-              </div>
-            </div>
-
-            <div className={`rounded-[28px] border p-5 ${
-              isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white/72 border-white/80 backdrop-blur-xl'
-            }`}>
-              <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mb-4`}>Bloques de Aprendizaje</h3>
-              <div className="grid grid-cols-1 gap-3">
-                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className={`rounded-[32px] border p-5 md:p-6 ${
+      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6">
+        <div className={`rounded-[32px] border p-5 md:p-6 ${
+          isDark ? 'bg-slate-900/86 border-slate-800' : 'bg-white/78 border-white/80 backdrop-blur-xl'
+        }`}>
+          <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mb-4`}>Bloques de Aprendizaje</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-3">
+            <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          </div>
+        </div>
+
+        <div className={`rounded-[32px] border p-5 md:p-6 ${
         isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_24px_60px_rgba(148,163,184,0.22)]'
       }`}>
         <div className="flex items-center justify-between gap-4 mb-5">
@@ -971,6 +970,7 @@ export default function App() {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 
