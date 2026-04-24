@@ -312,11 +312,11 @@ const softwareData = {
 };
 
 const softwareOsExamples = [
-  { name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400' },
-  { name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300' },
-  { name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400' },
-  { name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300' },
-  { name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400' },
+  { name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400', logo: 'window' },
+  { name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300', logo: 'mac' },
+  { name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400', logo: 'linux' },
+  { name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300', logo: 'android' },
+  { name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400', logo: 'ios' },
 ];
 
 const softwareDriverFlow = [
@@ -348,6 +348,27 @@ const softwareLicenseModels = {
     ],
   },
 };
+
+const softwareQuizItems = [
+  {
+    id: 'quiz-driver',
+    label: 'Controlador de impresora HP',
+    answer: 'driver',
+    explanation: 'Es un driver porque traduce la orden del sistema para que la impresora concreta pueda ejecutarla.',
+  },
+  {
+    id: 'quiz-system',
+    label: 'Windows 11',
+    answer: 'system',
+    explanation: 'Es un sistema operativo porque coordina el equipo completo y permite arrancar, gestionar memoria y abrir programas.',
+  },
+  {
+    id: 'quiz-app',
+    label: 'LibreOffice Writer',
+    answer: 'app',
+    explanation: 'Es una aplicacion porque sirve para una tarea concreta: redactar documentos.',
+  },
+];
 
 // ==========================================
 // 5. BASE DE DATOS: INTELIGENCIA ARTIFICIAL (NUEVO)
@@ -736,6 +757,7 @@ export default function App() {
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
   const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
+  const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -766,6 +788,10 @@ export default function App() {
   const handleOpenGroupMenu = (group) => {
     setExpandedSectionGroup(group);
     setIsSectionMenuOpen(true);
+  };
+
+  const handleSoftwareQuizSelect = (itemId, answer) => {
+    setSoftwareQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
   };
 
   const handleSelect = (id, e, dataSet) => {
@@ -1175,7 +1201,11 @@ export default function App() {
                 className={`rounded-[24px] border p-4 text-left transition-transform hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900' : 'border-slate-200 bg-slate-50 hover:bg-white'}`}
               >
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
-                  {os.mark}
+                  {os.logo === 'window' && <div className="grid grid-cols-2 gap-[2px]"><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span></div>}
+                  {os.logo === 'mac' && <div className="text-white text-sm font-black tracking-tight">mac</div>}
+                  {os.logo === 'linux' && <div className="text-white text-sm font-black tracking-tight">Li</div>}
+                  {os.logo === 'android' && <div className="text-white text-sm font-black tracking-tight">An</div>}
+                  {os.logo === 'ios' && <div className="text-white text-sm font-black tracking-tight">iOS</div>}
                 </div>
                 <p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{os.name}</p>
                 <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{os.subtitle}</p>
@@ -1285,11 +1315,92 @@ export default function App() {
                 }`}>
                   {softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}
                 </div>
+                <div className={`mt-4 w-12 h-12 rounded-2xl flex items-center justify-center text-base font-black ${
+                  softwareLicenseView === 'closed'
+                    ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700'
+                    : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'
+                }`}>
+                  {example.name.includes('Office') && 'O'}
+                  {example.name.includes('Photoshop') && 'Ps'}
+                  {example.name.includes('Windows') && 'W'}
+                  {example.name.includes('LibreOffice') && 'L'}
+                  {example.name.includes('GIMP') && 'G'}
+                  {example.name.includes('Ubuntu') && 'U'}
+                </div>
                 <h4 className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{example.name}</h4>
                 <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{example.use}</p>
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini ejercicio</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Sistema, driver o aplicacion?</h3>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              Clasifica cada ejemplo para comprobar si ya distingues bien las capas del software.
+            </p>
+          </div>
+          <button
+            onClick={() => setSoftwareQuizSelections({})}
+            className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
+          >
+            Reiniciar
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          {softwareQuizItems.map((item) => {
+            const selected = softwareQuizSelections[item.id];
+            const isCorrect = selected === item.answer;
+            return (
+              <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.label}</p>
+                <div className="grid grid-cols-3 gap-2 mt-4">
+                  {[
+                    { key: 'system', label: 'Sistema' },
+                    { key: 'driver', label: 'Driver' },
+                    { key: 'app', label: 'App' },
+                  ].map((option) => (
+                    <button
+                      key={option.key}
+                      onClick={() => handleSoftwareQuizSelect(item.id, option.key)}
+                      className={`rounded-2xl px-3 py-3 text-sm font-black transition-colors ${
+                        selected === option.key
+                          ? option.key === item.answer
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-red-500 text-white'
+                          : isDark
+                            ? 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+                            : 'bg-white text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+                {selected && (
+                  <div className={`mt-4 rounded-2xl border p-4 ${
+                    isCorrect
+                      ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
+                      : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
+                  }`}>
+                    <p className={`text-sm font-black uppercase tracking-widest ${
+                      isCorrect
+                        ? isDark ? 'text-emerald-300' : 'text-emerald-700'
+                        : isDark ? 'text-amber-300' : 'text-amber-700'
+                    }`}>
+                      {isCorrect ? 'Correcto' : 'Sigue probando'}
+                    </p>
+                    <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p>
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>
