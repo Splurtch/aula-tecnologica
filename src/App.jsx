@@ -311,6 +311,44 @@ const softwareData = {
   },
 };
 
+const softwareOsExamples = [
+  { name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400' },
+  { name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300' },
+  { name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400' },
+  { name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300' },
+  { name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400' },
+];
+
+const softwareDriverFlow = [
+  { label: 'Aplicacion', helper: 'Word, navegador o Zoom', icon: Blocks },
+  { label: 'Sistema Operativo', helper: 'Gestiona la orden', icon: Monitor },
+  { label: 'Driver', helper: 'Traduce para el dispositivo', icon: Plug },
+  { label: 'Hardware', helper: 'Impresora, audio o grafica', icon: Cpu },
+];
+
+const softwareLicenseModels = {
+  closed: {
+    label: 'Codigo cerrado',
+    summary: 'El fabricante controla el codigo, las funciones y la licencia de uso.',
+    color: 'indigo',
+    examples: [
+      { name: 'Microsoft Office', use: 'Suite ofimatica comercial para documentos, hojas de calculo y presentaciones.' },
+      { name: 'Adobe Photoshop', use: 'Edicion de imagen profesional con licencia propietaria.' },
+      { name: 'Windows', use: 'Sistema operativo comercial con soporte y ecosistema cerrado.' },
+    ],
+  },
+  open: {
+    label: 'Codigo abierto',
+    summary: 'El codigo se puede estudiar, mejorar o redistribuir segun su licencia.',
+    color: 'emerald',
+    examples: [
+      { name: 'LibreOffice', use: 'Alternativa libre a Office para escribir, calcular y presentar.' },
+      { name: 'GIMP', use: 'Editor de imagen abierto, muy usado en educacion y comunidad.' },
+      { name: 'Ubuntu / Linux', use: 'Sistema operativo abierto con muchas distribuciones y personalizacion.' },
+    ],
+  },
+};
+
 // ==========================================
 // 5. BASE DE DATOS: INTELIGENCIA ARTIFICIAL (NUEVO)
 // ==========================================
@@ -697,6 +735,7 @@ export default function App() {
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -1113,6 +1152,146 @@ export default function App() {
           <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Son las herramientas concretas para escribir, navegar, editar, comunicar o aprender.</p>
         </div>
       </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Exploracion visual</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sistemas operativos y sus ecosistemas</h3>
+            </div>
+            <button
+              onClick={() => handleSelect('operating_systems', null, softwareData)}
+              className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
+            >
+              Ver ficha
+            </button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {softwareOsExamples.map((os) => (
+              <button
+                key={os.name}
+                onClick={() => handleSelect('operating_systems', null, softwareData)}
+                className={`rounded-[24px] border p-4 text-left transition-transform hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900' : 'border-slate-200 bg-slate-50 hover:bg-white'}`}
+              >
+                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
+                  {os.mark}
+                </div>
+                <p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{os.name}</p>
+                <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{os.subtitle}</p>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conexion guiada</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Como actua un driver en la practica</h3>
+            </div>
+            <button
+              onClick={() => handleSelect('drivers', null, softwareData)}
+              className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
+            >
+              Ver ficha
+            </button>
+          </div>
+          <div className="space-y-3">
+            {softwareDriverFlow.map((step, index) => {
+              const StepIcon = step.icon;
+              return (
+                <div key={step.label} className="flex items-center gap-3">
+                  <div className={`flex-1 rounded-[22px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`rounded-xl p-2 ${isDark ? 'bg-slate-900 text-blue-300' : 'bg-blue-100 text-blue-700'}`}>
+                        <StepIcon size={18} />
+                      </div>
+                      <div>
+                        <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step.label}</p>
+                        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{step.helper}</p>
+                      </div>
+                    </div>
+                  </div>
+                  {index < softwareDriverFlow.length - 1 && (
+                    <div className={`shrink-0 rounded-full px-2 py-1 text-xs font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>→</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className={`mt-5 rounded-[24px] border p-4 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
+            <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-cyan-300' : 'text-cyan-800'}`}>Ejemplo real</p>
+            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              Quieres imprimir un PDF: la aplicacion abre el archivo, el sistema operativo organiza la tarea, el driver entiende la impresora y el hardware ejecuta la impresion.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Aplicaciones: codigo cerrado vs codigo abierto</h3>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              Cambia de modelo para entender diferencias de licencia, mantenimiento y ejemplos de uso.
+            </p>
+          </div>
+          <div className={`inline-flex rounded-full border p-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            {Object.entries(softwareLicenseModels).map(([key, model]) => {
+              const isActive = softwareLicenseView === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => {
+                    setSoftwareLicenseView(key);
+                    handleSelect('applications', null, softwareData);
+                  }}
+                  className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${isActive ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
+                >
+                  {model.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[0.7fr_1.3fr] gap-5">
+          <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <p className={`text-sm font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? (isDark ? 'text-indigo-300' : 'text-indigo-700') : (isDark ? 'text-emerald-300' : 'text-emerald-700')}`}>
+              {softwareLicenseModels[softwareLicenseView].label}
+            </p>
+            <p className={`mt-4 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              {softwareLicenseModels[softwareLicenseView].summary}
+            </p>
+            <div className={`mt-5 rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparacion rapida</p>
+              <p className={`mt-3 text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                {softwareLicenseView === 'closed'
+                  ? 'Suele ofrecer soporte comercial, marca conocida y funciones muy cerradas alrededor de una licencia.'
+                  : 'Suele ofrecer flexibilidad, comunidad, personalizacion y aprendizaje a partir del codigo compartido.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {softwareLicenseModels[softwareLicenseView].examples.map((example) => (
+              <article key={example.name} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
+                <div className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${
+                  softwareLicenseView === 'closed'
+                    ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700'
+                    : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'
+                }`}>
+                  {softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}
+                </div>
+                <h4 className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{example.name}</h4>
+                <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{example.use}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 
