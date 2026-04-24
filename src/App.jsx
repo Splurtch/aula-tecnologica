@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -814,7 +814,99 @@ const aiData = {
 };
 
 // ==========================================
-// 6. BASE DE DATOS: PRODUCTIVIDAD Y ATAJOS
+// 6. BASE DE DATOS: CREACIÓN DE CONTENIDO DIGITAL
+// ==========================================
+const contentData = {
+  fundamentals: {
+    id: 'fundamentals', name: 'Fundamentos del Content Marketing', category: 'Bases', icon: Zap, color: 'blue',
+    desc: 'El contenido digital es la moneda del siglo XXI. Pero no todo contenido vale lo mismo.\n\nAntes de escribir una sola palabra, necesitas entender qué quieres conseguir, a quién te diriges y qué formato sirve mejor a tu objetivo.',
+    details: 'El embudo de contenido:\n• Awareness: Contenido que atrae y educa\n• Consideration: Contenido que compara y demuestra\n• Decision: Contenido que convierte y cierra\n\nEl secreto está en no vender directamente, sino en resolver problemas reales.',
+    pros: ['Crea autoridad y confianza antes de pedir nada.', 'Atrae tráfico orgánico sin depender de publicidad.', 'Educa a tu audiencia sobre lo que ofrecen tus productos o servicios.'],
+    cons: ['Los resultados toman tiempo y consistencia.', 'Requiere estrategia, no solo creatividad.', 'El exceso de contenido puede saturar si no es valioso.'],
+    examples: 'Un blogpost sobre "5 errores al elegir hosting" atrae a alguien que está investigando. Ese mismo post puede convertirlo en cliente si está bien escrito.',
+    tips: ['Define siempre tu Buyer Persona antes de crear contenido.', 'Mide resultados: tráfico, engagement, conversiones.', 'La consistencia supera a la perfección. Publica regularmente.']
+  },
+  copywriting: {
+    id: 'copywriting', name: 'Copywriting Digital', category: 'Escritura', icon: FileText, color: 'purple',
+    desc: 'El copywriting es el arte de escribir texto que vende. No se trata de manipular, sino de comunicar con claridad y generar conexión.\n\nUn buen copy hace que el lector sienta que le hablas directamente a él.',
+    details: 'Estructura AIDA:\n• Attention: El título atrapa\n• Interest: La introducción mantiene\n• Desire: El cuerpo genera querer\n• Action: El CTA pide\n\nRegla del "uno": Un objetivo por pieza de contenido.',
+    pros: ['Aumenta tasas de conversión significativamente.', 'Convierte lectores pasivos en compradores activos.', 'Crea mensajes memorables que se recuerdan.'],
+    cons: ['Un mal copy puede destruir la confianza de una marca.', 'Requiere práctica y testing constante.', 'Lo que funciona en un nicho puede fallar en otro.'],
+    examples: '"El mejor café del mundo" no es copywriting. "Despierta cada mañana con una taza de café colombiano premium" sí lo es.',
+    tools: ['Canva: Para crear imágenes de apoyo y posts con texto impactante.', 'ChatGPT: Para generar borradores y variaciones.', 'Grammarly: Para corregir tono y claridad.'],
+    tips: ['Escribe títulos que generen curiosidad o beneficio claro.', 'Edita el doble de lo que escribes.', 'Lee tu copy en voz alta: si suena raro, corrígelo.']
+  },
+  blogs: {
+    id: 'blogs', name: 'Blogs y Artículos', category: 'Escritura Larga', icon: FileText, color: 'emerald',
+    desc: 'Un blog bien optimizado es el activo digital más valioso que puedes crear. Atrae visitas mensuales, posiciona en buscadores y te convierte en referente.\n\nPero un blog no es un ensayo. Es una conversación estructurada.',
+    details: 'Estructura SEO básica:\n• Título con keyword principal\n• Meta description atractiva (150-160 caracteres)\n• Encabezados H2 y H3 organizados\n• Enlaces internos y externos\n• Imagen con alt text optimizado\n• Conclusión con CTA claro',
+    pros: ['Genera tráfico orgánico a largo plazo.', 'Demuestra experiencia y autoridad en tu nicho.', 'Educa a tu audiencia de forma profunda.'],
+    cons: ['Requiere tiempo y recursos para crear contenido de calidad.', 'La competencia en muchos nichos es alta.', 'Los resultados de SEO toman meses en verse.'],
+    examples: 'Un post de 2000 palabras bien estructurado y optimizado puede generar cientos de visitas mensuales durante años.',
+    tools: ['WordPress o Webflow: Para gestionar tu blog.', 'Ahrefs o Ubersuggest: Para investigación de keywords.', 'Canva: Para imágenes destacadas.' ],
+    tips: ['Crea un calendario editorial y respétalo.', 'Cada post debe resolver un problema específico.', 'Actualiza posts antiguos con información nueva.']
+  },
+  social_media: {
+    id: 'social_media', name: 'Redes Sociales - Captions y Posts', category: 'RRSS', icon: Globe, color: 'cyan',
+    desc: 'Cada red social tiene su propio idioma, su cultura y sus expectativas. Lo que funciona en LinkedIn puede morir en TikTok.\n\nEl secreto no es estar en todas, sino dominar las que mejor connectan con tu audiencia.',
+    details: 'Por plataforma:\n• Instagram: Visual-first, captions casuales y storytelling\n• LinkedIn: Tono profesional, artículos largos, datos\n• TikTok/Reels: Hook en 3 segundos, contenido directo\n• X (Twitter): Concisión extrema, hilos, opiniones\n• Facebook: Comunidad, eventos, grupos',
+    pros: ['Alcance orgánico sin coste de publicidad.', 'Construcción de comunidad y marca personal.', 'Feedback inmediato sobre qué funciona.'],
+    cons: ['Los algoritmos cambian constantemente.', 'Requiere consistencia y tiempo dedicado.', 'El engagement está bajando en muchas plataformas.'],
+    examples: 'Un post con imagen generadora de scroll + caption con story + CTA claro supera a posts sin estructura.',
+    tools: ['CapCut: Para editar vídeo vertical rápido.', 'Canva: Para crear gráficos y templates.', 'Later o Buffer: Para programar publicaciones.'],
+    tips: ['Estudia los formatos que funcionan en tu nicho.', 'Interactúa genuinamente con otros usuarios.', 'Mide solo lo que puedas actuar.']
+  },
+  video: {
+    id: 'video', name: 'Video Marketing', category: 'Multimedia', icon: Video, color: 'red',
+    desc: 'El vídeo es el formato rey actual. YouTube, TikTok, Instagram Reels... millones de horas se consumen cada día.\n\nPero grabar no es suficiente. La edición y la estructura determinan el éxito.',
+    details: 'Guión básico (hook + contenido + outro):\n• Primeros 3 segundos: Gancho que atrapa\n• Minutos 3-60: Contenido principal con valor\n• Últimos 15 segundos: CTA y retención\n\nEquipo básico:\n• Iluminación: Ring light o softbox (no luz directa)\n• Audio: Micrófono de solapa o condensador USB\n• Cámara: Smartphone actual es suficiente',
+    pros: ['Alcance orgánico muy alto en todas las plataformas.', 'Humaniza tu marca de forma autenticidad.', 'Convierte mejor que cualquier otro formato.'],
+    cons: ['La producción requiere tiempo y habilidades.', 'El algoritmo premia la consistencia extrema.', 'La edición puede volverse adictiva yargar el proceso.'],
+    examples: 'Un vídeo de 60 segundos bien editado supera a uno de 10 minutos sin estructura.',
+    tools: ['CapCut: Edición rápida en móvil y desktop.', 'Premiere Pro: Para proyectos más serios.', 'Descript: Editar vídeo como si fuera un documento.' ],
+    tips: ['Empieza con equipo mínimo y mejora progresivamente.', 'El contenido importa más que la calidad de producción.', 'Reutiliza un vídeo largo en múltiples clips cortos.']
+  },
+  podcast: {
+    id: 'podcast', name: 'Podcast y Audio Content', category: 'Audio', icon: Headphones, color: 'amber',
+    desc: 'El podcast es el formato más íntimo que existe. La gente te escucha mientras conduce, hace ejercicio o cocina.\n\nTu voz es tu instrumento. Aprende a usarla.',
+    details: 'Scripting vs Outline:\n• Script completo: Para episodios educativos o formales\n• Outline: Para conversaciones más naturales\n• Improvisación: Para contenido casual\n\nDistribución:\n• Spotify (líder en España)\n• Apple Podcasts (líder mundial)\n• Google Podcasts\n• YouTube (vídeo + audio)',
+    pros: ['Construye audiencia muy leal y comprometida.', 'Te posiciona como experto en tu nicho.', 'Genera oportunidades de monetización directa.'],
+    cons: ['La producción de audio de calidad es técnica.', 'Los resultados tardan en llegar (6-12 meses).', 'Requiere consistencia extrema (semanal como mínimo).'],
+    examples: 'Un podcast semanal de 30 minutos necesita 3-4 horas de trabajo por episodio.',
+    tools: ['Audacity: Edición de audio gratuita y potente.', 'Descript: Editar audio como texto + transcripción.', 'Alitu: Editor pensado para podcasters.'],
+    tips: ['Graba siempre más de lo que necesitas (edición).', 'Usa siempre auriculares al grabar para evitar eco.', 'Edita los silencios excesivos en post-producción.']
+  },
+  legal: {
+    id: 'legal', name: 'Buenas Prácticas y Legal', category: 'Legal', icon: ShieldCheck, color: 'fuchsia',
+    desc: 'Crear contenido tiene responsabilidades. Lo que publicas queda público para siempre.\n\nProteger tu trabajo y respetar los derechos de otros es fundamental.',
+    details: 'Derechos de imagen:\n• Siempre pide permiso antes de mostrar a personas\n• Para uso comercial, necesita contrato específico\n• Excepciones: fotografías de eventos públicos\n\nMúsica y propiedad intelectual:\n• Solo usa música royalty-free\n• Atribución requerida según licencia\n• Alternativas: YouTube Audio Library, Epidemic Sound\n\nGDPR y contenido:\n• No spamees con emails de marketing\n• Protege datos personales en formularios',
+    pros: ['Evita problemas legales que pueden paralizar tu proyecto.', 'Crea un entorno seguro para tu audiencia.', 'Te diferencia de creadores irresponsables.'],
+    cons: ['Requiere documentación y sistemas.', 'Algunas normativas varían por país.', 'La pereza en esto puede costar muy caro.'],
+    examples: 'Usar música de YouTube en un reel puede silenciar tu vídeo o generar un strike.',
+    tips: ['Mantén un registro de permisos de imágenes.', 'Usa solo música con licencia comercial.', 'Si dudas, no lo uses: siempre hay alternativa.']
+  }
+};
+
+const contentTools = {
+  canva: { name: 'Canva', category: 'Diseño', description: 'Diseño gráfico rápido para RRSS, presentations y más.', url: 'canva.com' },
+  capcut: { name: 'CapCut', category: 'Video', description: 'Edición de vídeo profesional en móvil y desktop.', url: 'capcut.com' },
+  premiere: { name: 'Premiere Pro', category: 'Video', description: 'Edición de vídeo profesional para proyectos serios.', url: 'adobe.com/premiere' },
+  audacity: { name: 'Audacity', category: 'Audio', description: 'Editor de audio gratuito y potente.', url: 'audacityteam.org' },
+  descript: { name: 'Descript', category: 'Audio', description: 'Edita audio como texto + transcripción automática.', url: 'descript.com' },
+  alitu: { name: 'Alitu', category: 'Audio', description: 'Editor simplificado para podcasters.', url: 'alitu.com' },
+  chatgpt: { name: 'ChatGPT', category: 'Planificación', description: 'Generación de ideas, borradores y research.', url: 'chat.openai.com' },
+  notion: { name: 'Notion', category: 'Planificación', description: 'Gestión de calendarios editoriales y notas.', url: 'notion.so' },
+};
+
+const contentSteps = [
+  { step: '01', title: 'Definir estrategia', desc: 'Buyer persona, objetivos, canales' },
+  { step: '02', title: 'Crear calendario', desc: 'Frecuencia, formatos, temas' },
+  { step: '03', title: 'Producir contenido', desc: 'Escritura, grabación, edición' },
+  { step: '04', title: 'Publicar y medir', desc: 'Horarios, métricas, ajustes' },
+];
+
+// ==========================================
+// 7. BASE DE DATOS: PRODUCTIVIDAD Y ATAJOS
 // ==========================================
 const keyboardData = {
   shortcut_basics: {
@@ -1020,6 +1112,17 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-sky-50 hover:text-sky-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'content',
+    group: 'Comunicacion digital',
+    step: '08',
+    title: 'Contenido',
+    subtitle: 'Creacion de contenido digital',
+    description: 'Aprende a crear contenido efectivo: copywriting, blogs, redes sociales, video, podcast y buenas practicas.',
+    icon: Video,
+    activeClass: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-xl border-blue-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-gradient-to-r hover:from-blue-50 hover:to-violet-50 hover:text-blue-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'files',
     group: 'Navegacion y organizacion',
     step: '08',
@@ -1084,6 +1187,7 @@ const tabDataMap = {
   internet: internetData,
   security: securityData,
   email: emailData,
+  content: contentData,
   files: filesData,
   keyboard: keyboardData,
   office: officeData,
@@ -1098,6 +1202,9 @@ const sectionGroupMeta = {
   'Navegacion y organizacion': {
     summary: 'Busqueda, criterio, archivos y orden para moverse con autonomia.',
   },
+  'Comunicacion digital': {
+    summary: 'Correo electronico y creacion de contenido digital para comunicar y crear valor.',
+  },
   Productividad: {
     summary: 'Atajos y flujos de trabajo para reducir friccion y ganar velocidad.',
   },
@@ -1110,19 +1217,19 @@ const sectionGroupMeta = {
 };
 
 // ==========================================
-// MAPEADO DE COLORES DE TAILWIND (SEGURIDAD)
+// MAPEADO DE COLORES DE TAILWIND (BRAND CYBERTECH)
 // ==========================================
 const colorMap = {
-  emerald: { bgBase: 'bg-gradient-to-r from-emerald-500 to-teal-500', bgLight: 'bg-emerald-50/80', text: 'text-emerald-700', borderLight: 'border-emerald-200/50', borderHeavy: 'border-emerald-400', ring: 'ring-emerald-400/50', glow: 'shadow-[0_0_25px_rgba(52,211,153,0.35)]' },
-  blue: { bgBase: 'bg-gradient-to-r from-blue-500 to-indigo-500', bgLight: 'bg-blue-50/80', text: 'text-blue-700', borderLight: 'border-blue-200/50', borderHeavy: 'border-blue-400', ring: 'ring-blue-400/50', glow: 'shadow-[0_0_25px_rgba(59,130,246,0.4)]' },
-  purple: { bgBase: 'bg-gradient-to-r from-purple-500 to-violet-500', bgLight: 'bg-purple-50/80', text: 'text-purple-700', borderLight: 'border-purple-200/50', borderHeavy: 'border-purple-400', ring: 'ring-purple-400/50', glow: 'shadow-[0_0_25px_rgba(168,85,247,0.4)]' },
-  red: { bgBase: 'bg-gradient-to-r from-red-500 to-rose-500', bgLight: 'bg-red-50/80', text: 'text-red-700', borderLight: 'border-red-200/50', borderHeavy: 'border-red-400', ring: 'ring-red-400/50', glow: 'shadow-[0_0_25px_rgba(239,68,68,0.4)]' },
-  amber: { bgBase: 'bg-gradient-to-r from-amber-500 to-orange-500', bgLight: 'bg-amber-50/80', text: 'text-amber-700', borderLight: 'border-amber-200/50', borderHeavy: 'border-amber-400', ring: 'ring-amber-400/50', glow: 'shadow-[0_0_25px_rgba(245,158,11,0.4)]' },
-  zinc: { bgBase: 'bg-gradient-to-r from-zinc-500 to-slate-500', bgLight: 'bg-zinc-50/80', text: 'text-zinc-700', borderLight: 'border-zinc-200/50', borderHeavy: 'border-zinc-400', ring: 'ring-zinc-400/50', glow: 'shadow-[0_0_25px_rgba(113,113,122,0.4)]' },
-  cyan: { bgBase: 'bg-gradient-to-r from-cyan-500 to-teal-500', bgLight: 'bg-cyan-50/80', text: 'text-cyan-700', borderLight: 'border-cyan-200/50', borderHeavy: 'border-cyan-400', ring: 'ring-cyan-400/50', glow: 'shadow-[0_0_30px_rgba(6,182,212,0.45)]' },
-  indigo: { bgBase: 'bg-gradient-to-r from-indigo-500 to-purple-500', bgLight: 'bg-indigo-50/80', text: 'text-indigo-700', borderLight: 'border-indigo-200/50', borderHeavy: 'border-indigo-400', ring: 'ring-indigo-400/50', glow: 'shadow-[0_0_25px_rgba(99,102,241,0.4)]' },
-  fuchsia: { bgBase: 'bg-gradient-to-r from-fuchsia-500 to-pink-500', bgLight: 'bg-fuchsia-50/80', text: 'text-fuchsia-700', borderLight: 'border-fuchsia-200/50', borderHeavy: 'border-fuchsia-400', ring: 'ring-fuchsia-400/50', glow: 'shadow-[0_0_25px_rgba(217,70,239,0.4)]' },
-  slate: { bgBase: 'bg-gradient-to-r from-slate-500 to-zinc-500', bgLight: 'bg-slate-50/80', text: 'text-slate-700', borderLight: 'border-slate-200/50', borderHeavy: 'border-slate-400', ring: 'ring-slate-400/50', glow: 'shadow-[0_0_25px_rgba(100,116,139,0.4)]' },
+  emerald: { bgBase: 'bg-gradient-to-r from-emerald-500 to-teal-500', bgLight: 'bg-emerald-50/80', text: 'text-emerald-700', borderLight: 'border-emerald-200/60', borderHeavy: 'border-emerald-400', ring: 'ring-emerald-400/40', glow: 'shadow-[0_0_20px_rgba(52,211,153,0.25)]' },
+  blue: { bgBase: 'bg-gradient-to-r from-blue-500 to-blue-600', bgLight: 'bg-blue-50/80', text: 'text-blue-700', borderLight: 'border-blue-200/60', borderHeavy: 'border-blue-400', ring: 'ring-blue-400/40', glow: 'shadow-[0_0_20px_rgba(59,130,246,0.3)]' },
+  purple: { bgBase: 'bg-gradient-to-r from-violet-600 to-violet-700', bgLight: 'bg-violet-50/80', text: 'text-violet-700', borderLight: 'border-violet-200/60', borderHeavy: 'border-violet-400', ring: 'ring-violet-400/40', glow: 'shadow-[0_0_20px_rgba(139,92,246,0.3)]' },
+  red: { bgBase: 'bg-gradient-to-r from-red-500 to-rose-500', bgLight: 'bg-red-50/80', text: 'text-red-700', borderLight: 'border-red-200/60', borderHeavy: 'border-red-400', ring: 'ring-red-400/40', glow: 'shadow-[0_0_20px_rgba(239,68,68,0.3)]' },
+  amber: { bgBase: 'bg-gradient-to-r from-amber-500 to-orange-500', bgLight: 'bg-amber-50/80', text: 'text-amber-700', borderLight: 'border-amber-200/60', borderHeavy: 'border-amber-400', ring: 'ring-amber-400/40', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.3)]' },
+  zinc: { bgBase: 'bg-gradient-to-r from-zinc-500 to-slate-500', bgLight: 'bg-zinc-50/80', text: 'text-zinc-700', borderLight: 'border-zinc-200/60', borderHeavy: 'border-zinc-400', ring: 'ring-zinc-400/40', glow: 'shadow-[0_0_20px_rgba(113,113,122,0.25)]' },
+  cyan: { bgBase: 'bg-gradient-to-r from-cyan-500 to-cyan-600', bgLight: 'bg-cyan-50/80', text: 'text-cyan-700', borderLight: 'border-cyan-200/60', borderHeavy: 'border-cyan-400', ring: 'ring-cyan-400/40', glow: 'shadow-[0_0_25px_rgba(6,182,212,0.35)]' },
+  indigo: { bgBase: 'bg-gradient-to-r from-indigo-500 to-violet-500', bgLight: 'bg-indigo-50/80', text: 'text-indigo-700', borderLight: 'border-indigo-200/60', borderHeavy: 'border-indigo-400', ring: 'ring-indigo-400/40', glow: 'shadow-[0_0_20px_rgba(99,102,241,0.3)]' },
+  fuchsia: { bgBase: 'bg-gradient-to-r from-fuchsia-500 to-pink-500', bgLight: 'bg-fuchsia-50/80', text: 'text-fuchsia-700', borderLight: 'border-fuchsia-200/60', borderHeavy: 'border-fuchsia-400', ring: 'ring-fuchsia-400/40', glow: 'shadow-[0_0_20px_rgba(217,70,239,0.3)]' },
+  slate: { bgBase: 'bg-gradient-to-r from-slate-500 to-slate-600', bgLight: 'bg-slate-50/80', text: 'text-slate-700', borderLight: 'border-slate-200/60', borderHeavy: 'border-slate-400', ring: 'ring-slate-400/40', glow: 'shadow-[0_0_20px_rgba(100,116,139,0.25)]' },
 };
 
 export default function App() {
@@ -2478,6 +2585,86 @@ export default function App() {
     );
   };
 
+  const renderContentTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <section className={`rounded-sm border p-5 sm:p-6 md:p-7 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950/20 border-slate-800' : 'bg-white border-slate-200 shadow-cyber-lg'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 mb-6">
+          <div className="max-w-2xl">
+            <span className={`text-[10px] font-semibold uppercase tracking-[0.25em] ${isDark ? 'text-blue-400/70' : 'text-blue-600/70'}`}>Comunicacion digital</span>
+            <h2 className={`text-2xl sm:text-3xl font-semibold tracking-tight mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              Creacion de Contenido Digital
+            </h2>
+            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Esta es tu puerta de entrada al mundo de la creacion de contenido. Cada formato tiene sus ventajas, aqui aprenderas a elegir el correcto para tu objetivo.
+            </p>
+          </div>
+          <div className={`px-4 py-3 rounded-sm border ${isDark ? 'border-blue-500/20 bg-blue-500/10' : 'border-blue-200 bg-blue-50'}`}>
+            <p className={`text-[10px] font-semibold uppercase tracking-widest ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>Nuevo modulo</p>
+            <p className={`text-sm font-medium mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>Contenido digital</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {contentSteps.map((step) => (
+            <div key={step.step} className={`p-4 rounded-sm border ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-200 bg-slate-50'}`}>
+              <span className={`text-[10px] font-semibold uppercase tracking-wider ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>{step.step}</span>
+              <p className={`text-sm font-semibold mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{step.title}</p>
+              <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <InteractiveButton id="fundamentals" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <InteractiveButton id="copywriting" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <InteractiveButton id="blogs" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <InteractiveButton id="social_media" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <InteractiveButton id="video" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <InteractiveButton id="podcast" dataSet={contentData} extraClass="min-h-[100px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+      </div>
+
+      <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-white'}`}>
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <div>
+            <p className={`text-[10px] font-semibold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Herramientas recomendadas</p>
+            <h3 className={`text-lg font-semibold mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>Tu kit de inicio</h3>
+          </div>
+          <span className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-sm border ${isDark ? 'text-cyan-300 border-cyan-500/30 bg-cyan-500/10' : 'text-cyan-700 border-cyan-200 bg-cyan-50'}`}>
+            Abre una ficha para ver mas
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {Object.values(contentTools).slice(0, 4).map((tool) => (
+            <div key={tool.name} className={`p-4 rounded-sm border text-center ${isDark ? 'border-slate-800 bg-slate-900/50 hover:border-blue-500/30' : 'border-slate-200 bg-slate-50 hover:border-blue-300'}`}>
+              <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p>
+              <p className={`text-[11px] mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.category}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <InteractiveButton id="legal" dataSet={contentData} extraClass="min-h-[90px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+
+      <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-blue-500/20 bg-blue-500/5' : 'border-blue-200 bg-blue-50/50'}`}>
+        <div className="flex items-start gap-4">
+          <div className={`p-3 rounded-sm ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+            <Zap className={isDark ? 'text-blue-400' : 'text-blue-600'} size={24} />
+          </div>
+          <div>
+            <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>Quieres saber mas?</h3>
+            <p className={`text-sm mt-1 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Este modulo es la puerta de entrada a nuestra academia. Cada seccion puede profundizarse en cursos especializados donde mergullaremos en casos practicos, ejercicios y proyectos reales.
+            </p>
+            <button className={`mt-4 text-sm font-semibold px-4 py-2 rounded-sm transition-all ${isDark ? 'bg-blue-500 text-white hover:bg-blue-400' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
+              Ver cursos avanzados
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+
   const renderAITab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
@@ -3101,6 +3288,7 @@ export default function App() {
           {activeTab === 'internet' && renderInternetTab()}
           {activeTab === 'security' && renderSecurityTab()}
           {activeTab === 'email' && renderEmailTab()}
+          {activeTab === 'content' && renderContentTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
           {activeTab === 'office' && renderOfficeTab()}
