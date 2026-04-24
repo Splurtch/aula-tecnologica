@@ -1814,213 +1814,402 @@ export default function App() {
       setOfficeWorkspaceZone(officeWorkspaceViews[id].zones[0].id);
     };
 
-    return (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
-          <div className="max-w-3xl">
-            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-teal-600/70'}`}>Ofimatica y productividad</p>
-            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>El simulador es la puerta de entrada</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Como en Navegacion, eliges el programa desde el propio entorno de trabajo. Asi el usuario entiende mejor para que sirve cada herramienta antes de leer la ficha detallada.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">{[['Redactar', 'Textos y CV'], ['Calcular', 'Tablas y cifras'], ['Compartir', 'PDF y colaboracion']].map(([label, value]) => <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p><p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p></div>)}</div>
-        </div>
-      </div>
+    const zoneButtonClass = (zoneId) => `rounded-[18px] border text-left transition-all ${
+      officeWorkspaceZone === zoneId
+        ? 'border-blue-300 bg-blue-50 text-slate-900 shadow-[0_10px_24px_rgba(59,130,246,0.16)]'
+        : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+    }`;
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1.25fr_0.75fr] gap-6">
-        <section className={`order-2 xl:order-2 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Que herramienta usarias?</h3></div>
-          <div className="grid grid-cols-1 gap-3 mt-5">{[['cv', 'Preparar un CV'], ['budget', 'Hacer un presupuesto'], ['pitch', 'Exponer un proyecto']].map(([key, label]) => <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[24px] border px-4 py-4 text-left ${officeTaskView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'}`}><p className="font-black">{label}</p></button>)}</div>
-          <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p><p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{officeTaskSuggestions[officeTaskView].why}</p></div>
-        </section>
-
-        <section className={`order-1 xl:order-1 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <div>
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
-            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{activeOfficeView.subtitle}</p>
-          </div>
-          <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-700 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-slate-100">
-              <div className="flex gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-400" />
-                <span className="w-3 h-3 rounded-full bg-amber-400" />
-                <span className="w-3 h-3 rounded-full bg-emerald-400" />
-              </div>
-              <div className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500">
-                suite-ofimatica://panel-de-trabajo/{activeOfficeId}
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 p-4 sm:p-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
-                {officeProgramIds.map((id) => {
-                  const item = officeData[id];
-                  const Icon = item.icon;
-                  const isActive = activeOfficeId === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => handleOfficeProgramSelect(id)}
-                      className={`rounded-[24px] border p-4 text-left transition-all ${
-                        isActive
-                          ? 'border-blue-300 bg-white text-slate-900 shadow-[0_14px_35px_rgba(59,130,246,0.18)]'
-                          : 'border-slate-200 bg-slate-900 text-white hover:-translate-y-0.5 hover:bg-slate-800'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border ${isActive ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-700 bg-slate-950 text-slate-300'}`}>
-                          <Icon size={20} />
-                        </span>
-                        <span className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-blue-500' : 'text-slate-400'}`}>Explorar</span>
-                      </div>
-                      <p className={`mt-4 text-[11px] font-black uppercase tracking-[0.22em] ${isActive ? 'text-slate-500' : 'text-slate-500'}`}>{item.category}</p>
-                      <h4 className={`mt-2 text-base font-black leading-tight ${isActive ? 'text-slate-900' : 'text-white'}`}>{item.name}</h4>
-                      <p className={`mt-3 text-sm leading-relaxed ${isActive ? 'text-slate-600' : 'text-slate-300'}`}>{isActive ? 'Ficha activa dentro del simulador.' : 'Abre una vista guiada con zonas y ejemplos.'}</p>
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4">
-              <aside className="rounded-[26px] border border-slate-200 bg-slate-900 p-4 space-y-3">
-                <div className="rounded-[20px] border border-slate-700 bg-slate-950 px-4 py-3">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Programa activo</p>
-                  <p className="mt-2 text-sm font-black text-white">{activeOfficeView.title}</p>
-                </div>
-                {activeOfficeView.zones.map((zone) => (
-                  <button
-                    key={zone.id}
-                    onClick={() => setOfficeWorkspaceZone(zone.id)}
-                    className={`w-full rounded-[18px] border px-4 py-3 text-left text-sm font-black ${
-                      officeWorkspaceZone === zone.id
-                        ? 'border-white bg-white text-slate-950'
-                        : 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-900'
-                    }`}
-                  >
-                    {zone.label}
-                  </button>
+    const renderOfficeWorkspaceMock = () => {
+      if (activeOfficeId === 'text_docs') {
+        return (
+          <div className="grid grid-cols-1 xl:grid-cols-[160px_1fr_220px] gap-4">
+            <button onClick={() => setOfficeWorkspaceZone('sidebar')} className={`${zoneButtonClass('sidebar')} p-4`}>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel lateral</p>
+              <div className="mt-4 space-y-3">
+                {['Portada', 'Experiencia', 'Formacion', 'Contacto'].map((item) => (
+                  <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">{item}</div>
                 ))}
-              </aside>
-              <div className="p-4 sm:p-5 space-y-4">
-                <div className="rounded-[24px] border border-slate-200 bg-white p-4">
-                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                    {activeOfficeView.zones.map((zone) => (
-                      <button
-                        key={zone.id}
-                        onClick={() => setOfficeWorkspaceZone(zone.id)}
-                        className={`rounded-[20px] border p-4 text-left ${
-                          officeWorkspaceZone === zone.id
-                            ? 'border-blue-200 bg-blue-50 text-blue-800'
-                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'
-                        }`}
-                      >
-                        <p className="text-xs font-black uppercase tracking-[0.22em]">{zone.label}</p>
-                      </button>
+              </div>
+            </button>
+            <div className="space-y-4">
+              <button onClick={() => setOfficeWorkspaceZone('toolbar')} className={`${zoneButtonClass('toolbar')} w-full p-4`}>
+                <div className="flex flex-wrap items-center gap-2">
+                  {['Archivo', 'Inicio', 'Insertar', 'Diseño', 'Revisar'].map((item) => (
+                    <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Inicio' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
+                  ))}
+                  <div className="ml-auto flex gap-2">
+                    {['B', 'I', 'U'].map((item) => (
+                      <span key={item} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-black text-slate-700">{item}</span>
                     ))}
                   </div>
-                  <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-5">
-                    <p className="text-xs font-black uppercase tracking-[0.24em] text-slate-400">Zona activa</p>
-                    <h4 className="mt-2 text-lg font-black text-slate-900">
-                      {activeOfficeZone.heading}
-                    </h4>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                      {activeOfficeZone.text}
-                    </p>
-                    {activeOfficeId === 'presentations_tools' && (
-                      <div className="mt-5 grid grid-cols-1 xl:grid-cols-[180px_1fr] gap-4">
-                        <div className={`rounded-[20px] border p-3 ${officeWorkspaceZone === 'slides' ? isDark ? 'border-violet-400/30 bg-violet-500/10' : 'border-violet-200 bg-violet-50' : isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
-                          <p className="text-[11px] font-black uppercase tracking-[0.22em]">Secuencia</p>
-                          <div className="mt-3 space-y-2">
-                            {[1, 2, 3, 4].map((slide) => (
-                              <button
-                                key={slide}
-                                onClick={() => setOfficeWorkspaceZone('slides')}
-                                className={`w-full rounded-2xl border p-3 text-left ${
-                                  slide === 2
-                                    ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-violet-800'
-                                    : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-white text-slate-600'
-                                }`}
-                              >
-                                <p className="text-[10px] font-black uppercase tracking-widest">Slide {slide}</p>
-                                <div className={`mt-2 h-10 rounded-xl ${isDark ? 'bg-slate-800' : 'bg-slate-50 border border-slate-200'}`}></div>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="space-y-4">
-                          <button
-                            onClick={() => setOfficeWorkspaceZone('canvas')}
-                            className={`w-full rounded-[20px] border p-5 text-left min-h-[260px] ${
-                              officeWorkspaceZone === 'canvas'
-                                ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
-                                : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'
-                            }`}
-                          >
-                            <p className="text-xs font-black uppercase tracking-[0.22em]">Lienzo principal</p>
-                            <div className={`mt-4 rounded-[22px] border p-6 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
-                              <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
-                              <h5 className="mt-4 text-3xl font-black leading-tight">Como usar la tecnologia con mas autonomia</h5>
-                              <div className="mt-5 grid grid-cols-2 gap-3">
-                                <div className={`rounded-2xl p-4 ${isDark ? 'bg-slate-900' : 'bg-slate-50 border border-slate-200'}`}>
-                                  <p className="text-sm font-black">Objetivo</p>
-                                  <p className="mt-2 text-sm opacity-80">Explicar con ideas breves y apoyo visual.</p>
-                                </div>
-                                <div className={`rounded-2xl p-4 ${isDark ? 'bg-slate-900' : 'bg-slate-50 border border-slate-200'}`}>
-                                  <p className="text-sm font-black">Clave</p>
-                                  <p className="mt-2 text-sm opacity-80">Una idea fuerte por diapositiva.</p>
-                                </div>
-                              </div>
-                            </div>
-                          </button>
-                          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
-                            <button
-                              onClick={() => setOfficeWorkspaceZone('notes')}
-                              className={`rounded-[20px] border p-4 text-left ${
-                                officeWorkspaceZone === 'notes'
-                                  ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
-                                  : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'
-                              }`}
-                            >
-                              <p className="text-xs font-black uppercase tracking-[0.22em]">Notas</p>
-                              <p className="mt-3 text-sm leading-relaxed">Recuerda abrir con contexto, desarrollar 3 ideas y cerrar con ejemplo real.</p>
-                            </button>
-                            <button
-                              onClick={() => setOfficeWorkspaceZone('show')}
-                              className={`rounded-[20px] border px-5 py-4 text-left ${
-                                officeWorkspaceZone === 'show'
-                                  ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
-                                  : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-white text-slate-700'
-                              }`}
-                            >
-                              <p className="text-xs font-black uppercase tracking-[0.22em]">Presentar</p>
-                              <p className="mt-3 text-sm font-black">Iniciar exposicion</p>
-                            </button>
-                          </div>
-                        </div>
+                </div>
+              </button>
+              <button onClick={() => setOfficeWorkspaceZone('page')} className={`${zoneButtonClass('page')} w-full min-h-[380px] p-6`}>
+                <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
+                  <h4 className="mt-4 text-3xl font-black text-slate-900">Marta Alvarez</h4>
+                  <p className="mt-2 text-sm text-slate-500">Perfil profesional orientado a administracion y atencion al cliente.</p>
+                  <div className="mt-6 space-y-4">
+                    {[1, 2, 3].map((line) => (
+                      <div key={line} className="space-y-2">
+                        <div className="h-3 w-40 rounded-full bg-slate-200" />
+                        <div className="h-2 w-full rounded-full bg-slate-100" />
+                        <div className="h-2 w-10/12 rounded-full bg-slate-100" />
                       </div>
-                    )}
+                    ))}
                   </div>
+                </div>
+              </button>
+            </div>
+            <button onClick={() => setOfficeWorkspaceZone('export')} className={`${zoneButtonClass('export')} p-4`}>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Exportar</p>
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-sm font-black text-slate-900">PDF final</p>
+                <p className="mt-2 text-sm text-slate-600">Guardar con formato cerrado para enviar el CV.</p>
+                <div className="mt-4 inline-flex rounded-full bg-emerald-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Listo para compartir</div>
+              </div>
+            </button>
+          </div>
+        );
+      }
+
+      if (activeOfficeId === 'spreadsheets') {
+        return (
+          <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-4">
+            <div className="space-y-4">
+              <button onClick={() => setOfficeWorkspaceZone('formula')} className={`${zoneButtonClass('formula')} w-full p-4`}>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-white">fx</span>
+                  <div className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600">=SUM(B2:B8)</div>
+                </div>
+              </button>
+              <button onClick={() => setOfficeWorkspaceZone('grid')} className={`${zoneButtonClass('grid')} w-full p-4`}>
+                <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
+                  <div className="grid grid-cols-5 border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                    {['Mes', 'Ingresos', 'Gastos', 'Ahorro', 'Estado'].map((item) => <div key={item} className="px-3 py-3">{item}</div>)}
+                  </div>
+                  {[
+                    ['Ene', '1400', '920', '480', 'OK'],
+                    ['Feb', '1400', '980', '420', 'OK'],
+                    ['Mar', '1400', '1110', '290', 'Revisar'],
+                    ['Abr', '1400', '860', '540', 'OK'],
+                  ].map((row) => (
+                    <div key={row[0]} className="grid grid-cols-5 border-b border-slate-100 text-sm text-slate-700">
+                      {row.map((cell, index) => <div key={`${row[0]}-${index}`} className="px-3 py-3">{cell}</div>)}
+                    </div>
+                  ))}
+                </div>
+              </button>
+            </div>
+            <div className="space-y-4">
+              <button onClick={() => setOfficeWorkspaceZone('filters')} className={`${zoneButtonClass('filters')} p-4`}>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Filtros</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {['Todos', 'OK', 'Revisar', 'Ahorro > 400'].map((item) => (
+                    <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Revisar' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
+                  ))}
+                </div>
+              </button>
+              <button onClick={() => setOfficeWorkspaceZone('chart')} className={`${zoneButtonClass('chart')} p-4 min-h-[240px]`}>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Grafico</p>
+                <div className="mt-6 flex h-[160px] items-end justify-between gap-3">
+                  {[65, 54, 37, 72].map((value, index) => (
+                    <div key={value} className="flex flex-1 flex-col items-center gap-3">
+                      <div className="w-full rounded-t-2xl bg-emerald-500/80" style={{ height: `${value * 1.8}px` }} />
+                      <span className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">{['Ene', 'Feb', 'Mar', 'Abr'][index]}</span>
+                    </div>
+                  ))}
+                </div>
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      if (activeOfficeId === 'presentations_tools') {
+        return (
+          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr] gap-4">
+            <button onClick={() => setOfficeWorkspaceZone('slides')} className={`${zoneButtonClass('slides')} p-4`}>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Miniaturas</p>
+              <div className="mt-4 space-y-3">
+                {[1, 2, 3, 4].map((slide) => (
+                  <div key={slide} className={`rounded-2xl border p-3 ${slide === 2 ? 'border-violet-200 bg-violet-50' : 'border-slate-200 bg-white'}`}>
+                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">Slide {slide}</p>
+                    <div className="mt-2 h-12 rounded-xl border border-slate-200 bg-slate-50" />
+                  </div>
+                ))}
+              </div>
+            </button>
+            <div className="space-y-4">
+              <button onClick={() => setOfficeWorkspaceZone('canvas')} className={`${zoneButtonClass('canvas')} w-full p-5 text-left min-h-[280px]`}>
+                <div className="rounded-[24px] border border-slate-200 bg-white p-8">
+                  <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
+                  <h4 className="mt-4 text-3xl font-black leading-tight text-slate-900">Como usar la tecnologia con mas autonomia</h4>
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-sm font-black text-slate-900">Objetivo</p>
+                      <p className="mt-2 text-sm text-slate-600">Explicar con ideas breves y apoyo visual.</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-sm font-black text-slate-900">Clave</p>
+                      <p className="mt-2 text-sm text-slate-600">Una idea fuerte por diapositiva.</p>
+                    </div>
+                  </div>
+                </div>
+              </button>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
+                <button onClick={() => setOfficeWorkspaceZone('notes')} className={`${zoneButtonClass('notes')} p-4`}>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Notas</p>
+                  <p className="mt-3 text-sm text-slate-600">Recuerda abrir con contexto, desarrollar 3 ideas y cerrar con ejemplo real.</p>
+                </button>
+                <button onClick={() => setOfficeWorkspaceZone('show')} className={`${zoneButtonClass('show')} px-5 py-4`}>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Presentar</p>
+                  <p className="mt-3 text-sm font-black text-slate-900">Iniciar exposicion</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (activeOfficeId === 'pdf_export') {
+        return (
+          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
+            <button onClick={() => setOfficeWorkspaceZone('source')} className={`${zoneButtonClass('source')} p-4`}>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Archivo fuente</p>
+              <div className="mt-4 space-y-3">
+                {['CV-final.docx', 'Carta-presentacion.docx', 'Portfolio.pptx'].map((item) => (
+                  <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">{item}</div>
+                ))}
+              </div>
+            </button>
+            <button onClick={() => setOfficeWorkspaceZone('preview')} className={`${zoneButtonClass('preview')} p-5 min-h-[340px]`}>
+              <div className="mx-auto max-w-[420px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Vista previa PDF</p>
+                <div className="mt-5 space-y-3">
+                  <div className="h-4 w-2/3 rounded-full bg-slate-200" />
+                  <div className="h-3 w-full rounded-full bg-slate-100" />
+                  <div className="h-3 w-10/12 rounded-full bg-slate-100" />
+                  <div className="h-3 w-11/12 rounded-full bg-slate-100" />
+                </div>
+                <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">El documento mantiene estructura, tipografia y saltos de pagina.</div>
+              </div>
+            </button>
+            <div className="space-y-4">
+              <button onClick={() => setOfficeWorkspaceZone('settings')} className={`${zoneButtonClass('settings')} p-4`}>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Ajustes</p>
+                <div className="mt-4 space-y-3">
+                  {['Todas las paginas', 'Calidad estandar', 'Incluir enlaces'].map((item) => (
+                    <div key={item} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">
+                      <span>{item}</span>
+                      <span className="h-3 w-3 rounded-full bg-emerald-500" />
+                    </div>
+                  ))}
+                </div>
+              </button>
+              <button onClick={() => setOfficeWorkspaceZone('share')} className={`${zoneButtonClass('share')} p-4`}>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Compartir</p>
+                <div className="mt-4 rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">Adjuntar PDF por correo o subirlo a una plataforma.</div>
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="grid grid-cols-1 xl:grid-cols-[220px_1fr_240px] gap-4">
+          <button onClick={() => setOfficeWorkspaceZone('template')} className={`${zoneButtonClass('template')} p-4`}>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Plantillas</p>
+            <div className="mt-4 space-y-3">
+              {['CV profesional', 'Acta de reunion', 'Presupuesto simple'].map((item) => (
+                <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">{item}</div>
+              ))}
+            </div>
+          </button>
+          <div className="space-y-4">
+            <button onClick={() => setOfficeWorkspaceZone('members')} className={`${zoneButtonClass('members')} w-full p-4`}>
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {['A', 'L', 'M'].map((letter) => (
+                    <span key={letter} className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-indigo-100 text-sm font-black text-indigo-700">{letter}</span>
+                  ))}
+                </div>
+                <div>
+                  <p className="text-sm font-black text-slate-900">Equipo conectado</p>
+                  <p className="text-sm text-slate-600">3 personas editando el documento.</p>
+                </div>
+              </div>
+            </button>
+            <button onClick={() => setOfficeWorkspaceZone('comments')} className={`${zoneButtonClass('comments')} w-full p-4 min-h-[220px]`}>
+              <div className="space-y-3">
+                {['Revisar ortografia del titulo', 'Añadir cifra de marzo', 'Confirmar permisos antes de enviar'].map((item) => (
+                  <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">{item}</div>
+                ))}
+              </div>
+            </button>
+          </div>
+          <button onClick={() => setOfficeWorkspaceZone('permissions')} className={`${zoneButtonClass('permissions')} p-4`}>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Permisos</p>
+            <div className="mt-4 space-y-3">
+              {['Puede editar', 'Puede comentar', 'Solo lectura'].map((item, index) => (
+                <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>{item}</div>
+              ))}
+            </div>
+          </button>
+        </div>
+      );
+    };
+
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+            <div className="max-w-3xl">
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-teal-600/70'}`}>Ofimatica y productividad</p>
+              <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Explora como si estuvieras dentro del programa</h2>
+              <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>El tablero superior reproduce el comportamiento visual de cada herramienta. Toca sus zonas reales y la explicacion baja despues al bloque inferior para no saturar la vista.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+              {[
+                ['Redactar', 'Textos y CV'],
+                ['Calcular', 'Tablas y cifras'],
+                ['Compartir', 'PDF y colaboracion'],
+              ].map(([label, value]) => (
+                <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                  <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
+                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
+              <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{activeOfficeView.subtitle}</p>
+            </div>
+            <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-700 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-slate-100">
+                <div className="flex gap-2">
+                  <span className="w-3 h-3 rounded-full bg-red-400" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                </div>
+                <div className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500">
+                  suite-ofimatica://panel-de-trabajo/{activeOfficeId}
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 p-4 sm:p-5">
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {officeProgramIds.map((id) => {
+                    const item = officeData[id];
+                    const Icon = item.icon;
+                    const isActive = activeOfficeId === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => handleOfficeProgramSelect(id)}
+                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all ${
+                          isActive
+                            ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-[0_10px_24px_rgba(59,130,246,0.16)]'
+                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                        }`}
+                      >
+                        <Icon size={15} />
+                        {item.name}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {renderOfficeWorkspaceMock()}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>La explicacion se despliega abajo</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+                {[
+                  ['cv', 'Preparar un CV'],
+                  ['budget', 'Hacer un presupuesto'],
+                  ['pitch', 'Exponer un proyecto'],
+                ].map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setOfficeTaskView(key)}
+                    className={`rounded-[20px] border px-4 py-4 text-left ${
+                      officeTaskView === key
+                        ? isDark ? 'border-white bg-white text-slate-950' : 'border-slate-900 bg-slate-900 text-white'
+                        : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'
+                    }`}
+                  >
+                    <p className="font-black">{label}</p>
+                  </button>
+                ))}
+              </div>
+
+              <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Zona pulsada</p>
+                <h4 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeZone.heading}</h4>
+                <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{activeOfficeZone.text}</p>
+              </div>
+
+              <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p>
+                <p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p>
+                <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{officeTaskSuggestions[officeTaskView].why}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              <div className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de trabajo</p>
+                <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Crear, guardar, exportar y compartir</h3>
+                <div className="space-y-3 mt-5">
+                  {[
+                    ['Crear', 'Redactas, calculas o diseñas el contenido en formato editable.'],
+                    ['Guardar', 'Mantienes una version de trabajo con nombre claro y ordenada.'],
+                    ['Exportar', 'Generas PDF u otro formato final si ya no debe cambiarse.'],
+                    ['Compartir', 'Enlazas o adjuntas segun si el documento sigue vivo o ya esta cerrado.'],
+                  ].map(([step, text], index) => (
+                    <div key={step} className="flex items-start gap-3">
+                      <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-black ${isDark ? 'bg-slate-900 text-teal-300' : 'bg-teal-100 text-teal-700'}`}>{index + 1}</div>
+                      <div>
+                        <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step}</p>
+                        <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div>
+                    <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p>
+                    <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige el programa correcto</h3>
+                  </div>
+                  <button onClick={() => setOfficeQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {officeQuizItems.map((item) => {
+                    const selected = officeQuizSelections[item.id];
+                    const isCorrect = selected === item.answer;
+                    return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-4 gap-2 mt-4">{[['text_docs', 'Texto'], ['spreadsheets', 'Calculo'], ['presentations_tools', 'Slides'], ['pdf_export', 'PDF']].map(([key, label]) => <button key={key} onClick={() => handleOfficeQuizSelect(item.id, key)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === key ? key === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{label}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la decision'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>;
+                  })}
                 </div>
               </div>
             </div>
           </div>
-          </div>
         </section>
       </div>
-
-      <section className={`${officeData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-        <div className="grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6">
-          <div>
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de trabajo</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Crear, guardar, exportar y compartir</h3>
-            <div className="space-y-3 mt-5">{[['Crear', 'Redactas, calculas o diseñas el contenido en formato editable.'], ['Guardar', 'Mantienes una version de trabajo con nombre claro y ordenada.'], ['Exportar', 'Generas PDF u otro formato final si ya no debe cambiarse.'], ['Compartir', 'Enlazas o adjuntas segun si el documento sigue vivo o ya esta cerrado.']].map(([step, text], index) => <div key={step} className="flex items-start gap-3"><div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-black ${isDark ? 'bg-slate-950 text-teal-300' : 'bg-teal-100 text-teal-700'}`}>{index + 1}</div><div><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step}</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{text}</p></div></div>)}</div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between gap-4 mb-5"><div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige el programa correcto</h3></div><button onClick={() => setOfficeQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button></div>
-            <div className="grid grid-cols-1 gap-4">{officeQuizItems.map((item) => { const selected = officeQuizSelections[item.id]; const isCorrect = selected === item.answer; return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-4 gap-2 mt-4">{[['text_docs', 'Texto'], ['spreadsheets', 'Calculo'], ['presentations_tools', 'Slides'], ['pdf_export', 'PDF']].map(([key, label]) => <button key={key} onClick={() => handleOfficeQuizSelect(item.id, key)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === key ? key === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{label}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la decision'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>; })}</div>
-          </div>
-        </div>
-      </section>
-    </div>
     );
   };
 
