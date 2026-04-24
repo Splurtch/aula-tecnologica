@@ -370,6 +370,222 @@ const softwareQuizItems = [
   },
 ];
 
+const securityData = {
+  passwords: {
+    id: 'passwords', name: 'Contrasenas y autenticacion', category: 'Acceso seguro', icon: ShieldCheck, color: 'emerald',
+    desc: 'Una contrasena fuerte protege el acceso a correo, banca, trabajo y dispositivos. La autenticacion en dos pasos anade una segunda barrera muy valiosa.\n\nLa idea no es recordar claves imposibles a mano, sino usar patrones seguros, gestores de contrasenas y doble verificacion cuando exista.',
+    details: 'Buenas practicas:\n• Frases largas y unicas para cada cuenta.\n• Activar verificacion en dos pasos.\n• No reutilizar la misma clave en correo, redes y banca.\n• Usar gestor de contrasenas si el usuario maneja muchas cuentas.',
+    pros: ['Reduce robos de cuenta por ataques automatizados.', 'Protege datos personales y documentos sensibles.', 'La verificacion en dos pasos frena muchos accesos no autorizados.'],
+    cons: ['Reutilizar claves sigue siendo un error muy frecuente.', 'Sin doble factor, un robo de contrasena deja la cuenta expuesta.', 'Las claves cortas o previsibles se rompen con facilidad.'],
+    examples: 'Ejemplo real: si alguien adivina tu clave del correo, puede reiniciar contrasenas de otras plataformas. Por eso el correo es una cuenta critica.',
+    tips: ['Prioriza proteger primero correo, banca y almacenamiento en nube.', 'Una frase larga suele ser mejor que una palabra corta con numeros sueltos.', 'El doble factor debe activarse especialmente en cuentas importantes.'],
+  },
+  phishing_security: {
+    id: 'phishing_security', name: 'Phishing y fraudes', category: 'Deteccion de engaños', icon: MailWarning, color: 'red',
+    desc: 'El phishing intenta engañar al usuario para que entregue claves, dinero o datos personales mediante correos, mensajes o paginas falsas.\n\nSuelen jugar con urgencia, miedo o premios demasiado buenos para ser verdad.',
+    details: 'Pistas de alerta:\n• Mensajes que exigen actuar "ahora mismo".\n• Enlaces raros o remitentes extraños.\n• Archivos adjuntos inesperados.\n• Errores de tono, marca o identidad visual.',
+    pros: ['Aprender a reconocer señales reduce mucho el riesgo.', 'El usuario gana criterio para revisar remitentes y enlaces.', 'Sirve tanto para email como para SMS, WhatsApp o redes sociales.'],
+    cons: ['Los fraudes cada vez se parecen mas a mensajes reales.', 'En momentos de prisa es facil pulsar sin revisar.', 'Algunos ataques combinan correo, web falsa y llamada telefonica.'],
+    examples: 'Ejemplo real: un supuesto banco te pide verificar la cuenta en un enlace que no pertenece al dominio oficial.',
+    tips: ['Nunca abras un enlace sensible desde un mensaje dudoso.', 'Entra manualmente a la web oficial si tienes dudas.', 'Revisa remitente, dominio y tono antes de actuar.'],
+  },
+  privacy_permissions: {
+    id: 'privacy_permissions', name: 'Privacidad y permisos', category: 'Control de datos', icon: AppWindow, color: 'purple',
+    desc: 'Muchas aplicaciones piden acceso a camara, microfono, ubicacion o archivos. No siempre lo necesitan.\n\nEntender permisos ayuda a evitar exceso de exposicion y a mantener mayor control sobre los datos personales.',
+    details: 'Permisos frecuentes:\n• Microfono y camara.\n• Ubicacion en tiempo real.\n• Contactos y calendario.\n• Acceso completo a fotos, archivos o portapapeles.',
+    pros: ['Ayuda a decidir con criterio que acceso conceder.', 'Reduce exposicion de informacion innecesaria.', 'Mejora privacidad en movil, navegador y aplicaciones web.'],
+    cons: ['Muchos usuarios aceptan permisos sin leer.', 'Un permiso excesivo puede revelar mas datos de los necesarios.', 'En apps mal diseñadas cuesta saber para que se usan realmente.'],
+    examples: 'Ejemplo real: una linterna no deberia pedir contactos ni ubicacion constante.',
+    tips: ['Revisa permisos tras instalar una app nueva.', 'Si una funcion deja de tener sentido, retira el permiso.', 'En navegador, controla especialmente camara, microfono y notificaciones.'],
+  },
+  backups_recovery: {
+    id: 'backups_recovery', name: 'Copias de seguridad', category: 'Recuperacion y continuidad', icon: FolderSync, color: 'blue',
+    desc: 'Las copias de seguridad permiten recuperar archivos ante borrados, averias, ransomware o errores humanos.\n\nUna buena copia no depende de la memoria del usuario: sigue una rutina clara y esta en un lugar distinto al original.',
+    details: 'Ideas clave:\n• Copia local en disco externo.\n• Copia en la nube con historial de versiones.\n• Separar archivos de trabajo y respaldo.\n• Comprobar de vez en cuando que la restauracion funciona.',
+    pros: ['Evita perder documentos valiosos por accidente.', 'Reduce impacto de averias o malware.', 'Da tranquilidad en estudio, trabajo y administracion.'],
+    cons: ['Si nunca se revisan, algunas copias quedan desactualizadas.', 'Guardar copia y original en el mismo sitio no protege de verdad.', 'Muchos usuarios solo piensan en copias cuando ya es tarde.'],
+    examples: 'Ejemplo real: un USB se estropea, pero el documento sigue disponible en Drive o en un disco de respaldo.',
+    tips: ['Prioriza fotos, documentos y trabajos irremplazables.', 'Automatiza la copia cuando sea posible.', 'Una copia buena debe poder recuperarse con rapidez.'],
+  },
+  safe_updates: {
+    id: 'safe_updates', name: 'Actualizaciones y mantenimiento', category: 'Higiene digital', icon: Download, color: 'amber',
+    desc: 'Actualizar sistema, navegador y aplicaciones corrige errores y cierra vulnerabilidades de seguridad.\n\nNo se trata de actualizar por moda, sino de mantener el entorno protegido y estable.',
+    details: 'Que conviene mantener al dia:\n• Sistema operativo.\n• Navegador y extensiones.\n• Antivirus o proteccion integrada.\n• Apps con acceso a datos, camara, red o documentos.',
+    pros: ['Corrige fallos conocidos de seguridad.', 'Mejora compatibilidad y estabilidad.', 'Reduce problemas con archivos, webs y servicios actuales.'],
+    cons: ['Posponer mucho una actualizacion deja el sistema expuesto.', 'A veces una actualizacion requiere reinicio y se aplaza demasiado.', 'No actualizar drivers o navegador causa fallos extraños.'],
+    examples: 'Ejemplo real: un navegador sin actualizar puede exponer al usuario a webs maliciosas que ya estarian bloqueadas en la version actual.',
+    tips: ['Programa reinicios cuando no interrumpan trabajo importante.', 'Actualiza primero las herramientas mas expuestas: navegador, correo y sistema.', 'Evita instalar software desactualizado desde paginas dudosas.'],
+  },
+};
+
+const securityPasswordExamples = {
+  weak: ['12345678', 'madrid2024', 'nombreperro'],
+  strong: ['Bosque!Luz-Cafe-92', 'Aula*Segura_Rio7', 'Nube-Verde+Mapa44'],
+};
+
+const securityPermissionCards = [
+  { name: 'Camara', risk: 'Permitir solo cuando la app realmente la use.' },
+  { name: 'Microfono', risk: 'Muy sensible en videollamadas y apps del navegador.' },
+  { name: 'Ubicacion', risk: 'No todas las apps necesitan saber donde estas siempre.' },
+  { name: 'Archivos', risk: 'Evita acceso total si solo se necesita un documento concreto.' },
+];
+
+const securityQuizItems = [
+  { id: 'sec-1', prompt: 'Un correo del banco te mete prisa y te pide pulsar un enlace para "evitar el bloqueo".', safe: false, explanation: 'Es sospechoso porque usa urgencia y un enlace externo para robar credenciales.' },
+  { id: 'sec-2', prompt: 'Activas doble factor en tu correo principal y guardas codigos de recuperacion.', safe: true, explanation: 'Es una medida muy recomendable para proteger la cuenta mas critica.' },
+  { id: 'sec-3', prompt: 'Una app de linterna pide acceso permanente a ubicacion y contactos.', safe: false, explanation: 'Es un permiso desproporcionado para la funcion que promete la app.' },
+];
+
+const emailData = {
+  send_reply: {
+    id: 'send_reply', name: 'Enviar, responder y reenviar', category: 'Uso basico del correo', icon: FileText, color: 'blue',
+    desc: 'El correo electronico sirve para comunicar informacion, dejar constancia y compartir documentos. Saber cuando enviar, responder o reenviar evita errores de contexto.\n\nUn buen uso del correo mejora organizacion, claridad y profesionalidad.',
+    details: 'Ideas clave:\n• Enviar inicia una conversacion.\n• Responder mantiene el contexto.\n• Reenviar comparte un mensaje con otra persona.\n• Conviene revisar asunto, destinatario y adjuntos antes de enviar.',
+    pros: ['Permite comunicar de forma clara y trazable.', 'Deja registro de acuerdos o instrucciones.', 'Es basico para estudio, empleo y tramites.'],
+    cons: ['Responder mal puede sacar de contexto a otras personas.', 'Reenviar sin revisar puede exponer informacion sensible.', 'Enviar deprisa aumenta errores de destinatario o adjuntos.'],
+    examples: 'Ejemplo real: reenvias una convocatoria a un compañero pero antes revisas si el mensaje original contiene datos privados.',
+    tips: ['Antes de enviar, relee asunto, destinatarios y archivos.', 'Si la respuesta es muy corta, valora si el chat o llamada seria mejor canal.', 'Usa reenviar solo cuando la otra persona realmente necesite ese contexto.'],
+  },
+  cc_bcc: {
+    id: 'cc_bcc', name: 'CC y CCO', category: 'Destinatarios y visibilidad', icon: Users, color: 'purple',
+    desc: 'CC muestra a todos los destinatarios adicionales. CCO los oculta al resto.\n\nEntender esta diferencia evita errores de privacidad y ayuda a comunicar de forma mas profesional.',
+    details: 'Uso recomendado:\n• Para: destinatario principal.\n• CC: personas informadas que deben ver la conversacion.\n• CCO: destinatarios ocultos cuando no deben verse entre si.',
+    pros: ['Mejora orden y claridad en comunicaciones grupales.', 'Protege privacidad cuando se usa CCO correctamente.', 'Evita mezclar quien debe actuar y quien solo necesita estar informado.'],
+    cons: ['Poner demasiadas personas en CC genera ruido.', 'Usar mal CCO puede parecer poco transparente si no procede.', 'Muchos usuarios no distinguen entre informar y pedir accion.'],
+    examples: 'Ejemplo real: envias una circular a varias familias usando CCO para no exponer sus direcciones.',
+    tips: ['Piensa siempre quien debe actuar y quien solo debe enterarse.', 'Para listas grandes, evita exponer correos personales.', 'No llenes CC por costumbre.'],
+  },
+  attachments_links: {
+    id: 'attachments_links', name: 'Adjuntos y enlaces', category: 'Documentos compartidos', icon: Download, color: 'amber',
+    desc: 'Al compartir archivos por correo conviene elegir bien entre adjunto y enlace. No siempre interesa lo mismo.\n\nUn adjunto sirve para mandar una copia directa; un enlace sirve mejor cuando el documento se actualiza o necesita permisos.',
+    details: 'Buenas practicas:\n• Nombrar bien el archivo.\n• Revisar peso y formato.\n• Comprobar permisos del enlace.\n• Explicar en el cuerpo del correo que se esta compartiendo.',
+    pros: ['Facilita el intercambio de documentos y materiales.', 'Los enlaces sirven para trabajo colaborativo.', 'Mejorar nombres y formatos reduce confusiones.'],
+    cons: ['Olvidar adjuntar es un error clasico.', 'Un enlace sin permisos correctos bloquea al destinatario.', 'Archivos pesados complican el envio.'],
+    examples: 'Ejemplo real: un trabajo final puede ir como PDF adjunto, mientras un documento en curso conviene compartirlo por Drive con enlace.',
+    tips: ['Si el archivo sigue cambiando, mejor enlace que adjunto.', 'Si es una version cerrada, PDF suele ser buena salida.', 'Menciona siempre el archivo en el texto del mensaje.'],
+  },
+  inbox_security: {
+    id: 'inbox_security', name: 'Spam, phishing y bandeja segura', category: 'Revision critica', icon: ShieldAlert, color: 'red',
+    desc: 'No todo lo que llega a la bandeja merece confianza. Una bandeja segura depende de revisar remitente, asunto, enlaces y tono.\n\nEl correo sigue siendo una de las puertas principales de fraude digital.',
+    details: 'Que revisar:\n• Remitente real.\n• Asuntos alarmistas o premios exagerados.\n• Enlaces acortados o dominios raros.\n• Adjuntos inesperados.',
+    pros: ['Mejora criterio al leer mensajes.', 'Reduce riesgo de robo de cuenta o malware.', 'Ayuda tambien con SMS y mensajeria.'],
+    cons: ['Algunos correos falsos imitan muy bien marcas reales.', 'La prisa hace caer incluso a usuarios experimentados.', 'No basta con mirar el logo del mensaje.'],
+    examples: 'Ejemplo real: un correo de "entrega fallida" intenta que abras un enlace o archivo para robar datos.',
+    tips: ['Desconfia de urgencias y premios repentinos.', 'Busca el servicio desde su web oficial si tienes dudas.', 'No abras adjuntos inesperados de remitentes desconocidos.'],
+  },
+  netiquette_calls: {
+    id: 'netiquette_calls', name: 'Netiqueta y videollamadas', category: 'Comunicacion profesional', icon: Mic, color: 'emerald',
+    desc: 'La comunicacion digital no es solo tecnica: tambien requiere tono, claridad y respeto. La netiqueta ayuda a que correo, chat y videollamada funcionen mejor.\n\nPequenos detalles como asunto claro, saludo o puntualidad cambian mucho la percepcion profesional.',
+    details: 'Buenas costumbres:\n• Asunto claro y mensaje directo.\n• Saludo, contexto y cierre adecuados.\n• Puntualidad en llamadas y reunion preparada.\n• Microfono, camara y entorno revisados.',
+    pros: ['Mejora imagen profesional y claridad.', 'Reduce malentendidos en equipos y clases.', 'Hace mas fluidas las videollamadas y coordinaciones.'],
+    cons: ['Los mensajes secos pueden sonar bruscos.', 'Sin contexto, un correo puede generar confusiones.', 'Entrar a una videollamada sin revisar audio da mala experiencia.'],
+    examples: 'Ejemplo real: antes de una reunion online revisas nombre visible, microfono, camara y documento que vas a compartir.',
+    tips: ['Un asunto claro ahorra tiempo a quien recibe.', 'En videollamada, entra un minuto antes si es importante.', 'Si la conversacion requiere matiz, valora llamada o reunion.'],
+  },
+};
+
+const emailInboxMock = [
+  { from: 'Profesora Aula', subject: 'Material de la clase del viernes', tag: 'Seguro' },
+  { from: 'Banco alerta', subject: 'Verifique su cuenta ahora mismo', tag: 'Sospechoso' },
+  { from: 'Equipo proyecto', subject: 'Version final del dossier', tag: 'Seguro' },
+];
+
+const emailRecipientCases = {
+  para: 'Cuando una persona es la responsable principal de actuar.',
+  cc: 'Cuando alguien debe estar informado y visible para el resto.',
+  cco: 'Cuando se protege privacidad en envios a muchos destinatarios.',
+};
+
+const emailEtiquetteExamples = {
+  good: {
+    subject: 'Entrega del presupuesto actualizado',
+    body: 'Hola Ana, te envio el presupuesto revisado en PDF. Si te encaja, lo comentamos manana. Gracias.',
+  },
+  bad: {
+    subject: 'hola',
+    body: 'te mando eso mira a ver y me dices',
+  },
+};
+
+const emailQuizItems = [
+  { id: 'mail-1', prompt: 'Envias una circular a muchas familias y no deben verse entre si.', answer: 'cco', explanation: 'CCO protege la privacidad de direcciones cuando hay muchos destinatarios.' },
+  { id: 'mail-2', prompt: 'Quieres que una compañera vea la conversacion pero no es la responsable principal.', answer: 'cc', explanation: 'CC sirve para informar de forma visible sin convertirla en destinataria principal.' },
+  { id: 'mail-3', prompt: 'Vas a escribir directamente a la persona que debe responderte.', answer: 'para', explanation: 'La casilla Para es para quien debe actuar como destinatario principal.' },
+];
+
+const officeData = {
+  text_docs: {
+    id: 'text_docs', name: 'Procesador de texto', category: 'Documentos y redaccion', icon: FileText, color: 'blue',
+    desc: 'Un procesador de texto sirve para redactar, corregir, dar formato y preparar documentos como cartas, trabajos, informes o curriculums.\n\nEs la herramienta mas adecuada cuando el contenido principal es texto estructurado.',
+    details: 'Usos frecuentes:\n• Cartas y solicitudes.\n• Trabajos academicos.\n• CV y documentos formales.\n• Informes con estilos y encabezados.',
+    pros: ['Ideal para redactar con formato limpio.', 'Permite imprimir o exportar a PDF.', 'Muy util para estudio, empleo y administracion.'],
+    cons: ['No es la mejor opcion para calculos.', 'Un mal formato puede dificultar lectura.', 'Muchas personas infrautilizan estilos y plantillas.'],
+    examples: 'Ejemplo real: preparar un CV, una carta formal o un trabajo con portada e indice.',
+    tips: ['Usa estilos de titulo para mantener orden.', 'Exporta a PDF cuando la version ya este cerrada.', 'Una plantilla puede ahorrar mucho tiempo.'],
+  },
+  spreadsheets: {
+    id: 'spreadsheets', name: 'Hojas de calculo', category: 'Calculo y datos', icon: Database, color: 'emerald',
+    desc: 'Las hojas de calculo organizan datos en celdas, filas y columnas para calcular, comparar y resumir informacion.\n\nSon muy utiles para presupuestos, notas, inventarios, asistencia o seguimiento de tareas.',
+    details: 'Usos frecuentes:\n• Presupuestos y gastos.\n• Listas con formulas.\n• Notas y seguimiento.\n• Graficos y resumenes simples.',
+    pros: ['Permiten calcular rapido y ordenar informacion.', 'Facilitan comparaciones y graficos.', 'Son clave en gestion y administracion.'],
+    cons: ['Si se usan mal, una formula errada cambia resultados.', 'Muchas personas mezclan texto libre con calculo y se desordenan.', 'No son la mejor herramienta para redactar largo.'],
+    examples: 'Ejemplo real: llevar un presupuesto mensual o registrar gastos de una actividad.',
+    tips: ['Nombra columnas con claridad.', 'Comprueba formulas antes de compartir.', 'Usa filtros si la tabla empieza a crecer.'],
+  },
+  presentations_tools: {
+    id: 'presentations_tools', name: 'Presentaciones', category: 'Exposicion visual', icon: Presentation, color: 'purple',
+    desc: 'Las presentaciones sirven para explicar ideas con apoyo visual en clase, reuniones o exposiciones.\n\nLo importante no es llenar diapositivas, sino ordenar un mensaje y hacerlo facil de seguir.',
+    details: 'Usos frecuentes:\n• Exposiciones de clase.\n• Reuniones de equipo.\n• Propuestas visuales.\n• Material de apoyo para explicar procesos.',
+    pros: ['Ordenan un discurso visual.', 'Ayudan a resumir ideas clave.', 'Se pueden compartir en PDF o mostrar en directo.'],
+    cons: ['Demasiado texto vuelve pesada la diapositiva.', 'Un mal diseño distrae mas que ayuda.', 'No sustituyen un documento detallado si hace falta profundidad.'],
+    examples: 'Ejemplo real: resumir un proyecto o exponer un tema con estructura visual clara.',
+    tips: ['Una idea principal por diapositiva suele funcionar mejor.', 'Usa pocas palabras y buen contraste.', 'Piensa en quien escucha, no solo en quien diseña.'],
+  },
+  pdf_export: {
+    id: 'pdf_export', name: 'PDF y exportacion', category: 'Entrega y compatibilidad', icon: Download, color: 'amber',
+    desc: 'El PDF fija el formato y hace que un documento se vea igual en casi cualquier dispositivo.\n\nExportar bien evita sorpresas cuando se comparte un archivo final.',
+    details: 'Cuando usar PDF:\n• CV y cartas finales.\n• Trabajos para entregar.\n• Formularios o documentos cerrados.\n• Presentaciones que no deben modificarse.',
+    pros: ['Mantiene formato estable.', 'Muy compatible para enviar o imprimir.', 'Reduce cambios accidentales por parte del receptor.'],
+    cons: ['Editar despues es menos comodo.', 'No sirve bien para trabajo colaborativo en vivo.', 'Si exportas mal, puedes perder enlaces o calidad.'],
+    examples: 'Ejemplo real: enviar un CV en PDF en lugar de un archivo editable para asegurar el formato.',
+    tips: ['Revisa el PDF final antes de enviarlo.', 'Si el documento sigue cambiando, trabaja en editable y exporta al final.', 'Comprueba que enlaces y paginas salgan bien.'],
+  },
+  collaboration_templates: {
+    id: 'collaboration_templates', name: 'Colaboracion y plantillas', category: 'Trabajo compartido', icon: Users, color: 'indigo',
+    desc: 'Documentos colaborativos y plantillas aceleran mucho el trabajo cuando varias personas participan o cuando una tarea se repite.\n\nUsar una buena base ahorra tiempo y mejora consistencia.',
+    details: 'Ideas clave:\n• Documentos compartidos en la nube.\n• Historial de versiones.\n• Comentarios y sugerencias.\n• Plantillas para CV, actas, presupuestos o presentaciones.',
+    pros: ['Ahorra tiempo y evita empezar de cero.', 'Facilita trabajo en equipo.', 'Permite revisar cambios y comentar sin perder versiones.'],
+    cons: ['Sin orden, varias personas pueden pisarse cambios.', 'No todas las plantillas son de calidad.', 'Compartir sin revisar permisos genera problemas.'],
+    examples: 'Ejemplo real: una presentacion compartida entre varios miembros del grupo o un presupuesto hecho a partir de plantilla.',
+    tips: ['Revisa permisos antes de compartir.', 'Usa nombres claros y versionado cuando haga falta.', 'Las plantillas deben adaptarse, no copiarse sin pensar.'],
+  },
+};
+
+const officeTaskSuggestions = {
+  cv: { tool: 'Procesador de texto', why: 'Es la mejor opcion para redactar y dar formato a un CV profesional.' },
+  budget: { tool: 'Hoja de calculo', why: 'Permite sumar, ordenar y comparar cifras con facilidad.' },
+  pitch: { tool: 'Presentacion', why: 'Ayuda a explicar ideas con estructura visual y apoyo para una exposicion.' },
+};
+
+const officeComparisonSets = {
+  docs: [
+    { name: 'Word', type: 'Cerrado', note: 'Muy extendido en trabajo y educacion.' },
+    { name: 'LibreOffice Writer', type: 'Abierto', note: 'Alternativa libre para documentos y cartas.' },
+    { name: 'Google Docs', type: 'Web', note: 'Muy util para colaboracion y comentarios.' },
+  ],
+  sheets: [
+    { name: 'Excel', type: 'Cerrado', note: 'Muy potente para formulas, tablas y analisis.' },
+    { name: 'LibreOffice Calc', type: 'Abierto', note: 'Alternativa libre para calculo y tablas.' },
+    { name: 'Google Sheets', type: 'Web', note: 'Ideal para trabajo compartido y seguimiento.' },
+  ],
+};
+
+const officeQuizItems = [
+  { id: 'office-1', prompt: 'Quieres preparar un presupuesto mensual con sumas y columnas.', answer: 'spreadsheets', explanation: 'La hoja de calculo es la herramienta adecuada para datos numericos y formulas.' },
+  { id: 'office-2', prompt: 'Necesitas exponer un proyecto de forma visual en clase.', answer: 'presentations_tools', explanation: 'Una presentacion ordena ideas visuales para explicar un tema ante otras personas.' },
+  { id: 'office-3', prompt: 'Vas a enviar un CV final para una candidatura.', answer: 'pdf_export', explanation: 'Conviene cerrar el documento y exportarlo a PDF para mantener el formato estable.' },
+];
+
 // ==========================================
 // 5. BASE DE DATOS: INTELIGENCIA ARTIFICIAL (NUEVO)
 // ==========================================
@@ -673,9 +889,31 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-purple-50 hover:text-purple-700 border-slate-200 shadow-sm',
   },
   {
-    id: 'files',
+    id: 'security',
     group: 'Navegacion y organizacion',
     step: '06',
+    title: 'Seguridad',
+    subtitle: 'Proteccion y autocuidado digital',
+    description: 'Aprende a proteger cuentas, detectar fraudes y mantener tus datos a salvo.',
+    icon: ShieldCheck,
+    activeClass: 'bg-rose-600 text-white shadow-xl border-rose-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-rose-50 hover:text-rose-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'email',
+    group: 'Navegacion y organizacion',
+    step: '07',
+    title: 'Correo',
+    subtitle: 'Comunicacion y bandeja segura',
+    description: 'Domina email, adjuntos, destinatarios y netiqueta para estudiar y trabajar mejor.',
+    icon: MailWarning,
+    activeClass: 'bg-sky-600 text-white shadow-xl border-sky-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-sky-50 hover:text-sky-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'files',
+    group: 'Navegacion y organizacion',
+    step: '08',
     title: 'Archivos',
     subtitle: 'Orden, formatos y carpetas',
     description: 'Organiza documentos y entiende como se almacenan.',
@@ -686,7 +924,7 @@ const tabConfig = [
   {
     id: 'keyboard',
     group: 'Productividad',
-    step: '07',
+    step: '09',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
     description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
@@ -695,9 +933,20 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-indigo-50 hover:text-indigo-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'office',
+    group: 'Productividad',
+    step: '10',
+    title: 'Ofimatica',
+    subtitle: 'Documentos, calculo y presentacion',
+    description: 'Elige la herramienta adecuada para redactar, calcular, presentar y compartir.',
+    icon: Presentation,
+    activeClass: 'bg-teal-600 text-white shadow-xl border-teal-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-teal-50 hover:text-teal-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'ai',
     group: 'Inteligencia artificial',
-    step: '08',
+    step: '11',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
     description: 'Explora modelos, asistentes y creadores multimedia.',
@@ -713,8 +962,11 @@ const tabDataMap = {
   cloud: cloudData,
   software: softwareData,
   internet: internetData,
+  security: securityData,
+  email: emailData,
   files: filesData,
   keyboard: keyboardData,
+  office: officeData,
   ai: aiData,
 };
 
@@ -758,6 +1010,11 @@ export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
   const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
+  const [securityQuizSelections, setSecurityQuizSelections] = useState({});
+  const [emailQuizSelections, setEmailQuizSelections] = useState({});
+  const [emailRecipientView, setEmailRecipientView] = useState('para');
+  const [officeTaskView, setOfficeTaskView] = useState('cv');
+  const [officeQuizSelections, setOfficeQuizSelections] = useState({});
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -792,6 +1049,18 @@ export default function App() {
 
   const handleSoftwareQuizSelect = (itemId, answer) => {
     setSoftwareQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
+  };
+
+  const handleSecurityQuizSelect = (itemId, isSafe) => {
+    setSecurityQuizSelections((prev) => ({ ...prev, [itemId]: isSafe }));
+  };
+
+  const handleEmailQuizSelect = (itemId, answer) => {
+    setEmailQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
+  };
+
+  const handleOfficeQuizSelect = (itemId, answer) => {
+    setOfficeQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
   };
 
   const handleSelect = (id, e, dataSet) => {
@@ -1124,6 +1393,237 @@ export default function App() {
           </div>
         </div>
       </div>
+    </div>
+  );
+
+  const renderSecurityTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+          <div className="max-w-3xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-rose-600/70'}`}>Autoproteccion digital</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Seguridad digital cotidiana</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Protege cuentas, detecta fraudes, revisa permisos y prepara copias de seguridad con un enfoque muy practico.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+            {[
+              ['Meta', 'Detectar riesgos'],
+              ['Metodo', 'Casos reales'],
+              ['Foco', 'Habitos seguros'],
+            ].map(([label, value]) => (
+              <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <InteractiveButton id="passwords" dataSet={securityData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="phishing_security" dataSet={securityData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="privacy_permissions" dataSet={securityData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="backups_recovery" dataSet={securityData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="safe_updates" dataSet={securityData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa visual</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Contrasena debil vs fuerte</h3>
+            </div>
+            <button onClick={() => handleSelect('passwords', null, securityData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-red-500/25 bg-red-500/10' : 'border-red-200 bg-red-50'}`}>
+              <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-red-300' : 'text-red-700'}`}>Debiles</p>
+              <div className="space-y-3 mt-4">{securityPasswordExamples.weak.map((password) => <div key={password} className={`rounded-2xl px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-200' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
+            </article>
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'}`}>
+              <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`}>Fuertes</p>
+              <div className="space-y-3 mt-4">{securityPasswordExamples.strong.map((password) => <div key={password} className={`rounded-2xl px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
+            </article>
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Bandeja sospechosa</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Correo legitimo vs correo sospechoso</h3>
+            </div>
+            <button onClick={() => handleSelect('phishing_security', null, securityData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className="space-y-3">
+            <article className={`rounded-[26px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <div className="flex items-center justify-between gap-3"><div><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>profesora@centro-educativo.es</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Asunto: Material de clase y enlace al aula virtual</p></div><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>Legitimo</span></div>
+            </article>
+            <article className={`rounded-[26px] border p-4 ${isDark ? 'border-red-500/20 bg-red-500/10' : 'border-red-200 bg-red-50'}`}>
+              <div className="flex items-center justify-between gap-3"><div><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>alerta-banco@seguridad-total-login.ru</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Asunto: Verifique su cuenta ahora o sera bloqueada</p></div><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${isDark ? 'bg-red-500/15 text-red-200' : 'bg-red-100 text-red-700'}`}>Sospechoso</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Permisos criticos</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Que permisos revisar</h3></div>
+            <button onClick={() => handleSelect('privacy_permissions', null, securityData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{securityPermissionCards.map((card) => <article key={card.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{card.name}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{card.risk}</p></article>)}</div>
+          <div className={`mt-5 rounded-[24px] border p-4 ${isDark ? 'border-blue-500/20 bg-blue-500/10' : 'border-blue-100 bg-blue-50'}`}>
+            <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>Checklist basica</p>
+            <ul className="mt-3 space-y-2">{['Correo protegido con doble factor', 'Permisos revisados en movil y navegador', 'Copia de archivos importantes', 'Sistema y navegador actualizados'].map((item) => <li key={item} className={`flex items-start gap-3 text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}><span className="mt-0.5 text-emerald-500">✓</span>{item}</li>)}</ul>
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Seguro o arriesgado?</h3></div>
+            <button onClick={() => setSecurityQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
+          </div>
+          <div className="grid grid-cols-1 gap-4">
+            {securityQuizItems.map((item) => {
+              const selected = securityQuizSelections[item.id];
+              const isCorrect = selected === item.safe;
+              return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm leading-relaxed font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-2 gap-3 mt-4"><button onClick={() => handleSecurityQuizSelect(item.id, true)} className={`rounded-2xl px-4 py-3 text-sm font-black ${selected === true ? item.safe ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>Seguro</button><button onClick={() => handleSecurityQuizSelect(item.id, false)} className={`rounded-2xl px-4 py-3 text-sm font-black ${selected === false ? !item.safe ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>Arriesgado</button></div>{selected !== undefined && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>;
+            })}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+
+  const renderEmailTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+          <div className="max-w-3xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-sky-600/70'}`}>Correo y comunicacion</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Comunicacion digital clara y segura</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Aprende a escribir mejor, enviar documentos correctamente, diferenciar destinatarios y comunicarte con mas criterio por correo y videollamada.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">{[['Bandeja', 'Revisar con criterio'], ['Destino', 'Para, CC y CCO'], ['Tono', 'Mensaje profesional']].map(([label, value]) => <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p><p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p></div>)}</div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <InteractiveButton id="send_reply" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="cc_bcc" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="attachments_links" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="inbox_security" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="netiquette_calls" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Maqueta de bandeja</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Leer la bandeja con contexto</h3></div>
+            <button onClick={() => handleSelect('inbox_security', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className={`rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>{emailInboxMock.map((mail) => <article key={mail.subject} className={`px-4 py-4 border-b last:border-b-0 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}><div className="flex items-start justify-between gap-4"><div><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{mail.from}</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{mail.subject}</p></div><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${mail.tag === 'Seguro' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-red-500/15 text-red-200' : 'bg-red-100 text-red-700'}`}>{mail.tag}</span></div></article>)}</div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Para / CC / CCO</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Quien debe verlo y quien debe actuar</h3></div>
+            <button onClick={() => handleSelect('cc_bcc', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className={`inline-flex rounded-full border p-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>{Object.entries(emailRecipientCases).map(([key]) => <button key={key} onClick={() => setEmailRecipientView(key)} className={`rounded-full px-4 py-2 text-sm font-black ${emailRecipientView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>{key.toUpperCase()}</button>)}</div>
+          <div className={`mt-5 rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{emailRecipientView.toUpperCase()}</p><p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{emailRecipientCases[emailRecipientView]}</p></div>
+        </section>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Adjuntos y enlaces</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Enviar bien un documento</h3></div>
+            <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-emerald-500/20 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`}>Correcto</p><p className={`mt-4 text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Adjunto nombrado como `CV_AnaLopez_2026.pdf` y mensaje que explica claramente lo enviado.</p></article>
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-amber-500/20 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-amber-300' : 'text-amber-700'}`}>Error frecuente</p><p className={`mt-4 text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Archivo llamado `documento-final-bueno-ahora-si.pdf` sin contexto ni explicacion en el correo.</p></article>
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tono y netiqueta</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Correo formal vs descuidado</h3></div>
+            <button onClick={() => handleSelect('netiquette_calls', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-emerald-500/20 bg-slate-950' : 'border-emerald-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`}>Bien planteado</p><p className={`mt-4 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Asunto: {emailEtiquetteExamples.good.subject}</p><p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{emailEtiquetteExamples.good.body}</p></article>
+            <article className={`rounded-[26px] border p-5 ${isDark ? 'border-amber-500/20 bg-slate-950' : 'border-amber-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-amber-300' : 'text-amber-700'}`}>Mejorable</p><p className={`mt-4 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Asunto: {emailEtiquetteExamples.bad.subject}</p><p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{emailEtiquetteExamples.bad.body}</p></article>
+          </div>
+        </section>
+      </div>
+
+      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige la casilla correcta</h3></div>
+          <button onClick={() => setEmailQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">{emailQuizItems.map((item) => { const selected = emailQuizSelections[item.id]; const isCorrect = selected === item.answer; return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-3 gap-2 mt-4">{['para', 'cc', 'cco'].map((option) => <button key={option} onClick={() => handleEmailQuizSelect(item.id, option)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === option ? option === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{option.toUpperCase()}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la idea'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>; })}</div>
+      </section>
+    </div>
+  );
+
+  const renderOfficeTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+          <div className="max-w-3xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-teal-600/70'}`}>Ofimatica y productividad</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elegir bien la herramienta</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Redactar, calcular, presentar, exportar y colaborar son tareas distintas. Este bloque ayuda a decidir con criterio y trabajar mejor.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">{[['Redactar', 'Textos y CV'], ['Calcular', 'Tablas y cifras'], ['Compartir', 'PDF y colaboracion']].map(([label, value]) => <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p><p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p></div>)}</div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <InteractiveButton id="text_docs" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="spreadsheets" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="presentations_tools" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="pdf_export" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="collaboration_templates" dataSet={officeData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[0.8fr_1.2fr] gap-6">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Que herramienta usarias?</h3></div>
+          <div className="grid grid-cols-1 gap-3 mt-5">{[['cv', 'Preparar un CV'], ['budget', 'Hacer un presupuesto'], ['pitch', 'Exponer un proyecto']].map(([key, label]) => <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[24px] border px-4 py-4 text-left ${officeTaskView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'}`}><p className="font-black">{label}</p></button>)}</div>
+          <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p><p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{officeTaskSuggestions[officeTaskView].why}</p></div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Procesadores de texto</p>
+              <div className="grid grid-cols-1 gap-3 mt-4">{officeComparisonSets.docs.map((tool) => <article key={tool.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><div className="flex items-center justify-between gap-3"><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${tool.type === 'Cerrado' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : tool.type === 'Abierto' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-sky-500/15 text-sky-200' : 'bg-sky-100 text-sky-700'}`}>{tool.type}</span></div><p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.note}</p></article>)}</div>
+            </div>
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Hojas de calculo</p>
+              <div className="grid grid-cols-1 gap-3 mt-4">{officeComparisonSets.sheets.map((tool) => <article key={tool.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><div className="flex items-center justify-between gap-3"><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${tool.type === 'Cerrado' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : tool.type === 'Abierto' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-sky-500/15 text-sky-200' : 'bg-sky-100 text-sky-700'}`}>{tool.type}</span></div><p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.note}</p></article>)}</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <div className="grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6">
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de trabajo</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Crear, guardar, exportar y compartir</h3>
+            <div className="space-y-3 mt-5">{[['Crear', 'Redactas, calculas o diseñas el contenido en formato editable.'], ['Guardar', 'Mantienes una version de trabajo con nombre claro y ordenada.'], ['Exportar', 'Generas PDF u otro formato final si ya no debe cambiarse.'], ['Compartir', 'Enlazas o adjuntas segun si el documento sigue vivo o ya esta cerrado.']].map(([step, text], index) => <div key={step} className="flex items-start gap-3"><div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-black ${isDark ? 'bg-slate-950 text-teal-300' : 'bg-teal-100 text-teal-700'}`}>{index + 1}</div><div><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step}</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{text}</p></div></div>)}</div>
+          </div>
+          <div>
+            <div className="flex items-center justify-between gap-4 mb-5"><div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige el programa correcto</h3></div><button onClick={() => setOfficeQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button></div>
+            <div className="grid grid-cols-1 gap-4">{officeQuizItems.map((item) => { const selected = officeQuizSelections[item.id]; const isCorrect = selected === item.answer; return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-4 gap-2 mt-4">{[['text_docs', 'Texto'], ['spreadsheets', 'Calculo'], ['presentations_tools', 'Slides'], ['pdf_export', 'PDF']].map(([key, label]) => <button key={key} onClick={() => handleOfficeQuizSelect(item.id, key)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === key ? key === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{label}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la decision'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>; })}</div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 
@@ -1960,8 +2460,11 @@ export default function App() {
           {activeTab === 'cloud' && renderCloudTab()}
           {activeTab === 'software' && renderSoftwareTab()}
           {activeTab === 'internet' && renderInternetTab()}
+          {activeTab === 'security' && renderSecurityTab()}
+          {activeTab === 'email' && renderEmailTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
+          {activeTab === 'office' && renderOfficeTab()}
           {activeTab === 'ai' && renderAITab()}
         </div>
 
