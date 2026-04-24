@@ -672,6 +672,29 @@ const officeQuizItems = [
   { id: 'office-3', prompt: 'Vas a enviar un CV final para una candidatura.', answer: 'pdf_export', explanation: 'Conviene cerrar el documento y exportarlo a PDF para mantener el formato estable.' },
 ];
 
+const assessmentData = {
+  mixed_quiz: { id: 'mixed_quiz', name: 'Quiz mixto', category: 'Evaluacion', icon: ShieldCheck, color: 'emerald' },
+  drag_drop: { id: 'drag_drop', name: 'Arrastrar y clasificar', category: 'Evaluacion', icon: Move, color: 'blue' },
+  ordering: { id: 'ordering', name: 'Ordena el proceso', category: 'Evaluacion', icon: ArrowRight, color: 'amber' },
+  final_challenge: { id: 'final_challenge', name: 'Reto final', category: 'Evaluacion', icon: Trophy, color: 'purple' },
+};
+
+const assessmentMixedQuizItems = [
+  { ...securityQuizItems[0], type: 'security-bool', title: 'Seguridad digital' },
+  { ...emailQuizItems[0], type: 'email-recipient', title: 'Correo electronico' },
+  { ...officeQuizItems[0], type: 'office-tool', title: 'Ofimatica' },
+  { ...softwareQuizItems[0], type: 'software-layer', title: 'Software' },
+];
+
+const assessmentOrderBase = [
+  'Crear el documento editable',
+  'Guardar con nombre claro',
+  'Exportar a formato final',
+  'Compartir con el canal adecuado',
+];
+
+const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
+
 // ==========================================
 // 5. BASE DE DATOS: INTELIGENCIA ARTIFICIAL (NUEVO)
 // ==========================================
@@ -1039,6 +1062,17 @@ const tabConfig = [
     icon: Bot,
     activeClass: 'bg-emerald-500 text-white shadow-xl border-emerald-700 scale-105 z-10',
     idleClass: 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'assessment',
+    group: 'Evaluacion final',
+    step: '12',
+    title: 'Ponte a prueba',
+    subtitle: 'Retos, orden y clasificacion',
+    description: 'Reune todo lo aprendido en quizzes, arrastre, orden y retos finales.',
+    icon: Trophy,
+    activeClass: 'bg-fuchsia-600 text-white shadow-xl border-fuchsia-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-fuchsia-50 hover:text-fuchsia-700 border-slate-200 shadow-sm',
   }
 ];
 
@@ -1054,6 +1088,7 @@ const tabDataMap = {
   keyboard: keyboardData,
   office: officeData,
   ai: aiData,
+  assessment: assessmentData,
 };
 
 const sectionGroupMeta = {
@@ -1068,6 +1103,9 @@ const sectionGroupMeta = {
   },
   'Inteligencia artificial': {
     summary: 'Herramientas, asistentes y creadores para ampliar capacidades.',
+  },
+  'Evaluacion final': {
+    summary: 'Una zona de practica donde aplicar y comprobar lo aprendido a lo largo de toda el aula.',
   },
 };
 
@@ -1103,6 +1141,10 @@ export default function App() {
   const [officeTaskView, setOfficeTaskView] = useState('cv');
   const [officeWorkspaceZone, setOfficeWorkspaceZone] = useState('toolbar');
   const [officeQuizSelections, setOfficeQuizSelections] = useState({});
+  const [assessmentAssignments, setAssessmentAssignments] = useState({});
+  const [draggingAssessmentItem, setDraggingAssessmentItem] = useState(null);
+  const [assessmentOrder, setAssessmentOrder] = useState(() => shuffleArray(assessmentOrderBase));
+  const [draggingOrderItem, setDraggingOrderItem] = useState(null);
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -1146,6 +1188,15 @@ export default function App() {
 
   const handleOfficeQuizSelect = (itemId, answer) => {
     setOfficeQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
+  };
+
+  const resetAssessmentArea = () => {
+    setSoftwareQuizSelections({});
+    setSecurityQuizSelections({});
+    setEmailQuizSelections({});
+    setOfficeQuizSelections({});
+    setAssessmentAssignments({});
+    setAssessmentOrder(shuffleArray(assessmentOrderBase));
   };
 
   const handleSelect = (id, e, dataSet) => {
@@ -1641,7 +1692,7 @@ export default function App() {
         </section>
       </div>
 
-      <div className={`grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6 ${selectedItem?.id === 'privacy_permissions' || selectedItem?.id === 'backups_recovery' || selectedItem?.id === 'safe_updates' ? '' : 'hidden'}`}>
+      <div className={` ${selectedItem?.id === 'privacy_permissions' || selectedItem?.id === 'backups_recovery' || selectedItem?.id === 'safe_updates' ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Permisos criticos</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Que permisos revisar</h3></div>
@@ -1654,19 +1705,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Seguro o arriesgado?</h3></div>
-            <button onClick={() => setSecurityQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            {securityQuizItems.map((item) => {
-              const selected = securityQuizSelections[item.id];
-              const isCorrect = selected === item.safe;
-              return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm leading-relaxed font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-2 gap-3 mt-4"><button onClick={() => handleSecurityQuizSelect(item.id, true)} className={`rounded-2xl px-4 py-3 text-sm font-black ${selected === true ? item.safe ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>Seguro</button><button onClick={() => handleSecurityQuizSelect(item.id, false)} className={`rounded-2xl px-4 py-3 text-sm font-black ${selected === false ? !item.safe ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>Arriesgado</button></div>{selected !== undefined && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>;
-            })}
-          </div>
-        </section>
       </div>
     </div>
   );
@@ -1678,15 +1716,7 @@ export default function App() {
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-600/70'}`}>Correo y comunicacion</p>
             <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Comunicacion digital clara y segura</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>La interfaz simulada del correo es ahora el tablero principal. Pulsa sus zonas para entender bandeja, destinatarios, adjuntos, respuesta y netiqueta sin saturar la vista.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
-            {[['Bandeja', 'Revisar con criterio'], ['Destino', 'Para, CC y CCO'], ['Tono', 'Mensaje profesional']].map(([label, value]) => (
-              <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
-                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
-              </div>
-            ))}
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>La interfaz simulada del correo es el tablero principal. Pulsa cada zona para entender bandeja, destinatarios, adjuntos, respuesta y netiqueta sin sobrecargar la lectura.</p>
           </div>
         </div>
 
@@ -1792,14 +1822,6 @@ export default function App() {
           </div>
         </section>
       </div>
-
-      <section className={`${emailData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-          <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige la casilla correcta</h3></div>
-          <button onClick={() => setEmailQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
-        </div>
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">{emailQuizItems.map((item) => { const selected = emailQuizSelections[item.id]; const isCorrect = selected === item.answer; return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-3 gap-2 mt-4">{['para', 'cc', 'cco'].map((option) => <button key={option} onClick={() => handleEmailQuizSelect(item.id, option)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === option ? option === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{option.toUpperCase()}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la idea'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>; })}</div>
-      </section>
     </div>
   );
 
@@ -1820,385 +1842,110 @@ export default function App() {
         : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
     }`;
 
-    const renderOfficeWorkspaceMock = () => {
-      if (activeOfficeId === 'text_docs') {
-        return (
-          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
-            <button onClick={() => setOfficeWorkspaceZone('sidebar')} className={`${zoneButtonClass('sidebar')} p-4`}>
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel lateral</p>
-              <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Esquema</p>
-                <div className="mt-3 space-y-2">
-                  {[
-                    ['Portada', 'text-sky-600'],
-                    ['Experiencia', 'text-slate-700'],
-                    ['Formacion', 'text-slate-700'],
-                    ['Contacto', 'text-slate-700'],
-                  ].map(([item, color]) => (
-                    <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
-                      <p className={`text-sm font-semibold ${color}`}>{item}</p>
-                    </div>
-                  ))}
-                </div>
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{activeOfficeView.subtitle}</p>
+          </div>
+          <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-700 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-slate-100">
+              <div className="flex gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-400" />
+                <span className="w-3 h-3 rounded-full bg-amber-400" />
+                <span className="w-3 h-3 rounded-full bg-emerald-400" />
               </div>
-              <div className="mt-4 rounded-[22px] border border-slate-200 bg-white p-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Navegacion</p>
-                <div className="mt-3 h-2 rounded-full bg-slate-100" />
-                <div className="mt-2 h-2 w-2/3 rounded-full bg-slate-100" />
+              <div className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500">suite-ofimatica://panel-de-trabajo/{activeOfficeId}</div>
+            </div>
+            <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 p-4 sm:p-5">
+              <div className="flex flex-wrap gap-2 mb-5">
+                {officeProgramIds.map((id) => {
+                  const item = officeData[id];
+                  const Icon = item.icon;
+                  const isActive = activeOfficeId === id;
+                  return (
+                    <button key={id} onClick={() => handleOfficeProgramSelect(id)} className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all ${isActive ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-[0_10px_24px_rgba(59,130,246,0.16)]' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'}`}>
+                      <Icon size={15} />
+                      {item.name}
+                    </button>
+                  );
+                })}
               </div>
-            </button>
-            <div className="space-y-4">
-              <button onClick={() => setOfficeWorkspaceZone('toolbar')} className={`${zoneButtonClass('toolbar')} w-full p-4`}>
-                <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    {['Archivo', 'Inicio', 'Insertar', 'Diseño', 'Revisar', 'Vista'].map((item) => (
-                      <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Inicio' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
-                    ))}
-                    <div className="ml-auto rounded-full bg-slate-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">Autoguardado</div>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {[
-                      ['Fuente', 'Aptos / 11'],
-                      ['Parrafo', 'Alinear / Espacio'],
-                      ['Estilos', 'Titulo / Normal'],
-                      ['Insertar', 'Tabla / Imagen'],
-                    ].map(([label, value]) => (
-                      <div key={label} className="rounded-2xl border border-slate-200 bg-white p-3">
-                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{label}</p>
-                        <p className="mt-2 text-sm font-semibold text-slate-700">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </button>
-              <button onClick={() => setOfficeWorkspaceZone('page')} className={`${zoneButtonClass('page')} w-full min-h-[380px] p-6`}>
-                <div className="space-y-4">
-                  <div className="mx-auto max-w-[620px] rounded-full border border-slate-200 bg-white px-6 py-3 shadow-sm">
-                    <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
-                      <span>0</span>
-                      <span>2</span>
-                      <span>4</span>
-                      <span>6</span>
-                      <span>8</span>
-                      <span>10</span>
-                      <span>12</span>
-                    </div>
-                  </div>
-                  <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
-                    <div className="flex items-start justify-between gap-6">
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
-                        <h4 className="mt-4 text-3xl font-black text-slate-900">Marta Alvarez</h4>
-                        <p className="mt-2 text-sm text-slate-500">Perfil profesional orientado a administracion y atencion al cliente.</p>
-                      </div>
-                      <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-right">
-                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Contacto</p>
-                        <p className="mt-2 text-sm font-semibold text-slate-700">marta@email.com</p>
-                        <p className="mt-1 text-sm text-slate-500">612 000 000</p>
-                      </div>
-                    </div>
-                    <div className="mt-6 space-y-5">
-                      {[
-                        ['Experiencia profesional', 'Atencion al cliente, gestion documental y soporte administrativo.'],
-                        ['Formacion', 'Certificado de profesionalidad y cursos de ofimatica.'],
-                        ['Competencias', 'Word, Excel, correo, organizacion y archivo.'],
-                      ].map(([title, text]) => (
-                        <div key={title} className="space-y-2">
-                          <div className="flex items-center gap-3">
-                            <div className="h-3 w-3 rounded-full bg-sky-500" />
-                            <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-700">{title}</p>
-                          </div>
-                          <div className="h-2 w-full rounded-full bg-slate-100" />
-                          <div className="h-2 w-11/12 rounded-full bg-slate-100" />
-                          <p className="text-sm text-slate-500">{text}</p>
+
+              <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
+                <button onClick={() => setOfficeWorkspaceZone('sidebar')} className={`${zoneButtonClass('sidebar')} p-4`}>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel lateral</p>
+                  <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-3">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Esquema</p>
+                    <div className="mt-3 space-y-2">
+                      {['Portada', 'Experiencia', 'Formacion', 'Contacto'].map((item) => (
+                        <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
+                          <p className="text-sm font-semibold text-slate-700">{item}</p>
                         </div>
                       ))}
                     </div>
                   </div>
-                </div>
-              </button>
-            </div>
-            <button onClick={() => setOfficeWorkspaceZone('export')} className={`${zoneButtonClass('export')} p-4`}>
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Exportar</p>
-              <div className="mt-4 space-y-3">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-black text-slate-900">PDF final</p>
-                  <p className="mt-2 text-sm text-slate-600">Guardar con formato cerrado para enviar el CV.</p>
-                  <div className="mt-4 inline-flex rounded-full bg-emerald-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Listo para compartir</div>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Compartir</p>
-                  <div className="mt-3 h-10 rounded-xl bg-slate-100" />
-                  <div className="mt-2 h-10 rounded-xl bg-slate-100" />
-                </div>
-              </div>
-            </button>
-          </div>
-        );
-      }
-
-      if (activeOfficeId === 'spreadsheets') {
-        return (
-          <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
-            <div className="space-y-4">
-              <button onClick={() => setOfficeWorkspaceZone('formula')} className={`${zoneButtonClass('formula')} w-full p-4`}>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">B9</span>
-                    <span className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-white">fx</span>
-                    <div className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600">=SUM(B2:B8)</div>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['Autosuma', 'Formato', 'Ordenar', 'Validar'].map((item) => (
-                      <span key={item} className="rounded-full bg-slate-100 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">{item}</span>
-                    ))}
-                  </div>
-                </div>
-              </button>
-              <button onClick={() => setOfficeWorkspaceZone('grid')} className={`${zoneButtonClass('grid')} w-full p-4`}>
-                <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
-                  <div className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
-                    {['', 'A', 'B', 'C', 'D', 'E'].map((item) => <div key={item || 'blank'} className="px-3 py-3 text-center">{item}</div>)}
-                  </div>
-                  {[
-                    ['1', 'Mes', 'Ingresos', 'Gastos', 'Ahorro', 'Estado'],
-                    ['2', 'Ene', '1400', '920', '480', 'OK'],
-                    ['3', 'Feb', '1400', '980', '420', 'OK'],
-                    ['4', 'Mar', '1400', '1110', '290', 'Revisar'],
-                    ['5', 'Abr', '1400', '860', '540', 'OK'],
-                    ['6', 'May', '1400', '910', '490', 'OK'],
-                  ].map((row, rowIndex) => (
-                    <div key={row[0]} className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-100 text-sm text-slate-700">
-                      {row.map((cell, index) => {
-                        const isSelected = rowIndex === 5 && index === 2;
-                        const isHeaderCell = rowIndex === 0;
-                        return (
-                          <div key={`${row[0]}-${index}`} className={`px-3 py-3 text-center ${index === 0 ? 'bg-slate-50 font-black text-slate-500' : isHeaderCell ? 'font-black text-slate-600' : ''} ${isSelected ? 'bg-emerald-50 ring-2 ring-inset ring-emerald-400 font-black text-emerald-700' : ''}`}>
-                            {cell}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ))}
-                  <div className="flex items-center gap-2 border-t border-slate-200 bg-slate-50 px-3 py-3">
-                    {['Hoja1', 'Resumen', '+'].map((tab, index) => (
-                      <span key={tab} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${index === 0 ? 'bg-emerald-600 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>{tab}</span>
-                    ))}
-                  </div>
-                </div>
-              </button>
-            </div>
-            <div className="space-y-4">
-              <button onClick={() => setOfficeWorkspaceZone('filters')} className={`${zoneButtonClass('filters')} p-4`}>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Filtros</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {['Todos', 'OK', 'Revisar', 'Ahorro > 400'].map((item) => (
-                    <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Revisar' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
-                  ))}
-                </div>
-                <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
-                  <p className="text-sm font-black text-slate-900">Estado del filtro</p>
-                  <p className="mt-2 text-sm text-slate-600">Mostrando solo meses con necesidad de revision o ahorro bajo.</p>
-                </div>
-              </button>
-              <button onClick={() => setOfficeWorkspaceZone('chart')} className={`${zoneButtonClass('chart')} p-4 min-h-[240px]`}>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Grafico</p>
-                <div className="mt-6 flex h-[160px] items-end justify-between gap-3">
-                  {[65, 54, 37, 72].map((value, index) => (
-                    <div key={value} className="flex flex-1 flex-col items-center gap-3">
-                      <div className="w-full rounded-t-2xl bg-emerald-500/80" style={{ height: `${value * 1.8}px` }} />
-                      <span className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">{['Ene', 'Feb', 'Mar', 'Abr'][index]}</span>
-                    </div>
-                  ))}
-                </div>
-              </button>
-            </div>
-          </div>
-        );
-      }
-
-      if (activeOfficeId === 'presentations_tools') {
-        return (
-          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr] gap-4">
-            <button onClick={() => setOfficeWorkspaceZone('slides')} className={`${zoneButtonClass('slides')} p-4`}>
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Miniaturas</p>
-              <div className="mt-4 space-y-3">
-                {[1, 2, 3, 4].map((slide) => (
-                  <div key={slide} className={`rounded-2xl border p-3 ${slide === 2 ? 'border-violet-200 bg-violet-50' : 'border-slate-200 bg-white'}`}>
-                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">Slide {slide}</p>
-                    <div className="mt-2 h-12 rounded-xl border border-slate-200 bg-slate-50" />
-                  </div>
-                ))}
-              </div>
-            </button>
-            <div className="space-y-4">
-              <button onClick={() => setOfficeWorkspaceZone('canvas')} className={`${zoneButtonClass('canvas')} w-full p-5 text-left min-h-[280px]`}>
-                <div className="rounded-[24px] border border-slate-200 bg-white p-8">
-                  <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
-                  <h4 className="mt-4 text-3xl font-black leading-tight text-slate-900">Como usar la tecnologia con mas autonomia</h4>
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-sm font-black text-slate-900">Objetivo</p>
-                      <p className="mt-2 text-sm text-slate-600">Explicar con ideas breves y apoyo visual.</p>
-                    </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-sm font-black text-slate-900">Clave</p>
-                      <p className="mt-2 text-sm text-slate-600">Una idea fuerte por diapositiva.</p>
-                    </div>
-                  </div>
-                </div>
-              </button>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
-                <button onClick={() => setOfficeWorkspaceZone('notes')} className={`${zoneButtonClass('notes')} p-4`}>
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Notas</p>
-                  <p className="mt-3 text-sm text-slate-600">Recuerda abrir con contexto, desarrollar 3 ideas y cerrar con ejemplo real.</p>
                 </button>
-                <button onClick={() => setOfficeWorkspaceZone('show')} className={`${zoneButtonClass('show')} px-5 py-4`}>
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Presentar</p>
-                  <p className="mt-3 text-sm font-black text-slate-900">Iniciar exposicion</p>
+
+                <button onClick={() => setOfficeWorkspaceZone(activeOfficeId === 'spreadsheets' ? 'grid' : activeOfficeId === 'presentations_tools' ? 'canvas' : 'page')} className={`${zoneButtonClass(activeOfficeId === 'spreadsheets' ? 'grid' : activeOfficeId === 'presentations_tools' ? 'canvas' : 'page')} p-5 text-left min-h-[320px]`}>
+                  {activeOfficeId === 'spreadsheets' ? (
+                    <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
+                      <div className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                        {['', 'A', 'B', 'C', 'D', 'E'].map((item) => <div key={item || 'blank'} className="px-3 py-3 text-center">{item}</div>)}
+                      </div>
+                      {[
+                        ['1', 'Mes', 'Ingresos', 'Gastos', 'Ahorro', 'Estado'],
+                        ['2', 'Ene', '1400', '920', '480', 'OK'],
+                        ['3', 'Feb', '1400', '980', '420', 'OK'],
+                        ['4', 'Mar', '1400', '1110', '290', 'Revisar'],
+                        ['5', 'Abr', '1400', '860', '540', 'OK'],
+                      ].map((row, rowIndex) => (
+                        <div key={row[0]} className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-100 text-sm text-slate-700">
+                          {row.map((cell, index) => (
+                            <div key={`${row[0]}-${index}`} className={`px-3 py-3 text-center ${index === 0 ? 'bg-slate-50 font-black text-slate-500' : rowIndex === 0 ? 'font-black text-slate-600' : ''} ${rowIndex === 4 && index === 2 ? 'bg-emerald-50 ring-2 ring-inset ring-emerald-400 font-black text-emerald-700' : ''}`}>{cell}</div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  ) : activeOfficeId === 'presentations_tools' ? (
+                    <div className="rounded-[24px] border border-slate-200 bg-white p-8">
+                      <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
+                      <h4 className="mt-4 text-3xl font-black leading-tight text-slate-900">Como usar la tecnologia con mas autonomia</h4>
+                      <div className="mt-6 grid grid-cols-2 gap-3">
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <p className="text-sm font-black text-slate-900">Objetivo</p>
+                          <p className="mt-2 text-sm text-slate-600">Explicar con ideas breves y apoyo visual.</p>
+                        </div>
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <p className="text-sm font-black text-slate-900">Clave</p>
+                          <p className="mt-2 text-sm text-slate-600">Una idea fuerte por diapositiva.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
+                      <h4 className="mt-4 text-3xl font-black text-slate-900">Marta Alvarez</h4>
+                      <p className="mt-2 text-sm text-slate-500">Perfil profesional orientado a administracion y atencion al cliente.</p>
+                    </div>
+                  )}
+                </button>
+
+                <button onClick={() => setOfficeWorkspaceZone(activeOfficeId === 'pdf_export' ? 'share' : activeOfficeId === 'collaboration_templates' ? 'permissions' : 'export')} className={`${zoneButtonClass(activeOfficeId === 'pdf_export' ? 'share' : activeOfficeId === 'collaboration_templates' ? 'permissions' : 'export')} p-4`}>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel de apoyo</p>
+                  <div className="mt-4 space-y-3">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-sm font-black text-slate-900">{activeOfficeZone.heading}</p>
+                      <p className="mt-2 text-sm text-slate-600">{activeOfficeZone.text}</p>
+                    </div>
+                  </div>
                 </button>
               </div>
             </div>
           </div>
-        );
-      }
-
-      if (activeOfficeId === 'pdf_export') {
-        return (
-          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
-            <button onClick={() => setOfficeWorkspaceZone('source')} className={`${zoneButtonClass('source')} p-4`}>
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Archivo fuente</p>
-              <div className="mt-4 space-y-3">
-                {['CV-final.docx', 'Carta-presentacion.docx', 'Portfolio.pptx'].map((item) => (
-                  <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">{item}</div>
-                ))}
-              </div>
-            </button>
-            <button onClick={() => setOfficeWorkspaceZone('preview')} className={`${zoneButtonClass('preview')} p-5 min-h-[340px]`}>
-              <div className="mx-auto max-w-[420px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Vista previa PDF</p>
-                <div className="mt-5 space-y-3">
-                  <div className="h-4 w-2/3 rounded-full bg-slate-200" />
-                  <div className="h-3 w-full rounded-full bg-slate-100" />
-                  <div className="h-3 w-10/12 rounded-full bg-slate-100" />
-                  <div className="h-3 w-11/12 rounded-full bg-slate-100" />
-                </div>
-                <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">El documento mantiene estructura, tipografia y saltos de pagina.</div>
-              </div>
-            </button>
-            <div className="space-y-4">
-              <button onClick={() => setOfficeWorkspaceZone('settings')} className={`${zoneButtonClass('settings')} p-4`}>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Ajustes</p>
-                <div className="mt-4 space-y-3">
-                  {['Todas las paginas', 'Calidad estandar', 'Incluir enlaces'].map((item) => (
-                    <div key={item} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">
-                      <span>{item}</span>
-                      <span className="h-3 w-3 rounded-full bg-emerald-500" />
-                    </div>
-                  ))}
-                </div>
-              </button>
-              <button onClick={() => setOfficeWorkspaceZone('share')} className={`${zoneButtonClass('share')} p-4`}>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Compartir</p>
-                <div className="mt-4 rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">Adjuntar PDF por correo o subirlo a una plataforma.</div>
-              </button>
-            </div>
-          </div>
-        );
-      }
-
-      return (
-        <div className="grid grid-cols-1 xl:grid-cols-[220px_1fr_240px] gap-4">
-          <button onClick={() => setOfficeWorkspaceZone('template')} className={`${zoneButtonClass('template')} p-4`}>
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Plantillas</p>
-            <div className="mt-4 space-y-3">
-              {['CV profesional', 'Acta de reunion', 'Presupuesto simple'].map((item) => (
-                <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">{item}</div>
-              ))}
-            </div>
-          </button>
-          <div className="space-y-4">
-            <button onClick={() => setOfficeWorkspaceZone('members')} className={`${zoneButtonClass('members')} w-full p-4`}>
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {['A', 'L', 'M'].map((letter) => (
-                    <span key={letter} className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-indigo-100 text-sm font-black text-indigo-700">{letter}</span>
-                  ))}
-                </div>
-                <div>
-                  <p className="text-sm font-black text-slate-900">Equipo conectado</p>
-                  <p className="text-sm text-slate-600">3 personas editando el documento.</p>
-                </div>
-              </div>
-            </button>
-            <button onClick={() => setOfficeWorkspaceZone('comments')} className={`${zoneButtonClass('comments')} w-full p-4 min-h-[220px]`}>
-              <div className="space-y-3">
-                {['Revisar ortografia del titulo', 'Añadir cifra de marzo', 'Confirmar permisos antes de enviar'].map((item) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">{item}</div>
-                ))}
-              </div>
-            </button>
-          </div>
-          <button onClick={() => setOfficeWorkspaceZone('permissions')} className={`${zoneButtonClass('permissions')} p-4`}>
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Permisos</p>
-            <div className="mt-4 space-y-3">
-              {['Puede editar', 'Puede comentar', 'Solo lectura'].map((item, index) => (
-                <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>{item}</div>
-              ))}
-            </div>
-          </button>
-        </div>
-      );
-    };
-
-    return (
-      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-        <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-            <div>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
-              <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{activeOfficeView.subtitle}</p>
-            </div>
-            <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-700 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-slate-100">
-                <div className="flex gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-400" />
-                  <span className="w-3 h-3 rounded-full bg-amber-400" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                </div>
-                <div className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500">
-                  suite-ofimatica://panel-de-trabajo/{activeOfficeId}
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-white via-slate-50 to-slate-100 p-4 sm:p-5">
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {officeProgramIds.map((id) => {
-                    const item = officeData[id];
-                    const Icon = item.icon;
-                    const isActive = activeOfficeId === id;
-                    return (
-                      <button
-                        key={id}
-                        onClick={() => handleOfficeProgramSelect(id)}
-                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all ${
-                          isActive
-                            ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-[0_10px_24px_rgba(59,130,246,0.16)]'
-                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                        }`}
-                      >
-                        <Icon size={15} />
-                        {item.name}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {renderOfficeWorkspaceMock()}
-              </div>
-            </div>
-          </section>
-        </div>
+        </section>
 
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6">
@@ -2209,28 +1956,16 @@ export default function App() {
                 {[
                   ['cv', 'Preparar un CV'],
                   ['budget', 'Hacer un presupuesto'],
-                  ['pitch', 'Exponer un proyecto'],
+                  ['slides', 'Exponer un proyecto'],
                 ].map(([key, label]) => (
-                  <button
-                    key={key}
-                    onClick={() => setOfficeTaskView(key)}
-                    className={`rounded-[20px] border px-4 py-4 text-left ${
-                      officeTaskView === key
-                        ? isDark ? 'border-white bg-white text-slate-950' : 'border-slate-900 bg-slate-900 text-white'
-                        : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'
-                    }`}
-                  >
-                    <p className="font-black">{label}</p>
-                  </button>
+                  <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[20px] px-4 py-4 text-left text-sm font-black ${officeTaskView === key ? 'bg-slate-950 text-white' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>{label}</button>
                 ))}
               </div>
-
               <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Zona pulsada</p>
                 <h4 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeZone.heading}</h4>
                 <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{activeOfficeZone.text}</p>
               </div>
-
               <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p>
                 <p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p>
@@ -2244,7 +1979,7 @@ export default function App() {
                 <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Crear, guardar, exportar y compartir</h3>
                 <div className="space-y-3 mt-5">
                   {[
-                    ['Crear', 'Redactas, calculas o diseñas el contenido en formato editable.'],
+                    ['Crear', 'Redactas, calculas o disenas el contenido en formato editable.'],
                     ['Guardar', 'Mantienes una version de trabajo con nombre claro y ordenada.'],
                     ['Exportar', 'Generas PDF u otro formato final si ya no debe cambiarse.'],
                     ['Compartir', 'Enlazas o adjuntas segun si el documento sigue vivo o ya esta cerrado.'],
@@ -2259,23 +1994,6 @@ export default function App() {
                   ))}
                 </div>
               </div>
-
-              <div>
-                <div className="flex items-center justify-between gap-4 mb-5">
-                  <div>
-                    <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p>
-                    <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige el programa correcto</h3>
-                  </div>
-                  <button onClick={() => setOfficeQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
-                </div>
-                <div className="grid grid-cols-1 gap-4">
-                  {officeQuizItems.map((item) => {
-                    const selected = officeQuizSelections[item.id];
-                    const isCorrect = selected === item.answer;
-                    return <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</p><div className="grid grid-cols-4 gap-2 mt-4">{[['text_docs', 'Texto'], ['spreadsheets', 'Calculo'], ['presentations_tools', 'Slides'], ['pdf_export', 'PDF']].map(([key, label]) => <button key={key} onClick={() => handleOfficeQuizSelect(item.id, key)} className={`rounded-2xl px-3 py-3 text-sm font-black ${selected === key ? key === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>{label}</button>)}</div>{selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la decision'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}</article>;
-                  })}
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -2285,30 +2003,12 @@ export default function App() {
 
   const renderSoftwareTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${
-        isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
-      }`}>
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-slate-600/70'}`}>Base tecnologica</p>
             <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Software por capas</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-              Diferenciamos el sistema operativo, los drivers y las aplicaciones para que el usuario entienda mejor como funciona el ordenador y donde mirar cuando aparece un problema.
-            </p>
-          </div>
-          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto ${softwareData[selectedItem?.id] && selectedItem?.id !== 'software_stack' ? 'hidden' : ''}`}>
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-indigo-300/75' : 'text-slate-400'}`}>Sistema</p>
-              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Coordina el equipo</p>
-            </div>
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-cyan-300/75' : 'text-slate-400'}`}>Drivers</p>
-              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Hablan con el hardware</p>
-            </div>
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-emerald-300/75' : 'text-slate-400'}`}>Apps</p>
-              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Resuelven tareas</p>
-            </div>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Diferenciamos el sistema operativo, los drivers y las aplicaciones para que el usuario entienda mejor como funciona el ordenador y donde mirar cuando aparece un problema.</p>
           </div>
         </div>
 
@@ -2324,7 +2024,6 @@ export default function App() {
         <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
           <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Selecciona una capa para ver solo su explicacion visual</h3>
-          <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>La zona de sistemas, drivers, comparativas y ejercicios aparece solo cuando abres una ficha concreta. Asi la lectura es mas limpia y mas guiada.</p>
         </div>
       )}
 
@@ -2349,31 +2048,11 @@ export default function App() {
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Exploracion visual</p>
               <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sistemas operativos y sus ecosistemas</h3>
             </div>
-            <button
-              onClick={() => handleSelect('operating_systems', null, softwareData)}
-              className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
-            >
-              Ver ficha
-            </button>
+            <button onClick={() => handleSelect('operating_systems', null, softwareData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {softwareOsExamples.map((os) => (
-              <button
-                key={os.name}
-                onClick={() => {
-                  setSelectedSoftwareOs(os.id);
-                  setSelectedItem(softwareData.operating_systems);
-                }}
-                className={`rounded-[24px] border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${
-                  selectedSoftwareOs === os.id
-                    ? isDark
-                      ? 'border-indigo-400/40 bg-indigo-500/10 text-white'
-                      : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]'
-                    : isDark
-                      ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700'
-                      : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'
-                }`}
-              >
+              <button key={os.name} onClick={() => { setSelectedSoftwareOs(os.id); setSelectedItem(softwareData.operating_systems); }} className={`rounded-[24px] border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${selectedSoftwareOs === os.id ? isDark ? 'border-indigo-400/40 bg-indigo-500/10 text-white' : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]' : isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
                   {os.logo === 'window' && <div className="grid grid-cols-2 gap-[2px]"><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span></div>}
                   {os.logo === 'mac' && <div className="text-white text-sm font-black tracking-tight">mac</div>}
@@ -2391,11 +2070,6 @@ export default function App() {
             <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{softwareOsExamples.find((os) => os.id === selectedSoftwareOs)?.name}</h4>
             <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareOsDetails[selectedSoftwareOs]?.summary}</p>
             <p className={`mt-4 text-sm font-black ${isDark ? 'text-indigo-200' : 'text-indigo-800'}`}>{softwareOsDetails[selectedSoftwareOs]?.focus}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {(softwareOsDetails[selectedSoftwareOs]?.zones || []).map((zone) => (
-                <span key={zone} className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-600 border border-slate-200'}`}>{zone}</span>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -2405,12 +2079,7 @@ export default function App() {
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conexion guiada</p>
               <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Como actua un driver en la practica</h3>
             </div>
-            <button
-              onClick={() => handleSelect('drivers', null, softwareData)}
-              className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
-            >
-              Ver ficha
-            </button>
+            <button onClick={() => handleSelect('drivers', null, softwareData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
           </div>
           <div className="space-y-3">
             {softwareDriverFlow.map((step, index) => {
@@ -2419,27 +2088,21 @@ export default function App() {
                 <div key={step.label} className="flex items-center gap-3">
                   <div className={`flex-1 rounded-[22px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                     <div className="flex items-center gap-3">
-                      <div className={`rounded-xl p-2 ${isDark ? 'bg-slate-900 text-blue-300' : 'bg-blue-100 text-blue-700'}`}>
-                        <StepIcon size={18} />
-                      </div>
+                      <div className={`rounded-xl p-2 ${isDark ? 'bg-slate-900 text-blue-300' : 'bg-blue-100 text-blue-700'}`}><StepIcon size={18} /></div>
                       <div>
                         <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step.label}</p>
                         <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{step.helper}</p>
                       </div>
                     </div>
                   </div>
-                  {index < softwareDriverFlow.length - 1 && (
-                    <div className={`shrink-0 rounded-full px-2 py-1 text-xs font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>→</div>
-                  )}
+                  {index < softwareDriverFlow.length - 1 && <div className={`shrink-0 rounded-full px-2 py-1 text-xs font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>→</div>}
                 </div>
               );
             })}
           </div>
           <div className={`mt-5 rounded-[24px] border p-4 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
             <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-cyan-300' : 'text-cyan-800'}`}>Ejemplo real</p>
-            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-              Quieres imprimir un PDF: la aplicacion abre el archivo, el sistema operativo organiza la tarea, el driver entiende la impresora y el hardware ejecuta la impresion.
-            </p>
+            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Quieres imprimir un PDF: la aplicacion abre el archivo, el sistema operativo organiza la tarea, el driver entiende la impresora y el hardware ejecuta la impresion.</p>
           </div>
         </section>
       </div>
@@ -2449,24 +2112,12 @@ export default function App() {
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
             <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Aplicaciones: codigo cerrado vs codigo abierto</h3>
-            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-              Cambia de modelo para entender diferencias de licencia, mantenimiento y ejemplos de uso.
-            </p>
           </div>
           <div className={`inline-flex rounded-full border p-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
             {Object.entries(softwareLicenseModels).map(([key, model]) => {
               const isActive = softwareLicenseView === key;
               return (
-                <button
-                  key={key}
-                  onClick={() => {
-                    setSoftwareLicenseView(key);
-                    setSelectedItem(softwareData.applications);
-                  }}
-                  className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${isActive ? isDark ? 'bg-slate-100 text-slate-950 shadow-sm' : 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
-                >
-                  {model.label}
-                </button>
+                <button key={key} onClick={() => { setSoftwareLicenseView(key); setSelectedItem(softwareData.applications); }} className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${isActive ? isDark ? 'bg-slate-100 text-slate-950 shadow-sm' : 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>{model.label}</button>
               );
             })}
           </div>
@@ -2474,37 +2125,15 @@ export default function App() {
 
         <div className="grid grid-cols-1 xl:grid-cols-[0.7fr_1.3fr] gap-5">
           <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-            <p className={`text-sm font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? (isDark ? 'text-indigo-300' : 'text-indigo-700') : (isDark ? 'text-emerald-300' : 'text-emerald-700')}`}>
-              {softwareLicenseModels[softwareLicenseView].label}
-            </p>
-            <p className={`mt-4 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-              {softwareLicenseModels[softwareLicenseView].summary}
-            </p>
-            <div className={`mt-5 rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparacion rapida</p>
-              <p className={`mt-3 text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                {softwareLicenseView === 'closed'
-                  ? 'Suele ofrecer soporte comercial, marca conocida y funciones muy cerradas alrededor de una licencia.'
-                  : 'Suele ofrecer flexibilidad, comunidad, personalizacion y aprendizaje a partir del codigo compartido.'}
-              </p>
-            </div>
+            <p className={`text-sm font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? (isDark ? 'text-indigo-300' : 'text-indigo-700') : (isDark ? 'text-emerald-300' : 'text-emerald-700')}`}>{softwareLicenseModels[softwareLicenseView].label}</p>
+            <p className={`mt-4 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareLicenseModels[softwareLicenseView].summary}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {softwareLicenseModels[softwareLicenseView].examples.map((example) => (
               <article key={example.name} className={`rounded-[26px] border p-5 transition-all duration-300 hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:border-slate-700' : 'border-slate-200 bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
-                <div className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${
-                  softwareLicenseView === 'closed'
-                    ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700'
-                    : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'
-                }`}>
-                  {softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}
-                </div>
-                <div className={`mt-4 w-14 h-14 rounded-2xl flex items-center justify-center text-base font-black shadow-sm ${
-                  softwareLicenseView === 'closed'
-                    ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700'
-                    : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'
-                }`}>
+                <div className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>{softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}</div>
+                <div className={`mt-4 w-14 h-14 rounded-2xl flex items-center justify-center text-base font-black shadow-sm ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>
                   {example.name.includes('Office') && 'O'}
                   {example.name.includes('Photoshop') && 'Ps'}
                   {example.name.includes('Windows') && 'W'}
@@ -2519,79 +2148,126 @@ export default function App() {
           </div>
         </div>
       </section>
-
-      <section className={`${selectedItem?.id === 'software_stack' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-fuchsia-500/20 bg-fuchsia-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-          <div>
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini ejercicio</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Sistema, driver o aplicacion?</h3>
-            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-              Clasifica cada ejemplo para comprobar si ya distingues bien las capas del software.
-            </p>
-          </div>
-          <button
-            onClick={() => setSoftwareQuizSelections({})}
-            className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}
-          >
-            Reiniciar
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-          {softwareQuizItems.map((item) => {
-            const selected = softwareQuizSelections[item.id];
-            const isCorrect = selected === item.answer;
-            return (
-              <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50 shadow-[0_14px_34px_rgba(15,23,42,0.05)]'}`}>
-                <p className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.label}</p>
-                <div className="grid grid-cols-3 gap-2 mt-4">
-                  {[
-                    { key: 'system', label: 'Sistema' },
-                    { key: 'driver', label: 'Driver' },
-                    { key: 'app', label: 'App' },
-                  ].map((option) => (
-                    <button
-                      key={option.key}
-                      onClick={() => handleSoftwareQuizSelect(item.id, option.key)}
-                      className={`rounded-2xl px-3 py-3 text-sm font-black transition-colors ${
-                        selected === option.key
-                          ? option.key === item.answer
-                            ? 'bg-emerald-500 text-white'
-                            : 'bg-red-500 text-white'
-                          : isDark
-                            ? 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                            : 'bg-white text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-                {selected && (
-                  <div className={`mt-4 rounded-2xl border p-4 ${
-                    isCorrect
-                      ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
-                      : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
-                  }`}>
-                    <p className={`text-sm font-black uppercase tracking-widest ${
-                      isCorrect
-                        ? isDark ? 'text-emerald-300' : 'text-emerald-700'
-                        : isDark ? 'text-amber-300' : 'text-amber-700'
-                    }`}>
-                      {isCorrect ? 'Correcto' : 'Sigue probando'}
-                    </p>
-                    <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p>
-                  </div>
-                )}
-              </article>
-            );
-          })}
-        </div>
-      </section>
     </div>
   );
 
-  // PESTAÑA 5: INTELIGENCIA ARTIFICIAL Y LLMS (NUEVA)
+  const renderAssessmentTab = () => {
+    const categoryMeta = {
+      system: { label: 'Sistema operativo', accent: isDark ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-200' : 'border-indigo-200 bg-indigo-50 text-indigo-700' },
+      driver: { label: 'Driver o controlador', accent: isDark ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-200' : 'border-cyan-200 bg-cyan-50 text-cyan-700' },
+      app: { label: 'Aplicacion', accent: isDark ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200' : 'border-emerald-200 bg-emerald-50 text-emerald-700' },
+    };
+
+    const handleAssessmentQuiz = (itemId, answer) => {
+      if (itemId === 'security-bool') handleSecurityQuizSelect(itemId, answer === 'safe');
+      if (itemId === 'email-recipient') handleEmailQuizSelect(itemId, answer);
+      if (itemId === 'office-tool') handleOfficeQuizSelect(itemId, answer);
+      if (itemId === 'software-layer') handleSoftwareQuizSelect(itemId, answer);
+    };
+
+    const getAssessmentSelection = (itemId) => {
+      if (itemId === 'security-bool') return securityQuizSelections[itemId] === true ? 'safe' : securityQuizSelections[itemId] === false ? 'risky' : null;
+      if (itemId === 'email-recipient') return emailQuizSelections[itemId];
+      if (itemId === 'office-tool') return officeQuizSelections[itemId];
+      if (itemId === 'software-layer') return softwareQuizSelections[itemId];
+      return null;
+    };
+
+    const handleAssessmentDrop = (category) => {
+      if (!draggingAssessmentItem) return;
+      setAssessmentAssignments((current) => ({ ...current, [draggingAssessmentItem]: category }));
+      setDraggingAssessmentItem(null);
+    };
+
+    const handleOrderDrop = (targetId) => {
+      if (!draggingOrderItem || draggingOrderItem === targetId) return;
+      const currentIndex = assessmentOrder.indexOf(draggingOrderItem);
+      const targetIndex = assessmentOrder.indexOf(targetId);
+      if (currentIndex === -1 || targetIndex === -1) return;
+      const next = [...assessmentOrder];
+      next.splice(currentIndex, 1);
+      next.splice(targetIndex, 0, draggingOrderItem);
+      setAssessmentOrder(next);
+      setDraggingOrderItem(null);
+    };
+
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <section className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/30' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="max-w-3xl">
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-emerald-300/70' : 'text-emerald-700/70'}`}>Evaluacion final</p>
+              <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Ponte a prueba con todo el aula</h2>
+              <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Hemos reunido aqui los retos para que el repaso sea mas divertido: preguntas cortas, clasificacion por arrastre y orden de procesos reales.</p>
+            </div>
+            <button onClick={resetAssessmentArea} className={`rounded-full border px-4 py-3 text-sm font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}>Reiniciar retos</button>
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+            {assessmentMixedQuizItems.map((item) => {
+              const selected = getAssessmentSelection(item.id);
+              const isCorrect = selected === item.answer;
+              return (
+                <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                  <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.label}</p>
+                  <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</h4>
+                  <div className="grid grid-cols-2 gap-3 mt-5">
+                    {item.options.map((option) => (
+                      <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value)} className={`rounded-[18px] px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
+                    ))}
+                  </div>
+                  {selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3">
+              {softwareQuizItems.map((item) => (
+                <div key={item.id} draggable onDragStart={() => setDraggingAssessmentItem(item.id)} className={`cursor-grab rounded-[22px] border px-4 py-4 ${isDark ? 'border-slate-800 bg-slate-950 text-slate-100' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
+                  <p className="text-sm font-black">{item.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {Object.entries(categoryMeta).map(([key, meta]) => (
+                <div key={key} onDragOver={(event) => event.preventDefault()} onDrop={() => handleAssessmentDrop(key)} className={`min-h-[240px] rounded-[26px] border p-4 ${meta.accent}`}>
+                  <p className="text-sm font-black uppercase tracking-widest">{meta.label}</p>
+                  <div className="mt-4 space-y-3">
+                    {softwareQuizItems.filter((item) => assessmentAssignments[item.id] === key).map((item) => (
+                      <div key={item.id} className={`rounded-2xl border px-4 py-3 text-sm font-black ${isDark ? 'border-white/10 bg-slate-950/70 text-white' : 'border-white bg-white text-slate-900'}`}>{item.label}</div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {assessmentOrder.map((stepId, index) => {
+              const step = assessmentData.ordering[stepId];
+              return (
+                <button key={stepId} draggable onDragStart={() => setDraggingOrderItem(stepId)} onDragOver={(event) => event.preventDefault()} onDrop={() => handleOrderDrop(stepId)} className={`rounded-[24px] border p-5 text-left ${isDark ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
+                  <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'bg-slate-900 text-slate-400' : 'bg-white text-slate-500 border border-slate-200'}`}>Paso {index + 1}</span>
+                  <h4 className="mt-4 text-lg font-black">{step.title}</h4>
+                  <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{step.description}</p>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+    );
+  };
+
   const renderAITab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
@@ -2599,11 +2275,9 @@ export default function App() {
           <Bot className="text-emerald-400" size={32} />
           <div>
             <h2 className="text-2xl font-black text-white">Directorio de Inteligencia Artificial</h2>
-            <p className="text-slate-400 mt-1 text-sm font-medium">Conoce las personalidades, fortalezas y debilidades de los principales Modelos de Lenguaje (LLMs).</p>
+            <p className="text-slate-400 mt-1 text-sm font-medium">Conoce las personalidades, fortalezas y debilidades de los principales Modelos de Lenguaje.</p>
           </div>
         </div>
-
-        {/* Categoría 1: Generalistas */}
         <div className="mb-10">
           <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
             <Brain size={18} className="text-slate-500" /> 1. Los Gigantes Generalistas
@@ -2616,49 +2290,9 @@ export default function App() {
             <InteractiveButton id="grok" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
-
-        {/* Categoría 2: Investigación */}
-        <div className="mb-10">
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <Library size={18} className="text-slate-500" /> 2. Los Investigadores y Lectores
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <InteractiveButton id="perplexity" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="notebooklm" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="kimi" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          </div>
-        </div>
-
-        {/* Categoría 3: Agentes y Desarrollo */}
-        <div>
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <Terminal size={18} className="text-slate-500" /> 3. Desarrolladores y Agentes Autónomos
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="deepseek" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="lovable" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="gamma" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="manus" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          </div>
-        </div>
-
-        {/* Categoría 4: Multimedia y Generación (NUEVA) */}
-        <div className="mt-10">
-          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <ImagePlus size={18} className="text-slate-500" /> 4. Creadores Multimedia (Audio, Vídeo e Imagen)
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="midjourney" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="suno" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="runway" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-            <InteractiveButton id="elevenlabs" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          </div>
-        </div>
-        
       </div>
     </div>
   );
-
   const renderKeyboardTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className={`rounded-[32px] border p-5 md:p-6 overflow-hidden relative ${
@@ -3260,6 +2894,7 @@ export default function App() {
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
           {activeTab === 'office' && renderOfficeTab()}
+          {activeTab === 'assessment' && renderAssessmentTab()}
           {activeTab === 'ai' && renderAITab()}
           {hasActiveDetail && (
             <div className="xl:hidden">
