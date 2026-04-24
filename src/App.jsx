@@ -1450,7 +1450,7 @@ export default function App() {
 
   const renderPeripheralsTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`relative overflow-hidden rounded-[32px] border p-5 sm:p-6 md:p-8 ${
+      <div className={`relative overflow-hidden rounded-sm border p-5 sm:p-6 md:p-8 ${
         isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
       }`}>
         <div className={`pointer-events-none absolute inset-0 ${
@@ -1467,11 +1467,11 @@ export default function App() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:w-auto w-full">
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Entrada</p>
               <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Datos hacia el equipo</p>
             </div>
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Salida</p>
               <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Respuesta hacia el usuario</p>
             </div>
@@ -1505,7 +1505,7 @@ export default function App() {
 
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => (
-    <div className={`relative overflow-hidden rounded-[32px] border p-5 sm:p-6 md:p-8 flex flex-col gap-6 h-full animate-in fade-in duration-500 ${
+    <div className={`relative overflow-hidden rounded-sm border p-5 sm:p-6 md:p-8 flex flex-col gap-6 h-full animate-in fade-in duration-500 ${
       isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
     }`}>
       <div className={`flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-4 relative z-10 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
@@ -1558,7 +1558,7 @@ export default function App() {
             <h3 className={`font-black text-xl mb-6 text-center ${isDark ? 'text-white' : 'text-slate-900'}`}>Megacentros de datos</h3>
             <div className="flex flex-col gap-4 w-full">
               <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-              <div className={`w-full rounded-[24px] border p-4 ${isDark ? 'border-purple-500/20 bg-slate-950' : 'border-purple-200 bg-purple-50/70'}`}>
+              <div className={`w-full rounded-sm border p-4 ${isDark ? 'border-purple-500/20 bg-slate-950' : 'border-purple-200 bg-purple-50/70'}`}>
                 <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>Uso compartido</p>
                 <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>La nube facilita que varias personas accedan al mismo archivo, compartan cambios y mantengan versiones actualizadas.</p>
               </div>
@@ -1575,7 +1575,7 @@ export default function App() {
               <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
               <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
             </div>
-            <div className={`rounded-[24px] border px-4 py-4 lg:max-w-[320px] ${selectedItem?.id === 'internet_sync'
+            <div className={`rounded-sm border px-4 py-4 lg:max-w-[320px] ${selectedItem?.id === 'internet_sync'
               ? isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
               : selectedItem?.id === 'local_work'
                 ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
@@ -1614,7 +1614,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="border border-slate-300 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-slate-50 mb-10 max-w-3xl mx-auto">
+        <div className="border border-slate-300 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-slate-50 mb-10 max-w-3xl mx-auto">
           <div className="bg-slate-200 p-3 flex items-center gap-4 border-b border-slate-300">
             <div className="flex gap-2 px-2">
               <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-inner"></div>
@@ -1671,7 +1671,7 @@ export default function App() {
       </div>
 
       <div className="flex flex-col xl:flex-row gap-6 xl:min-h-[550px]">
-        <div className="w-full xl:w-1/3 bg-slate-800 rounded-2xl p-4 sm:p-5 border border-slate-700 flex flex-col gap-4 shadow-inner">
+        <div className="w-full xl:w-1/3 bg-slate-800 rounded-sm p-4 sm:p-5 border border-slate-700 flex flex-col gap-4 shadow-inner">
           <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2 pl-2">Unidades (Discos)</h3>
           <div className="space-y-3">
             <button onClick={(e) => handleSelect('storage_drives', e, filesData)} className={`flex items-center gap-4 p-4 rounded-xl text-left transition-all border-2 w-full ${selectedItem?.id === 'storage_drives' ? 'bg-blue-600 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
@@ -1689,7 +1689,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="w-full xl:w-2/3 bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200 flex flex-col gap-6 sm:gap-8 overflow-hidden">
+        <div className="w-full xl:w-2/3 bg-slate-50 rounded-sm p-4 sm:p-6 border border-slate-200 flex flex-col gap-6 sm:gap-8 overflow-hidden">
           <div>
             <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4">Estructura del Árbol (Jerarquía)</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1722,7 +1722,7 @@ export default function App() {
 
   const renderSecurityTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+      <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-rose-600/70'}`}>Autoproteccion digital</p>
@@ -1735,7 +1735,7 @@ export default function App() {
               ['Metodo', 'Casos reales'],
               ['Foco', 'Habitos seguros'],
             ].map(([label, value]) => (
-              <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <div key={label} className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
                 <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
               </div>
@@ -1752,7 +1752,7 @@ export default function App() {
       </div>
 
       {!securityData[selectedItem?.id] && (
-        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <div className={`rounded-sm border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
           <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Abre una ficha para ver su capa de detalle</h3>
           <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Las comparativas, permisos y ejercicios permanecen ocultos hasta que eliges un bloque concreto. Asi reducimos saturacion y dejamos mas respiro visual.</p>
@@ -1760,7 +1760,7 @@ export default function App() {
       )}
 
       <div className={`grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-6 ${selectedItem?.id === 'passwords' || selectedItem?.id === 'phishing_security' ? '' : 'hidden'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa visual</p>
@@ -1771,16 +1771,16 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <article className={`rounded-[26px] border p-5 ${isDark ? 'border-red-500/25 bg-red-500/10' : 'border-red-200 bg-red-50'}`}>
               <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-red-300' : 'text-red-700'}`}>Debiles</p>
-              <div className="space-y-3 mt-4">{securityPasswordExamples.weak.map((password) => <div key={password} className={`rounded-2xl px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-200' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
+              <div className="space-y-3 mt-4">{securityPasswordExamples.weak.map((password) => <div key={password} className={`rounded-sm px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-200' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
             </article>
             <article className={`rounded-[26px] border p-5 ${isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'}`}>
               <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-emerald-300' : 'text-emerald-700'}`}>Fuertes</p>
-              <div className="space-y-3 mt-4">{securityPasswordExamples.strong.map((password) => <div key={password} className={`rounded-2xl px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
+              <div className="space-y-3 mt-4">{securityPasswordExamples.strong.map((password) => <div key={password} className={`rounded-sm px-4 py-3 font-black ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-700'}`}>{password}</div>)}</div>
             </article>
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Bandeja sospechosa</p>
@@ -1800,13 +1800,13 @@ export default function App() {
       </div>
 
       <div className={` ${selectedItem?.id === 'privacy_permissions' || selectedItem?.id === 'backups_recovery' || selectedItem?.id === 'safe_updates' ? '' : 'hidden'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Permisos criticos</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Que permisos revisar</h3></div>
             <button onClick={() => handleSelect('privacy_permissions', null, securityData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{securityPermissionCards.map((card) => <article key={card.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{card.name}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{card.risk}</p></article>)}</div>
-          <div className={`mt-5 rounded-[24px] border p-4 ${isDark ? 'border-blue-500/20 bg-blue-500/10' : 'border-blue-100 bg-blue-50'}`}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{securityPermissionCards.map((card) => <article key={card.name} className={`rounded-sm border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{card.name}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{card.risk}</p></article>)}</div>
+          <div className={`mt-5 rounded-sm border p-4 ${isDark ? 'border-blue-500/20 bg-blue-500/10' : 'border-blue-100 bg-blue-50'}`}>
             <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>Checklist basica</p>
             <ul className="mt-3 space-y-2">{['Correo protegido con doble factor', 'Permisos revisados en movil y navegador', 'Copia de archivos importantes', 'Sistema y navegador actualizados'].map((item) => <li key={item} className={`flex items-start gap-3 text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}><span className="mt-0.5 text-emerald-500">✓</span>{item}</li>)}</ul>
           </div>
@@ -1818,7 +1818,7 @@ export default function App() {
 
   const renderEmailTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <section className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+      <section className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-600/70'}`}>Correo y comunicacion</p>
@@ -1846,7 +1846,7 @@ export default function App() {
             </aside>
 
             <div className="p-4 sm:p-5 space-y-4">
-              <div className="rounded-[24px] border border-slate-200 bg-white p-4">
+              <div className="rounded-sm border border-slate-200 bg-white p-4">
                 <div className="flex flex-wrap gap-2">
                   {['para', 'cc', 'cco'].map((key) => (
                     <button key={key} onClick={() => { setEmailRecipientView(key); handleSelect('cc_bcc', null, emailData); }} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-widest ${emailRecipientView === key ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-500 border border-slate-200'}`}>{key.toUpperCase()}</button>
@@ -1870,7 +1870,7 @@ export default function App() {
       </section>
 
       <div className={`grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6 ${selectedItem?.id === 'inbox_security' || selectedItem?.id === 'cc_bcc' ? '' : 'hidden'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Maqueta de bandeja</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Leer la bandeja con contexto</h3></div>
             <button onClick={() => handleSelect('inbox_security', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
@@ -1878,7 +1878,7 @@ export default function App() {
           <div className={`rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>{emailInboxMock.map((mail) => <article key={mail.subject} className={`px-4 py-4 border-b last:border-b-0 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}><div className="flex items-start justify-between gap-4"><div><p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{mail.from}</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{mail.subject}</p></div><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${mail.tag === 'Seguro' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-red-500/15 text-red-200' : 'bg-red-100 text-red-700'}`}>{mail.tag}</span></div></article>)}</div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-6">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Para / CC / CCO</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Quien debe verlo y quien debe actuar</h3></div>
             <button onClick={() => handleSelect('cc_bcc', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
@@ -1889,7 +1889,7 @@ export default function App() {
       </div>
 
       <div className={`grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6 ${selectedItem?.id === 'attachments_links' || selectedItem?.id === 'netiquette_calls' || selectedItem?.id === 'send_reply' ? '' : 'hidden'}`}>
-        <section className={`${selectedItem?.id === 'send_reply' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`${selectedItem?.id === 'send_reply' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de respuesta</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Enviar, responder y reenviar con criterio</h3></div>
           </div>
@@ -1907,7 +1907,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Adjuntos y enlaces</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Enviar bien un documento</h3></div>
             <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
@@ -1918,7 +1918,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tono y netiqueta</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Correo formal vs descuidado</h3></div>
             <button onClick={() => handleSelect('netiquette_calls', null, emailData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
@@ -1951,7 +1951,7 @@ export default function App() {
 
     return (
       <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
             <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
@@ -2046,7 +2046,7 @@ export default function App() {
                         ) : activeOfficeId === 'presentations_tools' ? (
                           <div className="space-y-3">
                             {[1, 2, 3, 4].map((slide) => (
-                              <div key={slide} className={`rounded-2xl border p-3 ${slide === 2 ? 'border-violet-200 bg-violet-50' : 'border-slate-200 bg-white'}`}>
+                              <div key={slide} className={`rounded-sm border p-3 ${slide === 2 ? 'border-violet-200 bg-violet-50' : 'border-slate-200 bg-white'}`}>
                                 <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">Slide {slide}</p>
                                 <div className="mt-2 h-12 rounded-xl border border-slate-200 bg-slate-50" />
                               </div>
@@ -2112,15 +2112,15 @@ export default function App() {
                       ))}
                     </div>
                   ) : activeOfficeId === 'presentations_tools' ? (
-                    <div className="rounded-[24px] border border-slate-200 bg-white p-8">
+                    <div className="rounded-sm border border-slate-200 bg-white p-8">
                       <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
                       <h4 className="mt-4 text-3xl font-black leading-tight text-slate-900">Como usar la tecnologia con mas autonomia</h4>
                       <div className="mt-6 grid grid-cols-2 gap-3">
-                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <div className="rounded-sm border border-slate-200 bg-slate-50 p-4">
                           <p className="text-sm font-black text-slate-900">Objetivo</p>
                           <p className="mt-2 text-sm text-slate-600">Explicar con ideas breves y apoyo visual.</p>
                         </div>
-                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <div className="rounded-sm border border-slate-200 bg-slate-50 p-4">
                           <p className="text-sm font-black text-slate-900">Clave</p>
                           <p className="mt-2 text-sm text-slate-600">Una idea fuerte por diapositiva.</p>
                         </div>
@@ -2158,7 +2158,7 @@ export default function App() {
                       </div>
                     </div>
                   ) : activeOfficeId === 'collaboration_templates' ? (
-                    <div className="rounded-[24px] border border-slate-200 bg-white overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+                    <div className="rounded-sm border border-slate-200 bg-white overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
                       <div className="border-b border-slate-200 bg-slate-50 px-5 py-4 flex items-center justify-between">
                         <div>
                           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Documento compartido</p>
@@ -2236,7 +2236,7 @@ export default function App() {
                             <span className="h-3 w-3 rounded-full bg-emerald-500" />
                           </div>
                         ))}
-                        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                        <div className="rounded-sm border border-amber-200 bg-amber-50 p-4">
                           <p className="text-sm font-black text-amber-700">Exportar ahora</p>
                           <p className="mt-2 text-sm text-amber-700/80">Genera el archivo final y comprueba que se vea igual antes de enviarlo.</p>
                         </div>
@@ -2246,13 +2246,13 @@ export default function App() {
                         {['Puede editar', 'Puede comentar', 'Solo lectura'].map((item, index) => (
                           <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>{item}</div>
                         ))}
-                        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                        <div className="rounded-sm border border-slate-200 bg-white p-4">
                           <p className="text-sm font-black text-slate-900">Historial de versiones</p>
                           <p className="mt-2 text-sm text-slate-600">Permite volver atras si alguien modifica algo por error.</p>
                         </div>
                       </>
                     ) : (
-                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <div className="rounded-sm border border-slate-200 bg-slate-50 p-4">
                         <p className="text-sm font-black text-slate-900">{activeOfficeZone.heading}</p>
                         <p className="mt-2 text-sm text-slate-600">{activeOfficeZone.text}</p>
                       </div>
@@ -2264,7 +2264,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p>
@@ -2320,7 +2320,7 @@ export default function App() {
 
   const renderSoftwareTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+      <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
             <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-slate-600/70'}`}>Base tecnologica</p>
@@ -2338,7 +2338,7 @@ export default function App() {
       </div>
 
       {!softwareData[selectedItem?.id] && (
-        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <div className={`rounded-sm border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
           <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Selecciona una capa para ver solo su explicacion visual</h3>
         </div>
@@ -2359,7 +2359,7 @@ export default function App() {
       </div>
 
       <div className={`grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6 ${selectedItem?.id === 'operating_systems' || selectedItem?.id === 'drivers' ? '' : 'hidden'}`}>
-        <section className={`${selectedItem?.id === 'operating_systems' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-indigo-500/20 bg-indigo-500/[0.08]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+        <section className={`${selectedItem?.id === 'operating_systems' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-indigo-500/20 bg-indigo-500/[0.08]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Exploracion visual</p>
@@ -2369,8 +2369,8 @@ export default function App() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {softwareOsExamples.map((os) => (
-              <button key={os.name} onClick={() => { setSelectedSoftwareOs(os.id); setSelectedItem(softwareData.operating_systems); }} className={`rounded-[24px] border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${selectedSoftwareOs === os.id ? isDark ? 'border-indigo-400/40 bg-indigo-500/10 text-white' : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]' : isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
+              <button key={os.name} onClick={() => { setSelectedSoftwareOs(os.id); setSelectedItem(softwareData.operating_systems); }} className={`rounded-sm border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${selectedSoftwareOs === os.id ? isDark ? 'border-indigo-400/40 bg-indigo-500/10 text-white' : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]' : isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
+                <div className={`w-12 h-12 rounded-sm bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
                   {os.logo === 'window' && <div className="grid grid-cols-2 gap-[2px]"><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span></div>}
                   {os.logo === 'mac' && <div className="text-white text-sm font-black tracking-tight">mac</div>}
                   {os.logo === 'linux' && <div className="text-white text-sm font-black tracking-tight">Li</div>}
@@ -2382,7 +2382,7 @@ export default function App() {
               </button>
             ))}
           </div>
-          <div className={`mt-5 rounded-[24px] border p-5 ${isDark ? 'border-indigo-500/20 bg-slate-950' : 'border-indigo-200 bg-indigo-50/70'}`}>
+          <div className={`mt-5 rounded-sm border p-5 ${isDark ? 'border-indigo-500/20 bg-slate-950' : 'border-indigo-200 bg-indigo-50/70'}`}>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-indigo-300' : 'text-indigo-700'}`}>Sistema seleccionado</p>
             <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{softwareOsExamples.find((os) => os.id === selectedSoftwareOs)?.name}</h4>
             <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareOsDetails[selectedSoftwareOs]?.summary}</p>
@@ -2390,7 +2390,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`${selectedItem?.id === 'drivers' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-cyan-500/20 bg-cyan-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+        <section className={`${selectedItem?.id === 'drivers' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-cyan-500/20 bg-cyan-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conexion guiada</p>
@@ -2417,14 +2417,14 @@ export default function App() {
               );
             })}
           </div>
-          <div className={`mt-5 rounded-[24px] border p-4 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
+          <div className={`mt-5 rounded-sm border p-4 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
             <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-cyan-300' : 'text-cyan-800'}`}>Ejemplo real</p>
             <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Quieres imprimir un PDF: la aplicacion abre el archivo, el sistema operativo organiza la tarea, el driver entiende la impresora y el hardware ejecuta la impresion.</p>
           </div>
         </section>
       </div>
 
-      <section className={`${selectedItem?.id === 'applications' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-emerald-500/20 bg-emerald-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <section className={`${selectedItem?.id === 'applications' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-emerald-500/20 bg-emerald-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
@@ -2450,7 +2450,7 @@ export default function App() {
             {softwareLicenseModels[softwareLicenseView].examples.map((example) => (
               <article key={example.name} className={`rounded-[26px] border p-5 transition-all duration-300 hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:border-slate-700' : 'border-slate-200 bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
                 <div className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>{softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}</div>
-                <div className={`mt-4 w-14 h-14 rounded-2xl flex items-center justify-center text-base font-black shadow-sm ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>
+                <div className={`mt-4 w-14 h-14 rounded-sm flex items-center justify-center text-base font-black shadow-sm ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>
                   {example.name.includes('Office') && 'O'}
                   {example.name.includes('Photoshop') && 'Ps'}
                   {example.name.includes('Windows') && 'W'}
@@ -2510,7 +2510,7 @@ export default function App() {
 
     return (
       <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-        <section className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/30' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/30' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="max-w-3xl">
               <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-emerald-300/70' : 'text-emerald-700/70'}`}>Evaluacion final</p>
@@ -2521,7 +2521,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {assessmentMixedQuizItems.map((item) => {
               const selected = getAssessmentSelection(item.id);
@@ -2535,14 +2535,14 @@ export default function App() {
                       <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value)} className={`rounded-[18px] px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
                     ))}
                   </div>
-                  {selected && <div className={`mt-4 rounded-2xl border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}
+                  {selected && <div className={`mt-4 rounded-sm border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}
                 </article>
               );
             })}
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-5">
             <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3">
               {softwareQuizItems.map((item) => (
@@ -2558,7 +2558,7 @@ export default function App() {
                   <p className="text-sm font-black uppercase tracking-widest">{meta.label}</p>
                   <div className="mt-4 space-y-3">
                     {softwareQuizItems.filter((item) => assessmentAssignments[item.id] === key).map((item) => (
-                      <div key={item.id} className={`rounded-2xl border px-4 py-3 text-sm font-black ${isDark ? 'border-white/10 bg-slate-950/70 text-white' : 'border-white bg-white text-slate-900'}`}>{item.label}</div>
+                      <div key={item.id} className={`rounded-sm border px-4 py-3 text-sm font-black ${isDark ? 'border-white/10 bg-slate-950/70 text-white' : 'border-white bg-white text-slate-900'}`}>{item.label}</div>
                     ))}
                   </div>
                 </div>
@@ -2567,12 +2567,12 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {assessmentOrder.map((stepId, index) => {
               const step = assessmentData.ordering[stepId];
               return (
-                <button key={stepId} draggable onDragStart={() => setDraggingOrderItem(stepId)} onDragOver={(event) => event.preventDefault()} onDrop={() => handleOrderDrop(stepId)} className={`rounded-[24px] border p-5 text-left ${isDark ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
+                <button key={stepId} draggable onDragStart={() => setDraggingOrderItem(stepId)} onDragOver={(event) => event.preventDefault()} onDrop={() => handleOrderDrop(stepId)} className={`rounded-sm border p-5 text-left ${isDark ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
                   <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'bg-slate-900 text-slate-400' : 'bg-white text-slate-500 border border-slate-200'}`}>Paso {index + 1}</span>
                   <h4 className="mt-4 text-lg font-black">{step.title}</h4>
                   <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{step.description}</p>
@@ -2692,7 +2692,7 @@ export default function App() {
   );
   const renderKeyboardTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
-      <div className={`rounded-[32px] border p-5 md:p-6 overflow-hidden relative ${
+      <div className={`rounded-sm border p-5 md:p-6 overflow-hidden relative ${
         isDark
           ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 border-slate-800 shadow-[0_24px_80px_rgba(15,23,42,0.55)]'
           : 'bg-gradient-to-br from-[#eef1ff] via-[#dddff7] to-[#f5f2ff] border-white/70 shadow-[0_24px_80px_rgba(79,70,229,0.16)]'
@@ -2714,11 +2714,11 @@ export default function App() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
                 <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Meta</p>
                 <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos clics, mas fluidez</p>
               </div>
-              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
                 <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Metodo</p>
                 <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Practica guiada</p>
               </div>
@@ -2753,7 +2753,7 @@ export default function App() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6">
-        <div className={`rounded-[32px] border p-5 md:p-6 ${
+        <div className={`rounded-sm border p-5 md:p-6 ${
           isDark ? 'bg-slate-900/86 border-slate-800' : 'bg-white/78 border-white/80 backdrop-blur-xl'
         }`}>
           <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mb-4`}>Bloques de Aprendizaje</h3>
@@ -2766,7 +2766,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={`rounded-[32px] border p-5 md:p-6 ${
+        <div className={`rounded-sm border p-5 md:p-6 ${
         isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_24px_60px_rgba(148,163,184,0.22)]'
       }`}>
         <div className="flex items-center justify-between gap-4 mb-5">
@@ -2782,7 +2782,7 @@ export default function App() {
         </div>
         <div className="space-y-3">
           {(selectedItem?.shortcutList || keyboardData.shortcut_basics.shortcutList).slice(0, 5).map((shortcut) => (
-            <article key={shortcut.combo} className={`rounded-2xl border p-4 ${
+            <article key={shortcut.combo} className={`rounded-sm border p-4 ${
               isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
             }`}>
               <div className="flex items-center justify-between gap-3 mb-3">
@@ -2811,16 +2811,16 @@ export default function App() {
         <div className={`max-w-[1600px] mx-auto transition-all duration-500 ${
           isScrolled
             ? isDark
-              ? 'rounded-[24px] border border-slate-800 bg-slate-950/82 shadow-[0_28px_70px_rgba(15,23,42,0.32)] backdrop-blur-2xl'
-              : 'rounded-[24px] border border-white/80 bg-slate-950/86 shadow-[0_28px_70px_rgba(15,23,42,0.22)] backdrop-blur-2xl'
-            : 'rounded-[24px] border border-white/10 bg-slate-950/72 shadow-[0_14px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl'
+              ? 'rounded-sm border border-slate-800 bg-slate-950/82 shadow-[0_28px_70px_rgba(15,23,42,0.32)] backdrop-blur-2xl'
+              : 'rounded-sm border border-white/80 bg-slate-950/86 shadow-[0_28px_70px_rgba(15,23,42,0.22)] backdrop-blur-2xl'
+            : 'rounded-sm border border-white/10 bg-slate-950/72 shadow-[0_14px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl'
         }`}>
-          <div className={`flex items-center justify-between gap-3 transition-all duration-500 ${isScrolled ? 'px-3 py-2.5 sm:px-4 md:px-5' : 'px-2 py-2 sm:px-3 md:px-4'}`}>
-            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-3 group min-w-0 text-left">
-              <div className="relative w-9 h-9 shrink-0">
+          <div className={`flex items-center justify-between gap-4 transition-all duration-500 ${isScrolled ? 'px-4 py-3 sm:px-5 md:px-6' : 'px-3 py-2.5 sm:px-4 md:px-5'}`}>
+            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-4 group min-w-0 text-left">
+              <div className="relative w-10 h-10 shrink-0">
                 <div className="absolute inset-0 bg-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-105 transition-transform duration-300">
+                  <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-105 transition-transform duration-300">
                     <defs>
                       <linearGradient id="tech-logo-grad-navbar" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="#3B82F6" />
@@ -2835,9 +2835,9 @@ export default function App() {
                   </svg>
                 </div>
               </div>
-              <div className="min-w-0">
-                <p className={`text-lg font-black tracking-tight ${isDark || !isScrolled ? 'text-white' : 'text-slate-900'}`}>Digital Synapse</p>
-                <p className={`hidden md:block text-[11px] uppercase tracking-[0.24em] font-black ${isDark || !isScrolled ? 'text-slate-400' : 'text-slate-500'}`}>
+              <div className="min-w-0 flex flex-col">
+                <p className={`text-base font-black tracking-tight leading-none ${isDark || !isScrolled ? 'text-white' : 'text-slate-900'}`}>Digital Synapse</p>
+                <p className={`hidden md:block text-[10px] uppercase tracking-[0.2em] font-black leading-tight mt-1 ${isDark || !isScrolled ? 'text-slate-400' : 'text-slate-500'}`}>
                   {activeTabMeta.title}
                 </p>
               </div>
@@ -2851,7 +2851,7 @@ export default function App() {
                     key={group}
                     onMouseEnter={() => handleOpenGroupMenu(group)}
                     onClick={() => handleOpenGroupMenu(group)}
-                    className={`group flex items-center gap-1 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+                    className={`group flex items-center gap-1 px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-sm ${
                       isActiveGroup
                         ? isDark || !isScrolled
                           ? 'text-white bg-white/8'
@@ -2862,7 +2862,7 @@ export default function App() {
                     }`}
                   >
                     <span>{group}</span>
-                    {tabs.length > 1 && <ChevronDown size={14} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
+                    {tabs.length > 1 && <ChevronDown size={12} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
                   </button>
                 );
               })}
@@ -2871,7 +2871,7 @@ export default function App() {
             <div className="ml-auto flex items-center gap-2 shrink-0">
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className={`rounded-full border p-2.5 transition-all duration-300 ${
+                className={`rounded-sm border p-2.5 transition-all duration-300 ${
                   isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
                 aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
@@ -2880,21 +2880,14 @@ export default function App() {
               </button>
               <button
                 onClick={() => setIsSectionMenuOpen((value) => !value)}
-                className={`lg:hidden inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-black transition-colors ${
+                className={`lg:hidden inline-flex items-center gap-2 rounded-sm border px-3 py-2 text-sm font-semibold transition-colors ${
                   isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
                 <span className="hidden sm:inline">Secciones</span>
-                <span className={`rounded-full p-1 transition-transform ${isSectionMenuOpen ? 'rotate-180' : ''}`}>
+                <span className={`rounded-sm p-1 transition-transform ${isSectionMenuOpen ? 'rotate-180' : ''}`}>
                   <ChevronDown size={16} />
                 </span>
-              </button>
-              <button
-                onClick={handleStartModule}
-                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-950 text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.18)] hover:-translate-y-0.5 transition-all duration-300 group"
-              >
-                Explorar aula
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
               </button>
             </div>
           </div>
@@ -2903,27 +2896,27 @@ export default function App() {
             <div className={`border-t px-3 pb-3 pt-3 sm:px-4 sm:pb-4 ${
               isDark || isScrolled ? 'border-white/10' : 'border-slate-200/80'
             }`} onMouseLeave={() => setIsSectionMenuOpen(false)}>
-              <div className={`rounded-[24px] border p-4 ${
+              <div className={`rounded-sm border p-4 ${
                 isDark || isScrolled
                   ? 'border-white/10 bg-white/[0.04] ring-1 ring-white/12'
                   : 'border-slate-200 bg-slate-50/90 ring-1 ring-slate-300/70'
               }`}>
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div>
-                    <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                    <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                       {expandedSectionGroup}
                     </p>
                     <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       {sectionGroupMeta[expandedSectionGroup]?.summary}
                     </p>
                   </div>
-                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.22em] ${
+                  <span className={`shrink-0 rounded-sm px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.2em] ${
                     isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-500 border border-slate-200'
                   }`}>
                     {sectionGroups[expandedSectionGroup]?.length || 0}
                   </span>
                 </div>
-                <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
                   {(sectionGroups[expandedSectionGroup] || []).map((tab) => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.id;
@@ -2932,7 +2925,7 @@ export default function App() {
                       <button
                         key={tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`w-full rounded-2xl border px-3 py-3 text-left transition-all ${
+                        className={`w-full rounded-sm border px-3 py-3 text-left transition-all ${
                           isActive
                             ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
                             : isDark
@@ -2942,11 +2935,11 @@ export default function App() {
                       >
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex items-center gap-3 min-w-0">
-                            <div className={`rounded-xl p-2 ${isActive ? 'bg-white/15 text-white' : isDark ? 'bg-slate-950 text-slate-300' : 'bg-slate-100 text-slate-500'}`}>
+                            <div className={`rounded-sm p-2 ${isActive ? 'bg-white/15 text-white' : isDark ? 'bg-slate-950 text-slate-300' : 'bg-slate-100 text-slate-500'}`}>
                               <Icon size={16} />
                             </div>
                             <div className="min-w-0">
-                              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-white/75' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isActive ? 'text-white/75' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                 Modulo {tab.step}
                               </p>
                               <p className="mt-1 text-sm font-black truncate">{tab.title}</p>
@@ -3108,7 +3101,7 @@ export default function App() {
       </button>
 
       <header className="mb-6 mt-[92px] sm:mt-[100px] lg:mt-[124px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
-        <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
+        <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-sm shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
             <span className={`text-[11px] font-black uppercase tracking-[0.24em] px-3 py-1.5 rounded-full mb-3 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
             <h1 className={`text-2xl sm:text-3xl md:text-4xl font-black tracking-tight flex items-center gap-3 sm:gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -3124,13 +3117,13 @@ export default function App() {
             <div className="flex flex-col sm:flex-row gap-3 justify-end">
               <button
                 onClick={handleStartModule}
-                className={`rounded-2xl px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+                className={`rounded-sm px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
               >
                 Empezar recorrido
               </button>
               <button
                 onClick={handleClearSelection}
-                className={`rounded-2xl border px-5 py-3 font-black transition-colors ${
+                className={`rounded-sm border px-5 py-3 font-black transition-colors ${
                   isDark ? 'border-slate-700 bg-slate-950 text-white hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -3139,15 +3132,15 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full">
-            <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
             </div>
-            <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Temas</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{itemCount}</p>
             </div>
-            <div className={`rounded-2xl border p-4 col-span-2 md:col-span-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <div className={`rounded-sm border p-4 col-span-2 md:col-span-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
             </div>
@@ -3166,11 +3159,11 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:w-auto w-full">
-              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Secciones</p>
                 <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tabConfig.length}</p>
               </div>
-              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Cluster</p>
                 <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.group}</p>
               </div>
@@ -3180,7 +3173,7 @@ export default function App() {
           <div className="mt-5 relative">
             <button
               onClick={() => setIsSectionMenuOpen((value) => !value)}
-              className={`w-full rounded-[24px] border px-4 py-4 sm:px-5 sm:py-5 text-left transition-colors ${
+              className={`w-full rounded-sm border px-4 py-4 sm:px-5 sm:py-5 text-left transition-colors ${
                 isDark
                   ? 'border-slate-800 bg-slate-950 hover:bg-slate-900'
                   : 'border-slate-200 bg-slate-50 hover:bg-white'
@@ -3214,7 +3207,7 @@ export default function App() {
             </button>
 
             {isSectionMenuOpen && (
-              <div className={`mt-3 rounded-[24px] border p-3 sm:p-4 shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${
+              <div className={`mt-3 rounded-sm border p-3 sm:p-4 shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${
                 isDark ? 'border-slate-800 bg-slate-950/98' : 'border-slate-200 bg-white/98 backdrop-blur-xl'
               }`}>
                 <div className="space-y-3">
