@@ -1245,7 +1245,7 @@ const colorMap = {
 };
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('hardware');
+  const [activeTab, setActiveTab] = useState('home');
   const [selectedItem, setSelectedItem] = useState(null);
   const [theme, setTheme] = useState('light');
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
@@ -1403,8 +1403,11 @@ export default function App() {
 
     return (
       <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-        {/* Hero Welcome Section */}
-        <div className="relative overflow-hidden rounded-sm border bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/60 p-8 md:p-12">
+        {/* Hero Welcome Section - Pixel Art Cyber Style */}
+        <div className="relative overflow-hidden rounded-sm border bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/60 p-8 md:p-12 scanlines">
+          {/* Pixel Grid Background */}
+          <div className="absolute inset-0 grid-pattern opacity-50"></div>
+          
           {/* Background Glow Effects */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl"></div>
@@ -1412,8 +1415,8 @@ export default function App() {
           <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left: Text Content */}
             <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-bold uppercase tracking-widest mb-4">
-                <Sparkles size={12} />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-bold uppercase tracking-widest mb-4 pixel-border">
+                <Sparkles size={12} className="animate-pulse-slow" />
                 <span>Bienvenido al Aula Tecnologica</span>
               </div>
               
@@ -1435,103 +1438,113 @@ export default function App() {
                 todo pasa por aqui. Y lo mejor: vas a aprender haciendo, no escuchando.
               </p>
 
-              {/* CTA Button with Animation */}
+              {/* CTA Button with Pixel Animation */}
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button 
                   onClick={() => handleTabChange('hardware')}
-                  className="group relative px-8 py-4 rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white font-black text-lg shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 animate-glow-pulse"
+                  className="group relative px-8 py-4 rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white font-black text-lg shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 pixel-btn animate-pixel-flicker"
                 >
-                  <span className="relative z-10 flex items-center gap-3">
+                  <span className="relative z-10 flex items-center gap-3 font-pixel uppercase tracking-wider">
                     EMPEZAR EL VIAJE
-                    <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+                    <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300 animate-pixel-bounce" />
                   </span>
                 </button>
-                <p className="text-xs text-slate-500 font-medium tracking-wider uppercase">
-                  13 modulos • 70+ temas • Aprendizaje real
+                <p className="text-xs text-slate-500 font-medium tracking-wider uppercase font-pixel">
+                  13 modulos / 70+ temas / Aprendizaje real
                 </p>
               </div>
             </div>
 
-            {/* Right: Stats Grid */}
+            {/* Right: Stats Grid - Pixel Style */}
             <div className="lg:w-80 w-full grid grid-cols-2 gap-4">
-              <div className="rounded-sm border border-slate-800 bg-slate-900/80 p-4 text-center backdrop-blur-sm">
-                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">{totalModules}</p>
+              <div className="rounded-sm border border-slate-700 bg-slate-900/80 p-4 text-center backdrop-blur-sm pixel-card">
+                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 font-pixel">{totalModules}</p>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Modulos Totales</p>
               </div>
-              <div className="rounded-sm border border-slate-800 bg-slate-900/80 p-4 text-center backdrop-blur-sm">
-                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400">{completedModules}</p>
+              <div className="rounded-sm border border-slate-700 bg-slate-900/80 p-4 text-center backdrop-blur-sm pixel-card">
+                <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400 font-pixel">{completedModules}</p>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Completados</p>
               </div>
-              <div className="col-span-2 rounded-sm border border-slate-800 bg-slate-900/80 p-5 backdrop-blur-sm">
+              <div className="col-span-2 rounded-sm border border-slate-700 bg-slate-900/80 p-5 backdrop-blur-sm pixel-card">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progreso del Curso</p>
-                  <p className="text-sm font-black text-white">{progressPercent}%</p>
+                  <p className="text-sm font-black text-white font-pixel">{progressPercent}%</p>
                 </div>
-                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-3 bg-slate-800 rounded-sm overflow-hidden relative border border-slate-700">
                   <div 
-                    className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-700 shadow-lg shadow-blue-500/30"
+                    className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-sm transition-all duration-700 relative"
                     style={{ width: `${progressPercent}%` }}
-                  ></div>
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                  </div>
+                  {/* Pixel segment markers */}
+                  <div className="absolute inset-0 flex pointer-events-none">
+                    {[...Array(12)].map((_, i) => (
+                      <div key={i} className="flex-1 border-r border-slate-900/60 last:border-r-0"></div>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2">
-                  {completedModules === 0 ? 'Pulsa en EMPEZAR para comenzar' : `${completedModules} modulos completados`}
+                <p className="text-[10px] text-slate-500 mt-2 font-pixel">
+                  {completedModules === 0 ? 'Pulsa EMPEZAR para comenzar' : `${completedModules} modulos completados`}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* GaryVee Style Motivation Cards */}
+        {/* GaryVee Style Motivation Cards - Pixel Styled */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300">
-            <div className="w-10 h-10 rounded-sm bg-blue-500/20 flex items-center justify-center mb-4">
-              <Zap size={20} className="text-blue-400" />
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-blue-500/40 transition-all duration-300 pixel-card">
+            <div className="w-12 h-12 rounded-sm bg-blue-500/20 flex items-center justify-center mb-4 border border-blue-500/30">
+              <Zap size={24} className="text-blue-400" />
             </div>
-            <h3 className="text-white font-black text-lg">Juego Largo</h3>
+            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Juego Largo</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               No busques atajos. Cada modulo que completes te hace mas valioso. Invierte en ti mismo cada dia.
             </p>
           </div>
           
-          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-violet-500/30 transition-all duration-300">
-            <div className="w-10 h-10 rounded-sm bg-violet-500/20 flex items-center justify-center mb-4">
-              <Brain size={20} className="text-violet-400" />
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-violet-500/40 transition-all duration-300 pixel-card">
+            <div className="w-12 h-12 rounded-sm bg-violet-500/20 flex items-center justify-center mb-4 border border-violet-500/30">
+              <Brain size={24} className="text-violet-400" />
             </div>
-            <h3 className="text-white font-black text-lg">Document, Don't Create</h3>
+            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Document, Don't Create</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               Este aula es tu dokumentacion. Vuelve aqui cuando necesites recordar cualquier konzept.
             </p>
           </div>
           
-          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
-            <div className="w-10 h-10 rounded-sm bg-cyan-500/20 flex items-center justify-center mb-4">
-              <Trophy size={20} className="text-cyan-400" />
+          <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-cyan-500/40 transition-all duration-300 pixel-card">
+            <div className="w-12 h-12 rounded-sm bg-cyan-500/20 flex items-center justify-center mb-4 border border-cyan-500/30">
+              <Trophy size={24} className="text-cyan-400" />
             </div>
-            <h3 className="text-white font-black text-lg">Empezar Antes que Ser Perfecto</h3>
+            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Empezar Antes que Ser Perfecto</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               No esperes a estar preparado. Nadie lo esta. Salta al primer modulo y aprende sobre la marcha.
             </p>
           </div>
         </div>
 
-        {/* Quick Navigation to First Module */}
-        <div className="rounded-sm border border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-violet-500/5 p-6 flex items-center justify-between gap-4">
+        {/* Quick Navigation to First Module - Pixel Style */}
+        <div className="rounded-sm border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-violet-500/10 p-6 flex items-center justify-between gap-4 pixel-card">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-sm bg-blue-500/20 flex items-center justify-center">
-              <Rotate3D size={24} className="text-blue-400" />
+            <div className="w-14 h-14 rounded-sm bg-blue-500/20 flex items-center justify-center border border-blue-500/40 animate-glow-pulse">
+              <Rotate3D size={28} className="text-blue-400" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Tu Primera Parada</p>
-              <p className="text-white font-black text-lg">Hardware: Arquitectura Interna</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-400 font-pixel">Tu Primera Parada</p>
+              <p className="text-white font-black text-xl">Hardware: Arquitectura Interna</p>
               <p className="text-sm text-slate-400">Entiende como funciona tu ordenador por dentro</p>
             </div>
           </div>
           <button 
             onClick={() => handleTabChange('hardware')}
-            className="shrink-0 px-6 py-3 rounded-sm bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group flex items-center gap-2"
+            className="shrink-0 px-6 py-3 rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-black font-pixel uppercase tracking-wider transition-all duration-300 hover:-translate-y-1 pixel-btn animate-glow-pulse"
           >
-            IR AL MODULO
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <span className="flex items-center gap-2">
+              IR AL MODULO
+              <ArrowRight size={16} className="animate-bounce-gentle" />
+            </span>
           </button>
         </div>
       </div>
@@ -3256,52 +3269,55 @@ export default function App() {
       </button>
 
       <header className="mb-6 mt-[92px] sm:mt-[100px] lg:mt-[124px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
-        <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-sm shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
-          <div>
-            <span className={`text-[11px] font-black uppercase tracking-[0.24em] px-3 py-1.5 rounded-full mb-3 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
-            <h1 className={`text-2xl sm:text-3xl md:text-4xl font-black tracking-tight flex items-center gap-3 sm:gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              <AppWindow className={isDark ? 'text-indigo-300' : 'text-blue-600'} size={36} />
-              Aula de Competencias Digitales
-            </h1>
-            <p className={`mt-3 text-sm sm:text-base md:text-lg font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
-              Aprende con una estructura mas clara, menos ruido visual y acceso rapido a cada modulo desde una navegacion superior fija.
-            </p>
+        {activeTab !== 'home' && (
+        <div className={`p-4 sm:p-5 md:p-6 rounded-sm shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-center justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
+          <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 rounded-sm flex items-center justify-center ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+              <AppWindow className={isDark ? 'text-blue-400' : 'text-blue-600'} size={24} />
+            </div>
+            <div>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Aula de Competencias Digitales</p>
+              <p className={`text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Modulo {activeTabMeta.step}: {activeTabMeta.title}
+              </p>
+            </div>
           </div>
 
-          <div className="w-full lg:w-auto lg:min-w-[520px] flex flex-col gap-3">
-            <div className="flex flex-col sm:flex-row gap-3 justify-end">
-              <button
-                onClick={handleStartModule}
-                className={`rounded-sm px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
-              >
-                Empezar recorrido
-              </button>
-              <button
-                onClick={handleClearSelection}
-                className={`rounded-sm border px-5 py-3 font-black transition-colors ${
-                  isDark ? 'border-slate-700 bg-slate-950 text-white hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                Reiniciar foco
-              </button>
+          <div className="w-full lg:w-auto lg:min-w-[400px] flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Progreso del Curso</p>
+              <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{(() => { const total = tabConfig.filter(t => t.id !== 'home').length; const current = tabConfig.findIndex(t => t.id === activeTab); return Math.round((current / total) * 100); })()}%</p>
             </div>
+            <div className="h-3 bg-slate-800 rounded-full overflow-hidden relative">
+              <div 
+                className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-700 relative"
+                style={{ width: `${(() => { const total = tabConfig.filter(t => t.id !== 'home').length; const current = tabConfig.findIndex(t => t.id === activeTab); return Math.round((current / total) * 100); })()}%` }}
+              >
+                <div className="absolute inset-0 bg-[length:8px_8px] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+              </div>
+              {/* Pixel-style segment markers */}
+              <div className="absolute inset-0 flex">
+                {[...Array(12)].map((_, i) => (
+                  <div key={i} className="flex-1 border-r border-slate-900/50 last:border-r-0"></div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className={`text-[10px] font-medium ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{activeTabMeta.subtitle}</p>
+              <p className={`text-[10px] font-medium ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{itemCount} temas</p>
+            </div>
+          </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full">
-            <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
-              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
-            </div>
-            <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Temas</p>
-              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{itemCount}</p>
-            </div>
-            <div className={`rounded-sm border p-4 col-span-2 md:col-span-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco</p>
-              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
-            </div>
-          </div>
-          </div>
+          <button
+            onClick={() => handleTabChange('home')}
+            className={`shrink-0 rounded-sm border px-4 py-2 font-bold text-sm transition-colors ${
+              isDark ? 'border-slate-700 bg-slate-950 text-white hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            Ver inicio
+          </button>
         </div>
+        )}
 
         <div className="hidden">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">

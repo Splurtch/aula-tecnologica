@@ -145,6 +145,61 @@
     50% { transform: translateY(-6px); }
   }
 
+  /* Pixel art animation for CTA */
+  .animate-pixel-bounce {
+    animation: pixelBounce 1s steps(4) infinite;
+  }
+
+  @keyframes pixelBounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-8px); }
+    50% { transform: translateY(-4px); }
+    75% { transform: translateY(-6px); }
+  }
+
+  .animate-pixel-flicker {
+    animation: pixelFlicker 2s steps(3) infinite;
+  }
+
+  @keyframes pixelFlicker {
+    0%, 100% { opacity: 1; }
+    33% { opacity: 0.8; }
+    66% { opacity: 0.95; }
+  }
+
+  /* Scanline effect */
+  .scanlines {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Pixel block shadow */
+  .pixel-shadow {
+    box-shadow: 
+      4px 4px 0px rgba(0, 0, 0, 0.3),
+      -1px 1px 0px rgba(255, 255, 255, 0.05) inset;
+  }
+
+  .pixel-shadow-colored {
+    box-shadow: 
+      4px 4px 0px rgba(59, 130, 246, 0.3),
+      -1px 1px 0px rgba(255, 255, 255, 0.1) inset;
+  }
+
   .grid-pattern {
     background-image:
       linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
@@ -290,5 +345,63 @@
   .accent-border-left-cyan {
     border-left: 3px solid;
     border-image: linear-gradient(180deg, #06B6D4, #3B82F6) 1;
+  }
+
+  /* Pixel art component styles */
+  .pixel-btn {
+    @apply relative transition-all duration-100;
+    image-rendering: pixelated;
+    box-shadow: 
+      inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      4px 4px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+      inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      6px 6px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 
+      inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-border {
+    box-shadow: 
+      2px 2px 0px currentColor,
+      -1px 1px 0px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  .pixel-card {
+    @apply rounded-sm;
+    box-shadow: 
+      0 0 0 2px rgba(59, 130, 246, 0.3),
+      4px 4px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Chunky pixel font style */
+  .font-pixel {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* 8-bit style borders */
+  .border-8bit {
+    border-style: solid;
+    border-width: 2px;
+    border-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(59, 130, 246, 0.1) 4px,
+      rgba(59, 130, 246, 0.1) 8px
+    ) 1;
   }
 }
