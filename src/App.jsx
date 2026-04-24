@@ -633,7 +633,7 @@ export default function App() {
 
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => (
-    <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800 relative overflow-hidden flex flex-col h-full min-h-[600px] animate-in slide-in-from-left-8 duration-500">
+    <div className="bg-slate-900 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl border border-slate-800 relative overflow-hidden flex flex-col h-full md:min-h-[600px] animate-in slide-in-from-left-8 duration-500">
       <div className="flex items-center gap-3 mb-10 border-b border-slate-700 pb-4 relative z-10">
         <Globe className="text-blue-400" size={32} />
         <div>
@@ -644,7 +644,7 @@ export default function App() {
 
       <div className="relative flex-grow flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0 mt-4 mb-8">
         <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
-          <div className="bg-slate-800/80 p-8 rounded-[2rem] border border-slate-700 shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-md">
+          <div className="bg-slate-800/80 p-6 sm:p-8 rounded-[2rem] border border-slate-700 shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-md">
             <div className="bg-emerald-900/40 p-5 rounded-full mb-6 border border-emerald-500/30">
               <Laptop className="text-emerald-400 w-16 h-16" strokeWidth={1.2} />
             </div>
@@ -660,7 +660,7 @@ export default function App() {
         </div>
         <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
           <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full scale-150 -z-10"></div>
-          <div className="bg-blue-950/80 p-8 rounded-[2rem] border border-blue-800 shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-xl">
+          <div className="bg-blue-950/80 p-6 sm:p-8 rounded-[2rem] border border-blue-800 shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-xl">
             <div className="bg-blue-900/60 p-5 rounded-full mb-6 border border-blue-500/40 relative">
               <Cloud className="text-blue-300 w-16 h-16" strokeWidth={1.2} />
               <Server className="text-white w-8 h-8 absolute bottom-0 right-0 bg-blue-600 p-1.5 rounded-lg shadow-lg" strokeWidth={2} />
@@ -735,7 +735,7 @@ export default function App() {
 
   // PESTAÑA 4: ARCHIVOS
   const renderFilesTab = () => (
-    <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800 animate-in fade-in duration-500 h-full">
+    <div className="bg-slate-900 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl border border-slate-800 animate-in fade-in duration-500 h-full">
       <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
         <FolderOpen className="text-amber-400" size={32} />
         <div>
@@ -744,8 +744,8 @@ export default function App() {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 h-[550px]">
-        <div className="w-full md:w-1/3 bg-slate-800 rounded-2xl p-5 border border-slate-700 flex flex-col gap-4 shadow-inner">
+      <div className="flex flex-col xl:flex-row gap-6 xl:min-h-[550px]">
+        <div className="w-full xl:w-1/3 bg-slate-800 rounded-2xl p-4 sm:p-5 border border-slate-700 flex flex-col gap-4 shadow-inner">
           <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2 pl-2">Unidades (Discos)</h3>
           <div className="space-y-3">
             <button onClick={(e) => handleSelect('storage_drives', e, filesData)} className={`flex items-center gap-4 p-4 rounded-xl text-left transition-all border-2 w-full ${selectedItem?.id === 'storage_drives' ? 'bg-blue-600 border-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-700'}`}>
@@ -763,10 +763,10 @@ export default function App() {
           </div>
         </div>
 
-        <div className="w-full md:w-2/3 bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col gap-8 overflow-hidden">
+        <div className="w-full xl:w-2/3 bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200 flex flex-col gap-6 sm:gap-8 overflow-hidden">
           <div>
             <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4">Estructura del Árbol (Jerarquía)</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <InteractiveButton id="folders_org" dataSet={filesData} extraClass="!flex-row !justify-start gap-4 !p-5 shadow-sm" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
               <button onClick={(e) => handleSelect('folders_org', e, filesData)} className={`relative flex items-center p-5 rounded-xl border-2 transition-all duration-300 gap-4 ${selectedItem?.id === 'folders_org' ? 'ring-4 ring-amber-400 shadow-lg scale-105 bg-amber-100 text-amber-900 border-amber-500 z-10' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400'}`}>
                 <FolderOpen size={36} className="text-amber-500" />
@@ -911,7 +911,7 @@ export default function App() {
             </div>
             <div className="space-y-2 overflow-x-auto overflow-y-hidden pb-2">
               {keyboardLayout.map((row, rowIndex) => (
-                <div key={rowIndex} className="flex gap-2 min-w-[920px]">
+                <div key={rowIndex} className="flex gap-1.5 sm:gap-2 min-w-[680px] sm:min-w-[780px] lg:min-w-[920px]">
                   {row.map((key) => (
                     <div key={`${rowIndex}-${key.label}`} className={key.wide}>
                       <KeyboardKey label={key.label} selectedKeys={selectedItem?.keys || []} />
@@ -975,25 +975,25 @@ export default function App() {
   );
 
   return (
-    <div className={`min-h-screen font-sans p-4 md:p-6 flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
+    <div className={`min-h-screen font-sans p-3 sm:p-4 md:p-6 flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
       <div className="relative flex flex-col">
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
       <header className="mb-6 flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
-        <div className={`p-6 md:p-8 rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col md:flex-row md:items-center justify-between gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
+        <div className={`p-4 sm:p-5 md:p-8 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
             <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
-            <h1 className={`text-4xl md:text-5xl font-black tracking-tight flex items-center gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              <AppWindow className={isDark ? 'text-indigo-300' : 'text-blue-600'} size={48} />
+            <h1 className={`text-2xl sm:text-3xl md:text-5xl font-black tracking-tight flex items-center gap-3 sm:gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <AppWindow className={isDark ? 'text-indigo-300' : 'text-blue-600'} size={36} />
               Aula de Competencias Digitales
             </h1>
-            <p className={`mt-4 text-lg md:text-xl font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
+            <p className={`mt-4 text-sm sm:text-base md:text-xl font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
               Un recorrido interactivo por hardware, redes, archivos, navegacion, atajos de teclado y herramientas de inteligencia artificial para aprender con mas autonomia.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 min-w-[280px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto md:min-w-[280px]">
             <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
@@ -1008,7 +1008,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className={`rounded-2xl border p-4 flex items-center justify-center gap-3 font-black transition-colors ${isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+              className={`rounded-2xl border p-4 flex items-center justify-center gap-3 font-black text-sm sm:text-base transition-colors ${isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
               {isDark ? 'Modo claro' : 'Modo oscuro'}
@@ -1017,12 +1017,12 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
-          <div className={`rounded-[32px] border p-6 md:p-7 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
+          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 md:p-7 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),transparent_38%,rgba(255,255,255,0.04))]"></div>
             <div className="relative">
               <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
-              <h2 className="text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
-              <p className="text-slate-300 leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
               <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <button
                   onClick={handleStartModule}
@@ -1040,7 +1040,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`rounded-[32px] border p-6 shadow-sm ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 shadow-sm ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
             <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Criterios UX/UI</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3 mt-5">
               <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
@@ -1060,18 +1060,16 @@ export default function App() {
         </div>
 
         {/* Tabs de Navegación - Ahora con 6 botones (Scrollable en móvil) */}
-        <div className="flex overflow-x-auto pb-2 hide-scrollbar">
-          <div className="flex w-full min-w-max md:grid md:grid-cols-6 gap-3 md:gap-4">
-            {tabConfig.map((tab) => (
-              <TabButton
-                key={tab.id}
-                tab={tab}
-                isActive={activeTab === tab.id}
-                onClick={handleTabChange}
-                isDark={isDark}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3 md:gap-4">
+          {tabConfig.map((tab) => (
+            <TabButton
+              key={tab.id}
+              tab={tab}
+              isActive={activeTab === tab.id}
+              onClick={handleTabChange}
+              isDark={isDark}
+            />
+          ))}
         </div>
       </header>
 
@@ -1090,7 +1088,7 @@ export default function App() {
 
         {/* ZONA DERECHA: Panel Lector Dinámico (40%) */}
         <div className="w-full xl:w-[36%] min-w-0">
-          <div className="sticky top-6 h-full min-h-[560px] xl:max-h-[calc(100vh-2rem)] xl:h-[calc(100vh-2rem)]">
+          <div className="h-full min-h-[420px] xl:sticky xl:top-6 xl:max-h-[calc(100vh-2rem)] xl:h-[calc(100vh-2rem)]">
             <PanelDerecho
               selectedItem={selectedItem}
               activeTabMeta={activeTabMeta}

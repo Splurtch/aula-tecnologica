@@ -25,14 +25,14 @@ export const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, 
   return (
     <button
       onClick={(e) => onSelect(id, e, dataSet)}
-      className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-300 ${activeClass} ${extraClass}`}
+      className={`relative flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 ${activeClass} ${extraClass}`}
     >
       <comp.icon
         size={36}
         className={`mb-3 ${isSelected ? (isDark ? 'text-white' : colors.text) : (isDark ? 'text-slate-400' : 'text-slate-500')}`}
         strokeWidth={1.5}
       />
-      <span className="text-[15px] font-bold text-center leading-tight">{comp.name}</span>
+      <span className="text-[14px] sm:text-[15px] font-bold text-center leading-tight">{comp.name}</span>
       {isSelected && (
         <span className="absolute -top-2 -right-2 flex h-4 w-4">
           <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colors.bgBase} opacity-75`}></span>
@@ -82,7 +82,7 @@ export const TabButton = ({ tab, isActive, onClick, isDark = false }) => {
   return (
     <button
       onClick={() => onClick(tab.id)}
-      className={`flex flex-col items-start justify-between p-4 md:p-5 rounded-2xl font-black text-left uppercase tracking-wide transition-all duration-300 border min-h-[132px] ${activeClass}`}
+      className={`flex flex-col items-start justify-between p-3 sm:p-4 md:p-5 rounded-2xl font-black text-left uppercase tracking-wide transition-all duration-300 border min-h-[112px] sm:min-h-[124px] md:min-h-[132px] ${activeClass}`}
     >
       <div className="flex items-center justify-between w-full gap-3">
         <span className={`text-[11px] px-2.5 py-1 rounded-full border ${isActive ? 'bg-white/15 border-white/20 text-white/80' : isDark ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-500'}`}>
@@ -134,11 +134,11 @@ export const Layer3D = ({ id, style, baseZ, children, customClass = "", selected
 };
 
 export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartModule, onClearSelection, colorMap, isDark = false }) => {
-  if (!selectedItem) {
+      if (!selectedItem) {
     return (
       <div className="h-full">
         <div className={`rounded-[30px] border shadow-xl overflow-hidden h-full ${isDark ? 'border-slate-800 bg-slate-950' : 'border-white/80 bg-white/88 backdrop-blur-xl'}`}>
-          <div className={`p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white' : 'bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white'}`}>
+          <div className={`p-5 sm:p-6 md:p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white' : 'bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white'}`}>
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-2xl bg-white/10 border border-white/10">
                 <activeTabMeta.icon size={34} />
@@ -151,8 +151,8 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
             <p className="text-slate-300 leading-relaxed mt-5">{activeTabMeta.description}</p>
           </div>
 
-          <div className={`p-8 space-y-6 ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>
-            <div className="grid grid-cols-2 gap-4">
+          <div className={`p-5 sm:p-6 md:p-8 space-y-6 ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conceptos</p>
                 <p className={`text-3xl font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{itemCount}</p>
@@ -191,7 +191,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
 
   return (
     <div className={`animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col h-full rounded-[30px] shadow-2xl border overflow-hidden ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
-      <div className={`px-8 py-6 flex items-center gap-4 ${colors.bgBase} text-white shadow-md z-10 relative`}>
+      <div className={`px-5 sm:px-6 md:px-8 py-5 sm:py-6 flex items-center gap-4 ${colors.bgBase} text-white shadow-md z-10 relative`}>
         <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm border border-white/30 shrink-0">
           <selectedItem.icon size={36} className="drop-shadow-md" />
         </div>
@@ -201,8 +201,8 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
         </div>
       </div>
 
-      <div className="p-8 flex-grow overflow-y-auto space-y-8 custom-scrollbar">
-        <section className={`rounded-2xl border p-4 flex items-center justify-between gap-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+      <div className="p-5 sm:p-6 md:p-8 flex-grow overflow-y-auto space-y-6 sm:space-y-8 custom-scrollbar">
+        <section className={`rounded-2xl border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
           <div>
             <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Ruta actual</p>
             <p className={`text-sm font-bold mt-2 ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>{activeTabMeta.title} / {selectedItem.name}</p>
