@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -53,6 +53,76 @@ const hardwareData = {
     desc: 'La electricidad genera calor por fricción al pasar por los circuitos. Los componentes modernos (CPU y GPU) trabajan tan rápido que pueden superar los 100°C en segundos y derretirse literalmente si no se enfrían.\n\nEl sistema de refrigeración se encarga de disipar ese calor y expulsarlo fuera de la caja de la torre, manteniendo el ordenador a temperaturas seguras (normalmente entre 40°C y 80°C).', 
     details: 'Métodos principales:\n• Refrigeración por Aire: Usa bloques de metal (disipadores) de aluminio o cobre unidos a la CPU, y ventiladores que soplan aire a través de ellos.\n• Refrigeración Líquida (AIO): Funciona de manera similar al radiador de un coche. Una bomba hace circular un líquido refrigerante por unos tubos. El líquido absorbe el calor del procesador y lo lleva a un radiador grande donde los ventiladores lo enfrían. Es más silenciosa y eficiente para equipos de alto rendimiento.' 
   }
+};
+
+// ==========================================
+// 1B. BASE DE DATOS: PERIFERICOS
+// ==========================================
+const peripheralData = {
+  input_devices: {
+    id: 'input_devices', name: 'Perifericos de Entrada', category: 'Entrada de informacion', icon: Keyboard, color: 'blue',
+    desc: 'Los perifericos de entrada permiten introducir informacion en el ordenador. Son el puente entre la accion humana y el sistema digital.\n\nCada vez que escribes, haces clic, hablas al microfono o escaneas un documento, estas enviando datos desde el exterior hacia el equipo.',
+    details: 'Ejemplos habituales:\nâ€¢ Teclado: Introduce texto, numeros y comandos.\nâ€¢ Raton: Señala, selecciona y ejecuta acciones visuales.\nâ€¢ Microfono: Convierte voz o sonido en informacion digital.\nâ€¢ Escaner: Digitaliza documentos e imagenes para trabajarlos en pantalla.',
+    pros: [
+      'Permiten controlar el equipo con precision y comodidad.',
+      'Son la base de la interaccion diaria en oficina, aula o casa.',
+      'Existen modelos adaptados a accesibilidad y necesidades concretas.'
+    ],
+    cons: [
+      'Su ergonomia influye mucho en la fatiga y la postura.',
+      'Un mal dispositivo de entrada puede ralentizar el trabajo y generar errores.',
+      'Algunos requieren configuracion o drivers especificos para rendir bien.'
+    ],
+    examples: 'Casos reales: redactar un trabajo con teclado, manejar una presentacion con el raton, grabar una clase con microfono o escanear formularios en administracion.',
+  },
+  output_devices: {
+    id: 'output_devices', name: 'Perifericos de Salida', category: 'Salida de informacion', icon: Monitor, color: 'emerald',
+    desc: 'Los perifericos de salida muestran o reproducen la informacion que procesa el ordenador. Son la forma en la que el sistema devuelve resultados al usuario.\n\nSin ellos, el equipo puede trabajar internamente, pero el usuario no podria ver, escuchar ni interpretar facilmente lo que ocurre.',
+    details: 'Ejemplos clave:\nâ€¢ Monitor o pantalla: Muestra imagenes, interfaces y documentos.\nâ€¢ Altavoces y auriculares: Reproducen sonido, avisos, musica o clases.\nâ€¢ Impresora: Transforma contenido digital en papel.\nâ€¢ Proyector: Amplia la salida visual para grupos o aulas.',
+    pros: [
+      'Hacen visible y comprensible la informacion procesada.',
+      'Permiten adaptar la experiencia a lectura, audio o presentacion.',
+      'Son esenciales para formacion, trabajo administrativo y multimedia.'
+    ],
+    cons: [
+      'Una mala calidad de pantalla o sonido afecta mucho a la comprension.',
+      'Algunos consumen bastante energia o espacio.',
+      'Pueden requerir calibracion, volumen o configuracion especifica.'
+    ],
+    examples: 'Ejemplos: leer una web en el monitor, escuchar una videoclase con auriculares o imprimir un documento final para entregarlo.',
+  },
+  io_devices: {
+    id: 'io_devices', name: 'Entrada y Salida', category: 'Intercambio bidireccional', icon: Usb, color: 'purple',
+    desc: 'Hay perifericos que no se limitan a una sola direccion de informacion. Algunos envian y reciben datos, o permiten una comunicacion continua entre usuario y equipo.\n\nEste grupo es importante porque refleja que muchos dispositivos modernos cumplen varias funciones a la vez.',
+    details: 'Ejemplos mixtos:\nâ€¢ Pantalla tactil: Muestra informacion y tambien recibe pulsaciones.\nâ€¢ Cascos con microfono: Reproducen sonido y capturan voz.\nâ€¢ Impresora multifuncion: Imprime, escanea y a veces copia o envia documentos.\nâ€¢ Mandos y tabletas digitalizadoras: Reciben accion del usuario y devuelven respuesta visual.',
+    pros: [
+      'Reducen equipos separados al combinar varias funciones.',
+      'Mejoran la fluidez en videollamadas, aulas digitales y puestos compactos.',
+      'Son muy utiles en movilidad y entornos hibridos.'
+    ],
+    cons: [
+      'Pueden ser mas caros o mas complejos de configurar.',
+      'Si fallan, se pierden varias funciones de golpe.',
+      'A veces dependen mas de drivers o compatibilidad del sistema.'
+    ],
+    examples: 'Uso comun: dar clase con un portatil y auriculares con microfono, trabajar con una pantalla tactil o usar una impresora multifuncion en oficina.',
+  },
+  connectivity_devices: {
+    id: 'connectivity_devices', name: 'Almacenamiento y Conexion', category: 'Transferencia de datos', icon: HardDrive, color: 'amber',
+    desc: 'Otros perifericos se centran en mover, guardar o transportar informacion entre dispositivos. Aunque a veces pasan desapercibidos, son claves para copia de seguridad, movilidad y ampliacion de capacidades.\n\nAqui entran dispositivos que conectas al equipo para intercambiar datos o ampliar sus posibilidades.',
+    details: 'Ejemplos utiles:\nâ€¢ Pendrive USB: Transporta archivos entre equipos.\nâ€¢ Disco duro externo: Guarda copias y archivos pesados.\nâ€¢ Tarjetas SD y lectores: Usados en camaras, moviles y portatiles.\nâ€¢ Docking stations y hubs: Añaden puertos y conexiones a un solo equipo.',
+    pros: [
+      'Facilitan copias de seguridad y trabajo en movilidad.',
+      'Permiten ampliar almacenamiento o puertos rapidamente.',
+      'Son muy utiles para compartir archivos grandes o conectar varios accesorios.'
+    ],
+    cons: [
+      'Si no se expulsan bien, se pueden corromper datos.',
+      'Unidades baratas pueden ser lentas o poco fiables.',
+      'Transportar informacion externa implica riesgos de perdida o malware.'
+    ],
+    examples: 'Situaciones frecuentes: pasar fotos de una camara, llevar trabajos en USB, conectar varios perifericos a un portatil o guardar una copia externa del aula.',
+  },
 };
 
 // ==========================================
@@ -169,6 +239,76 @@ const filesData = {
     desc: 'Saber organizar archivos incluye saber identificar las diferentes unidades donde puedes ubicarlos. El Sistema Operativo asigna a cada soporte físico (Disco duro, pendrive, CD) una "Letra de Unidad" para poder localizarlos.\n\nEs crucial entender la diferencia entre "Copiar" (clonar el archivo dejando el original donde estaba) y "Mover / Cortar" (llevarse el archivo a otro sitio eliminándolo del origen), para no perder información valiosa al traspasar datos a un pendrive.',
     details: 'Soportes Habituales:\n• Disco C: (Disco Local Principal): Es la unidad de almacenamiento interna por defecto. Es el disco más rápido porque va dentro del ordenador, pero si el equipo se rompe, el disco se queda dentro.\n• Dispositivos Extraíbles (Pendrives USB / Discos Externos): Unidades portátiles. Suelen asignarse con las letras D:, E:, F:. Son vitales para llevar documentos grandes físicamente o hacer Copias de Seguridad (Backups) aisladas.\n• Carpetas en Red / Nube Virtual: Aunque las ves como una carpeta más en tu sistema (ej. Dropbox), físicamente son discos duros en la otra punta del planeta conectados a través de Internet.'
   }
+};
+
+// ==========================================
+// 4B. BASE DE DATOS: SOFTWARE
+// ==========================================
+const softwareData = {
+  operating_systems: {
+    id: 'operating_systems', name: 'Sistemas Operativos', category: 'Base del software', icon: Monitor, color: 'indigo',
+    desc: 'El sistema operativo es el software principal del ordenador. Actua como intermediario entre el hardware y el resto de programas.\n\nSin sistema operativo, el equipo no tendria una interfaz funcional para arrancar, gestionar memoria, abrir archivos o usar dispositivos.',
+    details: 'Funciones centrales:\nâ€¢ Arranque del equipo y gestion de recursos.\nâ€¢ Coordinacion entre procesador, memoria, discos y periféricos.\nâ€¢ Interfaz para que el usuario abra programas, carpetas y ajustes.\nâ€¢ Seguridad, usuarios, permisos y actualizaciones del sistema.',
+    pros: [
+      'Hace utilizable el hardware para cualquier persona.',
+      'Organiza los recursos del equipo y reparte prioridades.',
+      'Permite instalar y ejecutar aplicaciones de forma estable.'
+    ],
+    cons: [
+      'Si falla o esta mal configurado, afecta a todo el entorno.',
+      'Cada sistema tiene sus compatibilidades y limitaciones.',
+      'Requiere mantenimiento, actualizaciones y espacio.'
+    ],
+    examples: 'Ejemplos comunes: Windows, macOS, Linux, Android e iOS. Todos gestionan el dispositivo, pero con enfoques y ecosistemas distintos.',
+  },
+  drivers: {
+    id: 'drivers', name: 'Drivers y Controladores', category: 'Capa de compatibilidad', icon: Plug, color: 'blue',
+    desc: 'Los drivers o controladores son pequeños programas que permiten al sistema operativo comunicarse correctamente con el hardware y los perifericos.\n\nPodriamos decir que son traductores: convierten las ordenes del sistema en instrucciones que una impresora, una tarjeta grafica o un microfono puedan entender.',
+    details: 'Casos habituales:\nâ€¢ Driver de impresora: habilita impresion, calidad y bandejas.\nâ€¢ Driver de audio: gestiona altavoces, microfono y niveles.\nâ€¢ Driver grafico: mejora resolucion, rendimiento y aceleracion visual.\nâ€¢ Driver de red: permite usar WiFi, Ethernet o Bluetooth correctamente.',
+    pros: [
+      'Hacen posible que el hardware funcione como debe.',
+      'Mejoran rendimiento, estabilidad y funciones avanzadas.',
+      'Son clave para periféricos especializados y equipos nuevos.'
+    ],
+    cons: [
+      'Un driver incorrecto puede causar fallos o incompatibilidades.',
+      'A veces quedan desactualizados y generan errores extraños.',
+      'Instalar controladores no oficiales puede comprometer seguridad.'
+    ],
+    examples: 'Ejemplo real: conectar una impresora nueva y necesitar su controlador para imprimir, escanear y ajustar opciones.',
+  },
+  applications: {
+    id: 'applications', name: 'Aplicaciones y Programas', category: 'Software de uso general', icon: Blocks, color: 'emerald',
+    desc: 'Las aplicaciones son los programas que usamos para tareas concretas: escribir, navegar, editar, comunicar, aprender o diseñar.\n\nSi el sistema operativo es la base, las aplicaciones son las herramientas que convierten el ordenador en algo util para estudiar, trabajar y crear.',
+    details: 'Tipos de software habitual:\nâ€¢ Ofimatica: Word, Excel, PowerPoint, Google Docs.\nâ€¢ Navegacion y comunicacion: Chrome, Edge, Zoom, Teams, correo.\nâ€¢ Creatividad: editores de imagen, video, audio o diseño.\nâ€¢ Utilidades: antivirus, compresores, lectores PDF, copias de seguridad.',
+    pros: [
+      'Resuelven necesidades concretas de usuario.',
+      'Permiten personalizar el equipo segun estudios o trabajo.',
+      'Existen aplicaciones locales, web y en la nube.'
+    ],
+    cons: [
+      'Demasiados programas pueden saturar el sistema.',
+      'No todas las aplicaciones son fiables o seguras.',
+      'Algunas dependen de licencias, suscripciones o compatibilidades.'
+    ],
+    examples: 'Ejemplos: redactar en Word, navegar con Chrome, asistir a clase por Zoom o editar una imagen en Canva o Photoshop.',
+  },
+  software_stack: {
+    id: 'software_stack', name: 'Como se organiza el Software', category: 'Vision de conjunto', icon: Layers, color: 'purple',
+    desc: 'Entender el software por capas ayuda mucho a no mezclar conceptos. No es lo mismo el sistema que arranca el equipo, el driver que activa un dispositivo o la app con la que haces una tarea.\n\nEsta vision por capas hace que el usuario entienda mejor los problemas y sepa donde mirar cuando algo falla.',
+    details: 'Capas del entorno:\nâ€¢ Hardware: La parte fisica del equipo.\nâ€¢ Sistema operativo: Coordina y administra el conjunto.\nâ€¢ Drivers: Permiten hablar con dispositivos concretos.\nâ€¢ Aplicaciones: Herramientas finales para el usuario.',
+    pros: [
+      'Aclara conceptos que suelen confundirse.',
+      'Facilita diagnosticar errores y compatibilidades.',
+      'Ayuda a aprender informatica con una estructura mental clara.'
+    ],
+    cons: [
+      'Si no se explica bien, muchos usuarios lo perciben abstracto.',
+      'En problemas reales varias capas pueden fallar al mismo tiempo.',
+      'A veces las apps ocultan el papel del sistema y los drivers.'
+    ],
+    examples: 'Ejemplo simple: quieres imprimir un PDF. La app abre el archivo, el sistema organiza la tarea, el driver entiende la impresora y el hardware la ejecuta.',
+  },
 };
 
 // ==========================================
@@ -430,9 +570,20 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm',
   },
   {
-    id: 'cloud',
+    id: 'peripherals',
     group: 'Base tecnologica',
     step: '02',
+    title: 'Perifericos',
+    subtitle: 'Entrada, salida y conexion',
+    description: 'Distingue dispositivos de entrada, salida y transferencia de informacion.',
+    icon: Headphones,
+    activeClass: 'bg-cyan-600 text-white shadow-xl border-cyan-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-cyan-50 hover:text-cyan-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'cloud',
+    group: 'Base tecnologica',
+    step: '03',
     title: 'Redes',
     subtitle: 'Local, nube y sincronizacion',
     description: 'Aclara como viajan los archivos y donde vive la informacion.',
@@ -441,9 +592,20 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-blue-50 hover:text-blue-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'software',
+    group: 'Base tecnologica',
+    step: '04',
+    title: 'Software',
+    subtitle: 'Sistema, drivers y apps',
+    description: 'Entiende las capas del software y como se relacionan con el hardware.',
+    icon: AppWindow,
+    activeClass: 'bg-slate-700 text-white shadow-xl border-slate-900 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'internet',
     group: 'Navegacion y organizacion',
-    step: '03',
+    step: '05',
     title: 'Navegacion',
     subtitle: 'Buscar, contrastar y protegerse',
     description: 'Aprende a moverte por Internet con criterio y seguridad.',
@@ -454,7 +616,7 @@ const tabConfig = [
   {
     id: 'files',
     group: 'Navegacion y organizacion',
-    step: '04',
+    step: '06',
     title: 'Archivos',
     subtitle: 'Orden, formatos y carpetas',
     description: 'Organiza documentos y entiende como se almacenan.',
@@ -465,7 +627,7 @@ const tabConfig = [
   {
     id: 'keyboard',
     group: 'Productividad',
-    step: '05',
+    step: '07',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
     description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
@@ -476,7 +638,7 @@ const tabConfig = [
   {
     id: 'ai',
     group: 'Inteligencia artificial',
-    step: '06',
+    step: '08',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
     description: 'Explora modelos, asistentes y creadores multimedia.',
@@ -488,7 +650,9 @@ const tabConfig = [
 
 const tabDataMap = {
   hardware: hardwareData,
+  peripherals: peripheralData,
   cloud: cloudData,
+  software: softwareData,
   internet: internetData,
   files: filesData,
   keyboard: keyboardData,
@@ -497,7 +661,7 @@ const tabDataMap = {
 
 const sectionGroupMeta = {
   'Base tecnologica': {
-    summary: 'Infraestructura, hardware, red y nube para entender como funciona el entorno digital.',
+    summary: 'Infraestructura, periféricos, red y software base para entender como funciona el entorno digital.',
   },
   'Navegacion y organizacion': {
     summary: 'Busqueda, criterio, archivos y orden para moverse con autonomia.',
@@ -666,6 +830,56 @@ export default function App() {
       </div>
   );
 
+  const renderPeripheralsTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${
+        isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+      }`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+          <div className="max-w-3xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-cyan-600/70'}`}>Base tecnologica</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Perifericos y flujo de informacion</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Aprende a distinguir que dispositivos introducen datos, cuales los muestran y cuales sirven para intercambiar informacion entre el usuario y el equipo.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:w-auto w-full">
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Entrada</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Datos hacia el equipo</p>
+            </div>
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Salida</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Respuesta hacia el usuario</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <InteractiveButton id="input_devices" dataSet={peripheralData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="output_devices" dataSet={peripheralData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="io_devices" dataSet={peripheralData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="connectivity_devices" dataSet={peripheralData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Entrada</p>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Teclado, raton, escaner o microfono introducen informacion desde el exterior.</p>
+        </div>
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Salida</p>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Monitor, altavoces, auriculares o impresora muestran el resultado del procesamiento.</p>
+        </div>
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mixtos</p>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Pantallas tactiles, cascos con microfono o impresoras multifuncion combinan varias direcciones de informacion.</p>
+        </div>
+      </div>
+    </div>
+  );
+
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => (
     <div className="bg-slate-900 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl border border-slate-800 relative overflow-hidden flex flex-col h-full md:min-h-[600px] animate-in slide-in-from-left-8 duration-500">
@@ -824,6 +1038,60 @@ export default function App() {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderSoftwareTab = () => (
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${
+        isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+      }`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
+          <div className="max-w-3xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-slate-600/70'}`}>Base tecnologica</p>
+            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Software por capas</h2>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Diferenciamos el sistema operativo, los drivers y las aplicaciones para que el usuario entienda mejor como funciona el ordenador y donde mirar cuando aparece un problema.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Sistema</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Coordina el equipo</p>
+            </div>
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Drivers</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Hablan con el hardware</p>
+            </div>
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Apps</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Resuelven tareas</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <InteractiveButton id="operating_systems" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="drivers" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="applications" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="software_stack" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black`}>1. Sistema operativo</h3>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Es la base que arranca, administra recursos y hace utilizable el hardware.</p>
+        </div>
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black`}>2. Drivers</h3>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Permiten al sistema entender impresoras, audio, red, pantalla o perifericos concretos.</p>
+        </div>
+        <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black`}>3. Aplicaciones</h3>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Son las herramientas concretas para escribir, navegar, editar, comunicar o aprender.</p>
         </div>
       </div>
     </div>
@@ -1221,7 +1489,9 @@ export default function App() {
         {/* ZONA IZQUIERDA: Interactuador Visual (60%) */}
         <div className="w-full xl:w-[64%] flex flex-col gap-6 min-w-0">
           {activeTab === 'hardware' && renderHardwareTab()}
+          {activeTab === 'peripherals' && renderPeripheralsTab()}
           {activeTab === 'cloud' && renderCloudTab()}
+          {activeTab === 'software' && renderSoftwareTab()}
           {activeTab === 'internet' && renderInternetTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
