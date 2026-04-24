@@ -312,12 +312,40 @@ const softwareData = {
 };
 
 const softwareOsExamples = [
-  { name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400', logo: 'window' },
-  { name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300', logo: 'mac' },
-  { name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400', logo: 'linux' },
-  { name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300', logo: 'android' },
-  { name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400', logo: 'ios' },
+  { id: 'windows', name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400', logo: 'window' },
+  { id: 'macos', name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300', logo: 'mac' },
+  { id: 'linux', name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400', logo: 'linux' },
+  { id: 'android', name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300', logo: 'android' },
+  { id: 'ios', name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400', logo: 'ios' },
 ];
+
+const softwareOsDetails = {
+  windows: {
+    focus: 'Muy extendido en educacion, oficina y hogar.',
+    summary: 'Windows suele ser el sistema mas usado en ordenadores del aula y del trabajo. Destaca por compatibilidad con periféricos, programas y entornos muy distintos.',
+    zones: ['Escritorio y barra de tareas', 'Explorador de archivos', 'Configuracion del sistema'],
+  },
+  macos: {
+    focus: 'Entorno muy cuidado y bien integrado con Apple.',
+    summary: 'macOS prioriza una experiencia muy fluida entre dispositivo, sistema y aplicaciones. Se asocia mucho con creatividad, organizacion y continuidad entre equipos Apple.',
+    zones: ['Dock de aplicaciones', 'Finder', 'Ajustes del sistema'],
+  },
+  linux: {
+    focus: 'Alternativa abierta y muy personalizable.',
+    summary: 'Linux es una familia de sistemas abiertos muy valiosa para aprender, reutilizar equipos, trabajar con servidores o entender mejor como se organiza un sistema operativo.',
+    zones: ['Distribucion y escritorio', 'Gestor de paquetes', 'Terminal y permisos'],
+  },
+  android: {
+    focus: 'Sistema movil muy presente en telefonos y tablets.',
+    summary: 'Android ayuda a entender permisos, apps, ajustes y organizacion en un entorno movil. Es muy importante porque muchas personas acceden a lo digital primero desde aqui.',
+    zones: ['Pantalla de inicio', 'Ajustes y permisos', 'Tienda de aplicaciones'],
+  },
+  ios: {
+    focus: 'Ecosistema movil de Apple, guiado y muy estable.',
+    summary: 'iOS y iPadOS ponen el foco en simplicidad, privacidad y coherencia de uso. Son utiles para aprender como se controla un entorno movil mas cerrado y muy integrado.',
+    zones: ['Pantalla principal', 'Centro de control', 'Ajustes y App Store'],
+  },
+};
 
 const softwareDriverFlow = [
   { label: 'Aplicacion', helper: 'Word, navegador o Zoom', icon: Blocks },
@@ -578,6 +606,64 @@ const officeComparisonSets = {
     { name: 'LibreOffice Calc', type: 'Abierto', note: 'Alternativa libre para calculo y tablas.' },
     { name: 'Google Sheets', type: 'Web', note: 'Ideal para trabajo compartido y seguimiento.' },
   ],
+};
+
+const officeWorkspaceViews = {
+  text_docs: {
+    title: 'Procesador de texto',
+    subtitle: 'Documento editable con estructura clara',
+    accent: 'sky',
+    zones: [
+      { id: 'toolbar', label: 'Barra superior', heading: 'Formato y estilos', text: 'Aqui eliges fuente, tamaño, negrita, alineacion y estilos para mantener el documento ordenado.' },
+      { id: 'page', label: 'Pagina', heading: 'Zona de escritura', text: 'Es el espacio principal para redactar cartas, trabajos, solicitudes o un CV.' },
+      { id: 'sidebar', label: 'Panel lateral', heading: 'Esquema y comentarios', text: 'Sirve para navegar por titulos, revisar cambios o ver observaciones.' },
+      { id: 'export', label: 'Exportar', heading: 'Salida final', text: 'Cuando el documento ya esta cerrado, lo conviertes en PDF o lo compartes.' },
+    ],
+  },
+  spreadsheets: {
+    title: 'Hoja de calculo',
+    subtitle: 'Datos, celdas y formulas',
+    accent: 'emerald',
+    zones: [
+      { id: 'formula', label: 'Barra de formulas', heading: 'Calculo rapido', text: 'Aqui escribes operaciones y referencias entre celdas para automatizar resultados.' },
+      { id: 'grid', label: 'Cuadricula', heading: 'Datos en filas y columnas', text: 'La tabla ayuda a ordenar gastos, inventarios, notas o seguimiento de tareas.' },
+      { id: 'filters', label: 'Filtros', heading: 'Analisis', text: 'Los filtros permiten ver solo una parte de la tabla sin perder el conjunto.' },
+      { id: 'chart', label: 'Grafico', heading: 'Lectura visual', text: 'Un grafico convierte los numeros en una imagen facil de explicar y comparar.' },
+    ],
+  },
+  presentations_tools: {
+    title: 'Presentacion',
+    subtitle: 'Diapositivas para exponer ideas',
+    accent: 'violet',
+    zones: [
+      { id: 'slides', label: 'Miniaturas', heading: 'Secuencia de la exposicion', text: 'Sirven para ordenar el discurso visual y ver la estructura general.' },
+      { id: 'canvas', label: 'Diapositiva', heading: 'Lienzo principal', text: 'Aqui se colocan titulares, imagenes, graficos y mensajes clave.' },
+      { id: 'notes', label: 'Notas', heading: 'Apoyo al presentador', text: 'Permiten preparar recordatorios sin llenar la diapositiva de texto.' },
+      { id: 'show', label: 'Presentar', heading: 'Modo exposicion', text: 'Es la salida final para mostrar el contenido en clase, reunion o defensa.' },
+    ],
+  },
+  pdf_export: {
+    title: 'PDF y exportacion',
+    subtitle: 'Documento final para compartir',
+    accent: 'amber',
+    zones: [
+      { id: 'source', label: 'Archivo fuente', heading: 'Documento editable', text: 'Antes de exportar conviene revisar contenido, paginas y nombres de archivo.' },
+      { id: 'settings', label: 'Ajustes', heading: 'Calidad y formato', text: 'Aqui eliges paginas, compresion, calidad y opciones del PDF final.' },
+      { id: 'preview', label: 'Vista previa', heading: 'Comprobacion', text: 'Permite confirmar que el aspecto del documento sigue siendo correcto.' },
+      { id: 'share', label: 'Compartir', heading: 'Entrega', text: 'Despues de exportar se adjunta o comparte con menos riesgo de cambios accidentales.' },
+    ],
+  },
+  collaboration_templates: {
+    title: 'Colaboracion y plantillas',
+    subtitle: 'Trabajo compartido y bases reutilizables',
+    accent: 'indigo',
+    zones: [
+      { id: 'members', label: 'Equipo', heading: 'Personas conectadas', text: 'Muestra quien esta editando para coordinarse mejor y evitar solapamientos.' },
+      { id: 'comments', label: 'Comentarios', heading: 'Revision guiada', text: 'Sirven para proponer cambios o correcciones sin tocar el texto principal.' },
+      { id: 'template', label: 'Plantilla', heading: 'Estructura base', text: 'Una plantilla bien elegida acelera mucho tareas repetitivas como CV, actas o presupuestos.' },
+      { id: 'permissions', label: 'Permisos', heading: 'Control de acceso', text: 'Antes de compartir hay que decidir quien edita, comenta o solo visualiza.' },
+    ],
+  },
 };
 
 const officeQuizItems = [
@@ -1009,11 +1095,13 @@ export default function App() {
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
   const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
+  const [selectedSoftwareOs, setSelectedSoftwareOs] = useState('windows');
   const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
   const [securityQuizSelections, setSecurityQuizSelections] = useState({});
   const [emailQuizSelections, setEmailQuizSelections] = useState({});
   const [emailRecipientView, setEmailRecipientView] = useState('para');
   const [officeTaskView, setOfficeTaskView] = useState('cv');
+  const [officeWorkspaceZone, setOfficeWorkspaceZone] = useState('toolbar');
   const [officeQuizSelections, setOfficeQuizSelections] = useState({});
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
@@ -1090,6 +1178,16 @@ export default function App() {
   useEffect(() => {
     setExpandedSectionGroup(activeTabMeta.group);
   }, [activeTabMeta.group]);
+
+  useEffect(() => {
+    if (selectedItem?.id === 'operating_systems') {
+      setSelectedSoftwareOs((prev) => prev || 'windows');
+    }
+
+    if (officeData[selectedItem?.id] && officeWorkspaceViews[selectedItem.id]) {
+      setOfficeWorkspaceZone(officeWorkspaceViews[selectedItem.id].zones[0].id);
+    }
+  }, [selectedItem]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1741,14 +1839,64 @@ export default function App() {
         </section>
 
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Procesadores de texto</p>
-              <div className="grid grid-cols-1 gap-3 mt-4">{officeComparisonSets.docs.map((tool) => <article key={tool.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><div className="flex items-center justify-between gap-3"><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${tool.type === 'Cerrado' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : tool.type === 'Abierto' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-sky-500/15 text-sky-200' : 'bg-sky-100 text-sky-700'}`}>{tool.type}</span></div><p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.note}</p></article>)}</div>
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeWorkspaceViews[selectedItem?.id]?.title}</h3>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{officeWorkspaceViews[selectedItem?.id]?.subtitle}</p>
+          </div>
+          <div className={`mt-5 rounded-[28px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)]'}`}>
+            <div className={`flex items-center gap-3 px-4 py-3 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+              <div className="flex gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-400" />
+                <span className="w-3 h-3 rounded-full bg-amber-400" />
+                <span className="w-3 h-3 rounded-full bg-emerald-400" />
+              </div>
+              <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeWorkspaceViews[selectedItem?.id]?.title}</p>
             </div>
-            <div>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Hojas de calculo</p>
-              <div className="grid grid-cols-1 gap-3 mt-4">{officeComparisonSets.sheets.map((tool) => <article key={tool.name} className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><div className="flex items-center justify-between gap-3"><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tool.name}</p><span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${tool.type === 'Cerrado' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : tool.type === 'Abierto' ? isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700' : isDark ? 'bg-sky-500/15 text-sky-200' : 'bg-sky-100 text-sky-700'}`}>{tool.type}</span></div><p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tool.note}</p></article>)}</div>
+            <div className={`grid grid-cols-1 lg:grid-cols-[220px_1fr] ${isDark ? 'bg-slate-950' : 'bg-white'}`}>
+              <aside className={`border-r p-4 space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-slate-50'}`}>
+                {(officeWorkspaceViews[selectedItem?.id]?.zones || []).map((zone) => (
+                  <button
+                    key={zone.id}
+                    onClick={() => setOfficeWorkspaceZone(zone.id)}
+                    className={`w-full rounded-[18px] px-4 py-3 text-left text-sm font-black ${
+                      officeWorkspaceZone === zone.id
+                        ? isDark ? 'bg-white text-slate-950' : 'bg-slate-900 text-white'
+                        : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-white text-slate-700 border border-slate-200'
+                    }`}
+                  >
+                    {zone.label}
+                  </button>
+                ))}
+              </aside>
+              <div className="p-4 sm:p-5 space-y-4">
+                <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                    {(officeWorkspaceViews[selectedItem?.id]?.zones || []).map((zone) => (
+                      <button
+                        key={zone.id}
+                        onClick={() => setOfficeWorkspaceZone(zone.id)}
+                        className={`rounded-[20px] border p-4 text-left ${
+                          officeWorkspaceZone === zone.id
+                            ? isDark ? 'border-teal-400/30 bg-teal-500/10 text-teal-100' : 'border-teal-200 bg-teal-50 text-teal-800'
+                            : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-white text-slate-700'
+                        }`}
+                      >
+                        <p className="text-xs font-black uppercase tracking-[0.22em]">{zone.label}</p>
+                      </button>
+                    ))}
+                  </div>
+                  <div className={`mt-4 rounded-[22px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
+                    <p className={`text-xs font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Zona activa</p>
+                    <h4 className={`mt-2 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      {(officeWorkspaceViews[selectedItem?.id]?.zones || []).find((zone) => zone.id === officeWorkspaceZone)?.heading}
+                    </h4>
+                    <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                      {(officeWorkspaceViews[selectedItem?.id]?.zones || []).find((zone) => zone.id === officeWorkspaceZone)?.text}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1847,8 +1995,19 @@ export default function App() {
             {softwareOsExamples.map((os) => (
               <button
                 key={os.name}
-                onClick={() => handleSelect('operating_systems', null, softwareData)}
-                className={`rounded-[24px] border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}
+                onClick={() => {
+                  setSelectedSoftwareOs(os.id);
+                  setSelectedItem(softwareData.operating_systems);
+                }}
+                className={`rounded-[24px] border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${
+                  selectedSoftwareOs === os.id
+                    ? isDark
+                      ? 'border-indigo-400/40 bg-indigo-500/10 text-white'
+                      : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]'
+                    : isDark
+                      ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700'
+                      : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'
+                }`}
               >
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
                   {os.logo === 'window' && <div className="grid grid-cols-2 gap-[2px]"><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span></div>}
@@ -1861,6 +2020,17 @@ export default function App() {
                 <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{os.subtitle}</p>
               </button>
             ))}
+          </div>
+          <div className={`mt-5 rounded-[24px] border p-5 ${isDark ? 'border-indigo-500/20 bg-slate-950' : 'border-indigo-200 bg-indigo-50/70'}`}>
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-indigo-300' : 'text-indigo-700'}`}>Sistema seleccionado</p>
+            <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{softwareOsExamples.find((os) => os.id === selectedSoftwareOs)?.name}</h4>
+            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareOsDetails[selectedSoftwareOs]?.summary}</p>
+            <p className={`mt-4 text-sm font-black ${isDark ? 'text-indigo-200' : 'text-indigo-800'}`}>{softwareOsDetails[selectedSoftwareOs]?.focus}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {(softwareOsDetails[selectedSoftwareOs]?.zones || []).map((zone) => (
+                <span key={zone} className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-600 border border-slate-200'}`}>{zone}</span>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -1926,7 +2096,7 @@ export default function App() {
                   key={key}
                   onClick={() => {
                     setSoftwareLicenseView(key);
-                    handleSelect('applications', null, softwareData);
+                    setSelectedItem(softwareData.applications);
                   }}
                   className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${isActive ? isDark ? 'bg-slate-100 text-slate-950 shadow-sm' : 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
                 >
