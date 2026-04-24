@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -1584,38 +1584,38 @@ export default function App() {
           </div>
         </div>
 
-        <div className={`rounded-[30px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-          <div className={`flex items-center gap-3 px-4 py-3 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+        <div className="rounded-[30px] border overflow-hidden border-slate-200 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-white">
             <div className="flex gap-2">
               <span className="w-3 h-3 rounded-full bg-red-400" />
               <span className="w-3 h-3 rounded-full bg-amber-400" />
               <span className="w-3 h-3 rounded-full bg-emerald-400" />
             </div>
-            <button onClick={() => handleSelect('inbox_security', null, emailData)} className={`flex-1 rounded-full border px-4 py-2 text-left text-sm ${selectedItem?.id === 'inbox_security' ? isDark ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200' : 'border-emerald-200 bg-emerald-50 text-emerald-700' : isDark ? 'border-slate-700 bg-slate-950 text-slate-400' : 'border-slate-200 bg-slate-50 text-slate-500'}`}>Bandeja de entrada y revision segura</button>
+            <button onClick={() => handleSelect('inbox_security', null, emailData)} className={`flex-1 rounded-full border px-4 py-2 text-left text-sm ${selectedItem?.id === 'inbox_security' ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-slate-50 text-slate-500'}`}>Bandeja de entrada y revision segura</button>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-[220px_1fr]">
-            <aside className={`border-r p-4 space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-white'}`}>
-              <button onClick={() => handleSelect('send_reply', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'send_reply' ? isDark ? 'bg-sky-500/15 text-sky-200 border border-sky-500/20' : 'bg-sky-50 text-sky-700 border border-sky-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Nuevo / responder</button>
-              <button onClick={() => handleSelect('cc_bcc', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'cc_bcc' ? isDark ? 'bg-violet-500/15 text-violet-200 border border-violet-500/20' : 'bg-violet-50 text-violet-700 border border-violet-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Destinatarios</button>
-              <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'attachments_links' ? isDark ? 'bg-amber-500/15 text-amber-200 border border-amber-500/20' : 'bg-amber-50 text-amber-700 border border-amber-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Adjuntos y enlaces</button>
-              <button onClick={() => handleSelect('netiquette_calls', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'netiquette_calls' ? isDark ? 'bg-emerald-500/15 text-emerald-200 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Netiqueta</button>
+            <aside className="border-r border-slate-200 p-4 space-y-3 bg-slate-50">
+              <button onClick={() => handleSelect('send_reply', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'send_reply' ? 'bg-sky-50 text-sky-700 border border-sky-200' : 'bg-white text-slate-700 border border-slate-200'}`}>Nuevo / responder</button>
+              <button onClick={() => handleSelect('cc_bcc', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'cc_bcc' ? 'bg-violet-50 text-violet-700 border border-violet-200' : 'bg-white text-slate-700 border border-slate-200'}`}>Destinatarios</button>
+              <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'attachments_links' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-white text-slate-700 border border-slate-200'}`}>Adjuntos y enlaces</button>
+              <button onClick={() => handleSelect('netiquette_calls', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'netiquette_calls' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-white text-slate-700 border border-slate-200'}`}>Netiqueta</button>
             </aside>
 
             <div className="p-4 sm:p-5 space-y-4">
-              <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+              <div className="rounded-[24px] border border-slate-200 bg-white p-4">
                 <div className="flex flex-wrap gap-2">
                   {['para', 'cc', 'cco'].map((key) => (
-                    <button key={key} onClick={() => { setEmailRecipientView(key); handleSelect('cc_bcc', null, emailData); }} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-widest ${emailRecipientView === key ? isDark ? 'bg-white text-slate-950' : 'bg-slate-900 text-white' : isDark ? 'bg-slate-950 text-slate-400 border border-slate-800' : 'bg-slate-50 text-slate-500 border border-slate-200'}`}>{key.toUpperCase()}</button>
+                    <button key={key} onClick={() => { setEmailRecipientView(key); handleSelect('cc_bcc', null, emailData); }} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-widest ${emailRecipientView === key ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-500 border border-slate-200'}`}>{key.toUpperCase()}</button>
                   ))}
                 </div>
                 <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4">
-                  <button onClick={() => handleSelect('send_reply', null, emailData)} className={`rounded-[22px] border p-4 text-left ${selectedItem?.id === 'send_reply' ? isDark ? 'border-sky-500/20 bg-sky-500/10 text-sky-100' : 'border-sky-200 bg-sky-50 text-sky-800' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
+                  <button onClick={() => handleSelect('send_reply', null, emailData)} className={`rounded-[22px] border p-4 text-left ${selectedItem?.id === 'send_reply' ? 'border-sky-200 bg-sky-50 text-sky-800' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
                     <p className="text-xs font-black uppercase tracking-[0.24em]">Asunto</p>
                     <p className="mt-2 text-sm font-black">Solicitud de informacion sobre el curso</p>
                     <p className="mt-3 text-sm leading-relaxed">Hola, adjunto el documento y respondo al hilo con contexto claro para que la otra persona entienda rapido la accion esperada.</p>
                   </button>
-                  <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`rounded-[22px] border px-4 py-4 text-left ${selectedItem?.id === 'attachments_links' ? isDark ? 'border-amber-500/20 bg-amber-500/10 text-amber-100' : 'border-amber-200 bg-amber-50 text-amber-800' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
+                  <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`rounded-[22px] border px-4 py-4 text-left ${selectedItem?.id === 'attachments_links' ? 'border-amber-200 bg-amber-50 text-amber-800' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
                     <p className="text-xs font-black uppercase tracking-[0.24em]">Adjunto</p>
                     <p className="mt-2 text-sm font-black">CV_AnaLopez_2026.pdf</p>
                   </button>
@@ -1623,14 +1623,6 @@ export default function App() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-          <InteractiveButton id="send_reply" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="cc_bcc" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="attachments_links" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="inbox_security" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="netiquette_calls" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
         </div>
       </section>
 
