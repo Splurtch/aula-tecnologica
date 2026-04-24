@@ -1831,14 +1831,14 @@ export default function App() {
         </div>
       )}
 
-      <div className={`grid grid-cols-1 xl:grid-cols-[0.8fr_1.2fr] gap-6 ${officeData[selectedItem?.id] ? '' : 'hidden'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+      <div className={`grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6 ${officeData[selectedItem?.id] ? '' : 'hidden'}`}>
+        <section className={`order-2 xl:order-1 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Que herramienta usarias?</h3></div>
           <div className="grid grid-cols-1 gap-3 mt-5">{[['cv', 'Preparar un CV'], ['budget', 'Hacer un presupuesto'], ['pitch', 'Exponer un proyecto']].map(([key, label]) => <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[24px] border px-4 py-4 text-left ${officeTaskView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'}`}><p className="font-black">{label}</p></button>)}</div>
           <div className={`mt-5 rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-teal-300' : 'text-teal-700'}`}>Respuesta sugerida</p><p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeTaskSuggestions[officeTaskView].tool}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{officeTaskSuggestions[officeTaskView].why}</p></div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`order-1 xl:order-2 rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
             <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{officeWorkspaceViews[selectedItem?.id]?.title}</h3>
@@ -1894,6 +1894,79 @@ export default function App() {
                     <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                       {(officeWorkspaceViews[selectedItem?.id]?.zones || []).find((zone) => zone.id === officeWorkspaceZone)?.text}
                     </p>
+                    {selectedItem?.id === 'presentations_tools' && (
+                      <div className="mt-5 grid grid-cols-1 xl:grid-cols-[180px_1fr] gap-4">
+                        <div className={`rounded-[20px] border p-3 ${officeWorkspaceZone === 'slides' ? isDark ? 'border-violet-400/30 bg-violet-500/10' : 'border-violet-200 bg-violet-50' : isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+                          <p className="text-[11px] font-black uppercase tracking-[0.22em]">Secuencia</p>
+                          <div className="mt-3 space-y-2">
+                            {[1, 2, 3, 4].map((slide) => (
+                              <button
+                                key={slide}
+                                onClick={() => setOfficeWorkspaceZone('slides')}
+                                className={`w-full rounded-2xl border p-3 text-left ${
+                                  slide === 2
+                                    ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-violet-800'
+                                    : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-white text-slate-600'
+                                }`}
+                              >
+                                <p className="text-[10px] font-black uppercase tracking-widest">Slide {slide}</p>
+                                <div className={`mt-2 h-10 rounded-xl ${isDark ? 'bg-slate-800' : 'bg-slate-50 border border-slate-200'}`}></div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <button
+                            onClick={() => setOfficeWorkspaceZone('canvas')}
+                            className={`w-full rounded-[20px] border p-5 text-left min-h-[260px] ${
+                              officeWorkspaceZone === 'canvas'
+                                ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
+                                : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'
+                            }`}
+                          >
+                            <p className="text-xs font-black uppercase tracking-[0.22em]">Lienzo principal</p>
+                            <div className={`mt-4 rounded-[22px] border p-6 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
+                              <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-500">Presentacion</p>
+                              <h5 className="mt-4 text-3xl font-black leading-tight">Como usar la tecnologia con mas autonomia</h5>
+                              <div className="mt-5 grid grid-cols-2 gap-3">
+                                <div className={`rounded-2xl p-4 ${isDark ? 'bg-slate-900' : 'bg-slate-50 border border-slate-200'}`}>
+                                  <p className="text-sm font-black">Objetivo</p>
+                                  <p className="mt-2 text-sm opacity-80">Explicar con ideas breves y apoyo visual.</p>
+                                </div>
+                                <div className={`rounded-2xl p-4 ${isDark ? 'bg-slate-900' : 'bg-slate-50 border border-slate-200'}`}>
+                                  <p className="text-sm font-black">Clave</p>
+                                  <p className="mt-2 text-sm opacity-80">Una idea fuerte por diapositiva.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </button>
+                          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
+                            <button
+                              onClick={() => setOfficeWorkspaceZone('notes')}
+                              className={`rounded-[20px] border p-4 text-left ${
+                                officeWorkspaceZone === 'notes'
+                                  ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
+                                  : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'
+                              }`}
+                            >
+                              <p className="text-xs font-black uppercase tracking-[0.22em]">Notas</p>
+                              <p className="mt-3 text-sm leading-relaxed">Recuerda abrir con contexto, desarrollar 3 ideas y cerrar con ejemplo real.</p>
+                            </button>
+                            <button
+                              onClick={() => setOfficeWorkspaceZone('show')}
+                              className={`rounded-[20px] border px-5 py-4 text-left ${
+                                officeWorkspaceZone === 'show'
+                                  ? isDark ? 'border-violet-400/30 bg-violet-500/10 text-violet-100' : 'border-violet-200 bg-violet-50 text-slate-900'
+                                  : isDark ? 'border-slate-800 bg-slate-900 text-slate-300' : 'border-slate-200 bg-white text-slate-700'
+                              }`}
+                            >
+                              <p className="text-xs font-black uppercase tracking-[0.22em]">Presentar</p>
+                              <p className="mt-3 text-sm font-black">Iniciar exposicion</p>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
