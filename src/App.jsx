@@ -2435,23 +2435,6 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-3 gap-3">
-            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
-              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Orientacion</p>
-              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Ruta clara</p>
-              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>El usuario identifica donde esta y cual es el siguiente paso.</p>
-            </div>
-            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
-              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Lectura</p>
-              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos ruido</p>
-              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>La interfaz prioriza accion y contexto antes que bloques largos.</p>
-            </div>
-            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
-              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Progreso</p>
-              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Foco visible</p>
-              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Modulo activo, temas y foco permanecen siempre presentes.</p>
-            </div>
-          </div>
         </div>
 
         <div className="hidden">
