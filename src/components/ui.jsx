@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  ChevronRight,
   CheckCircle2,
   FileText,
   Info,
@@ -17,26 +18,102 @@ export const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, 
   const colors = colorMap[comp.color] || colorMap.slate;
 
   const activeClass = isSelected
-    ? `ring-4 ${colors.ring} shadow-lg scale-[1.02] ${isDark ? 'bg-slate-900 text-white border-white/10' : `${colors.bgLight} ${colors.text} ${colors.borderHeavy}`} z-10`
+    ? `ring-4 ${colors.ring} shadow-[0_24px_60px_rgba(15,23,42,0.24)] -translate-y-1 ${isDark ? 'bg-slate-900 text-white border-white/10' : `${colors.bgLight} ${colors.text} ${colors.borderHeavy}`} z-10`
     : isDark
-      ? 'bg-slate-900/90 hover:bg-slate-800 text-slate-100 border-slate-800 hover:border-slate-700'
-      : 'bg-white/88 hover:bg-white text-slate-700 border-slate-200 hover:border-slate-400';
+      ? 'bg-slate-900/90 hover:bg-slate-800 text-slate-100 border-slate-800 hover:border-slate-700 hover:-translate-y-0.5'
+      : 'bg-white/88 hover:bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:-translate-y-0.5 shadow-[0_14px_34px_rgba(15,23,42,0.08)]';
 
   return (
     <button
       onClick={(e) => onSelect(id, e, dataSet)}
-      className={`relative flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 ${activeClass} ${extraClass}`}
+      className={`group relative flex min-h-[120px] flex-col items-start justify-between overflow-hidden rounded-[24px] border-2 p-4 sm:p-5 text-left transition-all duration-300 ${activeClass} ${extraClass}`}
     >
-      <comp.icon
-        size={36}
-        className={`mb-3 ${isSelected ? (isDark ? 'text-white' : colors.text) : (isDark ? 'text-slate-400' : 'text-slate-500')}`}
-        strokeWidth={1.5}
+      <div
+        className={`pointer-events-none absolute inset-x-0 top-0 h-16 transition-opacity duration-300 ${
+          isSelected
+            ? isDark
+              ? 'bg-gradient-to-b from-white/8 to-transparent opacity-100'
+              : 'bg-gradient-to-b from-white/70 to-transparent opacity-100'
+            : 'opacity-0 group-hover:opacity-100'
+        }`}
       />
-      <span className="text-[14px] sm:text-[15px] font-bold text-center leading-tight">{comp.name}</span>
+      <div className="relative z-10 flex w-full items-center justify-between gap-3">
+        <span
+          className={`rounded-full border px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.22em] ${
+            isSelected
+              ? isDark
+                ? 'border-white/15 bg-white/10 text-white/80'
+                : `${colors.borderLight} bg-white/70 ${colors.text}`
+              : isDark
+                ? 'border-slate-800 bg-slate-950 text-slate-500'
+                : 'border-slate-200 bg-slate-50 text-slate-400'
+          }`}
+        >
+          {comp.category}
+        </span>
+        <span
+          className={`text-[10px] font-black uppercase tracking-[0.24em] ${
+            isSelected ? (isDark ? 'text-white/75' : colors.text) : isDark ? 'text-slate-500' : 'text-slate-400'
+          }`}
+        >
+          {isSelected ? 'Abierta' : 'Explorar'}
+        </span>
+      </div>
+
+      <div className="relative z-10 mt-4 flex w-full items-start gap-4">
+        <div
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors ${
+            isSelected
+              ? isDark
+                ? 'border-white/15 bg-white/10 text-white'
+                : `${colors.borderLight} bg-white/85 ${colors.text}`
+              : isDark
+                ? 'border-slate-800 bg-slate-950 text-slate-400'
+                : 'border-slate-200 bg-slate-50 text-slate-500'
+          }`}
+        >
+          <comp.icon
+            size={24}
+            className={isSelected ? (isDark ? 'text-white' : colors.text) : (isDark ? 'text-slate-400' : 'text-slate-500')}
+            strokeWidth={1.75}
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <span className="block text-[15px] sm:text-[16px] font-black leading-tight">{comp.name}</span>
+          <p className={`mt-2 text-[12px] sm:text-[13px] leading-relaxed ${isSelected ? (isDark ? 'text-slate-300' : 'text-slate-600') : isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+            {isSelected ? 'Pulsa de nuevo para cerrar esta ficha.' : 'Abre una ficha guiada con explicacion, ejemplos y apoyo visual.'}
+          </p>
+        </div>
+        <ChevronRight
+          size={18}
+          className={`mt-1 shrink-0 transition-all duration-300 ${
+            isSelected
+              ? 'translate-x-1 rotate-90 text-current'
+              : isDark
+                ? 'text-slate-500 group-hover:text-slate-300 group-hover:translate-x-0.5'
+                : 'text-slate-400 group-hover:text-slate-600 group-hover:translate-x-0.5'
+          }`}
+        />
+      </div>
+
+      <div className="relative z-10 mt-5 flex w-full items-center justify-between gap-3">
+        <span className={`text-xs font-bold ${isSelected ? (isDark ? 'text-slate-200' : colors.text) : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+          {isSelected ? 'Ficha activa en pantalla' : 'Sin abrir'}
+        </span>
+        <span className={`text-xs font-black uppercase tracking-[0.2em] ${isSelected ? (isDark ? 'text-white/70' : colors.text) : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+          {isSelected ? 'Cerrar' : 'Abrir'}
+        </span>
+      </div>
+
+      <div
+        className={`absolute inset-x-4 bottom-0 h-1 rounded-full transition-all duration-300 ${
+          isSelected ? colors.bgBase : isDark ? 'bg-slate-800' : 'bg-slate-100'
+        }`}
+      />
       {isSelected && (
-        <span className="absolute -top-2 -right-2 flex h-4 w-4">
+        <span className="absolute right-3 top-3 flex h-3.5 w-3.5">
           <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${colors.bgBase} opacity-75`}></span>
-          <span className={`relative inline-flex rounded-full h-4 w-4 ${colors.bgBase}`}></span>
+          <span className={`relative inline-flex rounded-full h-3.5 w-3.5 ${colors.bgBase}`}></span>
         </span>
       )}
     </button>
@@ -246,7 +323,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
   const accentTextClass = isDark ? colors.text.replace('-800', '-300') : colors.text;
 
   return (
-    <div className={`animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col h-full rounded-[30px] shadow-2xl border overflow-hidden ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
+    <div className={`animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col h-full rounded-[30px] shadow-2xl border overflow-hidden ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
       <div className={`px-5 sm:px-6 md:px-8 py-5 sm:py-6 flex items-center gap-4 ${colors.bgBase} text-white shadow-md z-10 relative`}>
         <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm border border-white/30 shrink-0">
           <selectedItem.icon size={36} className="drop-shadow-md" />
