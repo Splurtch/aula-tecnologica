@@ -2275,8 +2275,9 @@ export default function App() {
                 return (
                   <button
                     key={group}
+                    onMouseEnter={() => handleOpenGroupMenu(group)}
                     onClick={() => handleOpenGroupMenu(group)}
-                    className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+                    className={`group flex items-center gap-1 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
                       isActiveGroup
                         ? isDark || !isScrolled
                           ? 'text-white bg-white/8'
@@ -2287,7 +2288,7 @@ export default function App() {
                     }`}
                   >
                     <span>{group}</span>
-                    {tabs.length > 1 && <ChevronDown size={14} />}
+                    {tabs.length > 1 && <ChevronDown size={14} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
                   </button>
                 );
               })}
@@ -2296,7 +2297,7 @@ export default function App() {
             <div className="ml-auto flex items-center gap-2 shrink-0">
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className={`rounded-full border p-2.5 transition-colors ${
+                className={`rounded-full border p-2.5 transition-all duration-300 ${
                   isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
                 aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
@@ -2316,7 +2317,7 @@ export default function App() {
               </button>
               <button
                 onClick={handleStartModule}
-                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-950 text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-all duration-300 group"
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-950 text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.18)] hover:-translate-y-0.5 transition-all duration-300 group"
               >
                 Explorar aula
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
@@ -2426,15 +2427,26 @@ export default function App() {
               </div>
             </button>
 
-            <button
-              onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className={`rounded-full border p-2.5 transition-colors ${
-                isDark ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-              }`}
-              aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className={`rounded-full border p-2.5 transition-colors ${
+                  isDark ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+                aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+              <button
+                onClick={() => setIsSectionMenuOpen((value) => !value)}
+                className={`rounded-full border p-2.5 transition-colors ${
+                  isDark ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+                aria-label={isSectionMenuOpen ? 'Cerrar menu de secciones' : 'Abrir menu de secciones'}
+              >
+                {isSectionMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
