@@ -2064,27 +2064,7 @@ export default function App() {
     return (
       <div className="flex flex-col gap-6 animate-in fade-in duration-500">
         <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
-            <div className="max-w-3xl">
-              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-teal-600/70'}`}>Ofimatica y productividad</p>
-              <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Explora como si estuvieras dentro del programa</h2>
-              <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>El tablero superior reproduce el comportamiento visual de cada herramienta. Toca sus zonas reales y la explicacion baja despues al bloque inferior para no saturar la vista.</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
-              {[
-                ['Redactar', 'Textos y CV'],
-                ['Calcular', 'Tablas y cifras'],
-                ['Compartir', 'PDF y colaboracion'],
-              ].map(([label, value]) => (
-                <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-                  <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
-                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
               <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeOfficeView.title}</h3>
