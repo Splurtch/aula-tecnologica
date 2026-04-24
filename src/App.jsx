@@ -1242,28 +1242,28 @@ export default function App() {
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => (
     <div className={`relative overflow-hidden rounded-[32px] border p-5 sm:p-6 md:p-8 flex flex-col gap-6 h-full animate-in fade-in duration-500 ${
-      isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+      isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
     }`}>
       <div className={`flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-4 relative z-10 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
         <Globe className={isDark ? 'text-blue-400' : 'text-blue-600'} size={32} />
         <div>
-          <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-sky-700/70'}`}>Redes y sincronizacion</p>
+          <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-700/70'}`}>Redes y sincronizacion</p>
           <h2 className={`mt-3 text-2xl sm:text-3xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Diagrama funcional: local, red y nube</h2>
-          <p className="text-slate-400 mt-1 text-sm font-medium">Comprende cómo viajan y dónde se procesan tus datos.</p>
+          <p className={`mt-1 text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>Comprende como viajan y donde se procesan tus datos.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Origen</p>
+        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-emerald-500/15 bg-emerald-500/10' : 'border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-emerald-300/70' : 'text-slate-400'}`}>Origen</p>
           <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Equipo local</p>
         </div>
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Puente</p>
+        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-amber-500/15 bg-amber-500/10' : 'border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-amber-300/80' : 'text-slate-400'}`}>Puente</p>
           <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>WiFi, fibra o 5G</p>
         </div>
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Destino</p>
+        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-blue-500/15 bg-blue-500/10' : 'border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-blue-300/80' : 'text-slate-400'}`}>Destino</p>
           <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Nube sincronizada</p>
         </div>
       </div>
@@ -1274,7 +1274,7 @@ export default function App() {
             <div className={`p-5 rounded-full mb-6 border ${isDark ? 'bg-emerald-900/40 border-emerald-500/30' : 'bg-emerald-100 border-emerald-200'}`}>
               <Laptop className={isDark ? 'text-emerald-400 w-16 h-16' : 'text-emerald-700 w-16 h-16'} strokeWidth={1.2} />
             </div>
-            <h3 className="text-white font-black text-xl mb-6">Tu Entorno Físico</h3>
+            <h3 className={`font-black text-xl mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>Tu entorno fisico</h3>
           <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
@@ -1302,6 +1302,39 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {cloudData[selectedItem?.id] && (
+        <section className={`rounded-[28px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'}`}>
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+            <div className="max-w-3xl">
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco actual</p>
+              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
+              <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
+            </div>
+            <div className={`rounded-[24px] border px-4 py-4 lg:max-w-[320px] ${selectedItem?.id === 'internet_sync'
+              ? isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
+              : selectedItem?.id === 'local_work'
+                ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
+                : isDark ? 'border-blue-500/25 bg-blue-500/10' : 'border-blue-200 bg-blue-50'
+            }`}>
+              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${
+                selectedItem?.id === 'internet_sync'
+                  ? isDark ? 'text-amber-300' : 'text-amber-700'
+                  : selectedItem?.id === 'local_work'
+                    ? isDark ? 'text-emerald-300' : 'text-emerald-700'
+                    : isDark ? 'text-blue-300' : 'text-blue-700'
+              }`}>Lectura guiada</p>
+              <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
+                {selectedItem?.id === 'internet_sync'
+                  ? 'La sincronizacion es el puente que compara versiones, sube cambios y resuelve si el archivo vive local, en nube o en ambos sitios.'
+                  : selectedItem?.id === 'local_work'
+                    ? 'El trabajo local da velocidad e independencia, pero depende mas del estado del dispositivo y de tus copias de seguridad.'
+                    : 'La nube gana en acceso, continuidad y colaboracion, pero necesita una red estable y una buena gestion de permisos y versiones.'}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 
@@ -1748,7 +1781,7 @@ export default function App() {
   const renderSoftwareTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${
-        isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+        isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
       }`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
@@ -1758,17 +1791,17 @@ export default function App() {
               Diferenciamos el sistema operativo, los drivers y las aplicaciones para que el usuario entienda mejor como funciona el ordenador y donde mirar cuando aparece un problema.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto ${softwareData[selectedItem?.id] && selectedItem?.id !== 'software_stack' ? 'hidden' : ''}`}>
             <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Sistema</p>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-indigo-300/75' : 'text-slate-400'}`}>Sistema</p>
               <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Coordina el equipo</p>
             </div>
             <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Drivers</p>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-cyan-300/75' : 'text-slate-400'}`}>Drivers</p>
               <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Hablan con el hardware</p>
             </div>
             <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Apps</p>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-emerald-300/75' : 'text-slate-400'}`}>Apps</p>
               <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Resuelven tareas</p>
             </div>
           </div>
@@ -1790,7 +1823,7 @@ export default function App() {
         </div>
       )}
 
-      <div className={`grid grid-cols-1 lg:grid-cols-3 gap-4 ${softwareData[selectedItem?.id] ? '' : 'hidden'}`}>
+      <div className={`grid grid-cols-1 lg:grid-cols-3 gap-4 ${selectedItem?.id === 'software_stack' ? '' : 'hidden'}`}>
         {[
           ['01', 'Sistema operativo', 'Es la base que arranca, administra recursos y hace utilizable el hardware.'],
           ['02', 'Drivers', 'Permiten al sistema entender impresoras, audio, red, pantalla o perifericos concretos.'],
@@ -1804,8 +1837,8 @@ export default function App() {
         ))}
       </div>
 
-      <div className={`grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6 ${softwareData[selectedItem?.id] ? '' : 'hidden'}`}>
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <div className={`grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6 ${selectedItem?.id === 'operating_systems' || selectedItem?.id === 'drivers' ? '' : 'hidden'}`}>
+        <section className={`${selectedItem?.id === 'operating_systems' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-indigo-500/20 bg-indigo-500/[0.08]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Exploracion visual</p>
@@ -1839,7 +1872,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+        <section className={`${selectedItem?.id === 'drivers' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-cyan-500/20 bg-cyan-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
               <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conexion guiada</p>
@@ -1884,7 +1917,7 @@ export default function App() {
         </section>
       </div>
 
-      <section className={`${softwareData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <section className={`${selectedItem?.id === 'applications' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-emerald-500/20 bg-emerald-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
@@ -1960,7 +1993,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className={`${softwareData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <section className={`${selectedItem?.id === 'software_stack' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-fuchsia-500/20 bg-fuchsia-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini ejercicio</p>
