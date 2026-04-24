@@ -100,6 +100,61 @@ export const TabButton = ({ tab, isActive, onClick, isDark = false }) => {
   );
 };
 
+export const SectionMenuItem = ({ tab, isActive, onClick, isDark = false }) => {
+  const Icon = tab.icon;
+
+  return (
+    <button
+      onClick={() => onClick(tab.id)}
+      className={`w-full rounded-2xl border p-4 text-left transition-all duration-300 ${
+        isActive
+          ? tab.activeClass.replace('scale-105', '').replace('z-10', '')
+          : isDark
+            ? 'border-slate-800 bg-slate-950/80 text-slate-200 hover:bg-slate-900'
+            : 'border-slate-200 bg-white/82 text-slate-700 hover:bg-slate-50'
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start gap-3 min-w-0">
+          <div className={`rounded-xl p-2.5 border shrink-0 ${
+            isActive
+              ? 'border-white/20 bg-white/10 text-white'
+              : isDark
+                ? 'border-slate-800 bg-slate-900 text-slate-300'
+                : 'border-slate-200 bg-slate-50 text-slate-500'
+          }`}>
+            <Icon size={18} />
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className={`text-[11px] font-black uppercase tracking-widest ${
+                isActive ? 'text-white/80' : isDark ? 'text-slate-500' : 'text-slate-400'
+              }`}>
+                Modulo {tab.step}
+              </span>
+            </div>
+            <p className="mt-2 text-sm sm:text-[15px] font-black leading-tight">{tab.title}</p>
+            <p className={`mt-1 text-xs sm:text-[13px] normal-case leading-relaxed ${
+              isActive ? 'text-white/85' : isDark ? 'text-slate-400' : 'text-slate-500'
+            }`}>
+              {tab.subtitle}
+            </p>
+          </div>
+        </div>
+        <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-widest ${
+          isActive
+            ? 'bg-white/15 text-white'
+            : isDark
+              ? 'bg-slate-900 text-slate-400'
+              : 'bg-slate-100 text-slate-500'
+        }`}>
+          {tab.step}
+        </span>
+      </div>
+    </button>
+  );
+};
+
 export const Layer3D = ({ id, style, baseZ, children, customClass = "", selectedItem, onSelect, hardwareData, colorMap }) => {
   const comp = hardwareData[id];
   const isSelected = selectedItem?.id === id;

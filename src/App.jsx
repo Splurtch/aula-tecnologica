@@ -12,7 +12,7 @@ import {
   Presentation, Blocks, FileSearch,
   Palette, Video, Mic, ImagePlus, Moon, Sun
 } from 'lucide-react';
-import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, TabButton } from './components/ui.jsx';
+import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
 // ==========================================
 // 1. BASE DE DATOS: HARDWARE (AMPLIADA)
@@ -420,6 +420,7 @@ const keyboardLayout = [
 const tabConfig = [
   {
     id: 'hardware',
+    group: 'Fundamentos',
     step: '01',
     title: 'Hardware',
     subtitle: 'Entiende el equipo por dentro',
@@ -430,6 +431,7 @@ const tabConfig = [
   },
   {
     id: 'cloud',
+    group: 'Fundamentos',
     step: '02',
     title: 'Redes',
     subtitle: 'Local, nube y sincronizacion',
@@ -440,6 +442,7 @@ const tabConfig = [
   },
   {
     id: 'internet',
+    group: 'Uso diario',
     step: '03',
     title: 'Navegacion',
     subtitle: 'Buscar, contrastar y protegerse',
@@ -450,6 +453,7 @@ const tabConfig = [
   },
   {
     id: 'files',
+    group: 'Uso diario',
     step: '04',
     title: 'Archivos',
     subtitle: 'Orden, formatos y carpetas',
@@ -460,6 +464,7 @@ const tabConfig = [
   },
   {
     id: 'keyboard',
+    group: 'Uso diario',
     step: '05',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
@@ -470,6 +475,7 @@ const tabConfig = [
   },
   {
     id: 'ai',
+    group: 'Exploracion avanzada',
     step: '06',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
@@ -514,6 +520,11 @@ export default function App() {
   const currentItems = Object.values(currentDataSet);
   const itemCount = currentItems.length;
   const isDark = theme === 'dark';
+  const sectionGroups = tabConfig.reduce((acc, tab) => {
+    if (!acc[tab.group]) acc[tab.group] = [];
+    acc[tab.group].push(tab);
+    return acc;
+  }, {});
   
   // Estado 3D para el Módulo 1
   const [rotation, setRotation] = useState({ x: 60, z: -40 });
@@ -1059,17 +1070,91 @@ export default function App() {
           </div>
         </div>
 
-        {/* Tabs de Navegación - Ahora con 6 botones (Scrollable en móvil) */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3 md:gap-4">
-          {tabConfig.map((tab) => (
-            <TabButton
-              key={tab.id}
-              tab={tab}
-              isActive={activeTab === tab.id}
-              onClick={handleTabChange}
-              isDark={isDark}
-            />
-          ))}
+        <div className={`rounded-[28px] sm:rounded-[32px] border p-4 sm:p-5 md:p-6 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 mb-5">
+            <div>
+              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mapa del Aula</p>
+              <h3 className={`mt-2 text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menu de secciones optimizado</h3>
+              <p className={`mt-2 text-sm leading-relaxed max-w-2xl ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                Agrupamos los modulos por bloques para que el aula pueda crecer sin depender de una parrilla cada vez mas dificil de recorrer.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:w-auto w-full">
+              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Secciones</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tabConfig.length}</p>
+              </div>
+              <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Bloque</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.group}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={`rounded-2xl border p-3 mb-5 lg:hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+            <label className={`block text-[11px] font-black uppercase tracking-[0.24em] mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+              Ir a seccion
+            </label>
+            <select
+              value={activeTab}
+              onChange={(e) => handleTabChange(e.target.value)}
+              className={`w-full rounded-xl border px-4 py-3 text-sm font-bold outline-none ${
+                isDark
+                  ? 'bg-slate-900 border-slate-700 text-white'
+                  : 'bg-white border-slate-200 text-slate-800'
+              }`}
+            >
+              {tabConfig.map((tab) => (
+                <option key={tab.id} value={tab.id}>
+                  {`Modulo ${tab.step} · ${tab.title}`}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="hidden lg:grid lg:grid-cols-3 gap-4">
+            {Object.entries(sectionGroups).map(([group, tabs]) => (
+              <section
+                key={group}
+                className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950/80' : 'border-slate-200 bg-slate-50/80'}`}
+              >
+                <div className="mb-4">
+                  <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{group}</p>
+                  <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tabs.length} modulos en este bloque</p>
+                </div>
+                <div className="space-y-3">
+                  {tabs.map((tab) => (
+                    <SectionMenuItem
+                      key={tab.id}
+                      tab={tab}
+                      isActive={activeTab === tab.id}
+                      onClick={handleTabChange}
+                      isDark={isDark}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:hidden">
+            {tabConfig.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`rounded-2xl border px-3 py-3 text-left transition-colors ${
+                  activeTab === tab.id
+                    ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')}`
+                    : isDark
+                      ? 'border-slate-800 bg-slate-950 text-slate-200'
+                      : 'border-slate-200 bg-white text-slate-700'
+                }`}
+              >
+                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${activeTab === tab.id ? 'text-white/80' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>{tab.step}</p>
+                <p className="mt-2 text-sm font-black">{tab.title}</p>
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
