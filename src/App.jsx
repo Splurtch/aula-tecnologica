@@ -2233,7 +2233,7 @@ export default function App() {
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
       <div className="relative flex flex-col">
-      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-500`}>
+      <header className={`hidden lg:block fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-500`}>
         <div className={`max-w-[1600px] mx-auto transition-all duration-500 ${
           isScrolled
             ? isDark
@@ -2397,7 +2397,138 @@ export default function App() {
       </header>
 
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
-      <header className="mb-6 mt-[104px] sm:mt-[112px] md:mt-[124px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
+      <header className="fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 z-40 lg:hidden transition-all duration-500">
+        <div className={`max-w-[1600px] mx-auto rounded-[22px] border backdrop-blur-xl shadow-[0_18px_40px_rgba(15,23,42,0.18)] ${
+          isDark ? 'border-slate-800 bg-slate-950/88' : 'border-white/80 bg-white/92'
+        }`}>
+          <div className="flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
+            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-2 min-w-0 text-left">
+              <div className="w-7 h-7 flex items-center justify-center shrink-0">
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="tech-logo-grad-mobile-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3B82F6" />
+                      <stop offset="50%" stopColor="#8B5CF6" />
+                      <stop offset="100%" stopColor="#06B6D4" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M6 10L16 4L26 10L6 22L16 28L26 22" stroke="url(#tech-logo-grad-mobile-nav)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="6" cy="10" r="3.5" fill="#3B82F6" />
+                  <circle cx="16" cy="16" r="3.5" fill="#8B5CF6" />
+                  <circle cx="26" cy="22" r="3.5" fill="#06B6D4" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className={`text-sm font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Digital Synapse</p>
+                <p className={`text-[10px] uppercase tracking-[0.24em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  {activeTabMeta.title}
+                </p>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setTheme(isDark ? 'light' : 'dark')}
+              className={`rounded-full border p-2.5 transition-colors ${
+                isDark ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+              }`}
+              aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {isSectionMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50">
+          <button onClick={() => setIsSectionMenuOpen(false)} className="absolute inset-0 bg-slate-950/55 backdrop-blur-[2px]" aria-label="Cerrar menu" />
+          <div className={`absolute inset-x-3 bottom-3 sm:inset-x-4 rounded-[28px] border shadow-[0_24px_70px_rgba(15,23,42,0.35)] max-h-[78vh] overflow-hidden ${
+            isDark ? 'border-slate-800 bg-slate-950/98' : 'border-slate-200 bg-white/98'
+          }`}>
+            <div className={`flex items-center justify-between gap-3 px-4 py-4 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+              <div>
+                <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Menu del aula</p>
+                <p className={`mt-1 text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Secciones y modulos</p>
+              </div>
+              <button
+                onClick={() => setIsSectionMenuOpen(false)}
+                className={`rounded-full border p-2 ${isDark ? 'border-slate-700 bg-slate-900 text-slate-200' : 'border-slate-200 bg-slate-50 text-slate-600'}`}
+                aria-label="Cerrar menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="overflow-y-auto px-3 pb-3 pt-3 sm:px-4 sm:pb-4">
+              <div className="space-y-3">
+                {Object.entries(sectionGroups).map(([group, tabs]) => {
+                  const isExpanded = expandedSectionGroup === group;
+                  return (
+                    <section
+                      key={group}
+                      className={`rounded-[22px] border ${
+                        isDark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200 bg-slate-50/80'
+                      }`}
+                    >
+                      <button
+                        onClick={() => setExpandedSectionGroup(isExpanded ? '' : group)}
+                        className="w-full px-4 py-4 text-left"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{group}</p>
+                            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                              {sectionGroupMeta[group]?.summary}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${
+                              isDark ? 'bg-slate-950 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'
+                            }`}>
+                              {tabs.length}
+                            </span>
+                            <span className={`rounded-full p-2 ${isDark ? 'bg-slate-950 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'}`}>
+                              {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                            </span>
+                          </div>
+                        </div>
+                      </button>
+
+                      {isExpanded && (
+                        <div className="px-3 pb-3 sm:px-4 sm:pb-4">
+                          <div className="space-y-3">
+                            {tabs.map((tab) => (
+                              <SectionMenuItem
+                                key={tab.id}
+                                tab={tab}
+                                isActive={activeTab === tab.id}
+                                onClick={handleTabChange}
+                                isDark={isDark}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <button
+        onClick={() => setIsSectionMenuOpen((value) => !value)}
+        className="fixed bottom-6 right-6 z-[55] lg:hidden"
+        style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+        aria-label={isSectionMenuOpen ? 'Cerrar menu de secciones' : 'Abrir menu de secciones'}
+      >
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+          {isSectionMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </div>
+      </button>
+
+      <header className="mb-6 mt-[92px] sm:mt-[100px] lg:mt-[124px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
         <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
             <span className={`text-[11px] font-black uppercase tracking-[0.24em] px-3 py-1.5 rounded-full mb-3 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
