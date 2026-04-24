@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -707,6 +707,11 @@ export default function App() {
     acc[tab.group].push(tab);
     return acc;
   }, {});
+  const orderedSectionGroups = Object.entries(sectionGroups).sort(([groupA], [groupB]) => {
+    if (groupA === expandedSectionGroup) return -1;
+    if (groupB === expandedSectionGroup) return 1;
+    return 0;
+  });
   
   // Estado 3D para el Módulo 1
   const [rotation, setRotation] = useState({ x: 60, z: -40 });
@@ -717,6 +722,11 @@ export default function App() {
     setActiveTab(tab);
     setSelectedItem(tab === 'keyboard' ? keyboardData.shortcut_basics : null);
     setIsSectionMenuOpen(false);
+  };
+
+  const handleOpenGroupMenu = (group) => {
+    setExpandedSectionGroup(group);
+    setIsSectionMenuOpen(true);
   };
 
   const handleSelect = (id, e, dataSet) => {
@@ -1291,67 +1301,71 @@ export default function App() {
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
       <div className="relative flex flex-col">
-      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-300`}>
-        <div className={`max-w-[1600px] mx-auto border transition-all duration-300 ${
+      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-500`}>
+        <div className={`max-w-[1600px] mx-auto transition-all duration-500 ${
           isScrolled
-            ? 'rounded-[20px] shadow-[0_28px_70px_rgba(15,23,42,0.24)]'
-            : 'rounded-[24px] shadow-[0_24px_60px_rgba(15,23,42,0.18)]'
-        } ${
-          isDark ? 'border-slate-800 bg-slate-900/88' : 'border-white/80 bg-white/78'
-        } backdrop-blur-2xl`}>
-          <div className={`flex items-center gap-3 px-3 sm:px-4 md:px-5 transition-all duration-300 ${isScrolled ? 'py-2.5' : 'py-3'}`}>
-            <div className="flex items-center gap-3 min-w-0">
-              <div className={`rounded-2xl p-2.5 border ${isDark ? 'border-slate-700 bg-slate-950 text-indigo-300' : 'border-slate-200 bg-white text-blue-600'}`}>
-                <AppWindow size={20} />
+            ? isDark
+              ? 'rounded-[24px] border border-slate-800 bg-slate-950/82 shadow-[0_28px_70px_rgba(15,23,42,0.32)] backdrop-blur-2xl'
+              : 'rounded-[24px] border border-white/80 bg-slate-950/86 shadow-[0_28px_70px_rgba(15,23,42,0.22)] backdrop-blur-2xl'
+            : 'rounded-[24px] border border-white/10 bg-slate-950/72 shadow-[0_14px_40px_rgba(15,23,42,0.18)] backdrop-blur-xl'
+        }`}>
+          <div className={`flex items-center justify-between gap-3 transition-all duration-500 ${isScrolled ? 'px-3 py-2.5 sm:px-4 md:px-5' : 'px-2 py-2 sm:px-3 md:px-4'}`}>
+            <button onClick={() => handleTabChange('hardware')} className="flex items-center gap-3 group min-w-0 text-left">
+              <div className="relative w-9 h-9 shrink-0">
+                <div className="absolute inset-0 bg-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-105 transition-transform duration-300">
+                    <defs>
+                      <linearGradient id="tech-logo-grad-navbar" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3B82F6" />
+                        <stop offset="50%" stopColor="#8B5CF6" />
+                        <stop offset="100%" stopColor="#06B6D4" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M6 10L16 4L26 10L6 22L16 28L26 22" stroke="url(#tech-logo-grad-navbar)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="6" cy="10" r="3.5" fill="#3B82F6" />
+                    <circle cx="16" cy="16" r="3.5" fill="#8B5CF6" />
+                    <circle cx="26" cy="22" r="3.5" fill="#06B6D4" />
+                  </svg>
+                </div>
               </div>
               <div className="min-w-0">
-                <p className={`text-[10px] font-black uppercase tracking-[0.28em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                  Aula tecnologica
-                </p>
-                <p className={`text-sm sm:text-base font-black truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                <p className={`text-lg font-black tracking-tight ${isDark || !isScrolled ? 'text-white' : 'text-slate-900'}`}>Digital Synapse</p>
+                <p className={`hidden md:block text-[11px] uppercase tracking-[0.24em] font-black ${isDark || !isScrolled ? 'text-slate-400' : 'text-slate-500'}`}>
                   {activeTabMeta.title}
                 </p>
               </div>
-            </div>
+            </button>
 
-            <nav className="hidden lg:flex items-center justify-center flex-1 min-w-0">
-              <div className={`flex items-center gap-2 rounded-full border px-2 py-2 overflow-x-auto hide-scrollbar ${
-                isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/90'
-              }`}>
-                {tabConfig.map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = activeTab === tab.id;
-
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => handleTabChange(tab.id)}
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-black whitespace-nowrap border transition-all ${
-                        isActive
-                          ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
-                          : isDark
-                            ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-900 hover:text-white'
-                            : 'border-transparent bg-transparent text-slate-600 hover:bg-white hover:border-slate-200 hover:text-slate-900'
-                      }`}
-                    >
-                      <Icon size={16} />
-                      <span>{tab.title}</span>
-                    </button>
-                  );
-                })}
-              </div>
+            <nav className="hidden lg:flex items-center gap-1">
+              {orderedSectionGroups.map(([group, tabs]) => {
+                const isActiveGroup = activeTabMeta.group === group;
+                return (
+                  <button
+                    key={group}
+                    onClick={() => handleOpenGroupMenu(group)}
+                    className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+                      isActiveGroup
+                        ? isDark || !isScrolled
+                          ? 'text-white bg-white/8'
+                          : 'text-white bg-white/10'
+                        : isDark || !isScrolled
+                          ? 'text-slate-300 hover:text-white hover:bg-white/5'
+                          : 'text-slate-200 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <span>{group}</span>
+                    {tabs.length > 1 && <ChevronDown size={14} />}
+                  </button>
+                );
+              })}
             </nav>
 
             <div className="ml-auto flex items-center gap-2 shrink-0">
-              <div className={`hidden md:flex items-center gap-2 rounded-full border px-3 py-2 ${
-                isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-600'
-              }`}>
-                <span className="text-[10px] font-black uppercase tracking-[0.24em]">{activeTabMeta.group}</span>
-              </div>
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
                 className={`rounded-full border p-2.5 transition-colors ${
-                  isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                  isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
                 aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
               >
@@ -1359,8 +1373,8 @@ export default function App() {
               </button>
               <button
                 onClick={() => setIsSectionMenuOpen((value) => !value)}
-                className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-black transition-colors ${
-                  isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                className={`lg:hidden inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-black transition-colors ${
+                  isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
                 <span className="hidden sm:inline">Secciones</span>
@@ -1368,19 +1382,28 @@ export default function App() {
                   <ChevronDown size={16} />
                 </span>
               </button>
+              <button
+                onClick={handleStartModule}
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-950 text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-all duration-300 group"
+              >
+                Explorar aula
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
             </div>
           </div>
 
           {isSectionMenuOpen && (
             <div className={`border-t px-3 pb-3 pt-3 sm:px-4 sm:pb-4 ${
-              isDark ? 'border-slate-800' : 'border-slate-200/80'
+              isDark || isScrolled ? 'border-white/10' : 'border-slate-200/80'
             }`}>
               <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-3">
-                {Object.entries(sectionGroups).map(([group, tabs]) => (
+                {orderedSectionGroups.map(([group, tabs]) => (
                   <section
                     key={group}
                     className={`rounded-[24px] border p-4 ${
-                      isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/90'
+                      isDark || isScrolled
+                        ? `border-white/10 bg-white/[0.04] ${expandedSectionGroup === group ? 'ring-1 ring-white/12' : ''}`
+                        : `border-slate-200 bg-slate-50/90 ${expandedSectionGroup === group ? 'ring-1 ring-slate-300/70' : ''}`
                     }`}
                   >
                     <div className="mb-4 flex items-start justify-between gap-3">
@@ -1442,7 +1465,7 @@ export default function App() {
       </header>
 
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
-      <header className="mb-6 mt-[92px] sm:mt-[100px] md:mt-[112px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
+      <header className="mb-6 mt-[104px] sm:mt-[112px] md:mt-[124px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
         <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
             <span className={`text-[11px] font-black uppercase tracking-[0.24em] px-3 py-1.5 rounded-full mb-3 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>

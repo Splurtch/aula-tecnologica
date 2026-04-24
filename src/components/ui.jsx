@@ -243,6 +243,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
   }
 
   const colors = colorMap[selectedItem.color] || colorMap.slate;
+  const accentTextClass = isDark ? colors.text.replace('-800', '-300') : colors.text;
 
   return (
     <div className={`animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col h-full rounded-[30px] shadow-2xl border overflow-hidden ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
@@ -296,7 +297,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
 
         {selectedItem.details && (
           <section className={`p-6 rounded-2xl border shadow-inner ${isDark ? 'bg-slate-900 border-slate-800' : `${colors.bgLight} ${colors.borderLight}`}`}>
-            <h4 className={`text-sm font-black ${colors.text} uppercase tracking-widest mb-4 flex items-center gap-2`}>
+            <h4 className={`text-sm font-black ${accentTextClass} uppercase tracking-widest mb-4 flex items-center gap-2`}>
               <Info size={18} /> Profundizacion / Ficha Tecnica
             </h4>
             <div className="space-y-3">
@@ -304,11 +305,11 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
                 if (line.startsWith('â€¢')) {
                   return (
                     <div key={idx} className="flex gap-3 items-start">
-                      <span className={`mt-1 font-bold ${colors.text}`}>&rarr;</span>
+                      <span className={`mt-1 font-bold ${accentTextClass}`}>&rarr;</span>
                       <p className={`text-[15px] leading-relaxed flex-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                         {line.substring(1).includes(':') ? (
                           <>
-                            <strong className="text-slate-900">{line.substring(1).split(':')[0]}:</strong>
+                            <strong className={isDark ? 'text-slate-100' : 'text-slate-900'}>{line.substring(1).split(':')[0]}:</strong>
                             {line.substring(1).substring(line.substring(1).indexOf(':') + 1)}
                           </>
                         ) : (
@@ -329,8 +330,8 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
           <section className="space-y-6">
             <div className="grid grid-cols-1 gap-4">
               <div className={`p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow ${isDark ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-emerald-50 border border-emerald-200'}`}>
-                <h4 className="text-[13px] font-black text-emerald-800 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <CheckCircle2 size={18} className="text-emerald-600" /> Mejores Aspectos (Pros)
+                <h4 className={`text-[13px] font-black uppercase tracking-widest mb-4 flex items-center gap-2 ${isDark ? 'text-emerald-300' : 'text-emerald-800'}`}>
+                  <CheckCircle2 size={18} className={isDark ? 'text-emerald-400' : 'text-emerald-600'} /> Mejores Aspectos (Pros)
                 </h4>
                 <ul className="space-y-3">
                   {selectedItem.pros.map((p, i) => (
@@ -342,8 +343,8 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
               </div>
 
               <div className={`p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow ${isDark ? 'bg-red-500/10 border border-red-500/20' : 'bg-red-50 border border-red-200'}`}>
-                <h4 className="text-[13px] font-black text-red-800 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <XCircle size={18} className="text-red-600" /> Debilidades (Contras)
+                <h4 className={`text-[13px] font-black uppercase tracking-widest mb-4 flex items-center gap-2 ${isDark ? 'text-red-300' : 'text-red-800'}`}>
+                  <XCircle size={18} className={isDark ? 'text-red-400' : 'text-red-600'} /> Debilidades (Contras)
                 </h4>
                 <ul className="space-y-3">
                   {selectedItem.cons.map((c, i) => (
@@ -373,8 +374,8 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
 
         {selectedItem.shortcutList && (
           <section className="space-y-4">
-            <h4 className="text-xl font-bold text-slate-800 mb-2 border-b-2 border-slate-100 pb-2 flex items-center gap-2">
-              <Keyboard size={20} className={colors.text.replace('text-', 'text-opacity-80 text-')} />
+            <h4 className={`text-xl font-bold mb-2 border-b-2 pb-2 flex items-center gap-2 ${isDark ? 'text-white border-slate-800' : 'text-slate-800 border-slate-100'}`}>
+              <Keyboard size={20} className={accentTextClass.replace('text-', 'text-opacity-80 text-')} />
               Atajos Clave
             </h4>
             <div className="grid grid-cols-1 gap-3">
@@ -395,7 +396,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
 
         {selectedItem.tips && (
           <section className={`p-6 rounded-2xl border shadow-inner ${isDark ? 'bg-slate-900 border-slate-800' : `${colors.bgLight} ${colors.borderLight}`}`}>
-            <h4 className={`text-sm font-black ${colors.text} uppercase tracking-widest mb-4 flex items-center gap-2`}>
+            <h4 className={`text-sm font-black ${accentTextClass} uppercase tracking-widest mb-4 flex items-center gap-2`}>
               <ShieldCheck size={18} /> Consejos de Practica
             </h4>
             <ul className="space-y-3">
