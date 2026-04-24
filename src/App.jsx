@@ -1823,51 +1823,114 @@ export default function App() {
     const renderOfficeWorkspaceMock = () => {
       if (activeOfficeId === 'text_docs') {
         return (
-          <div className="grid grid-cols-1 xl:grid-cols-[160px_1fr_220px] gap-4">
+          <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
             <button onClick={() => setOfficeWorkspaceZone('sidebar')} className={`${zoneButtonClass('sidebar')} p-4`}>
               <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel lateral</p>
-              <div className="mt-4 space-y-3">
-                {['Portada', 'Experiencia', 'Formacion', 'Contacto'].map((item) => (
-                  <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">{item}</div>
-                ))}
+              <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Esquema</p>
+                <div className="mt-3 space-y-2">
+                  {[
+                    ['Portada', 'text-sky-600'],
+                    ['Experiencia', 'text-slate-700'],
+                    ['Formacion', 'text-slate-700'],
+                    ['Contacto', 'text-slate-700'],
+                  ].map(([item, color]) => (
+                    <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
+                      <p className={`text-sm font-semibold ${color}`}>{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-4 rounded-[22px] border border-slate-200 bg-white p-3">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Navegacion</p>
+                <div className="mt-3 h-2 rounded-full bg-slate-100" />
+                <div className="mt-2 h-2 w-2/3 rounded-full bg-slate-100" />
               </div>
             </button>
             <div className="space-y-4">
               <button onClick={() => setOfficeWorkspaceZone('toolbar')} className={`${zoneButtonClass('toolbar')} w-full p-4`}>
-                <div className="flex flex-wrap items-center gap-2">
-                  {['Archivo', 'Inicio', 'Insertar', 'Diseño', 'Revisar'].map((item) => (
-                    <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Inicio' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
-                  ))}
-                  <div className="ml-auto flex gap-2">
-                    {['B', 'I', 'U'].map((item) => (
-                      <span key={item} className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-black text-slate-700">{item}</span>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {['Archivo', 'Inicio', 'Insertar', 'Diseño', 'Revisar', 'Vista'].map((item) => (
+                      <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Inicio' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
+                    ))}
+                    <div className="ml-auto rounded-full bg-slate-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">Autoguardado</div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {[
+                      ['Fuente', 'Aptos / 11'],
+                      ['Parrafo', 'Alinear / Espacio'],
+                      ['Estilos', 'Titulo / Normal'],
+                      ['Insertar', 'Tabla / Imagen'],
+                    ].map(([label, value]) => (
+                      <div key={label} className="rounded-2xl border border-slate-200 bg-white p-3">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{label}</p>
+                        <p className="mt-2 text-sm font-semibold text-slate-700">{value}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
               </button>
               <button onClick={() => setOfficeWorkspaceZone('page')} className={`${zoneButtonClass('page')} w-full min-h-[380px] p-6`}>
-                <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
-                  <h4 className="mt-4 text-3xl font-black text-slate-900">Marta Alvarez</h4>
-                  <p className="mt-2 text-sm text-slate-500">Perfil profesional orientado a administracion y atencion al cliente.</p>
-                  <div className="mt-6 space-y-4">
-                    {[1, 2, 3].map((line) => (
-                      <div key={line} className="space-y-2">
-                        <div className="h-3 w-40 rounded-full bg-slate-200" />
-                        <div className="h-2 w-full rounded-full bg-slate-100" />
-                        <div className="h-2 w-10/12 rounded-full bg-slate-100" />
+                <div className="space-y-4">
+                  <div className="mx-auto max-w-[620px] rounded-full border border-slate-200 bg-white px-6 py-3 shadow-sm">
+                    <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
+                      <span>0</span>
+                      <span>2</span>
+                      <span>4</span>
+                      <span>6</span>
+                      <span>8</span>
+                      <span>10</span>
+                      <span>12</span>
+                    </div>
+                  </div>
+                  <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+                    <div className="flex items-start justify-between gap-6">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
+                        <h4 className="mt-4 text-3xl font-black text-slate-900">Marta Alvarez</h4>
+                        <p className="mt-2 text-sm text-slate-500">Perfil profesional orientado a administracion y atencion al cliente.</p>
                       </div>
-                    ))}
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-right">
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Contacto</p>
+                        <p className="mt-2 text-sm font-semibold text-slate-700">marta@email.com</p>
+                        <p className="mt-1 text-sm text-slate-500">612 000 000</p>
+                      </div>
+                    </div>
+                    <div className="mt-6 space-y-5">
+                      {[
+                        ['Experiencia profesional', 'Atencion al cliente, gestion documental y soporte administrativo.'],
+                        ['Formacion', 'Certificado de profesionalidad y cursos de ofimatica.'],
+                        ['Competencias', 'Word, Excel, correo, organizacion y archivo.'],
+                      ].map(([title, text]) => (
+                        <div key={title} className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <div className="h-3 w-3 rounded-full bg-sky-500" />
+                            <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-700">{title}</p>
+                          </div>
+                          <div className="h-2 w-full rounded-full bg-slate-100" />
+                          <div className="h-2 w-11/12 rounded-full bg-slate-100" />
+                          <p className="text-sm text-slate-500">{text}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </button>
             </div>
             <button onClick={() => setOfficeWorkspaceZone('export')} className={`${zoneButtonClass('export')} p-4`}>
               <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Exportar</p>
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-sm font-black text-slate-900">PDF final</p>
-                <p className="mt-2 text-sm text-slate-600">Guardar con formato cerrado para enviar el CV.</p>
-                <div className="mt-4 inline-flex rounded-full bg-emerald-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Listo para compartir</div>
+              <div className="mt-4 space-y-3">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm font-black text-slate-900">PDF final</p>
+                  <p className="mt-2 text-sm text-slate-600">Guardar con formato cerrado para enviar el CV.</p>
+                  <div className="mt-4 inline-flex rounded-full bg-emerald-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Listo para compartir</div>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Compartir</p>
+                  <div className="mt-3 h-10 rounded-xl bg-slate-100" />
+                  <div className="mt-2 h-10 rounded-xl bg-slate-100" />
+                </div>
               </div>
             </button>
           </div>
@@ -1876,29 +1939,52 @@ export default function App() {
 
       if (activeOfficeId === 'spreadsheets') {
         return (
-          <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-4">
+          <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
             <div className="space-y-4">
               <button onClick={() => setOfficeWorkspaceZone('formula')} className={`${zoneButtonClass('formula')} w-full p-4`}>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-white">fx</span>
-                  <div className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600">=SUM(B2:B8)</div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">B9</span>
+                    <span className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-white">fx</span>
+                    <div className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600">=SUM(B2:B8)</div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {['Autosuma', 'Formato', 'Ordenar', 'Validar'].map((item) => (
+                      <span key={item} className="rounded-full bg-slate-100 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">{item}</span>
+                    ))}
+                  </div>
                 </div>
               </button>
               <button onClick={() => setOfficeWorkspaceZone('grid')} className={`${zoneButtonClass('grid')} w-full p-4`}>
                 <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
-                  <div className="grid grid-cols-5 border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
-                    {['Mes', 'Ingresos', 'Gastos', 'Ahorro', 'Estado'].map((item) => <div key={item} className="px-3 py-3">{item}</div>)}
+                  <div className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                    {['', 'A', 'B', 'C', 'D', 'E'].map((item) => <div key={item || 'blank'} className="px-3 py-3 text-center">{item}</div>)}
                   </div>
                   {[
-                    ['Ene', '1400', '920', '480', 'OK'],
-                    ['Feb', '1400', '980', '420', 'OK'],
-                    ['Mar', '1400', '1110', '290', 'Revisar'],
-                    ['Abr', '1400', '860', '540', 'OK'],
-                  ].map((row) => (
-                    <div key={row[0]} className="grid grid-cols-5 border-b border-slate-100 text-sm text-slate-700">
-                      {row.map((cell, index) => <div key={`${row[0]}-${index}`} className="px-3 py-3">{cell}</div>)}
+                    ['1', 'Mes', 'Ingresos', 'Gastos', 'Ahorro', 'Estado'],
+                    ['2', 'Ene', '1400', '920', '480', 'OK'],
+                    ['3', 'Feb', '1400', '980', '420', 'OK'],
+                    ['4', 'Mar', '1400', '1110', '290', 'Revisar'],
+                    ['5', 'Abr', '1400', '860', '540', 'OK'],
+                    ['6', 'May', '1400', '910', '490', 'OK'],
+                  ].map((row, rowIndex) => (
+                    <div key={row[0]} className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-100 text-sm text-slate-700">
+                      {row.map((cell, index) => {
+                        const isSelected = rowIndex === 5 && index === 2;
+                        const isHeaderCell = rowIndex === 0;
+                        return (
+                          <div key={`${row[0]}-${index}`} className={`px-3 py-3 text-center ${index === 0 ? 'bg-slate-50 font-black text-slate-500' : isHeaderCell ? 'font-black text-slate-600' : ''} ${isSelected ? 'bg-emerald-50 ring-2 ring-inset ring-emerald-400 font-black text-emerald-700' : ''}`}>
+                            {cell}
+                          </div>
+                        );
+                      })}
                     </div>
                   ))}
+                  <div className="flex items-center gap-2 border-t border-slate-200 bg-slate-50 px-3 py-3">
+                    {['Hoja1', 'Resumen', '+'].map((tab, index) => (
+                      <span key={tab} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${index === 0 ? 'bg-emerald-600 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>{tab}</span>
+                    ))}
+                  </div>
                 </div>
               </button>
             </div>
@@ -1909,6 +1995,10 @@ export default function App() {
                   {['Todos', 'OK', 'Revisar', 'Ahorro > 400'].map((item) => (
                     <span key={item} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-[0.18em] ${item === 'Revisar' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>{item}</span>
                   ))}
+                </div>
+                <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-sm font-black text-slate-900">Estado del filtro</p>
+                  <p className="mt-2 text-sm text-slate-600">Mostrando solo meses con necesidad de revision o ahorro bajo.</p>
                 </div>
               </button>
               <button onClick={() => setOfficeWorkspaceZone('chart')} className={`${zoneButtonClass('chart')} p-4 min-h-[240px]`}>
