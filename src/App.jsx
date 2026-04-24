@@ -592,7 +592,7 @@ const officeData = {
 const officeTaskSuggestions = {
   cv: { tool: 'Procesador de texto', why: 'Es la mejor opcion para redactar y dar formato a un CV profesional.' },
   budget: { tool: 'Hoja de calculo', why: 'Permite sumar, ordenar y comparar cifras con facilidad.' },
-  pitch: { tool: 'Presentacion', why: 'Ayuda a explicar ideas con estructura visual y apoyo para una exposicion.' },
+  slides: { tool: 'Presentacion', why: 'Ayuda a explicar ideas con estructura visual y apoyo para una exposicion.' },
 };
 
 const officeComparisonSets = {
@@ -1875,21 +1875,116 @@ export default function App() {
               </div>
 
               <div className="grid grid-cols-1 xl:grid-cols-[180px_1fr_240px] gap-4">
-                <button onClick={() => setOfficeWorkspaceZone('sidebar')} className={`${zoneButtonClass('sidebar')} p-4`}>
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel lateral</p>
-                  <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-3">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Esquema</p>
-                    <div className="mt-3 space-y-2">
-                      {['Portada', 'Experiencia', 'Formacion', 'Contacto'].map((item) => (
-                        <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
-                          <p className="text-sm font-semibold text-slate-700">{item}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <button
+                  onClick={() =>
+                    setOfficeWorkspaceZone(
+                      activeOfficeId === 'spreadsheets'
+                        ? 'formula'
+                        : activeOfficeId === 'presentations_tools'
+                          ? 'slides'
+                          : activeOfficeId === 'pdf_export'
+                            ? 'source'
+                            : activeOfficeId === 'collaboration_templates'
+                              ? 'template'
+                              : 'sidebar'
+                    )
+                  }
+                  className={`${zoneButtonClass(
+                    activeOfficeId === 'spreadsheets'
+                      ? 'formula'
+                      : activeOfficeId === 'presentations_tools'
+                        ? 'slides'
+                        : activeOfficeId === 'pdf_export'
+                          ? 'source'
+                          : activeOfficeId === 'collaboration_templates'
+                            ? 'template'
+                            : 'sidebar'
+                  )} p-4`}
+                >
+                  {activeOfficeId === 'pdf_export' ? (
+                    <>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Archivos origen</p>
+                      <div className="mt-4 space-y-3">
+                        {['CV-final.docx', 'Carta-presentacion.docx', 'Presentacion-clase.pptx'].map((item, index) => (
+                          <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-amber-200 bg-amber-50 text-amber-700' : 'border-slate-200 bg-white text-slate-700'}`}>{item}</div>
+                        ))}
+                      </div>
+                    </>
+                  ) : activeOfficeId === 'collaboration_templates' ? (
+                    <>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Plantillas</p>
+                      <div className="mt-4 space-y-3">
+                        {['CV profesional', 'Acta de reunion', 'Presupuesto simple'].map((item, index) => (
+                          <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-white text-slate-700'}`}>{item}</div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">{activeOfficeId === 'spreadsheets' ? 'Panel superior' : activeOfficeId === 'presentations_tools' ? 'Miniaturas' : 'Panel lateral'}</p>
+                      <div className="mt-4 rounded-[22px] border border-slate-200 bg-slate-50 p-3">
+                        {activeOfficeId === 'spreadsheets' ? (
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <span className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">B9</span>
+                              <span className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-white">fx</span>
+                              <div className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600">=SUM(B2:B8)</div>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {['Autosuma', 'Formato', 'Ordenar', 'Validar'].map((item) => (
+                                <span key={item} className="rounded-full bg-white px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-500 border border-slate-200">{item}</span>
+                              ))}
+                            </div>
+                          </div>
+                        ) : activeOfficeId === 'presentations_tools' ? (
+                          <div className="space-y-3">
+                            {[1, 2, 3, 4].map((slide) => (
+                              <div key={slide} className={`rounded-2xl border p-3 ${slide === 2 ? 'border-violet-200 bg-violet-50' : 'border-slate-200 bg-white'}`}>
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">Slide {slide}</p>
+                                <div className="mt-2 h-12 rounded-xl border border-slate-200 bg-slate-50" />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            {['Portada', 'Experiencia', 'Formacion', 'Contacto'].map((item) => (
+                              <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-2">
+                                <p className="text-sm font-semibold text-slate-700">{item}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </button>
 
-                <button onClick={() => setOfficeWorkspaceZone(activeOfficeId === 'spreadsheets' ? 'grid' : activeOfficeId === 'presentations_tools' ? 'canvas' : 'page')} className={`${zoneButtonClass(activeOfficeId === 'spreadsheets' ? 'grid' : activeOfficeId === 'presentations_tools' ? 'canvas' : 'page')} p-5 text-left min-h-[320px]`}>
+                <button
+                  onClick={() =>
+                    setOfficeWorkspaceZone(
+                      activeOfficeId === 'spreadsheets'
+                        ? 'grid'
+                        : activeOfficeId === 'presentations_tools'
+                          ? 'canvas'
+                          : activeOfficeId === 'pdf_export'
+                            ? 'preview'
+                            : activeOfficeId === 'collaboration_templates'
+                              ? 'comments'
+                              : 'page'
+                    )
+                  }
+                  className={`${zoneButtonClass(
+                    activeOfficeId === 'spreadsheets'
+                      ? 'grid'
+                      : activeOfficeId === 'presentations_tools'
+                        ? 'canvas'
+                        : activeOfficeId === 'pdf_export'
+                          ? 'preview'
+                          : activeOfficeId === 'collaboration_templates'
+                            ? 'comments'
+                            : 'page'
+                  )} p-5 text-left min-h-[320px]`}
+                >
                   {activeOfficeId === 'spreadsheets' ? (
                     <div className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
                       <div className="grid grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-200 bg-slate-50 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
@@ -1924,6 +2019,71 @@ export default function App() {
                         </div>
                       </div>
                     </div>
+                  ) : activeOfficeId === 'pdf_export' ? (
+                    <div className="mx-auto max-w-[520px] rounded-[26px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.08)] overflow-hidden">
+                      <div className="border-b border-slate-200 bg-slate-50 px-5 py-4 flex items-center justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Vista previa PDF</p>
+                          <p className="mt-1 text-sm font-black text-slate-900">CV-Marta-Alvarez.pdf</p>
+                        </div>
+                        <span className="rounded-full bg-emerald-100 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-emerald-700">2 paginas</span>
+                      </div>
+                      <div className="p-6 bg-slate-100">
+                        <div className="mx-auto max-w-[360px] rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm">
+                          <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">CV final</p>
+                          <h4 className="mt-4 text-2xl font-black text-slate-900">Marta Alvarez</h4>
+                          <div className="mt-4 space-y-2">
+                            <div className="h-3 w-full rounded-full bg-slate-100" />
+                            <div className="h-3 w-10/12 rounded-full bg-slate-100" />
+                            <div className="h-3 w-11/12 rounded-full bg-slate-100" />
+                          </div>
+                          <div className="mt-6 grid grid-cols-2 gap-3">
+                            <div className="rounded-xl bg-slate-50 p-3">
+                              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Formato</p>
+                              <p className="mt-2 text-sm font-semibold text-slate-700">Fijo y listo para enviar</p>
+                            </div>
+                            <div className="rounded-xl bg-slate-50 p-3">
+                              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Compatibilidad</p>
+                              <p className="mt-2 text-sm font-semibold text-slate-700">Movil, web e impresion</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : activeOfficeId === 'collaboration_templates' ? (
+                    <div className="rounded-[24px] border border-slate-200 bg-white overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+                      <div className="border-b border-slate-200 bg-slate-50 px-5 py-4 flex items-center justify-between">
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Documento compartido</p>
+                          <p className="mt-1 text-sm font-black text-slate-900">Acta reunion equipo aula</p>
+                        </div>
+                        <div className="flex -space-x-2">
+                          {['A', 'L', 'M'].map((letter) => (
+                            <span key={letter} className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-indigo-100 text-sm font-black text-indigo-700">{letter}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px]">
+                        <div className="p-6">
+                          <div className="rounded-[22px] border border-slate-200 bg-slate-50 p-4">
+                            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">Contenido en vivo</p>
+                            <div className="mt-4 space-y-3">
+                              <div className="h-3 w-full rounded-full bg-white border border-slate-200" />
+                              <div className="h-3 w-11/12 rounded-full bg-white border border-slate-200" />
+                              <div className="h-3 w-8/12 rounded-full bg-white border border-slate-200" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="border-t lg:border-t-0 lg:border-l border-slate-200 bg-slate-50 p-4">
+                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Comentarios</p>
+                          <div className="mt-3 space-y-3">
+                            {['Revisar el titulo', 'Anadir fecha final', 'Confirmar asistencia'].map((item) => (
+                              <div key={item} className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-slate-700">{item}</div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <div className="mx-auto max-w-[620px] rounded-[26px] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
                       <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Curriculum vitae</p>
@@ -1933,13 +2093,63 @@ export default function App() {
                   )}
                 </button>
 
-                <button onClick={() => setOfficeWorkspaceZone(activeOfficeId === 'pdf_export' ? 'share' : activeOfficeId === 'collaboration_templates' ? 'permissions' : 'export')} className={`${zoneButtonClass(activeOfficeId === 'pdf_export' ? 'share' : activeOfficeId === 'collaboration_templates' ? 'permissions' : 'export')} p-4`}>
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">Panel de apoyo</p>
+                <button
+                  onClick={() =>
+                    setOfficeWorkspaceZone(
+                      activeOfficeId === 'pdf_export'
+                        ? 'settings'
+                        : activeOfficeId === 'collaboration_templates'
+                          ? 'permissions'
+                          : activeOfficeId === 'presentations_tools'
+                            ? 'notes'
+                            : activeOfficeId === 'spreadsheets'
+                              ? 'filters'
+                              : 'export'
+                    )
+                  }
+                  className={`${zoneButtonClass(
+                    activeOfficeId === 'pdf_export'
+                      ? 'settings'
+                      : activeOfficeId === 'collaboration_templates'
+                        ? 'permissions'
+                        : activeOfficeId === 'presentations_tools'
+                          ? 'notes'
+                          : activeOfficeId === 'spreadsheets'
+                            ? 'filters'
+                            : 'export'
+                  )} p-4`}
+                >
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-500">{activeOfficeId === 'pdf_export' ? 'Ajustes de salida' : activeOfficeId === 'collaboration_templates' ? 'Permisos y acceso' : 'Panel de apoyo'}</p>
                   <div className="mt-4 space-y-3">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-sm font-black text-slate-900">{activeOfficeZone.heading}</p>
-                      <p className="mt-2 text-sm text-slate-600">{activeOfficeZone.text}</p>
-                    </div>
+                    {activeOfficeId === 'pdf_export' ? (
+                      <>
+                        {['Todas las paginas', 'Calidad estandar', 'Incluir enlaces'].map((item) => (
+                          <div key={item} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700">
+                            <span>{item}</span>
+                            <span className="h-3 w-3 rounded-full bg-emerald-500" />
+                          </div>
+                        ))}
+                        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                          <p className="text-sm font-black text-amber-700">Exportar ahora</p>
+                          <p className="mt-2 text-sm text-amber-700/80">Genera el archivo final y comprueba que se vea igual antes de enviarlo.</p>
+                        </div>
+                      </>
+                    ) : activeOfficeId === 'collaboration_templates' ? (
+                      <>
+                        {['Puede editar', 'Puede comentar', 'Solo lectura'].map((item, index) => (
+                          <div key={item} className={`rounded-xl border px-3 py-3 text-sm font-semibold ${index === 0 ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>{item}</div>
+                        ))}
+                        <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                          <p className="text-sm font-black text-slate-900">Historial de versiones</p>
+                          <p className="mt-2 text-sm text-slate-600">Permite volver atras si alguien modifica algo por error.</p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <p className="text-sm font-black text-slate-900">{activeOfficeZone.heading}</p>
+                        <p className="mt-2 text-sm text-slate-600">{activeOfficeZone.text}</p>
+                      </div>
+                    )}
                   </div>
                 </button>
               </div>
