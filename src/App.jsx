@@ -1282,6 +1282,9 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
+  // Estado para periféricos (hover)
+  const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setSelectedItem(null);
@@ -1617,8 +1620,6 @@ export default function App() {
   );
 
   const renderPeripheralsTab = () => {
-    const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
-
     const peripheralCategories = [
       {
         id: 'input_devices',
@@ -1660,9 +1661,9 @@ export default function App() {
 
     const handlePeripheralClick = (peripheralId) => {
       if (selectedItem?.id === peripheralId) {
-        handleSelect(null);
+        handleSelect(null, null, null);
       } else {
-        handleSelect(peripheralId, peripheralData[peripheralId]);
+        handleSelect(peripheralId, null, peripheralData);
       }
     };
 
