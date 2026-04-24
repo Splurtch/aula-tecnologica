@@ -2546,7 +2546,25 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full lg:w-auto lg:min-w-[360px]">
+          <div className="w-full lg:w-auto lg:min-w-[520px] flex flex-col gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 justify-end">
+              <button
+                onClick={handleStartModule}
+                className={`rounded-2xl px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+              >
+                Empezar recorrido
+              </button>
+              <button
+                onClick={handleClearSelection}
+                className={`rounded-2xl border px-5 py-3 font-black transition-colors ${
+                  isDark ? 'border-slate-700 bg-slate-950 text-white hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                Reiniciar foco
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full">
             <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
@@ -2560,34 +2578,7 @@ export default function App() {
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
             </div>
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-4">
-          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),transparent_38%,rgba(255,255,255,0.04))]"></div>
-            <div className="relative flex flex-col lg:flex-row lg:items-end justify-between gap-5">
-              <div className="max-w-2xl">
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black mt-3">{activeTabMeta.title}</h2>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mt-3">{activeTabMeta.description}</p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={handleStartModule}
-                  className={`rounded-2xl px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-white text-slate-900 hover:bg-slate-100'}`}
-                >
-                  Empezar recorrido
-                </button>
-                <button
-                  onClick={handleClearSelection}
-                  className="rounded-2xl border border-white/15 bg-white/5 text-white px-5 py-3 font-black hover:bg-white/10 transition-colors"
-                >
-                  Reiniciar foco
-                </button>
-              </div>
-            </div>
           </div>
-
         </div>
 
         <div className="hidden">
