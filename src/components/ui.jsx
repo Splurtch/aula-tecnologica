@@ -87,7 +87,7 @@ export const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, 
         <div className="min-w-0 flex-1">
           <span className="block text-[14px] sm:text-[15px] font-semibold text-slate-900 dark:text-white leading-tight tracking-wide">{comp.name}</span>
           <p className={`mt-2 text-[12px] sm:text-[13px] leading-relaxed ${isSelected ? (isDark ? 'text-slate-300' : 'text-slate-600') : isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-            {isSelected ? 'Pulsa de nuevo para cerrar.' : 'Abre una ficha guiada con explicación.'}
+            {isSelected ? 'Cerrar' : comp.category}
           </p>
         </div>
         <ChevronRight
