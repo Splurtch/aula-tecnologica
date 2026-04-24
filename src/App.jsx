@@ -1567,40 +1567,24 @@ export default function App() {
 
   const renderEmailTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+      <section className={`rounded-[32px] border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           <div className="max-w-3xl">
-            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-sky-600/70'}`}>Correo y comunicacion</p>
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-600/70'}`}>Correo y comunicacion</p>
             <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Comunicacion digital clara y segura</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Aprende a escribir mejor, enviar documentos correctamente, diferenciar destinatarios y comunicarte con mas criterio por correo y videollamada.</p>
+            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>La interfaz simulada del correo es ahora el tablero principal. Pulsa sus zonas para entender bandeja, destinatarios, adjuntos, respuesta y netiqueta sin saturar la vista.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">{[['Bandeja', 'Revisar con criterio'], ['Destino', 'Para, CC y CCO'], ['Tono', 'Mensaje profesional']].map(([label, value]) => <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}><p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p><p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p></div>)}</div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-          <InteractiveButton id="send_reply" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="cc_bcc" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="attachments_links" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="inbox_security" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="netiquette_calls" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-        </div>
-      </div>
-
-      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-          <div className="max-w-2xl">
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Explora el correo como interfaz real</h3>
-            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Pulsa las zonas del tablero para entender para que sirve cada parte del correo. El detalle profundo se abre solo cuando eliges una ficha.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+            {[['Bandeja', 'Revisar con criterio'], ['Destino', 'Para, CC y CCO'], ['Tono', 'Mensaje profesional']].map(([label, value]) => (
+              <div key={label} className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
+                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{value}</p>
+              </div>
+            ))}
           </div>
-          {!emailData[selectedItem?.id] && (
-            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Estado</p>
-              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sin ficha abierta</p>
-            </div>
-          )}
         </div>
 
-        <div className={`mt-6 rounded-[30px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+        <div className={`rounded-[30px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
           <div className={`flex items-center gap-3 px-4 py-3 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
             <div className="flex gap-2">
               <span className="w-3 h-3 rounded-full bg-red-400" />
@@ -1639,6 +1623,14 @@ export default function App() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <InteractiveButton id="send_reply" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="cc_bcc" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="attachments_links" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="inbox_security" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="netiquette_calls" dataSet={emailData} extraClass="min-h-[108px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
         </div>
       </section>
 
