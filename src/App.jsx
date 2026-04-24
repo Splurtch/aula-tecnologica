@@ -1020,6 +1020,7 @@ export default function App() {
   const currentItems = Object.values(currentDataSet);
   const itemCount = currentItems.length;
   const isDark = theme === 'dark';
+  const hasActiveDetail = Boolean(selectedItem && currentDataSet[selectedItem.id]);
   const sectionGroups = tabConfig.reduce((acc, tab) => {
     if (!acc[tab.group]) acc[tab.group] = [];
     acc[tab.group].push(tab);
@@ -1038,7 +1039,7 @@ export default function App() {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setSelectedItem(tab === 'keyboard' ? keyboardData.shortcut_basics : null);
+    setSelectedItem(null);
     setIsSectionMenuOpen(false);
   };
 
@@ -1065,7 +1066,7 @@ export default function App() {
 
   const handleSelect = (id, e, dataSet) => {
     if (e) e.stopPropagation();
-    setSelectedItem(dataSet[id]);
+    setSelectedItem((prev) => (prev?.id === id ? null : dataSet[id]));
   };
 
   const handleStartModule = () => {
@@ -2454,7 +2455,7 @@ export default function App() {
       <div className="flex flex-col xl:flex-row gap-6 flex-grow max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
         
         {/* ZONA IZQUIERDA: Interactuador Visual (60%) */}
-        <div className="w-full xl:w-[64%] flex flex-col gap-6 min-w-0">
+        <div className={`w-full flex flex-col gap-6 min-w-0 transition-all duration-300 ${hasActiveDetail ? 'xl:w-[64%]' : 'xl:w-full'}`}>
           {activeTab === 'hardware' && renderHardwareTab()}
           {activeTab === 'peripherals' && renderPeripheralsTab()}
           {activeTab === 'cloud' && renderCloudTab()}
@@ -2466,10 +2467,24 @@ export default function App() {
           {activeTab === 'keyboard' && renderKeyboardTab()}
           {activeTab === 'office' && renderOfficeTab()}
           {activeTab === 'ai' && renderAITab()}
+          {hasActiveDetail && (
+            <div className="xl:hidden">
+              <PanelDerecho
+                selectedItem={selectedItem}
+                activeTabMeta={activeTabMeta}
+                itemCount={itemCount}
+                onStartModule={handleStartModule}
+                onClearSelection={handleClearSelection}
+                colorMap={colorMap}
+                isDark={isDark}
+              />
+            </div>
+          )}
         </div>
 
         {/* ZONA DERECHA: Panel Lector Dinámico (40%) */}
-        <div className="w-full xl:w-[36%] min-w-0">
+        {hasActiveDetail && (
+        <div className="hidden xl:block xl:w-[36%] min-w-0">
           <div className="h-full min-h-[420px] xl:sticky xl:top-6 xl:max-h-[calc(100vh-2rem)] xl:h-[calc(100vh-2rem)]">
             <PanelDerecho
               selectedItem={selectedItem}
@@ -2482,6 +2497,7 @@ export default function App() {
             />
           </div>
         </div>
+        )}
 
       </div>
       
