@@ -1454,7 +1454,15 @@ export default function App() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-6">
+      {!securityData[selectedItem?.id] && (
+        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+          <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Abre una ficha para ver su capa de detalle</h3>
+          <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Las comparativas, permisos y ejercicios permanecen ocultos hasta que eliges un bloque concreto. Asi reducimos saturacion y dejamos mas respiro visual.</p>
+        </div>
+      )}
+
+      <div className={`grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-6 ${selectedItem?.id === 'passwords' || selectedItem?.id === 'phishing_security' ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
@@ -1494,7 +1502,7 @@ export default function App() {
         </section>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6">
+      <div className={`grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6 ${selectedItem?.id === 'privacy_permissions' || selectedItem?.id === 'backups_recovery' || selectedItem?.id === 'safe_updates' ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Permisos criticos</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Que permisos revisar</h3></div>
@@ -1544,7 +1552,64 @@ export default function App() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+          <div className="max-w-2xl">
+            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Explora el correo como interfaz real</h3>
+            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Pulsa las zonas del tablero para entender para que sirve cada parte del correo. El detalle profundo se abre solo cuando eliges una ficha.</p>
+          </div>
+          {!emailData[selectedItem?.id] && (
+            <div className={`rounded-2xl border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Estado</p>
+              <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sin ficha abierta</p>
+            </div>
+          )}
+        </div>
+
+        <div className={`mt-6 rounded-[30px] border overflow-hidden ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+          <div className={`flex items-center gap-3 px-4 py-3 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+            <div className="flex gap-2">
+              <span className="w-3 h-3 rounded-full bg-red-400" />
+              <span className="w-3 h-3 rounded-full bg-amber-400" />
+              <span className="w-3 h-3 rounded-full bg-emerald-400" />
+            </div>
+            <button onClick={() => handleSelect('inbox_security', null, emailData)} className={`flex-1 rounded-full border px-4 py-2 text-left text-sm ${selectedItem?.id === 'inbox_security' ? isDark ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200' : 'border-emerald-200 bg-emerald-50 text-emerald-700' : isDark ? 'border-slate-700 bg-slate-950 text-slate-400' : 'border-slate-200 bg-slate-50 text-slate-500'}`}>Bandeja de entrada y revision segura</button>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-[220px_1fr]">
+            <aside className={`border-r p-4 space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-white'}`}>
+              <button onClick={() => handleSelect('send_reply', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'send_reply' ? isDark ? 'bg-sky-500/15 text-sky-200 border border-sky-500/20' : 'bg-sky-50 text-sky-700 border border-sky-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Nuevo / responder</button>
+              <button onClick={() => handleSelect('cc_bcc', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'cc_bcc' ? isDark ? 'bg-violet-500/15 text-violet-200 border border-violet-500/20' : 'bg-violet-50 text-violet-700 border border-violet-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Destinatarios</button>
+              <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'attachments_links' ? isDark ? 'bg-amber-500/15 text-amber-200 border border-amber-500/20' : 'bg-amber-50 text-amber-700 border border-amber-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Adjuntos y enlaces</button>
+              <button onClick={() => handleSelect('netiquette_calls', null, emailData)} className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-black ${selectedItem?.id === 'netiquette_calls' ? isDark ? 'bg-emerald-500/15 text-emerald-200 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' : isDark ? 'bg-slate-950 text-slate-300 border border-slate-800' : 'bg-slate-50 text-slate-700 border border-slate-200'}`}>Netiqueta</button>
+            </aside>
+
+            <div className="p-4 sm:p-5 space-y-4">
+              <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+                <div className="flex flex-wrap gap-2">
+                  {['para', 'cc', 'cco'].map((key) => (
+                    <button key={key} onClick={() => { setEmailRecipientView(key); handleSelect('cc_bcc', null, emailData); }} className={`rounded-full px-3 py-2 text-xs font-black uppercase tracking-widest ${emailRecipientView === key ? isDark ? 'bg-white text-slate-950' : 'bg-slate-900 text-white' : isDark ? 'bg-slate-950 text-slate-400 border border-slate-800' : 'bg-slate-50 text-slate-500 border border-slate-200'}`}>{key.toUpperCase()}</button>
+                  ))}
+                </div>
+                <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4">
+                  <button onClick={() => handleSelect('send_reply', null, emailData)} className={`rounded-[22px] border p-4 text-left ${selectedItem?.id === 'send_reply' ? isDark ? 'border-sky-500/20 bg-sky-500/10 text-sky-100' : 'border-sky-200 bg-sky-50 text-sky-800' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
+                    <p className="text-xs font-black uppercase tracking-[0.24em]">Asunto</p>
+                    <p className="mt-2 text-sm font-black">Solicitud de informacion sobre el curso</p>
+                    <p className="mt-3 text-sm leading-relaxed">Hola, adjunto el documento y respondo al hilo con contexto claro para que la otra persona entienda rapido la accion esperada.</p>
+                  </button>
+                  <button onClick={() => handleSelect('attachments_links', null, emailData)} className={`rounded-[22px] border px-4 py-4 text-left ${selectedItem?.id === 'attachments_links' ? isDark ? 'border-amber-500/20 bg-amber-500/10 text-amber-100' : 'border-amber-200 bg-amber-50 text-amber-800' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-700'}`}>
+                    <p className="text-xs font-black uppercase tracking-[0.24em]">Adjunto</p>
+                    <p className="mt-2 text-sm font-black">CV_AnaLopez_2026.pdf</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className={`grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6 ${selectedItem?.id === 'inbox_security' || selectedItem?.id === 'cc_bcc' ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Maqueta de bandeja</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Leer la bandeja con contexto</h3></div>
@@ -1563,7 +1628,25 @@ export default function App() {
         </section>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+      <div className={`grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6 ${selectedItem?.id === 'attachments_links' || selectedItem?.id === 'netiquette_calls' || selectedItem?.id === 'send_reply' ? '' : 'hidden'}`}>
+        <section className={`${selectedItem?.id === 'send_reply' ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de respuesta</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Enviar, responder y reenviar con criterio</h3></div>
+          </div>
+          <div className="space-y-3">
+            {[
+              ['Responder', 'Cuando el mensaje te afecta directamente y debes continuar el hilo.'],
+              ['Responder a todos', 'Solo si todas las personas necesitan ver la continuacion.'],
+              ['Reenviar', 'Cuando debes pasar el contenido a otra persona con contexto adicional.'],
+            ].map(([title, text], index) => (
+              <div key={title} className={`flex items-start gap-3 rounded-[22px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-black ${isDark ? 'bg-slate-900 text-sky-300' : 'bg-sky-100 text-sky-700'}`}>{index + 1}</div>
+                <div><p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</p><p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{text}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Adjuntos y enlaces</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Enviar bien un documento</h3></div>
@@ -1587,7 +1670,7 @@ export default function App() {
         </section>
       </div>
 
-      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+      <section className={`${emailData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini quiz</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige la casilla correcta</h3></div>
           <button onClick={() => setEmailQuizSelections({})} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Reiniciar</button>
@@ -1617,7 +1700,15 @@ export default function App() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[0.8fr_1.2fr] gap-6">
+      {!officeData[selectedItem?.id] && (
+        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+          <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Elige una herramienta para abrir su zona de trabajo</h3>
+          <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Las comparativas, flujos y ejercicios quedan ocultos hasta que abras una ficha concreta. Asi el bloque se siente mas ligero y mas facil de recorrer.</p>
+        </div>
+      )}
+
+      <div className={`grid grid-cols-1 xl:grid-cols-[0.8fr_1.2fr] gap-6 ${officeData[selectedItem?.id] ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
           <div><p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Selector de tarea</p><h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>¿Que herramienta usarias?</h3></div>
           <div className="grid grid-cols-1 gap-3 mt-5">{[['cv', 'Preparar un CV'], ['budget', 'Hacer un presupuesto'], ['pitch', 'Exponer un proyecto']].map(([key, label]) => <button key={key} onClick={() => setOfficeTaskView(key)} className={`rounded-[24px] border px-4 py-4 text-left ${officeTaskView === key ? 'bg-white text-slate-950 shadow-sm' : isDark ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-white'}`}><p className="font-black">{label}</p></button>)}</div>
@@ -1638,7 +1729,7 @@ export default function App() {
         </section>
       </div>
 
-      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+      <section className={`${officeData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
         <div className="grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Flujo de trabajo</p>
@@ -1691,7 +1782,15 @@ export default function App() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      {!softwareData[selectedItem?.id] && (
+        <div className={`rounded-[32px] border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
+          <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Selecciona una capa para ver solo su explicacion visual</h3>
+          <p className={`mt-3 text-sm leading-relaxed max-w-3xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>La zona de sistemas, drivers, comparativas y ejercicios aparece solo cuando abres una ficha concreta. Asi la lectura es mas limpia y mas guiada.</p>
+        </div>
+      )}
+
+      <div className={`grid grid-cols-1 lg:grid-cols-3 gap-4 ${softwareData[selectedItem?.id] ? '' : 'hidden'}`}>
         {[
           ['01', 'Sistema operativo', 'Es la base que arranca, administra recursos y hace utilizable el hardware.'],
           ['02', 'Drivers', 'Permiten al sistema entender impresoras, audio, red, pantalla o perifericos concretos.'],
@@ -1705,7 +1804,7 @@ export default function App() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
+      <div className={`grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6 ${softwareData[selectedItem?.id] ? '' : 'hidden'}`}>
         <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
           <div className="flex items-center justify-between gap-4 mb-5">
             <div>
@@ -1785,7 +1884,7 @@ export default function App() {
         </section>
       </div>
 
-      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <section className={`${softwareData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
@@ -1861,7 +1960,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className={`rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
+      <section className={`${softwareData[selectedItem?.id] ? '' : 'hidden'} rounded-[32px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
             <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mini ejercicio</p>
