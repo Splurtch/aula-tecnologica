@@ -1101,6 +1101,18 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isSectionMenuOpen) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSectionMenuOpen]);
+
   // === Lógica Drag 3D ===
   const handleDragStart = (x, y) => { setIsDragging(true); setStartPos({ x, y }); };
   const handleDragMove = (x, y) => {
@@ -2443,7 +2455,7 @@ export default function App() {
       {isSectionMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <button onClick={() => setIsSectionMenuOpen(false)} className="absolute inset-0 bg-slate-950/55 backdrop-blur-[2px]" aria-label="Cerrar menu" />
-          <div className={`absolute inset-x-3 bottom-3 sm:inset-x-4 rounded-[28px] border shadow-[0_24px_70px_rgba(15,23,42,0.35)] max-h-[78vh] overflow-hidden ${
+          <div className={`absolute inset-x-3 top-[76px] bottom-3 sm:inset-x-4 sm:top-[84px] rounded-[28px] border shadow-[0_24px_70px_rgba(15,23,42,0.35)] overflow-hidden flex flex-col ${
             isDark ? 'border-slate-800 bg-slate-950/98' : 'border-slate-200 bg-white/98'
           }`}>
             <div className={`flex items-center justify-between gap-3 px-4 py-4 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
@@ -2459,7 +2471,7 @@ export default function App() {
                 <X size={18} />
               </button>
             </div>
-            <div className="overflow-y-auto px-3 pb-3 pt-3 sm:px-4 sm:pb-4">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-3 pb-3 pt-3 sm:px-4 sm:pb-4 touch-pan-y">
               <div className="space-y-3">
                 {Object.entries(sectionGroups).map(([group, tabs]) => {
                   const isExpanded = expandedSectionGroup === group;
