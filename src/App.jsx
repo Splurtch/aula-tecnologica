@@ -2328,69 +2328,62 @@ export default function App() {
           {isSectionMenuOpen && (
             <div className={`border-t px-3 pb-3 pt-3 sm:px-4 sm:pb-4 ${
               isDark || isScrolled ? 'border-white/10' : 'border-slate-200/80'
-            }`}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-3">
-                {orderedSectionGroups.map(([group, tabs]) => (
-                  <section
-                    key={group}
-                    className={`rounded-[24px] border p-4 ${
-                      isDark || isScrolled
-                        ? `border-white/10 bg-white/[0.04] ${expandedSectionGroup === group ? 'ring-1 ring-white/12' : ''}`
-                        : `border-slate-200 bg-slate-50/90 ${expandedSectionGroup === group ? 'ring-1 ring-slate-300/70' : ''}`
-                    }`}
-                  >
-                    <div className="mb-4 flex items-start justify-between gap-3">
-                      <div>
-                        <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                          {group}
-                        </p>
-                        <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                          {sectionGroupMeta[group]?.summary}
-                        </p>
-                      </div>
-                      <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.22em] ${
-                        isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-500 border border-slate-200'
-                      }`}>
-                        {tabs.length}
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      {tabs.map((tab) => {
-                        const Icon = tab.icon;
-                        const isActive = activeTab === tab.id;
+            }`} onMouseLeave={() => setIsSectionMenuOpen(false)}>
+              <div className={`rounded-[24px] border p-4 ${
+                isDark || isScrolled
+                  ? 'border-white/10 bg-white/[0.04] ring-1 ring-white/12'
+                  : 'border-slate-200 bg-slate-50/90 ring-1 ring-slate-300/70'
+              }`}>
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div>
+                    <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                      {expandedSectionGroup}
+                    </p>
+                    <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      {sectionGroupMeta[expandedSectionGroup]?.summary}
+                    </p>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.22em] ${
+                    isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-500 border border-slate-200'
+                  }`}>
+                    {sectionGroups[expandedSectionGroup]?.length || 0}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
+                  {(sectionGroups[expandedSectionGroup] || []).map((tab) => {
+                    const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
 
-                        return (
-                          <button
-                            key={tab.id}
-                            onClick={() => handleTabChange(tab.id)}
-                            className={`w-full rounded-2xl border px-3 py-3 text-left transition-all ${
-                              isActive
-                                ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
-                                : isDark
-                                  ? 'border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800'
-                                  : 'border-slate-200 bg-white text-slate-700 hover:bg-white'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between gap-3">
-                              <div className="flex items-center gap-3 min-w-0">
-                                <div className={`rounded-xl p-2 ${isActive ? 'bg-white/15 text-white' : isDark ? 'bg-slate-950 text-slate-300' : 'bg-slate-100 text-slate-500'}`}>
-                                  <Icon size={16} />
-                                </div>
-                                <div className="min-w-0">
-                                  <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-white/75' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                    Modulo {tab.step}
-                                  </p>
-                                  <p className="mt-1 text-sm font-black truncate">{tab.title}</p>
-                                </div>
-                              </div>
-                              <ChevronRight size={16} className={isActive ? 'text-white' : isDark ? 'text-slate-500' : 'text-slate-400'} />
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => handleTabChange(tab.id)}
+                        className={`w-full rounded-2xl border px-3 py-3 text-left transition-all ${
+                          isActive
+                            ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
+                            : isDark
+                              ? 'border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800'
+                              : 'border-slate-200 bg-white text-slate-700 hover:bg-white'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className={`rounded-xl p-2 ${isActive ? 'bg-white/15 text-white' : isDark ? 'bg-slate-950 text-slate-300' : 'bg-slate-100 text-slate-500'}`}>
+                              <Icon size={16} />
                             </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </section>
-                ))}
+                            <div className="min-w-0">
+                              <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-white/75' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                Modulo {tab.step}
+                              </p>
+                              <p className="mt-1 text-sm font-black truncate">{tab.title}</p>
+                            </div>
+                          </div>
+                          <ChevronRight size={16} className={isActive ? 'text-white' : isDark ? 'text-slate-500' : 'text-slate-400'} />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
