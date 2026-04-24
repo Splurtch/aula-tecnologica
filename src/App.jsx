@@ -696,6 +696,7 @@ export default function App() {
   const [theme, setTheme] = useState('light');
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
+  const [isScrolled, setIsScrolled] = useState(false);
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -748,6 +749,16 @@ export default function App() {
   useEffect(() => {
     setExpandedSectionGroup(activeTabMeta.group);
   }, [activeTabMeta.group]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // === Lógica Drag 3D ===
   const handleDragStart = (x, y) => { setIsDragging(true); setStartPos({ x, y }); };
@@ -1280,11 +1291,15 @@ export default function App() {
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
       <div className="relative flex flex-col">
-      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40`}>
-        <div className={`max-w-[1600px] mx-auto rounded-[24px] border shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${
+      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40 transition-all duration-300`}>
+        <div className={`max-w-[1600px] mx-auto border transition-all duration-300 ${
+          isScrolled
+            ? 'rounded-[20px] shadow-[0_28px_70px_rgba(15,23,42,0.24)]'
+            : 'rounded-[24px] shadow-[0_24px_60px_rgba(15,23,42,0.18)]'
+        } ${
           isDark ? 'border-slate-800 bg-slate-900/88' : 'border-white/80 bg-white/78'
         } backdrop-blur-2xl`}>
-          <div className="flex items-center gap-3 px-3 py-3 sm:px-4 md:px-5">
+          <div className={`flex items-center gap-3 px-3 sm:px-4 md:px-5 transition-all duration-300 ${isScrolled ? 'py-2.5' : 'py-3'}`}>
             <div className="flex items-center gap-3 min-w-0">
               <div className={`rounded-2xl p-2.5 border ${isDark ? 'border-slate-700 bg-slate-950 text-indigo-300' : 'border-slate-200 bg-white text-blue-600'}`}>
                 <AppWindow size={20} />
@@ -1365,16 +1380,23 @@ export default function App() {
                   <section
                     key={group}
                     className={`rounded-[24px] border p-4 ${
-                      isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/85'
+                      isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/90'
                     }`}
                   >
-                    <div className="mb-4">
-                      <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                        {group}
-                      </p>
-                      <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        {sectionGroupMeta[group]?.summary}
-                      </p>
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <div>
+                        <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                          {group}
+                        </p>
+                        <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                          {sectionGroupMeta[group]?.summary}
+                        </p>
+                      </div>
+                      <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.22em] ${
+                        isDark ? 'bg-slate-900 text-slate-300 border border-slate-800' : 'bg-white text-slate-500 border border-slate-200'
+                      }`}>
+                        {tabs.length}
+                      </span>
                     </div>
                     <div className="space-y-2">
                       {tabs.map((tab) => {
@@ -1420,20 +1442,20 @@ export default function App() {
       </header>
 
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
-      <header className="mb-6 mt-[92px] sm:mt-[100px] md:mt-[112px] flex flex-col gap-6 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
-        <div className={`p-4 sm:p-5 md:p-8 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
+      <header className="mb-6 mt-[92px] sm:mt-[100px] md:mt-[112px] flex flex-col gap-4 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
+        <div className={`p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col lg:flex-row lg:items-end justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
-            <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
-            <h1 className={`text-2xl sm:text-3xl md:text-5xl font-black tracking-tight flex items-center gap-3 sm:gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <span className={`text-[11px] font-black uppercase tracking-[0.24em] px-3 py-1.5 rounded-full mb-3 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
+            <h1 className={`text-2xl sm:text-3xl md:text-4xl font-black tracking-tight flex items-center gap-3 sm:gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
               <AppWindow className={isDark ? 'text-indigo-300' : 'text-blue-600'} size={36} />
               Aula de Competencias Digitales
             </h1>
-            <p className={`mt-4 text-sm sm:text-base md:text-xl font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
-              Un recorrido interactivo por hardware, redes, archivos, navegacion, atajos de teclado y herramientas de inteligencia artificial para aprender con mas autonomia.
+            <p className={`mt-3 text-sm sm:text-base md:text-lg font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
+              Aprende con una estructura mas clara, menos ruido visual y acceso rapido a cada modulo desde una navegacion superior fija.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto md:min-w-[280px]">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 w-full lg:w-auto lg:min-w-[360px]">
             <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
@@ -1446,24 +1468,19 @@ export default function App() {
               <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco</p>
               <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
             </div>
-            <button
-              onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className={`rounded-2xl border p-4 flex items-center justify-center gap-3 font-black text-sm sm:text-base transition-colors ${isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              {isDark ? 'Modo claro' : 'Modo oscuro'}
-            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
-          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 md:p-7 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
+        <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-4">
+          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),transparent_38%,rgba(255,255,255,0.04))]"></div>
-            <div className="relative">
-              <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
-              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+            <div className="relative flex flex-col lg:flex-row lg:items-end justify-between gap-5">
+              <div className="max-w-2xl">
+                <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black mt-3">{activeTabMeta.title}</h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mt-3">{activeTabMeta.description}</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleStartModule}
                   className={`rounded-2xl px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-white text-slate-900 hover:bg-slate-100'}`}
@@ -1480,21 +1497,21 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`rounded-[28px] sm:rounded-[32px] border p-5 sm:p-6 shadow-sm ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
-            <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Criterios UX/UI</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3 mt-5">
-              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Orientacion clara</p>
-                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>El usuario siempre sabe en que modulo esta y que puede hacer despues.</p>
-              </div>
-              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos ruido</p>
-                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Mostramos contexto y accion antes de saturar con lectura larga.</p>
-              </div>
-              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Progreso visible</p>
-                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>La interfaz comunica foco, contenido disponible y siguiente paso.</p>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-3 gap-3">
+            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Orientacion</p>
+              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Ruta clara</p>
+              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>El usuario identifica donde esta y cual es el siguiente paso.</p>
+            </div>
+            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Lectura</p>
+              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos ruido</p>
+              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>La interfaz prioriza accion y contexto antes que bloques largos.</p>
+            </div>
+            <div className={`rounded-[24px] border p-4 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Progreso</p>
+              <p className={`mt-3 font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Foco visible</p>
+              <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Modulo activo, temas y foco permanecen siempre presentes.</p>
             </div>
           </div>
         </div>
