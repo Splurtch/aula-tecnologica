@@ -1671,6 +1671,45 @@ export default function App() {
       
       {/* Estilo para ocultar scrollbar en contenedor de botones móviles */}
       </div>
+      <footer className="max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6 mt-8 pb-8">
+        <div className={`rounded-[28px] border px-5 py-6 sm:px-6 sm:py-7 ${
+          isDark
+            ? 'border-slate-800 bg-slate-900/92'
+            : 'border-white/80 bg-slate-950 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)]'
+        }`}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                <defs>
+                  <linearGradient id="tech-logo-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3B82F6" />
+                    <stop offset="50%" stopColor="#8B5CF6" />
+                    <stop offset="100%" stopColor="#06B6D4" />
+                  </linearGradient>
+                </defs>
+                <path d="M6 10L16 4L26 10L6 22L16 28L26 22" stroke="url(#tech-logo-grad-footer)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="6" cy="10" r="3.5" fill="#3B82F6" />
+                <circle cx="16" cy="16" r="3.5" fill="#8B5CF6" />
+                <circle cx="26" cy="22" r="3.5" fill="#06B6D4" />
+              </svg>
+              <div>
+                <p className={`text-[11px] font-black uppercase tracking-[0.26em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  Realizado por
+                </p>
+                <p className="text-xl font-black text-white">
+                  Digital Synapse
+                </p>
+              </div>
+            </div>
+
+            <p className={`max-w-2xl text-sm leading-relaxed ${
+              isDark ? 'text-slate-400' : 'text-slate-300'
+            }`}>
+              Aula de Competencias Digitales desarrollada por Digital Synapse para ofrecer una experiencia de aprendizaje mas clara, visual y accesible en cualquier dispositivo.
+            </p>
+          </div>
+        </div>
+      </footer>
       <style dangerouslySetInnerHTML={{__html: `
         html { scroll-behavior: smooth; }
         body { overflow-x: hidden; }
