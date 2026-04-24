@@ -715,8 +715,6 @@ export default function App() {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setSelectedItem(tab === 'keyboard' ? keyboardData.shortcut_basics : null);
-    const nextTab = tabConfig.find((item) => item.id === tab);
-    if (nextTab) setExpandedSectionGroup(nextTab.group);
     setIsSectionMenuOpen(false);
   };
 
@@ -1278,12 +1276,151 @@ export default function App() {
   );
 
   return (
-    <div className={`min-h-screen font-sans p-3 sm:p-4 md:p-6 flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
+    <div className={`min-h-screen font-sans flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
       <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
       <div className="relative flex flex-col">
+      <header className={`fixed top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:top-5 md:left-6 md:right-6 z-40`}>
+        <div className={`max-w-[1600px] mx-auto rounded-[24px] border shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${
+          isDark ? 'border-slate-800 bg-slate-900/88' : 'border-white/80 bg-white/78'
+        } backdrop-blur-2xl`}>
+          <div className="flex items-center gap-3 px-3 py-3 sm:px-4 md:px-5">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className={`rounded-2xl p-2.5 border ${isDark ? 'border-slate-700 bg-slate-950 text-indigo-300' : 'border-slate-200 bg-white text-blue-600'}`}>
+                <AppWindow size={20} />
+              </div>
+              <div className="min-w-0">
+                <p className={`text-[10px] font-black uppercase tracking-[0.28em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  Aula tecnologica
+                </p>
+                <p className={`text-sm sm:text-base font-black truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  {activeTabMeta.title}
+                </p>
+              </div>
+            </div>
+
+            <nav className="hidden lg:flex items-center justify-center flex-1 min-w-0">
+              <div className={`flex items-center gap-2 rounded-full border px-2 py-2 overflow-x-auto hide-scrollbar ${
+                isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/90'
+              }`}>
+                {tabConfig.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabChange(tab.id)}
+                      className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-black whitespace-nowrap border transition-all ${
+                        isActive
+                          ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
+                          : isDark
+                            ? 'border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-900 hover:text-white'
+                            : 'border-transparent bg-transparent text-slate-600 hover:bg-white hover:border-slate-200 hover:text-slate-900'
+                      }`}
+                    >
+                      <Icon size={16} />
+                      <span>{tab.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </nav>
+
+            <div className="ml-auto flex items-center gap-2 shrink-0">
+              <div className={`hidden md:flex items-center gap-2 rounded-full border px-3 py-2 ${
+                isDark ? 'border-slate-800 bg-slate-950 text-slate-300' : 'border-slate-200 bg-slate-50 text-slate-600'
+              }`}>
+                <span className="text-[10px] font-black uppercase tracking-[0.24em]">{activeTabMeta.group}</span>
+              </div>
+              <button
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className={`rounded-full border p-2.5 transition-colors ${
+                  isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+                aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+              <button
+                onClick={() => setIsSectionMenuOpen((value) => !value)}
+                className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-black transition-colors ${
+                  isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                <span className="hidden sm:inline">Secciones</span>
+                <span className={`rounded-full p-1 transition-transform ${isSectionMenuOpen ? 'rotate-180' : ''}`}>
+                  <ChevronDown size={16} />
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {isSectionMenuOpen && (
+            <div className={`border-t px-3 pb-3 pt-3 sm:px-4 sm:pb-4 ${
+              isDark ? 'border-slate-800' : 'border-slate-200/80'
+            }`}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-3">
+                {Object.entries(sectionGroups).map(([group, tabs]) => (
+                  <section
+                    key={group}
+                    className={`rounded-[24px] border p-4 ${
+                      isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50/85'
+                    }`}
+                  >
+                    <div className="mb-4">
+                      <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                        {group}
+                      </p>
+                      <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                        {sectionGroupMeta[group]?.summary}
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      {tabs.map((tab) => {
+                        const Icon = tab.icon;
+                        const isActive = activeTab === tab.id;
+
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => handleTabChange(tab.id)}
+                            className={`w-full rounded-2xl border px-3 py-3 text-left transition-all ${
+                              isActive
+                                ? `${tab.activeClass.replace('scale-105', '').replace('z-10', '')} border-transparent`
+                                : isDark
+                                  ? 'border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800'
+                                  : 'border-slate-200 bg-white text-slate-700 hover:bg-white'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className={`rounded-xl p-2 ${isActive ? 'bg-white/15 text-white' : isDark ? 'bg-slate-950 text-slate-300' : 'bg-slate-100 text-slate-500'}`}>
+                                  <Icon size={16} />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isActive ? 'text-white/75' : isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                    Modulo {tab.step}
+                                  </p>
+                                  <p className="mt-1 text-sm font-black truncate">{tab.title}</p>
+                                </div>
+                              </div>
+                              <ChevronRight size={16} className={isActive ? 'text-white' : isDark ? 'text-slate-500' : 'text-slate-400'} />
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
-      <header className="mb-6 flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
+      <header className="mb-6 mt-[92px] sm:mt-[100px] md:mt-[112px] flex flex-col gap-6 max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
         <div className={`p-4 sm:p-5 md:p-8 rounded-[28px] sm:rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
             <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
@@ -1362,7 +1499,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className={`rounded-[28px] sm:rounded-[32px] border p-4 sm:p-5 md:p-6 ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+        <div className="hidden">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
               <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mapa del Aula</p>
@@ -1484,7 +1621,7 @@ export default function App() {
       </header>
 
       {/* ÁREA PRINCIPAL DIVIDIDA */}
-      <div className="flex flex-col xl:flex-row gap-6 flex-grow max-w-[1600px] mx-auto w-full">
+      <div className="flex flex-col xl:flex-row gap-6 flex-grow max-w-[1600px] mx-auto w-full px-3 sm:px-4 md:px-6">
         
         {/* ZONA IZQUIERDA: Interactuador Visual (60%) */}
         <div className="w-full xl:w-[64%] flex flex-col gap-6 min-w-0">
