@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Cpu, HardDrive, Monitor, Keyboard, Mouse, Speaker, Plug,
   CircuitBoard, Fan, Microchip, Gamepad2, Server,
@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus
+  Palette, Video, Mic, ImagePlus, Moon, Sun
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, TabButton } from './components/ui.jsx';
 
@@ -508,10 +508,12 @@ const colorMap = {
 export default function App() {
   const [activeTab, setActiveTab] = useState('hardware');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [theme, setTheme] = useState('light');
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
   const itemCount = currentItems.length;
+  const isDark = theme === 'dark';
   
   // Estado 3D para el Módulo 1
   const [rotation, setRotation] = useState({ x: 60, z: -40 });
@@ -534,6 +536,21 @@ export default function App() {
   };
 
   const handleClearSelection = () => setSelectedItem(null);
+
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('aula-theme');
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      setTheme(storedTheme);
+      return;
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(prefersDark ? 'dark' : 'light');
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('aula-theme', theme);
+  }, [theme]);
 
   // === Lógica Drag 3D ===
   const handleDragStart = (x, y) => { setIsDragging(true); setStartPos({ x, y }); };
@@ -632,14 +649,14 @@ export default function App() {
               <Laptop className="text-emerald-400 w-16 h-16" strokeWidth={1.2} />
             </div>
             <h3 className="text-white font-black text-xl mb-6">Tu Entorno Físico</h3>
-            <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-8 bg-slate-700/50 border-slate-600 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-8 bg-slate-700/50 border-slate-600 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
         <div className="w-full md:w-1/5 flex flex-col items-center justify-center relative h-40 md:h-auto z-10">
           <div className="hidden md:block absolute top-1/2 left-0 w-full h-1.5 bg-slate-800 -translate-y-1/2 -z-10 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-blue-500 w-[200%] animate-[slide_2s_linear_infinite]"></div>
           </div>
-          <InteractiveButton id="internet_sync" dataSet={cloudData} extraClass="rounded-full !p-6 shadow-[0_0_30px_rgba(251,191,36,0.3)] bg-slate-800/90 border-amber-500/50" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="internet_sync" dataSet={cloudData} extraClass="rounded-full !p-6 shadow-[0_0_30px_rgba(251,191,36,0.3)] bg-slate-800/90 border-amber-500/50" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
         </div>
         <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
           <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full scale-150 -z-10"></div>
@@ -650,8 +667,8 @@ export default function App() {
             </div>
             <h3 className="text-white font-black text-xl mb-6 text-center">Megacentros de Datos</h3>
             <div className="flex flex-col gap-4 w-full">
-              <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full bg-blue-900/50 border-blue-800/80 text-blue-100" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-              <InteractiveButton id="collaboration" dataSet={cloudData} extraClass="w-full bg-purple-900/30 border-purple-800/60 text-purple-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+              <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full bg-blue-900/50 border-blue-800/80 text-blue-100" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+              <InteractiveButton id="collaboration" dataSet={cloudData} extraClass="w-full bg-purple-900/30 border-purple-800/60 text-purple-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
             </div>
           </div>
         </div>
@@ -691,8 +708,8 @@ export default function App() {
               <span className={`text-[17px] ${selectedItem?.id === 'search_engine' ? 'text-purple-800 font-bold' : 'text-slate-400 font-medium'}`}>Escribe tus palabras clave aquí... (ej. "cursos gratuitos")</span>
             </button>
             <div className="flex flex-wrap justify-center gap-4 mt-10 z-10">
-              <InteractiveButton id="scenario_personal" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-              <InteractiveButton id="scenario_work" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+              <InteractiveButton id="scenario_personal" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+              <InteractiveButton id="scenario_work" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
             </div>
           </div>
         </div>
@@ -707,10 +724,10 @@ export default function App() {
         </div>
         <p className="text-slate-600 mb-8 max-w-3xl leading-relaxed">Navegar por Internet es como caminar por una gran ciudad: hay lugares increíbles, pero también carteristas y estafadores. Explora los principales peligros que existen y aprende a identificarlos para proteger tu información y tu dinero.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InteractiveButton id="reliable_sources" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-          <InteractiveButton id="phishing" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-          <InteractiveButton id="malware" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-          <InteractiveButton id="scams" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+          <InteractiveButton id="reliable_sources" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="phishing" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="malware" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+          <InteractiveButton id="scams" dataSet={internetData} extraClass="w-full flex-row !justify-start gap-4 !p-5" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
         </div>
       </div>
     </div>
@@ -750,7 +767,7 @@ export default function App() {
           <div>
             <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4">Estructura del Árbol (Jerarquía)</h3>
             <div className="grid grid-cols-2 gap-4">
-              <InteractiveButton id="folders_org" dataSet={filesData} extraClass="!flex-row !justify-start gap-4 !p-5 shadow-sm" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+              <InteractiveButton id="folders_org" dataSet={filesData} extraClass="!flex-row !justify-start gap-4 !p-5 shadow-sm" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
               <button onClick={(e) => handleSelect('folders_org', e, filesData)} className={`relative flex items-center p-5 rounded-xl border-2 transition-all duration-300 gap-4 ${selectedItem?.id === 'folders_org' ? 'ring-4 ring-amber-400 shadow-lg scale-105 bg-amber-100 text-amber-900 border-amber-500 z-10' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400'}`}>
                 <FolderOpen size={36} className="text-amber-500" />
                 <div className="text-left"><p className="font-bold text-[15px]">1_Trabajo</p><p className="text-[12px] text-slate-500">24 elementos</p></div>
@@ -795,11 +812,11 @@ export default function App() {
             <Brain size={18} className="text-slate-500" /> 1. Los Gigantes Generalistas
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <InteractiveButton id="chatgpt" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="claude" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="gemini" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="copilot" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="grok" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="chatgpt" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="claude" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="gemini" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="copilot" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="grok" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
 
@@ -809,9 +826,9 @@ export default function App() {
             <Library size={18} className="text-slate-500" /> 2. Los Investigadores y Lectores
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <InteractiveButton id="perplexity" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="notebooklm" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="kimi" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="perplexity" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="notebooklm" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="kimi" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200 flex-row !justify-start gap-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
 
@@ -821,10 +838,10 @@ export default function App() {
             <Terminal size={18} className="text-slate-500" /> 3. Desarrolladores y Agentes Autónomos
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="deepseek" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="lovable" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="gamma" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="manus" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="deepseek" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="lovable" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="gamma" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="manus" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
 
@@ -834,10 +851,10 @@ export default function App() {
             <ImagePlus size={18} className="text-slate-500" /> 4. Creadores Multimedia (Audio, Vídeo e Imagen)
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <InteractiveButton id="midjourney" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="suno" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="runway" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-            <InteractiveButton id="elevenlabs" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <InteractiveButton id="midjourney" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="suno" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="runway" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+            <InteractiveButton id="elevenlabs" dataSet={aiData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
           </div>
         </div>
         
@@ -846,96 +863,110 @@ export default function App() {
   );
 
   const renderKeyboardTab = () => (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
-      <div className="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 rounded-3xl p-8 shadow-2xl border border-indigo-900/60 overflow-hidden relative">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_left,rgba(129,140,248,0.35),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.25),transparent_35%)]"></div>
-        <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-            <div>
-              <span className="inline-flex items-center rounded-full border border-indigo-400/30 bg-indigo-500/10 px-4 py-2 text-xs font-black uppercase tracking-[0.25em] text-indigo-200">
-                Productividad Digital
-              </span>
-              <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mt-4 flex items-center gap-3">
-                <Keyboard className="text-indigo-300" size={36} />
-                Laboratorio de Teclado Virtual
-              </h2>
-              <p className="text-slate-300 mt-4 text-lg max-w-3xl leading-relaxed">
-                Explora las combinaciones mas utiles para estudiar, redactar, navegar y controlar ventanas. Al seleccionar una familia de atajos, el mapa del teclado ilumina las teclas que necesitas.
-              </p>
+    <div className="grid grid-cols-1 2xl:grid-cols-[minmax(0,1.4fr)_360px] gap-6 animate-in fade-in duration-500 h-full">
+      <div className={`rounded-[32px] border p-5 md:p-6 overflow-hidden relative ${
+        isDark
+          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 border-slate-800 shadow-[0_24px_80px_rgba(15,23,42,0.55)]'
+          : 'bg-gradient-to-br from-[#eef1ff] via-[#dddff7] to-[#f5f2ff] border-white/70 shadow-[0_24px_80px_rgba(79,70,229,0.16)]'
+      }`}>
+        <div className={`absolute inset-0 ${
+          isDark
+            ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_30%)]'
+            : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.7),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(79,70,229,0.08),transparent_30%)]'
+        }`}></div>
+        <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_250px] gap-6 items-start">
+          <div className={`rounded-[28px] border p-5 md:p-6 ${
+            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-[#252b47] border-[#3d4267] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]'
+          }`}>
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+              <div>
+                <h3 className="text-white text-xl font-black">Mapa de Teclas</h3>
+                <p className="text-slate-400 text-sm mt-2">Se resaltan las teclas del bloque seleccionado.</p>
+              </div>
+              <div className="rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1 text-xs font-black uppercase tracking-widest text-indigo-200 w-fit">
+                {selectedItem?.name || 'Selecciona un bloque'}
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 min-w-[260px]">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-black">Meta</p>
-                <p className="text-white font-bold mt-2">Menos clics, mas fluidez</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-black">Metodo</p>
-                <p className="text-white font-bold mt-2">Practica guiada por bloques</p>
-              </div>
+            <div className="space-y-2 overflow-x-auto overflow-y-hidden pb-2">
+              {keyboardLayout.map((row, rowIndex) => (
+                <div key={rowIndex} className="flex gap-2 min-w-[720px]">
+                  {row.map((key) => (
+                    <div key={`${rowIndex}-${key.label}`} className={key.wide}>
+                      <KeyboardKey label={key.label} selectedKeys={selectedItem?.keys || []} />
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-[1.25fr_0.75fr] gap-6">
-            <div className="rounded-[28px] border border-white/10 bg-slate-950/60 p-5 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-              <div className="flex items-center justify-between gap-4 mb-5">
-                <div>
-                  <h3 className="text-white text-xl font-black">Mapa de Teclas</h3>
-                  <p className="text-slate-400 text-sm mt-1">Se resaltan las teclas del bloque seleccionado.</p>
+          <div className="space-y-4">
+            <div className={`rounded-[28px] border p-5 ${
+              isDark ? 'bg-slate-900/80 border-slate-800 text-slate-100' : 'bg-white/78 border-white/80 text-slate-900 backdrop-blur-xl'
+            }`}>
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-400' : 'text-indigo-500/70'}`}>Productividad Digital</p>
+              <h2 className={`text-3xl font-black tracking-tight mt-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Laboratorio de Teclado Virtual
+              </h2>
+              <p className={`mt-4 leading-relaxed text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                Explora combinaciones utiles para estudiar, redactar y navegar. Selecciona una familia de atajos y el mapa se iluminara automaticamente.
+              </p>
+              <div className="grid grid-cols-2 gap-3 mt-5">
+                <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+                  <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Meta</p>
+                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos clics, mas fluidez</p>
                 </div>
-                <div className="rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1 text-xs font-black uppercase tracking-widest text-indigo-200">
-                  {selectedItem?.name || 'Selecciona un bloque'}
+                <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-white/60 border-white/80'}`}>
+                  <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Metodo</p>
+                  <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Practica guiada</p>
                 </div>
-              </div>
-              <div className="space-y-2 overflow-x-auto pb-2">
-                {keyboardLayout.map((row, rowIndex) => (
-                  <div key={rowIndex} className="flex gap-2 min-w-[720px]">
-                    {row.map((key) => (
-                      <div key={`${rowIndex}-${key.label}`} className={key.wide}>
-                        <KeyboardKey label={key.label} selectedKeys={selectedItem?.keys || []} />
-                      </div>
-                    ))}
-                  </div>
-                ))}
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 md:p-6 backdrop-blur-sm">
-              <h3 className="text-white text-xl font-black mb-4">Bloques de Aprendizaje</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-3">
-                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
-                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="!bg-white/95 !border-white/20 min-h-[120px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} />
+            <div className={`rounded-[28px] border p-5 ${
+              isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white/72 border-white/80 backdrop-blur-xl'
+            }`}>
+              <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mb-4`}>Bloques de Aprendizaje</h3>
+              <div className="grid grid-cols-1 gap-3">
+                <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                <InteractiveButton id="browser_mastery" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                <InteractiveButton id="system_control" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+      <div className={`rounded-[32px] border p-5 md:p-6 ${
+        isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_24px_60px_rgba(148,163,184,0.22)]'
+      }`}>
+        <div className="flex items-center justify-between gap-4 mb-5">
           <div>
-            <h3 className="text-2xl font-black text-slate-900">Combinaciones de Alto Impacto</h3>
-            <p className="text-slate-500 mt-2 max-w-3xl">
-              Una seleccion de atajos pensados para acelerar las tareas mas frecuentes dentro del aula tecnologica.
-            </p>
+            <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-xl font-black`}>Combinaciones de Alto Impacto</h3>
+            <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Una referencia rapida para practicar las acciones mas repetidas.</p>
           </div>
-          <div className="text-sm font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-4 py-2">
-            Consejo: practica un bloque por semana
+          <div className={`text-xs font-black uppercase tracking-[0.25em] px-3 py-2 rounded-full border ${
+            isDark ? 'text-indigo-200 border-indigo-400/30 bg-indigo-500/10' : 'text-indigo-700 border-indigo-200 bg-indigo-50'
+          }`}>
+            Practica
           </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {(selectedItem?.shortcutList || keyboardData.shortcut_basics.shortcutList).map((shortcut) => (
-            <article key={shortcut.combo} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 hover:border-indigo-300 hover:shadow-md transition-all">
+        <div className="space-y-3">
+          {(selectedItem?.shortcutList || keyboardData.shortcut_basics.shortcutList).slice(0, 5).map((shortcut) => (
+            <article key={shortcut.combo} className={`rounded-2xl border p-4 ${
+              isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
+            }`}>
               <div className="flex items-center justify-between gap-3 mb-3">
-                <span className="inline-flex rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-black uppercase tracking-widest">
+                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${
+                  isDark ? 'bg-indigo-500/20 text-indigo-100' : 'bg-indigo-100 text-indigo-700'
+                }`}>
                   {shortcut.combo}
                 </span>
-                <span className="text-sm font-bold text-slate-700">{shortcut.action}</span>
+                <span className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-700'}`}>{shortcut.action}</span>
               </div>
-              <p className="text-slate-600 leading-relaxed text-[15px]">{shortcut.why}</p>
+              <p className={`leading-relaxed text-[14px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{shortcut.why}</p>
             </article>
           ))}
         </div>
@@ -944,79 +975,92 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans p-4 md:p-8 flex flex-col">
+    <div className={`min-h-screen font-sans p-4 md:p-6 flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#edf2ff] text-slate-800'}`}>
+      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_22%)]' : 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_26%)]'}`}></div>
+      <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-slate-950/36' : 'bg-white/28 backdrop-blur-[2px]'}`}></div>
+      <div className="relative flex flex-col">
       {/* CABECERA Y NAVEGACIÓN PRINCIPAL */}
-      <header className="mb-8 flex flex-col gap-8 max-w-[1600px] mx-auto w-full">
-        <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <header className="mb-6 flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
+        <div className={`p-6 md:p-8 rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.12)] border flex flex-col md:flex-row md:items-center justify-between gap-6 ${isDark ? 'bg-slate-900/92 border-slate-800' : 'bg-white/82 border-white/80 backdrop-blur-xl'}`}>
           <div>
-            <span className="bg-blue-100 text-blue-800 text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 inline-block border border-blue-200">Curso Completo e Interactivo</span>
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight flex items-center gap-4 mt-2">
-              <AppWindow className="text-blue-600" size={48} />
+            <span className={`text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 inline-block border ${isDark ? 'bg-slate-950 text-slate-300 border-slate-700' : 'bg-blue-100 text-blue-800 border-blue-200'}`}>Curso Completo e Interactivo</span>
+            <h1 className={`text-4xl md:text-5xl font-black tracking-tight flex items-center gap-4 mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <AppWindow className={isDark ? 'text-indigo-300' : 'text-blue-600'} size={48} />
               Aula de Competencias Digitales
             </h1>
-            <p className="text-slate-500 mt-4 text-xl font-medium max-w-3xl leading-relaxed">
+            <p className={`mt-4 text-lg md:text-xl font-medium max-w-3xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
               Un recorrido interactivo por hardware, redes, archivos, navegacion, atajos de teclado y herramientas de inteligencia artificial para aprender con mas autonomia.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 min-w-[280px]">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Modulo activo</p>
-              <p className="text-lg font-black text-slate-900 mt-2">{activeTabMeta.title}</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 min-w-[280px]">
+            <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Modulo activo</p>
+              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.title}</p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Temas</p>
-              <p className="text-lg font-black text-slate-900 mt-2">{itemCount}</p>
+            <div className={`rounded-2xl border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Temas</p>
+              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{itemCount}</p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 col-span-2 md:col-span-1">
-              <p className="text-xs uppercase tracking-widest text-slate-400 font-black">Foco</p>
-              <p className="text-lg font-black text-slate-900 mt-2">{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
+            <div className={`rounded-2xl border p-4 col-span-2 md:col-span-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <p className={`text-xs uppercase tracking-widest font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco</p>
+              <p className={`text-lg font-black mt-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem ? selectedItem.name : 'Sin seleccionar'}</p>
             </div>
+            <button
+              onClick={() => setTheme(isDark ? 'light' : 'dark')}
+              className={`rounded-2xl border p-4 flex items-center justify-center gap-3 font-black transition-colors ${isDark ? 'border-slate-700 bg-slate-950 text-slate-100 hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? 'Modo claro' : 'Modo oscuro'}
+            </button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-4">
-          <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6">
-            <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
-            <h2 className="text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
-            <p className="text-slate-300 leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
-            <div className="flex flex-col sm:flex-row gap-3 mt-6">
-              <button
-                onClick={handleStartModule}
-                className="rounded-2xl bg-white text-slate-900 px-5 py-3 font-black hover:bg-slate-100 transition-colors"
-              >
-                Empezar recorrido
-              </button>
-              <button
-                onClick={handleClearSelection}
-                className="rounded-2xl border border-white/15 bg-white/5 text-white px-5 py-3 font-black hover:bg-white/10 transition-colors"
-              >
-                Reiniciar foco
-              </button>
+          <div className={`rounded-[32px] border p-6 md:p-7 relative overflow-hidden ${isDark ? 'border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 text-white' : 'border-white/80 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white shadow-[0_22px_60px_rgba(15,23,42,0.18)]'}`}>
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),transparent_38%,rgba(255,255,255,0.04))]"></div>
+            <div className="relative">
+              <p className="text-xs uppercase tracking-[0.25em] text-slate-300 font-black">Experiencia guiada</p>
+              <h2 className="text-2xl md:text-3xl font-black mt-4">{activeTabMeta.title}</h2>
+              <p className="text-slate-300 leading-relaxed mt-3 max-w-3xl">{activeTabMeta.description}</p>
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <button
+                  onClick={handleStartModule}
+                  className={`rounded-2xl px-5 py-3 font-black transition-colors ${isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-white text-slate-900 hover:bg-slate-100'}`}
+                >
+                  Empezar recorrido
+                </button>
+                <button
+                  onClick={handleClearSelection}
+                  className="rounded-2xl border border-white/15 bg-white/5 text-white px-5 py-3 font-black hover:bg-white/10 transition-colors"
+                >
+                  Reiniciar foco
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-xs uppercase tracking-[0.25em] text-slate-400 font-black">Criterios UX/UI</p>
+          <div className={`rounded-[32px] border p-6 shadow-sm ${isDark ? 'border-slate-800 bg-slate-900/92' : 'border-white/80 bg-white/82 backdrop-blur-xl'}`}>
+            <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Criterios UX/UI</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3 mt-5">
-              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                <p className="font-black text-slate-900">Orientacion clara</p>
-                <p className="text-sm text-slate-500 mt-2">El usuario siempre sabe en que modulo esta y que puede hacer despues.</p>
+              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Orientacion clara</p>
+                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>El usuario siempre sabe en que modulo esta y que puede hacer despues.</p>
               </div>
-              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                <p className="font-black text-slate-900">Menos ruido</p>
-                <p className="text-sm text-slate-500 mt-2">Mostramos contexto y accion antes de saturar con lectura larga.</p>
+              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menos ruido</p>
+                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Mostramos contexto y accion antes de saturar con lectura larga.</p>
               </div>
-              <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                <p className="font-black text-slate-900">Progreso visible</p>
-                <p className="text-sm text-slate-500 mt-2">La interfaz comunica foco, contenido disponible y siguiente paso.</p>
+              <div className={`rounded-2xl border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Progreso visible</p>
+                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>La interfaz comunica foco, contenido disponible y siguiente paso.</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Tabs de Navegación - Ahora con 6 botones (Scrollable en móvil) */}
-        <div className="flex overflow-x-auto pb-4 hide-scrollbar">
+        <div className="flex overflow-x-auto pb-2 hide-scrollbar">
           <div className="flex w-full min-w-max md:grid md:grid-cols-6 gap-3 md:gap-4">
             {tabConfig.map((tab) => (
               <TabButton
@@ -1024,6 +1068,7 @@ export default function App() {
                 tab={tab}
                 isActive={activeTab === tab.id}
                 onClick={handleTabChange}
+                isDark={isDark}
               />
             ))}
           </div>
@@ -1031,10 +1076,10 @@ export default function App() {
       </header>
 
       {/* ÁREA PRINCIPAL DIVIDIDA */}
-      <div className="flex flex-col lg:flex-row gap-8 flex-grow max-w-[1600px] mx-auto w-full">
+      <div className="flex flex-col xl:flex-row gap-6 flex-grow max-w-[1600px] mx-auto w-full">
         
         {/* ZONA IZQUIERDA: Interactuador Visual (60%) */}
-        <div className="w-full lg:w-[60%] flex flex-col gap-6">
+        <div className="w-full xl:w-[64%] flex flex-col gap-6 min-w-0">
           {activeTab === 'hardware' && renderHardwareTab()}
           {activeTab === 'cloud' && renderCloudTab()}
           {activeTab === 'internet' && renderInternetTab()}
@@ -1044,8 +1089,8 @@ export default function App() {
         </div>
 
         {/* ZONA DERECHA: Panel Lector Dinámico (40%) */}
-        <div className="w-full lg:w-[40%]">
-          <div className="sticky top-8 h-full min-h-[600px] lg:max-h-[85vh] lg:h-[85vh]">
+        <div className="w-full xl:w-[36%] min-w-0">
+          <div className="sticky top-6 h-full min-h-[560px] xl:max-h-[calc(100vh-2rem)] xl:h-[calc(100vh-2rem)]">
             <PanelDerecho
               selectedItem={selectedItem}
               activeTabMeta={activeTabMeta}
@@ -1053,6 +1098,7 @@ export default function App() {
               onStartModule={handleStartModule}
               onClearSelection={handleClearSelection}
               colorMap={colorMap}
+              isDark={isDark}
             />
           </div>
         </div>
@@ -1060,9 +1106,15 @@ export default function App() {
       </div>
       
       {/* Estilo para ocultar scrollbar en contenedor de botones móviles */}
+      </div>
       <style dangerouslySetInnerHTML={{__html: `
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 999px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
       `}} />
     </div>
   );
