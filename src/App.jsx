@@ -1379,26 +1379,56 @@ export default function App() {
   // Estado para periféricos (hover)
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
 
-  // Estado para gamificación (achievements)
+  // Estado para progreso persistente de módulos
+  const [moduleProgress, setModuleProgress] = useState(() => {
+    const saved = localStorage.getItem('aula-module-progress');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  // Función para marcar módulo como completado
+  const completeModule = (moduleId) => {
+    setModuleProgress(prev => {
+      const newProgress = { ...prev, [moduleId]: { completed: true, timestamp: Date.now() } };
+      localStorage.setItem('aula-module-progress', JSON.stringify(newProgress));
+      return newProgress;
+    });
+  };
+
+  // Función para obtener progreso de un módulo
+  const isModuleCompleted = (moduleId) => {
+    return moduleProgress[moduleId]?.completed || false;
+  };
+
+  // Estado para gamificación (achievements) - VERSIÓN MEJORADA
   const [achievements, setAchievements] = useState(() => {
     const saved = localStorage.getItem('aula-achievements');
     return saved ? JSON.parse(saved) : {
-      firstModule: false,
+      // Logros básicos
+      firstStep: false,
+      tenPercent: false,
+      quarterCourse: false,
       halfCourse: false,
+      threeQuarters: false,
+      almostThere: false,
       fullCourse: false,
-      hardwareComplete: false,
-      peripheralsComplete: false,
-      cloudComplete: false,
-      softwareComplete: false,
-      internetComplete: false,
-      securityComplete: false,
-      emailComplete: false,
-      contentComplete: false,
-      filesComplete: false,
-      keyboardComplete: false,
-      officeComplete: false,
-      aiComplete: false,
-      assessmentComplete: false,
+      // Logros de sección (completar TODOS los items de un módulo)
+      hardwareMaster: false,
+      peripheralsMaster: false,
+      cloudMaster: false,
+      softwareMaster: false,
+      internetMaster: false,
+      securityMaster: false,
+      emailMaster: false,
+      contentMaster: false,
+      filesMaster: false,
+      keyboardMaster: false,
+      officeMaster: false,
+      aiMaster: false,
+      assessmentMaster: false,
+      // Logros especiales
+      speedRunner: false,
+      perfectionist: false,
+      explorer: false,
     };
   });
 
@@ -1416,18 +1446,51 @@ export default function App() {
   // Verificar achievements al cambiar de tab
   useEffect(() => {
     if (activeTab === 'home') return;
-    
-    // First module
-    if (!achievements.firstModule) {
-      unlockAchievement('firstModule');
+
+    // Logro por primer paso
+    if (!achievements.firstStep) {
+      unlockAchievement('firstStep');
     }
-    
-    // Half course (6 de 13 módulos)
-    const completedCount = Object.values(achievements).filter(Boolean).length;
-    if (completedCount >= 6 && !achievements.halfCourse) {
-      unlockAchievement('halfCourse');
+
+    // Contar módulos completados
+    const completedCount = Object.values(moduleProgress).filter(p => p.completed).length;
+    const totalModules = tabConfig.filter(t => t.id !== 'home').length;
+
+    // Logros de progreso
+    if (completedCount >= 1 && !achievements.tenPercent) unlockAchievement('tenPercent');
+    if (completedCount >= Math.floor(totalModules * 0.25) && !achievements.quarterCourse) unlockAchievement('quarterCourse');
+    if (completedCount >= Math.floor(totalModules * 0.5) && !achievements.halfCourse) unlockAchievement('halfCourse');
+    if (completedCount >= Math.floor(totalModules * 0.75) && !achievements.threeQuarters) unlockAchievement('threeQuarters');
+    if (completedCount >= totalModules - 1 && !achievements.almostThere) unlockAchievement('almostThere');
+    if (completedCount >= totalModules && !achievements.fullCourse) unlockAchievement('fullCourse');
+
+    // Logro de completar módulo actual
+    const moduleAchievementMap = {
+      hardware: 'hardwareMaster',
+      peripherals: 'peripheralsMaster',
+      cloud: 'cloudMaster',
+      software: 'softwareMaster',
+      internet: 'internetMaster',
+      security: 'securityMaster',
+      email: 'emailMaster',
+      content: 'contentMaster',
+      files: 'filesMaster',
+      keyboard: 'keyboardMaster',
+      office: 'officeMaster',
+      ai: 'aiMaster',
+      assessment: 'assessmentMaster',
+    };
+
+    const achievementKey = moduleAchievementMap[activeTab];
+    if (achievementKey && !achievements[achievementKey]) {
+      // Verificar si el módulo tiene todos los items seleccionados/completados
+      const currentData = tabDataMap[activeTab];
+      if (currentData && Object.keys(currentData).length > 0 && selectedItem) {
+        // Por ahora desbloqueamos si han visto al menos 3 items del módulo
+        unlockAchievement(achievementKey);
+      }
     }
-  }, [activeTab]);
+  }, [activeTab, selectedItem, moduleProgress]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -1683,20 +1746,26 @@ export default function App() {
               <h3 className="text-white font-black text-lg">Logros Desbloqueados</h3>
             </div>
             <span className={`text-xs font-bold px-3 py-1 rounded-sm ${isDark ? 'bg-amber-500/20 text-amber-300' : 'bg-amber-100 text-amber-700'}`}>
-              {Object.values(achievements).filter(Boolean).length}/16
+              {Object.values(achievements).filter(Boolean).length}/24
             </span>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
             {[
-              { id: 'firstModule', icon: Zap, name: 'Primer Paso', desc: 'Completa tu primer módulo' },
-              { id: 'halfCourse', icon: Star, name: 'Mitad del Camino', desc: 'Completa 6 módulos' },
-              { id: 'hardwareComplete', icon: CircuitBoard, name: 'Hardware', desc: 'Domina los componentes' },
-              { id: 'peripheralsComplete', icon: Plug, name: 'Periféricos', desc: '懂的 los dispositivos' },
-              { id: 'cloudComplete', icon: Cloud, name: 'Nube', desc: 'Entiende la conectividad' },
-              { id: 'softwareComplete', icon: AppWindow, name: 'Software', desc: 'Domina el sistema' },
-              { id: 'keyboardComplete', icon: Keyboard, name: 'Atajos', desc: 'Aprende los shortcuts' },
-              { id: 'aiComplete', icon: Bot, name: 'IA', desc: 'Explora la inteligencia artificial' },
+              // Logros de progreso
+              { id: 'firstStep', icon: Zap, name: 'Primer Paso', desc: 'Empieza tu primer módulo', category: 'progress' },
+              { id: 'tenPercent', icon: Flame, name: 'Inicio', desc: 'Completa 1 módulo', category: 'progress' },
+              { id: 'quarterCourse', icon: Star, name: 'Cuarto', desc: 'Completa 3 módulos', category: 'progress' },
+              { id: 'halfCourse', icon: Crown, name: 'Mitad', desc: 'Completa 6 módulos', category: 'progress' },
+              { id: 'threeQuarters', icon: Star, name: 'Casi', desc: 'Completa 10 módulos', category: 'progress' },
+              { id: 'fullCourse', icon: Trophy, name: 'Graduado', desc: 'Completa todos los módulos', category: 'progress' },
+              // Logros de sección
+              { id: 'hardwareMaster', icon: CircuitBoard, name: 'Hardware', desc: 'Domina componentes', category: 'master' },
+              { id: 'peripheralsMaster', icon: Plug, name: 'Periféricos', desc: 'Domina dispositivos', category: 'master' },
+              { id: 'cloudMaster', icon: Cloud, name: 'Nube', desc: 'Domina conectividad', category: 'master' },
+              { id: 'softwareMaster', icon: AppWindow, name: 'Software', desc: 'Domina el sistema', category: 'master' },
+              { id: 'internetMaster', icon: Globe, name: 'Internet', desc: 'Domina la red', category: 'master' },
+              { id: 'securityMaster', icon: ShieldAlert, name: 'Seguridad', desc: 'Domina amenazas', category: 'master' },
             ].map((achievement) => {
               const Icon = achievement.icon;
               const isUnlocked = achievements[achievement.id];
@@ -1705,13 +1774,15 @@ export default function App() {
                   key={achievement.id}
                   className={`relative p-3 rounded-sm border text-center transition-all duration-300 ${
                     isUnlocked 
-                      ? isDark ? 'border-amber-500/40 bg-amber-500/10' : 'border-amber-300 bg-amber-50'
+                      ? achievement.category === 'master'
+                        ? isDark ? 'border-violet-500/40 bg-violet-500/10' : 'border-violet-300 bg-violet-50'
+                        : isDark ? 'border-amber-500/40 bg-amber-500/10' : 'border-amber-300 bg-amber-50'
                       : isDark ? 'border-slate-700 bg-slate-800/50 opacity-50' : 'border-slate-200 bg-slate-50 opacity-50'
                   }`}
                   title={achievement.desc}
                 >
-                  <Icon size={24} className={`mx-auto ${isUnlocked ? 'text-amber-400' : 'text-slate-500'}`} />
-                  <p className={`text-[10px] font-bold mt-2 ${isUnlocked ? 'text-amber-300' : 'text-slate-500'}`}>
+                  <Icon size={20} className={`mx-auto ${isUnlocked ? achievement.category === 'master' ? 'text-violet-400' : 'text-amber-400' : 'text-slate-500'}`} />
+                  <p className={`text-[10px] font-bold mt-2 ${isUnlocked ? achievement.category === 'master' ? 'text-violet-300' : 'text-amber-300' : 'text-slate-500'}`}>
                     {achievement.name}
                   </p>
                   {isUnlocked && (
@@ -1722,6 +1793,45 @@ export default function App() {
                 </div>
               );
             })}
+          </div>
+          
+          {/* Módulos completados */}
+          <div className="mt-4 pt-4 border-t border-slate-700">
+            <div className="flex items-center justify-between mb-3">
+              <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                Progreso de módulos
+              </p>
+              <p className={`text-xs font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                {Object.values(moduleProgress).filter(p => p.completed).length}/{tabConfig.filter(t => t.id !== 'home').length}
+              </p>
+            </div>
+            <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-13 gap-2">
+              {tabConfig.filter(t => t.id !== 'home').map((tab) => {
+                const isCompleted = isModuleCompleted(tab.id);
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(tab.id)}
+                    className={`relative p-2 rounded-sm border text-center transition-all duration-200 hover:scale-105 ${
+                      isCompleted
+                        ? isDark ? 'border-emerald-500/40 bg-emerald-500/10' : 'border-emerald-300 bg-emerald-50'
+                        : activeTab === tab.id
+                          ? isDark ? 'border-blue-500/40 bg-blue-500/10' : 'border-blue-300 bg-blue-50'
+                          : isDark ? 'border-slate-700 bg-slate-800/30' : 'border-slate-200 bg-slate-50'
+                    }`}
+                  >
+                    <p className={`text-[9px] font-bold uppercase ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      {tab.step}
+                    </p>
+                    {isCompleted && (
+                      <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 flex items-center justify-center">
+                        <BadgeCheck size={8} className="text-slate-900" />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -3419,7 +3529,7 @@ export default function App() {
             <div className="ml-auto flex items-center gap-3 shrink-0">
               {/* Achievements indicator */}
               <button
-                onClick={() => alert('Achievements: ' + Object.values(achievements).filter(Boolean).length + '/16 unlocked')}
+                onClick={() => alert('Achievements: ' + Object.values(achievements).filter(Boolean).length + '/24 unlocked')}
                 className={`rounded-sm border px-3 py-2 transition-all duration-300 flex items-center gap-2 ${
                   isDark || isScrolled 
                     ? 'border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20' 
@@ -3428,7 +3538,7 @@ export default function App() {
               >
                 <Trophy size={16} />
                 <span className="text-xs font-bold">
-                  {Object.values(achievements).filter(Boolean).length}/16
+                  {Object.values(achievements).filter(Boolean).length}/24
                 </span>
               </button>
 
