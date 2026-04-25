@@ -2167,12 +2167,12 @@ export default function App() {
 
       {/* Bubbles Container */}
       <div className="relative py-10 sm:py-14">
-        {/* Connector Lines */}
-        <div className="absolute top-1/2 left-[22%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none">
-          <div className={`w-full h-full bg-gradient-to-r from-emerald-500 to-amber-500 ${isDark ? 'opacity-60' : 'opacity-40'}`}></div>
+        {/* Connector Lines with Animation */}
+        <div className="absolute top-1/2 left-[22%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none overflow-hidden">
+          <div className="w-full h-full bg-gradient-to-r from-emerald-500 to-amber-500 animate-dash-flow"></div>
         </div>
-        <div className="absolute top-1/2 left-[58%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none">
-          <div className={`w-full h-full bg-gradient-to-r from-amber-500 to-blue-500 ${isDark ? 'opacity-60' : 'opacity-40'}`}></div>
+        <div className="absolute top-1/2 left-[58%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none overflow-hidden">
+          <div className="w-full h-full bg-gradient-to-r from-amber-500 to-blue-500 animate-dash-flow" style={{ animationDelay: '0.4s' }}></div>
         </div>
 
         {/* Bubbles Row */}
@@ -2180,10 +2180,10 @@ export default function App() {
           {/* Local Bubble */}
           <button
             onClick={() => handleSelect('local_work', null, cloudData)}
-            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'local_work'
                 ? 'border-emerald-400 bg-emerald-500/30 shadow-[0_0_30px_rgba(52,211,153,0.5)]'
-                : 'border-slate-300 bg-slate-50 hover:border-emerald-400'
+                : 'border-slate-300 bg-slate-50 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(52,211,153,0.3)]'
             }`}
           >
             <Laptop size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'local_work' ? 'text-emerald-400' : 'text-slate-400'}`} />
@@ -2192,10 +2192,10 @@ export default function App() {
           {/* Sync Bubble */}
           <button
             onClick={() => handleSelect('internet_sync', null, cloudData)}
-            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'internet_sync'
                 ? 'border-amber-400 bg-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.5)]'
-                : 'border-slate-300 bg-slate-50 hover:border-amber-400'
+                : 'border-slate-300 bg-slate-50 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]'
             }`}
           >
             <Wifi size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'internet_sync' ? 'text-amber-400' : 'text-slate-400'}`} />
@@ -2204,10 +2204,10 @@ export default function App() {
           {/* Cloud Bubble */}
           <button
             onClick={() => handleSelect('cloud_work', null, cloudData)}
-            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'cloud_work'
                 ? 'border-blue-400 bg-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.5)]'
-                : 'border-slate-300 bg-slate-50 hover:border-blue-400'
+                : 'border-slate-300 bg-slate-50 hover:border-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]'
             }`}
           >
             <Cloud size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'cloud_work' ? 'text-blue-400' : 'text-slate-400'}`} />
