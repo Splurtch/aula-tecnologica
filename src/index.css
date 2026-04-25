@@ -137,12 +137,12 @@
   }
 
   .animate-dash-flow {
-    animation: dashFlow 1s linear infinite;
+    animation: dashFlow 0.8s linear infinite;
   }
 
   @keyframes dashFlow {
-    0% { stroke-dashoffset: 24; }
-    100% { stroke-dashoffset: 0; }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
 
   .animate-bounce-gentle {

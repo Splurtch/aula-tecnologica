@@ -2168,11 +2168,11 @@ export default function App() {
       {/* Bubbles Container */}
       <div className="relative py-10 sm:py-14">
         {/* Connector Lines with Animation */}
-        <div className="absolute top-1/2 left-[22%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none overflow-hidden">
-          <div className="w-full h-full bg-gradient-to-r from-emerald-500 to-amber-500 animate-dash-flow"></div>
+        <div className="absolute top-1/2 left-[18%] -translate-y-1/2 w-[26%] h-1 pointer-events-none overflow-hidden rounded-full">
+          <div className="w-[200%] h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-amber-500 animate-dash-flow"></div>
         </div>
-        <div className="absolute top-1/2 left-[58%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none overflow-hidden">
-          <div className="w-full h-full bg-gradient-to-r from-amber-500 to-blue-500 animate-dash-flow" style={{ animationDelay: '0.4s' }}></div>
+        <div className="absolute top-1/2 left-[56%] -translate-y-1/2 w-[26%] h-1 pointer-events-none overflow-hidden rounded-full">
+          <div className="w-[200%] h-full bg-gradient-to-r from-amber-500 via-blue-500 to-blue-500 animate-dash-flow" style={{ animationDelay: '0.3s' }}></div>
         </div>
 
         {/* Bubbles Row */}
