@@ -2197,44 +2197,24 @@ export default function App() {
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        {/* SVG Connector Lines */}
+        {/* SVG Connector Lines - Simple Dashed Lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
-          <defs>
-            <linearGradient id="lineGradientLight" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#10b981" />
-              <stop offset="50%" stopColor="#f59e0b" />
-              <stop offset="100%" stopColor="#3b82f6" />
-            </linearGradient>
-            <linearGradient id="lineGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#34d399" />
-              <stop offset="50%" stopColor="#fbbf24" />
-              <stop offset="100%" stopColor="#60a5fa" />
-            </linearGradient>
-            <marker id="arrowHeadLight" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-              <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
-            </marker>
-            <marker id="arrowHeadDark" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-              <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
-            </marker>
-          </defs>
-
           {/* Line Local to Sync */}
           <line
             x1="25%" y1="50%" x2="45%" y2="50%"
-            stroke={isDark ? 'url(#lineGradientDark)' : 'url(#lineGradientLight)'}
+            stroke={isDark ? '#34d399' : '#10b981'}
             strokeWidth="2"
-            strokeDasharray="8 4"
+            strokeDasharray="6 4"
             className="animate-dash-flow"
           />
 
           {/* Line Sync to Cloud */}
           <line
             x1="55%" y1="50%" x2="75%" y2="50%"
-            stroke={isDark ? 'url(#lineGradientDark)' : 'url(#lineGradientLight)'}
+            stroke={isDark ? '#60a5fa' : '#3b82f6'}
             strokeWidth="2"
-            strokeDasharray="8 4"
+            strokeDasharray="6 4"
             className="animate-dash-flow"
-            markerEnd={isDark ? 'url(#arrowHeadDark)' : 'url(#arrowHeadLight)'}
           />
         </svg>
 
