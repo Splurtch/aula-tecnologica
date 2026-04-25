@@ -2333,9 +2333,20 @@ export default function App() {
   // PESTAÑA: ESCRITORIO (Simulador Interactivo)
   const renderDesktopTab = () => {
     return (
-    <div className="flex flex-col h-full animate-in fade-in duration-500">
+    <div className="relative overflow-hidden rounded-sm border animate-in fade-in duration-500 bg-slate-100 border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]">
+      {/* Header */}
+      <div className="flex items-center gap-4 p-5 sm:p-6 md:p-8 border-b border-slate-200">
+        <div className="p-3 rounded-sm bg-violet-100">
+          <Monitor className="text-violet-600" size={28} />
+        </div>
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.25em] text-violet-700/70">Navegación y organización</p>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900">Escritorio Virtual</h2>
+        </div>
+      </div>
+
       {/* Desktop Simulator Container */}
-      <div className="flex-1 relative overflow-hidden rounded-sm border border-slate-300" style={{ height: '480px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
+      <div className="relative overflow-hidden" style={{ height: '520px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
         
         {/* Desktop Icons - Left Side */}
         <div className="absolute top-4 left-4 flex flex-col gap-6">
@@ -2496,7 +2507,7 @@ export default function App() {
       </div>
 
       {/* Instructions Panel */}
-      <div className="mt-4 p-4 bg-slate-50 rounded-sm border border-slate-200">
+      <div className="p-4 bg-slate-50 border-t border-slate-200">
         <h3 className="font-bold text-slate-800 mb-2">Explorando el Escritorio</h3>
         <ul className="text-sm text-slate-600 space-y-1">
           <li>• <strong>Iconos del escritorio:</strong> Este PC, Archivos y Papelera</li>
