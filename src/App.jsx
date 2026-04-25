@@ -2438,7 +2438,7 @@ export default function App() {
               <Terminal size={16} className="text-emerald-500" /> Terminal
             </button>
             <button className="flex items-center gap-2 px-3 py-2 rounded text-sm text-slate-700 hover:bg-slate-100">
-              <Browser size={16} className="text-blue-500" /> Navegador
+              <Globe size={16} className="text-blue-500" /> Navegador
             </button>
           </div>
         </div>
