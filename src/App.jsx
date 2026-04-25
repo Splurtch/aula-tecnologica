@@ -2197,26 +2197,11 @@ export default function App() {
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        {/* SVG Connector Lines - Simple Dashed Lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
-          {/* Line Local to Sync */}
-          <line
-            x1="25%" y1="50%" x2="45%" y2="50%"
-            stroke={isDark ? '#34d399' : '#10b981'}
-            strokeWidth="2"
-            strokeDasharray="6 4"
-            className="animate-dash-flow"
-          />
-
-          {/* Line Sync to Cloud */}
-          <line
-            x1="55%" y1="50%" x2="75%" y2="50%"
-            stroke={isDark ? '#60a5fa' : '#3b82f6'}
-            strokeWidth="2"
-            strokeDasharray="6 4"
-            className="animate-dash-flow"
-          />
-        </svg>
+        {/* CSS Connector Lines - Simple div-based */}
+        <div className="absolute top-1/2 left-0 right-0 h-0.5 pointer-events-none" style={{ zIndex: 0 }}>
+          <div className={`absolute top-0 left-[20%] w-[30%] h-full ${isDark ? 'bg-gradient-to-r from-emerald-500/60 to-amber-500/60' : 'bg-gradient-to-r from-emerald-400/60 to-amber-400/60'} animate-dash-flow`}></div>
+          <div className={`absolute top-0 left-[50%] w-[30%] h-full ${isDark ? 'bg-gradient-to-r from-amber-500/60 to-blue-500/60' : 'bg-gradient-to-r from-amber-400/60 to-blue-400/60'} animate-dash-flow`} style={{ animationDelay: '0.5s' }}></div>
+        </div>
 
         {/* Bubble Nodes Container */}
         <div className="relative flex items-center justify-between w-full" style={{ zIndex: 1 }}>
