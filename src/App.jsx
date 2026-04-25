@@ -2150,8 +2150,6 @@ export default function App() {
 
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => {
-    const [hoveredNode, setHoveredNode] = useState(null);
-
     return (
     <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
       isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
@@ -2167,22 +2165,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* Bubbles Container with Lines */}
+      {/* Bubbles Container */}
       <div className="relative py-10 sm:py-14">
-        {/* Background Glow Effects */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        {/* Connector Line 1 - Between Local and Sync */}
+        {/* Connector Lines */}
         <div className="absolute top-1/2 left-[22%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none">
           <div className={`w-full h-full bg-gradient-to-r from-emerald-500 to-amber-500 ${isDark ? 'opacity-60' : 'opacity-40'}`}></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-amber-500 animate-dash-flow"></div>
         </div>
-
-        {/* Connector Line 2 - Between Sync and Cloud */}
         <div className="absolute top-1/2 left-[58%] -translate-y-1/2 w-[18%] h-0.5 pointer-events-none">
           <div className={`w-full h-full bg-gradient-to-r from-amber-500 to-blue-500 ${isDark ? 'opacity-60' : 'opacity-40'}`}></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-blue-500 animate-dash-flow" style={{ animationDelay: '0.5s' }}></div>
         </div>
 
         {/* Bubbles Row */}
@@ -2190,85 +2180,37 @@ export default function App() {
           {/* Local Bubble */}
           <button
             onClick={() => handleSelect('local_work', null, cloudData)}
-            onMouseEnter={() => setHoveredNode('local')}
-            onMouseLeave={() => setHoveredNode(null)}
-            className="relative"
-          >
-            {/* Glow Ring */}
-            <div className={`absolute inset-[-12px] rounded-full transition-all duration-500 ${
-              selectedItem?.id === 'local_work' || hoveredNode === 'local'
-                ? 'opacity-100 scale-110'
-                : 'opacity-0 scale-100'
-            } ${isDark ? 'bg-emerald-500/20' : 'bg-emerald-200/40'}`}
-            style={{ filter: 'blur(8px)' }}
-            ></div>
-
-            {/* Main Bubble */}
-            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'local_work'
                 ? 'border-emerald-400 bg-emerald-500/30 shadow-[0_0_30px_rgba(52,211,153,0.5)]'
-                : hoveredNode === 'local'
-                  ? 'border-emerald-400 bg-emerald-500/20'
-                  : 'border-slate-300 bg-slate-50 hover:border-emerald-400'
-            }`}>
-              <Laptop size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'local_work' || hoveredNode === 'local' ? 'text-emerald-400' : 'text-slate-400'}`} />
-            </div>
+                : 'border-slate-300 bg-slate-50 hover:border-emerald-400'
+            }`}
+          >
+            <Laptop size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'local_work' ? 'text-emerald-400' : 'text-slate-400'}`} />
           </button>
 
           {/* Sync Bubble */}
           <button
             onClick={() => handleSelect('internet_sync', null, cloudData)}
-            onMouseEnter={() => setHoveredNode('sync')}
-            onMouseLeave={() => setHoveredNode(null)}
-            className="relative"
-          >
-            {/* Glow Ring */}
-            <div className={`absolute inset-[-12px] rounded-full transition-all duration-500 ${
-              selectedItem?.id === 'internet_sync' || hoveredNode === 'sync'
-                ? 'opacity-100 scale-110'
-                : 'opacity-0 scale-100'
-            } ${isDark ? 'bg-amber-500/20' : 'bg-amber-200/40'}`}
-            style={{ filter: 'blur(8px)' }}
-            ></div>
-
-            {/* Main Bubble */}
-            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'internet_sync'
                 ? 'border-amber-400 bg-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.5)]'
-                : hoveredNode === 'sync'
-                  ? 'border-amber-400 bg-amber-500/20'
-                  : 'border-slate-300 bg-slate-50 hover:border-amber-400'
-            }`}>
-              <Wifi size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'internet_sync' || hoveredNode === 'sync' ? 'text-amber-400' : 'text-slate-400'}`} />
-            </div>
+                : 'border-slate-300 bg-slate-50 hover:border-amber-400'
+            }`}
+          >
+            <Wifi size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'internet_sync' ? 'text-amber-400' : 'text-slate-400'}`} />
           </button>
 
           {/* Cloud Bubble */}
           <button
             onClick={() => handleSelect('cloud_work', null, cloudData)}
-            onMouseEnter={() => setHoveredNode('cloud')}
-            onMouseLeave={() => setHoveredNode(null)}
-            className="relative"
-          >
-            {/* Glow Ring */}
-            <div className={`absolute inset-[-12px] rounded-full transition-all duration-500 ${
-              selectedItem?.id === 'cloud_work' || hoveredNode === 'cloud'
-                ? 'opacity-100 scale-110'
-                : 'opacity-0 scale-100'
-            } ${isDark ? 'bg-blue-500/20' : 'bg-blue-200/40'}`}
-            style={{ filter: 'blur(8px)' }}
-            ></div>
-
-            {/* Main Bubble */}
-            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
               selectedItem?.id === 'cloud_work'
                 ? 'border-blue-400 bg-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.5)]'
-                : hoveredNode === 'cloud'
-                  ? 'border-blue-400 bg-blue-500/20'
-                  : 'border-slate-300 bg-slate-50 hover:border-blue-400'
-            }`}>
-              <Cloud size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'cloud_work' || hoveredNode === 'cloud' ? 'text-blue-400' : 'text-slate-400'}`} />
-            </div>
+                : 'border-slate-300 bg-slate-50 hover:border-blue-400'
+            }`}
+          >
+            <Cloud size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'cloud_work' ? 'text-blue-400' : 'text-slate-400'}`} />
           </button>
         </div>
 
