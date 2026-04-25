@@ -245,6 +245,22 @@ const filesData = {
 // 4B. BASE DE DATOS: SOFTWARE
 // ==========================================
 const softwareData = {
+  hardware_layer: {
+    id: 'hardware_layer', name: 'Hardware', category: 'Capa física', icon: Cpu, color: 'purple',
+    desc: 'El hardware es la parte física del ordenador: procesador, memoria, disco, pantalla, teclado y todos los componentes que puedes tocar.\n\nSin hardware no hay ningún equipo. Es la base sobre la que se construye todo el software, desde el sistema operativo hasta las aplicaciones.',
+    details: 'Componentes principales:\n• Procesador (CPU): El cerebro que ejecuta instrucciones.\n• Memoria RAM: Almacenamiento temporal de datos en uso.\n• Disco duro/SSD: Almacenamiento permanente de archivos.\n• Tarjeta gráfica (GPU): Renderiza imagenes y vídeos.\n• Placa base: Conecta todos los componentes entre sí.',
+    pros: [
+      'Es la base indispensable de cualquier sistema informatico.',
+      'Determina que tareas puedes realizar y con que rendimiento.',
+      'Los componentes modernos son muy potentes y eficientes.'
+    ],
+    cons: [
+      'Se degrada fisicamente con el tiempo y el uso.',
+      'Un componente danado puede afectar a todo el sistema.',
+      'Requiere drivers para que el software pueda controlarlo.'
+    ],
+    examples: 'Ejemplos: el procesador Intel Core i7, 16GB de RAM DDR4, un disco SSD NVMe de 512GB, o la pantalla de 14 pulgadas de un portatil.',
+  },
   operating_systems: {
     id: 'operating_systems', name: 'Sistemas Operativos', category: 'Base del software', icon: Monitor, color: 'indigo',
     desc: 'El sistema operativo es el software principal del ordenador. Actua como intermediario entre el hardware y el resto de programas.\n\nSin sistema operativo, el equipo no tendria una interfaz funcional para arrancar, gestionar memoria, abrir archivos o usar dispositivos.',
