@@ -2961,155 +2961,137 @@ export default function App() {
     );
   };
 
-  const renderSoftwareTab = () => (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-500">
-      <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
-          <div className="max-w-3xl">
-            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-slate-600/70'}`}>Base tecnologica</p>
-            <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Software por capas</h2>
-            <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Diferenciamos el sistema operativo, los drivers y las aplicaciones para que el usuario entienda mejor como funciona el ordenador y donde mirar cuando aparece un problema.</p>
-          </div>
+  // PESTAÑA 4: SOFTWARE
+  const renderSoftwareTab = () => {
+    return (
+    <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
+      isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+    }`}>
+      {/* Header */}
+      <div className={`flex items-center gap-4 p-5 sm:p-6 md:p-8 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+        <div className={`p-3 rounded-sm ${isDark ? 'bg-indigo-500/20' : 'bg-indigo-100'}`}>
+          <Layers className={isDark ? 'text-indigo-400' : 'text-indigo-600'} size={28} />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <InteractiveButton id="operating_systems" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="drivers" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="applications" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          <InteractiveButton id="software_stack" dataSet={softwareData} extraClass="min-h-[112px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+        <div>
+          <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-slate-500' : 'text-slate-600/70'}`}>Base tecnológica</p>
+          <h2 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Software por capas</h2>
         </div>
       </div>
 
-      {!softwareData[selectedItem?.id] && (
-        <div className={`rounded-sm border p-6 sm:p-7 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-          <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tablero interactivo</p>
-          <h3 className={`mt-3 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Selecciona una capa para ver solo su explicacion visual</h3>
+      {/* Layered Stack Diagram */}
+      <div className="relative py-8 sm:py-10 px-4">
+        {/* SVG Connector Lines (Vertical Stack) */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+          <line x1="50%" y1="22%" x2="50%" y2="38%" stroke={isDark ? '#64748b' : '#94a3b8'} strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+          <line x1="50%" y1="48%" x2="50%" y2="64%" stroke={isDark ? '#64748b' : '#94a3b8'} strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" style={{ animationDelay: '0.2s' }} />
+          <line x1="50%" y1="74%" x2="50%" y2="90%" stroke={isDark ? '#64748b' : '#94a3b8'} strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" style={{ animationDelay: '0.4s' }} />
+        </svg>
+
+        {/* Vertical Stack Container */}
+        <div className="relative flex flex-col items-center gap-3 sm:gap-4" style={{ zIndex: 1 }}>
+          
+          {/* Layer 4: APLICACIONES (Top) */}
+          <button
+            onClick={() => handleSelect('applications', null, softwareData)}
+            className={`relative w-full max-w-md sm:max-w-lg rounded-sm border-2 p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 ${
+              selectedItem?.id === 'applications'
+                ? 'border-emerald-400 bg-emerald-500/20 shadow-[0_0_25px_rgba(52,211,153,0.3)]'
+                : 'border-slate-300 bg-slate-50 hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(52,211,153,0.2)]'
+            }`}
+          >
+            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center ${
+              selectedItem?.id === 'applications' ? 'bg-emerald-500/30 text-emerald-400' : 'bg-slate-200 text-slate-500'
+            }`}>
+              <Blocks size={24} className="sm:w-7 sm:h-7" />
+            </div>
+            <div className="text-left flex-1">
+              <p className={`text-xs font-black uppercase tracking-wider ${selectedItem?.id === 'applications' ? 'text-emerald-400' : 'text-slate-500'}`}>Capa 4</p>
+              <h3 className={`text-base sm:text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Aplicaciones</h3>
+            </div>
+            <p className={`text-xs hidden sm:block ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Word, Chrome, Zoom...</p>
+          </button>
+
+          {/* Layer 3: SISTEMA OPERATIVO */}
+          <button
+            onClick={() => handleSelect('operating_systems', null, softwareData)}
+            className={`relative w-full max-w-md sm:max-w-lg rounded-sm border-2 p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 ${
+              selectedItem?.id === 'operating_systems'
+                ? 'border-indigo-400 bg-indigo-500/20 shadow-[0_0_25px_rgba(99,102,241,0.3)]'
+                : 'border-slate-300 bg-slate-50 hover:border-indigo-400 hover:shadow-[0_0_15px_rgba(99,102,241,0.2)]'
+            }`}
+          >
+            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center ${
+              selectedItem?.id === 'operating_systems' ? 'bg-indigo-500/30 text-indigo-400' : 'bg-slate-200 text-slate-500'
+            }`}>
+              <Monitor size={24} className="sm:w-7 sm:h-7" />
+            </div>
+            <div className="text-left flex-1">
+              <p className={`text-xs font-black uppercase tracking-wider ${selectedItem?.id === 'operating_systems' ? 'text-indigo-400' : 'text-slate-500'}`}>Capa 3</p>
+              <h3 className={`text-base sm:text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sistema Operativo</h3>
+            </div>
+            <p className={`text-xs hidden sm:block ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Windows, macOS, Linux...</p>
+          </button>
+
+          {/* Layer 2: DRIVERS */}
+          <button
+            onClick={() => handleSelect('drivers', null, softwareData)}
+            className={`relative w-full max-w-md sm:max-w-lg rounded-sm border-2 p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 ${
+              selectedItem?.id === 'drivers'
+                ? 'border-cyan-400 bg-cyan-500/20 shadow-[0_0_25px_rgba(6,182,212,0.3)]'
+                : 'border-slate-300 bg-slate-50 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+            }`}
+          >
+            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center ${
+              selectedItem?.id === 'drivers' ? 'bg-cyan-500/30 text-cyan-400' : 'bg-slate-200 text-slate-500'
+            }`}>
+              <Plug size={24} className="sm:w-7 sm:h-7" />
+            </div>
+            <div className="text-left flex-1">
+              <p className={`text-xs font-black uppercase tracking-wider ${selectedItem?.id === 'drivers' ? 'text-cyan-400' : 'text-slate-500'}`}>Capa 2</p>
+              <h3 className={`text-base sm:text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Drivers</h3>
+            </div>
+            <p className={`text-xs hidden sm:block ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Impresora, audio, red...</p>
+          </button>
+
+          {/* Layer 1: HARDWARE (Bottom) */}
+          <button
+            onClick={() => handleSelect('hardware_layer', null, softwareData)}
+            className={`relative w-full max-w-md sm:max-w-lg rounded-sm border-2 p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 ${
+              selectedItem?.id === 'hardware_layer'
+                ? 'border-purple-400 bg-purple-500/20 shadow-[0_0_25px_rgba(168,85,247,0.3)]'
+                : 'border-slate-300 bg-slate-50 hover:border-purple-400 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]'
+            }`}
+          >
+            <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center ${
+              selectedItem?.id === 'hardware_layer' ? 'bg-purple-500/30 text-purple-400' : 'bg-slate-200 text-slate-500'
+            }`}>
+              <Cpu size={24} className="sm:w-7 sm:h-7" />
+            </div>
+            <div className="text-left flex-1">
+              <p className={`text-xs font-black uppercase tracking-wider ${selectedItem?.id === 'hardware_layer' ? 'text-purple-400' : 'text-slate-500'}`}>Capa 1</p>
+              <h3 className={`text-base sm:text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Hardware</h3>
+            </div>
+            <p className={`text-xs hidden sm:block ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>CPU, RAM, disco...</p>
+          </button>
+        </div>
+
+        <p className={`text-center text-xs mt-8 pb-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+          👆 Haz clic en una capa para ver su descripción
+        </p>
+      </div>
+
+      {/* Detail Panel */}
+      {selectedItem && softwareData[selectedItem.id] && (
+        <div className={`mx-4 sm:mx-8 mb-4 sm:mb-6 rounded-sm border p-4 sm:p-6 ${
+          isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'
+        }`}>
+          <h3 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
+          <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
         </div>
       )}
-
-      <div className={`grid grid-cols-1 lg:grid-cols-3 gap-4 ${selectedItem?.id === 'software_stack' ? '' : 'hidden'}`}>
-        {[
-          ['01', 'Sistema operativo', 'Es la base que arranca, administra recursos y hace utilizable el hardware.'],
-          ['02', 'Drivers', 'Permiten al sistema entender impresoras, audio, red, pantalla o perifericos concretos.'],
-          ['03', 'Aplicaciones', 'Son las herramientas concretas para escribir, navegar, editar, comunicar o aprender.'],
-        ].map(([step, title, text]) => (
-          <div key={step} className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'}`}>
-            <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'bg-slate-950 text-slate-400 border border-slate-800' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>{step}</span>
-            <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mt-4`}>{title}</h3>
-            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{text}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className={`grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6 ${selectedItem?.id === 'operating_systems' || selectedItem?.id === 'drivers' ? '' : 'hidden'}`}>
-        <section className={`${selectedItem?.id === 'operating_systems' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-indigo-500/20 bg-indigo-500/[0.08]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
-          <div className="flex items-center justify-between gap-4 mb-5">
-            <div>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Exploracion visual</p>
-              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Sistemas operativos y sus ecosistemas</h3>
-            </div>
-            <button onClick={() => handleSelect('operating_systems', null, softwareData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-            {softwareOsExamples.map((os) => (
-              <button key={os.name} onClick={() => { setSelectedSoftwareOs(os.id); setSelectedItem(softwareData.operating_systems); }} className={`rounded-sm border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${selectedSoftwareOs === os.id ? isDark ? 'border-indigo-400/40 bg-indigo-500/10 text-white' : 'border-indigo-200 bg-indigo-50 text-slate-900 shadow-[0_14px_34px_rgba(99,102,241,0.12)]' : isDark ? 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
-                <div className={`w-12 h-12 rounded-sm bg-gradient-to-br ${os.accent} flex items-center justify-center text-white text-lg font-black shadow-lg`}>
-                  {os.logo === 'window' && <div className="grid grid-cols-2 gap-[2px]"><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/85 rounded-[2px]"></span><span className="block w-3 h-3 bg-white/95 rounded-[2px]"></span></div>}
-                  {os.logo === 'mac' && <div className="text-white text-sm font-black tracking-tight">mac</div>}
-                  {os.logo === 'linux' && <div className="text-white text-sm font-black tracking-tight">Li</div>}
-                  {os.logo === 'android' && <div className="text-white text-sm font-black tracking-tight">An</div>}
-                  {os.logo === 'ios' && <div className="text-white text-sm font-black tracking-tight">iOS</div>}
-                </div>
-                <p className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{os.name}</p>
-                <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{os.subtitle}</p>
-              </button>
-            ))}
-          </div>
-          <div className={`mt-5 rounded-sm border p-5 ${isDark ? 'border-indigo-500/20 bg-slate-950' : 'border-indigo-200 bg-indigo-50/70'}`}>
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-indigo-300' : 'text-indigo-700'}`}>Sistema seleccionado</p>
-            <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{softwareOsExamples.find((os) => os.id === selectedSoftwareOs)?.name}</h4>
-            <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareOsDetails[selectedSoftwareOs]?.summary}</p>
-            <p className={`mt-4 text-sm font-black ${isDark ? 'text-indigo-200' : 'text-indigo-800'}`}>{softwareOsDetails[selectedSoftwareOs]?.focus}</p>
-          </div>
-        </section>
-
-        <section className={`${selectedItem?.id === 'drivers' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-cyan-500/20 bg-cyan-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
-          <div className="flex items-center justify-between gap-4 mb-5">
-            <div>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Conexion guiada</p>
-              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Como actua un driver en la practica</h3>
-            </div>
-            <button onClick={() => handleSelect('drivers', null, softwareData)} className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-50'}`}>Ver ficha</button>
-          </div>
-          <div className="space-y-3">
-            {softwareDriverFlow.map((step, index) => {
-              const StepIcon = step.icon;
-              return (
-                <div key={step.label} className="flex items-center gap-3">
-                  <div className={`flex-1 rounded-[22px] border p-4 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-                    <div className="flex items-center gap-3">
-                      <div className={`rounded-xl p-2 ${isDark ? 'bg-slate-900 text-blue-300' : 'bg-blue-100 text-blue-700'}`}><StepIcon size={18} /></div>
-                      <div>
-                        <p className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{step.label}</p>
-                        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{step.helper}</p>
-                      </div>
-                    </div>
-                  </div>
-                  {index < softwareDriverFlow.length - 1 && <div className={`shrink-0 rounded-full px-2 py-1 text-xs font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>→</div>}
-                </div>
-              );
-            })}
-          </div>
-          <div className={`mt-5 rounded-sm border p-4 ${isDark ? 'border-cyan-500/20 bg-cyan-500/10' : 'border-cyan-100 bg-cyan-50'}`}>
-            <p className={`text-sm font-black uppercase tracking-widest ${isDark ? 'text-cyan-300' : 'text-cyan-800'}`}>Ejemplo real</p>
-            <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Quieres imprimir un PDF: la aplicacion abre el archivo, el sistema operativo organiza la tarea, el driver entiende la impresora y el hardware ejecuta la impresion.</p>
-          </div>
-        </section>
-      </div>
-
-      <section className={`${selectedItem?.id === 'applications' ? '' : 'hidden'} rounded-sm border p-5 sm:p-6 ${isDark ? 'border-emerald-500/20 bg-emerald-500/[0.07]' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.08)]'}`}>
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-          <div>
-            <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Comparativa interactiva</p>
-            <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Aplicaciones: codigo cerrado vs codigo abierto</h3>
-          </div>
-          <div className={`inline-flex rounded-full border p-1 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-            {Object.entries(softwareLicenseModels).map(([key, model]) => {
-              const isActive = softwareLicenseView === key;
-              return (
-                <button key={key} onClick={() => { setSoftwareLicenseView(key); setSelectedItem(softwareData.applications); }} className={`rounded-full px-4 py-2 text-sm font-black transition-colors ${isActive ? isDark ? 'bg-slate-100 text-slate-950 shadow-sm' : 'bg-white text-slate-950 shadow-sm' : isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>{model.label}</button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-[0.7fr_1.3fr] gap-5">
-          <div className={`rounded-[28px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-            <p className={`text-sm font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? (isDark ? 'text-indigo-300' : 'text-indigo-700') : (isDark ? 'text-emerald-300' : 'text-emerald-700')}`}>{softwareLicenseModels[softwareLicenseView].label}</p>
-            <p className={`mt-4 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{softwareLicenseModels[softwareLicenseView].summary}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {softwareLicenseModels[softwareLicenseView].examples.map((example) => (
-              <article key={example.name} className={`rounded-[26px] border p-5 transition-all duration-300 hover:-translate-y-1 ${isDark ? 'border-slate-800 bg-slate-950 hover:border-slate-700' : 'border-slate-200 bg-white hover:border-slate-300 shadow-[0_14px_34px_rgba(15,23,42,0.06)]'}`}>
-                <div className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>{softwareLicenseView === 'closed' ? 'Propietario' : 'Abierto'}</div>
-                <div className={`mt-4 w-14 h-14 rounded-sm flex items-center justify-center text-base font-black shadow-sm ${softwareLicenseView === 'closed' ? isDark ? 'bg-indigo-500/15 text-indigo-200' : 'bg-indigo-100 text-indigo-700' : isDark ? 'bg-emerald-500/15 text-emerald-200' : 'bg-emerald-100 text-emerald-700'}`}>
-                  {example.name.includes('Office') && 'O'}
-                  {example.name.includes('Photoshop') && 'Ps'}
-                  {example.name.includes('Windows') && 'W'}
-                  {example.name.includes('LibreOffice') && 'L'}
-                  {example.name.includes('GIMP') && 'G'}
-                  {example.name.includes('Ubuntu') && 'U'}
-                </div>
-                <h4 className={`mt-4 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{example.name}</h4>
-                <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{example.use}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
-  );
+    );
+  };
 
   const renderAssessmentTab = () => {
     const categoryMeta = {
