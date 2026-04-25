@@ -136,6 +136,15 @@
     50% { opacity: 0.7; }
   }
 
+  .animate-dash-flow {
+    animation: dashFlow 1s linear infinite;
+  }
+
+  @keyframes dashFlow {
+    0% { stroke-dashoffset: 24; }
+    100% { stroke-dashoffset: 0; }
+  }
+
   .animate-bounce-gentle {
     animation: bounceGentle 2s ease-in-out infinite;
   }

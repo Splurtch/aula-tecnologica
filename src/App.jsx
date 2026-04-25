@@ -3,7 +3,7 @@ import {
   Cpu, HardDrive, Monitor, Keyboard, Mouse, Speaker, Plug,
   CircuitBoard, Fan, Microchip, Gamepad2, Server,
   Rotate3D, Cloud, Laptop, ShieldCheck, Users,
-  Database, Globe, FolderSync,
+  Database, Globe, FolderSync, Wifi,
   Search, AppWindow, FileText, Image as ImageIcon, Music,
   FolderOpen, Download, Usb, Briefcase,
   ShoppingBag, ShieldAlert, FileQuestion,
@@ -2149,103 +2149,257 @@ export default function App() {
   };
 
   // PESTAÑA 2: NUBE
-  const renderCloudTab = () => (
-    <div className={`relative overflow-hidden rounded-sm border p-5 sm:p-6 md:p-8 flex flex-col gap-6 h-full animate-in fade-in duration-500 ${
+  const renderCloudTab = () => {
+    const [hoveredNode, setHoveredNode] = useState(null);
+
+    const getItemDetails = (id) => {
+      const details = {
+        local_work: {
+          name: 'Trabajo Local',
+          summary: 'El trabajo local da velocidad e independencia, pero depende más del estado del dispositivo y de tus copias de seguridad.',
+          fullDesc: 'El Trabajo Local es el modelo clásico de la informática. Todo el ciclo de vida de la información ocurre dentro de la máquina física que tienes delante de ti. Los programas están instalados en tu disco duro y cuando aplicas un filtro a una foto, es tu procesador el que trabaja.'
+        },
+        internet_sync: {
+          name: 'La Red y la Sincronización',
+          summary: 'La sincronización es el puente que compara versiones, sube cambios y resuelve si el archivo vive local, en nube o en ambos sitios.',
+          fullDesc: 'La conexión de red es el "cable de fibra óptica invisible" que sirve de puente entre el mundo local y el mundo cloud. Para que la Nube sea útil, se requiere de procesos de Sincronización en Segundo Plano que constantemente comparan archivos.'
+        },
+        cloud_work: {
+          name: 'La Nube (Cloud Computing)',
+          summary: 'La nube gana en acceso, continuidad y colaboración, pero necesita una red estable y una buena gestión de permisos y versiones.',
+          fullDesc: 'El "Cloud Computing" cambia el paradigma: tu ordenador ya no necesita ser potente, solo necesita ser una "ventana" con acceso a Internet. Los Data Centers almacenan tu información y realizan los cálculos por ti.'
+        }
+      };
+      return details[id] || {};
+    };
+
+    return (
+    <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
       isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
     }`}>
-      <div className={`flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-4 relative z-10 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
-        <Globe className={isDark ? 'text-blue-400' : 'text-blue-600'} size={32} />
-        <div>
-          <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-700/70'}`}>Redes y sincronizacion</p>
-          <h2 className={`mt-3 text-2xl sm:text-3xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Diagrama funcional: local, red y nube</h2>
-          <p className={`mt-1 text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>Comprende como viajan y donde se procesan tus datos.</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-emerald-500/15 bg-emerald-500/10' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-emerald-300/70' : 'text-slate-400'}`}>Origen</p>
-          <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Equipo local</p>
-        </div>
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-amber-500/15 bg-amber-500/10' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-amber-300/80' : 'text-slate-400'}`}>Puente</p>
-          <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>WiFi, fibra o 5G</p>
-        </div>
-        <div className={`rounded-[26px] border p-4 ${isDark ? 'border-blue-500/15 bg-blue-500/10' : 'border-slate-200 bg-slate-50'}`}>
-          <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-blue-300/80' : 'text-slate-400'}`}>Destino</p>
-          <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Nube sincronizada</p>
-        </div>
-      </div>
-
-      <div className="relative flex-grow flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0 mt-2 mb-2">
-        <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
-          <div className={`p-6 sm:p-8 rounded-[2rem] border shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-md ${isDark ? 'bg-slate-800/80 border-slate-700' : 'bg-emerald-50/80 border-emerald-200'}`}>
-            <div className={`p-5 rounded-full mb-6 border ${isDark ? 'bg-emerald-900/40 border-emerald-500/30' : 'bg-emerald-100 border-emerald-200'}`}>
-              <Laptop className={isDark ? 'text-emerald-400 w-16 h-16' : 'text-emerald-700 w-16 h-16'} strokeWidth={1.2} />
-            </div>
-            <h3 className={`font-black text-xl mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>Tu entorno fisico</h3>
-          <InteractiveButton id="local_work" dataSet={cloudData} extraClass="w-full mb-4" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+      {/* Header */}
+      <div className={`flex flex-col lg:flex-row lg:items-start justify-between gap-4 p-5 sm:p-6 md:p-8 pb-4 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+        <div className="flex items-start gap-4">
+          <div className={`p-3 rounded-sm ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+            <Globe className={isDark ? 'text-blue-400' : 'text-blue-600'} size={28} />
           </div>
-        </div>
-        <div className="w-full md:w-1/5 flex flex-col items-center justify-center relative h-40 md:h-auto z-10">
-          <div className={`hidden md:block absolute top-1/2 left-0 w-full h-1.5 -translate-y-1/2 -z-10 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-200'}`}>
-            <div className="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-blue-500 w-[200%] animate-[slide_2s_linear_infinite]"></div>
-          </div>
-          <InteractiveButton id="internet_sync" dataSet={cloudData} extraClass="rounded-[28px] !p-6 shadow-[0_0_30px_rgba(251,191,36,0.2)]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-        </div>
-        <div className="w-full md:w-2/5 flex flex-col items-center relative z-10">
-          <div className={`absolute inset-0 rounded-full scale-150 -z-10 ${isDark ? 'bg-blue-500/20 blur-[100px]' : 'bg-blue-200/50 blur-[80px]'}`}></div>
-          <div className={`p-6 sm:p-8 rounded-[2rem] border shadow-2xl flex flex-col items-center w-full max-w-[320px] backdrop-blur-xl ${isDark ? 'bg-blue-950/80 border-blue-800' : 'bg-blue-50/80 border-blue-200'}`}>
-            <div className={`p-5 rounded-full mb-6 border relative ${isDark ? 'bg-blue-900/60 border-blue-500/40' : 'bg-blue-100 border-blue-200'}`}>
-              <Cloud className={isDark ? 'text-blue-300 w-16 h-16' : 'text-blue-700 w-16 h-16'} strokeWidth={1.2} />
-              <Server className={`${isDark ? 'text-white bg-blue-600' : 'text-white bg-blue-500'} w-8 h-8 absolute bottom-0 right-0 p-1.5 rounded-lg shadow-lg`} strokeWidth={2} />
-            </div>
-            <h3 className={`font-black text-xl mb-6 text-center ${isDark ? 'text-white' : 'text-slate-900'}`}>Megacentros de datos</h3>
-            <div className="flex flex-col gap-4 w-full">
-              <InteractiveButton id="cloud_work" dataSet={cloudData} extraClass="w-full" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-              <div className={`w-full rounded-sm border p-4 ${isDark ? 'border-purple-500/20 bg-slate-950' : 'border-purple-200 bg-purple-50/70'}`}>
-                <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>Uso compartido</p>
-                <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>La nube facilita que varias personas accedan al mismo archivo, compartan cambios y mantengan versiones actualizadas.</p>
-              </div>
-            </div>
+          <div>
+            <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-700/70'}`}>Redes y sincronización</p>
+            <h2 className={`mt-1 text-xl sm:text-2xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>Diagrama funcional: local, red y nube</h2>
+            <p className={`mt-1 text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Comprende cómo viajan y dónde se procesan tus datos.</p>
           </div>
         </div>
       </div>
 
-      {cloudData[selectedItem?.id] && (
-        <section className={`rounded-[28px] border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'}`}>
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
-            <div className="max-w-3xl">
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco actual</p>
-              <h3 className={`mt-2 text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
-              <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
-            </div>
-            <div className={`rounded-sm border px-4 py-4 lg:max-w-[320px] ${selectedItem?.id === 'internet_sync'
-              ? isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
-              : selectedItem?.id === 'local_work'
-                ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
-                : isDark ? 'border-blue-500/25 bg-blue-500/10' : 'border-blue-200 bg-blue-50'
+      {/* Bubble Cycle Visual Simulator */}
+      <div className="relative px-4 sm:px-8 md:px-16 py-8 md:py-12 overflow-hidden">
+        {/* Background Glow Effects */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        {/* SVG Connector Lines */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" style={{ zIndex: 0 }}>
+          <defs>
+            <linearGradient id="lineGradientLight" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#10b981" />
+              <stop offset="50%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#3b82f6" />
+            </linearGradient>
+            <linearGradient id="lineGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#34d399" />
+              <stop offset="50%" stopColor="#fbbf24" />
+              <stop offset="100%" stopColor="#60a5fa" />
+            </linearGradient>
+            <marker id="arrowHeadLight" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
+            </marker>
+            <marker id="arrowHeadDark" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
+            </marker>
+          </defs>
+
+          {/* Line Local to Sync */}
+          <line
+            x1="25%" y1="50%" x2="45%" y2="50%"
+            stroke={isDark ? 'url(#lineGradientDark)' : 'url(#lineGradientLight)'}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className="animate-dash-flow"
+          />
+
+          {/* Line Sync to Cloud */}
+          <line
+            x1="55%" y1="50%" x2="75%" y2="50%"
+            stroke={isDark ? 'url(#lineGradientDark)' : 'url(#lineGradientLight)'}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className="animate-dash-flow"
+            markerEnd={isDark ? 'url(#arrowHeadDark)' : 'url(#arrowHeadLight)'}
+          />
+        </svg>
+
+        {/* Bubble Nodes Container */}
+        <div className="relative flex items-center justify-between w-full" style={{ zIndex: 1 }}>
+          {/* Local Bubble (Left) */}
+          <button
+            onClick={() => handleSelect('local_work', null, cloudData)}
+            onMouseEnter={() => setHoveredNode('local')}
+            onMouseLeave={() => setHoveredNode(null)}
+            className="relative group"
+          >
+            {/* Outer Ring */}
+            <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              selectedItem?.id === 'local_work'
+                ? 'scale-125 opacity-100'
+                : hoveredNode === 'local'
+                  ? 'scale-110 opacity-60'
+                  : 'scale-100 opacity-30'
+            } ${isDark ? 'bg-emerald-500/20' : 'bg-emerald-200/40'}`}
+            style={{ transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }}
+            ></div>
+
+            {/* Main Bubble */}
+            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+              selectedItem?.id === 'local_work'
+                ? isDark ? 'border-emerald-400 bg-emerald-500/30 shadow-[0_0_40px_rgba(52,211,153,0.4)]' : 'border-emerald-500 bg-emerald-100 shadow-[0_8px_40px_rgba(52,211,153,0.3)]'
+                : hoveredNode === 'local'
+                  ? isDark ? 'border-emerald-500/60 bg-slate-800/80' : 'border-emerald-400 bg-emerald-50/80'
+                  : isDark ? 'border-slate-700 bg-slate-800/50 hover:border-emerald-500/40' : 'border-slate-200 bg-slate-50 hover:border-emerald-300'
             }`}>
-              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${
-                selectedItem?.id === 'internet_sync'
-                  ? isDark ? 'text-amber-300' : 'text-amber-700'
-                  : selectedItem?.id === 'local_work'
-                    ? isDark ? 'text-emerald-300' : 'text-emerald-700'
-                    : isDark ? 'text-blue-300' : 'text-blue-700'
-              }`}>Lectura guiada</p>
-              <p className={`mt-3 text-sm leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
-                {selectedItem?.id === 'internet_sync'
-                  ? 'La sincronizacion es el puente que compara versiones, sube cambios y resuelve si el archivo vive local, en nube o en ambos sitios.'
-                  : selectedItem?.id === 'local_work'
-                    ? 'El trabajo local da velocidad e independencia, pero depende mas del estado del dispositivo y de tus copias de seguridad.'
-                    : 'La nube gana en acceso, continuidad y colaboracion, pero necesita una red estable y una buena gestion de permisos y versiones.'}
-              </p>
+              <Laptop size={36} className={`sm:w-12 sm:h-12 md:w-14 md:h-14 transition-colors duration-300 ${
+                selectedItem?.id === 'local_work' || hoveredNode === 'local' ? 'text-emerald-400' : isDark ? 'text-slate-400' : 'text-slate-500'
+              }`} />
+            </div>
+
+            {/* Label below */}
+            <p className={`absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs font-black uppercase tracking-wider whitespace-nowrap mt-2 transition-colors duration-300 ${
+              selectedItem?.id === 'local_work' || hoveredNode === 'local' ? 'text-emerald-400' : isDark ? 'text-slate-500' : 'text-slate-500'
+            }`}>
+              Local
+            </p>
+          </button>
+
+          {/* Sync Bubble (Center) */}
+          <button
+            onClick={() => handleSelect('internet_sync', null, cloudData)}
+            onMouseEnter={() => setHoveredNode('sync')}
+            onMouseLeave={() => setHoveredNode(null)}
+            className="relative group z-10"
+          >
+            {/* Outer Ring - Animated */}
+            <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              selectedItem?.id === 'internet_sync'
+                ? 'scale-125 opacity-100 animate-pulse-slow'
+                : hoveredNode === 'sync'
+                  ? 'scale-110 opacity-60'
+                  : 'scale-100 opacity-30'
+            } ${isDark ? 'bg-amber-500/20' : 'bg-amber-200/40'}`}
+            style={{ transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }}
+            ></div>
+
+            {/* Main Bubble */}
+            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+              selectedItem?.id === 'internet_sync'
+                ? isDark ? 'border-amber-400 bg-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.4)]' : 'border-amber-500 bg-amber-100 shadow-[0_8px_40px_rgba(245,158,11,0.3)]'
+                : hoveredNode === 'sync'
+                  ? isDark ? 'border-amber-500/60 bg-slate-800/80' : 'border-amber-400 bg-amber-50/80'
+                  : isDark ? 'border-slate-700 bg-slate-800/50 hover:border-amber-500/40' : 'border-slate-200 bg-slate-50 hover:border-amber-300'
+            }`}>
+              <Wifi size={32} className={`sm:w-10 sm:h-10 md:w-12 md:h-12 transition-colors duration-300 ${
+                selectedItem?.id === 'internet_sync' || hoveredNode === 'sync' ? 'text-amber-400' : isDark ? 'text-slate-400' : 'text-slate-500'
+              }`} />
+            </div>
+
+            {/* Label below */}
+            <p className={`absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs font-black uppercase tracking-wider whitespace-nowrap mt-2 transition-colors duration-300 ${
+              selectedItem?.id === 'internet_sync' || hoveredNode === 'sync' ? 'text-amber-400' : isDark ? 'text-slate-500' : 'text-slate-500'
+            }`}>
+              Sync
+            </p>
+          </button>
+
+          {/* Cloud Bubble (Right) */}
+          <button
+            onClick={() => handleSelect('cloud_work', null, cloudData)}
+            onMouseEnter={() => setHoveredNode('cloud')}
+            onMouseLeave={() => setHoveredNode(null)}
+            className="relative group"
+          >
+            {/* Outer Ring */}
+            <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              selectedItem?.id === 'cloud_work'
+                ? 'scale-125 opacity-100'
+                : hoveredNode === 'cloud'
+                  ? 'scale-110 opacity-60'
+                  : 'scale-100 opacity-30'
+            } ${isDark ? 'bg-blue-500/20' : 'bg-blue-200/40'}`}
+            style={{ transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }}
+            ></div>
+
+            {/* Main Bubble */}
+            <div className={`relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+              selectedItem?.id === 'cloud_work'
+                ? isDark ? 'border-blue-400 bg-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.4)]' : 'border-blue-500 bg-blue-100 shadow-[0_8px_40px_rgba(59,130,246,0.3)]'
+                : hoveredNode === 'cloud'
+                  ? isDark ? 'border-blue-500/60 bg-slate-800/80' : 'border-blue-400 bg-blue-50/80'
+                  : isDark ? 'border-slate-700 bg-slate-800/50 hover:border-blue-500/40' : 'border-slate-200 bg-slate-50 hover:border-blue-300'
+            }`}>
+              <Cloud size={36} className={`sm:w-12 sm:h-12 md:w-14 md:h-14 transition-colors duration-300 ${
+                selectedItem?.id === 'cloud_work' || hoveredNode === 'cloud' ? 'text-blue-400' : isDark ? 'text-slate-400' : 'text-slate-500'
+              }`} />
+            </div>
+
+            {/* Label below */}
+            <p className={`absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs font-black uppercase tracking-wider whitespace-nowrap mt-2 transition-colors duration-300 ${
+              selectedItem?.id === 'cloud_work' || hoveredNode === 'cloud' ? 'text-blue-400' : isDark ? 'text-slate-500' : 'text-slate-500'
+            }`}>
+              Nube
+            </p>
+          </button>
+        </div>
+
+        {/* Instruction Text */}
+        <p className={`text-center text-xs mt-12 sm:mt-16 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+          👆 Haz clic en una burbuja para ver su descripción
+        </p>
+      </div>
+
+      {/* Selected Item Detail Panel */}
+      {selectedItem && cloudData[selectedItem.id] && (
+        <div className={`mx-4 sm:mx-8 md:mx-12 mb-4 sm:mb-6 rounded-sm border p-4 sm:p-6 animate-in slide-in-from-bottom-4 duration-300 ${
+          isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'
+        }`}>
+          <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`w-2 h-2 rounded-full ${
+                  selectedItem.id === 'internet_sync' ? 'bg-amber-400' : selectedItem.id === 'local_work' ? 'bg-emerald-400' : 'bg-blue-400'
+                }`}></span>
+                <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Foco actual</p>
+              </div>
+              <h3 className={`text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{getItemDetails(selectedItem.id).name}</h3>
+              <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{getItemDetails(selectedItem.id).fullDesc}</p>
+            </div>
+            <div className={`rounded-sm border p-4 lg:max-w-[280px] ${
+              selectedItem.id === 'internet_sync'
+                ? isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'
+                : selectedItem.id === 'local_work'
+                  ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50'
+                  : isDark ? 'border-blue-500/25 bg-blue-500/10' : 'border-blue-200 bg-blue-50'
+            }`}>
+              <p className={`text-[10px] font-black uppercase tracking-widest ${
+                selectedItem.id === 'internet_sync' ? isDark ? 'text-amber-300' : 'text-amber-700'
+                : selectedItem.id === 'local_work' ? isDark ? 'text-emerald-300' : 'text-emerald-700'
+                : isDark ? 'text-blue-300' : 'text-blue-700'
+              }`}>Resumen</p>
+              <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>{getItemDetails(selectedItem.id).summary}</p>
             </div>
           </div>
-        </section>
+        </div>
       )}
     </div>
-  );
+    );
+  };
 
   // PESTAÑA 3: INTERNET
   const renderInternetTab = () => (
