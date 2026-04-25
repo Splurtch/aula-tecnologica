@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -1336,6 +1336,44 @@ export default function App() {
     } catch (e) {
       // Silently fail if audio not supported
     }
+  };
+
+  // Estado para tutorial/guide tour
+  const [tourStep, setTourStep] = useState(() => {
+    const saved = localStorage.getItem('aula-tour-done');
+    return saved ? -1 : 0;
+  });
+
+  const [tourTarget, setTourTarget] = useState(null);
+
+  const tourSteps = [
+    { target: 'logo', title: 'Bienvenido', desc: 'Este es el aula virtual de Competencias Digitales. Haz clic aqui para volver al inicio.' },
+    { target: 'nav', title: 'Navegacion', desc: 'Usa estos menus para moverte entre los 13 modulo.' },
+    { target: 'progress', title: 'Tu Progreso', desc: 'Esta barra muestra cuanto has avnzado en el curso.' },
+    { target: 'achievements', title: 'Logros', desc: 'Completa modulos para desbloquear logros y badges.' },
+    { target: 'module', title: 'Contenido', desc: 'Selecciona un modulo para empezar a aprender.' },
+  ];
+
+  const startTour = () => {
+    setTourStep(0);
+    setTourTarget(document.querySelector('[data-tour="logo"]'));
+    playSound('success');
+  };
+
+  const nextTourStep = () => {
+    if (tourStep < tourSteps.length - 1) {
+      setTourStep(prev => prev + 1);
+      playSound('click');
+    } else {
+      setTourStep(-1);
+      localStorage.setItem('aula-tour-done', 'true');
+      playSound('success');
+    }
+  };
+
+  const skipTour = () => {
+    setTourStep(-1);
+    localStorage.setItem('aula-tour-done', 'true');
   };
 
   // Estado para periféricos (hover)
@@ -3313,7 +3351,7 @@ export default function App() {
             : 'rounded-sm border border-white/10 bg-slate-950/70 shadow-[0_14px_40px_rgba(0,0,0,0.15)] backdrop-blur-xl'
         }`}>
           <div className={`flex items-center justify-between gap-4 transition-all duration-500 ${isScrolled ? 'px-4 py-3 sm:px-5 md:px-6' : 'px-3 py-2.5 sm:px-4 md:px-5'}`}>
-            <button onClick={() => handleTabChange('home')} className="flex items-center gap-4 group min-w-0 text-left">
+            <button onClick={() => handleTabChange('home')} data-tour="logo" className="flex items-center gap-4 group min-w-0 text-left">
               <div className="relative w-10 h-10 shrink-0">
                 <div className="absolute inset-0 bg-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                 <div className="relative w-full h-full flex items-center justify-center">
@@ -3366,7 +3404,7 @@ export default function App() {
             </nav>
 
             {/* Progress Bar in Navbar */}
-            <div className="hidden xl:flex items-center gap-3 mx-4">
+            <div data-tour="progress" className="hidden xl:flex items-center gap-3 mx-4">
               <div className="w-32 h-2 bg-slate-800 rounded-full overflow-hidden relative">
                 <div 
                   className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-500"
@@ -3931,6 +3969,84 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Tutorial Tour Overlay */}
+      {tourStep >= 0 && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className={`absolute inset-0 pointer-events-none`}>
+            <div className={`absolute w-20 h-20 rounded-full border-2 border-amber-400 animate-ping opacity-20`} style={{ top: '15%', left: '5%' }}></div>
+          </div>
+          
+          <div className={`relative max-w-md mx-4 p-6 rounded-sm border shadow-2xl ${
+            isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+          }`}>
+            <div className="flex items-start gap-4">
+              <div className={`w-10 h-10 rounded-sm flex items-center justify-center ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+                <HelpCircle size={24} className={isDark ? 'text-blue-400' : 'text-blue-600'} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    {tourSteps[tourStep]?.title || 'Tour'}
+                  </h3>
+                  <button onClick={skipTour} className={`text-xs ${isDark ? 'text-slate-500 hover:text-slate-300' : 'text-slate-400 hover:text-slate-600'}`}>
+                    Saltar
+                  </button>
+                </div>
+                <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                  {tourSteps[tourStep]?.desc || ''}
+                </p>
+                
+                {/* Progress dots */}
+                <div className="flex items-center gap-2 mt-4">
+                  {tourSteps.map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        i === tourStep 
+                          ? isDark ? 'bg-amber-400 w-4' : 'bg-amber-500 w-4'
+                          : i < tourStep 
+                            ? isDark ? 'bg-slate-600' : 'bg-slate-300'
+                            : isDark ? 'bg-slate-800' : 'bg-slate-100'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-end gap-3 mt-6">
+              <button
+                onClick={skipTour}
+                className={`px-4 py-2 text-sm font-semibold rounded-sm border transition-colors ${
+                  isDark ? 'border-slate-700 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-500 hover:bg-slate-50'
+                }`}
+              >
+                Omitir
+              </button>
+              <button
+                onClick={nextTourStep}
+                className="px-5 py-2 text-sm font-black rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 transition-all duration-300 flex items-center gap-2"
+              >
+                {tourStep < tourSteps.length - 1 ? 'Siguiente' : 'Finalizar'}
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tour start button (floating) */}
+      {tourStep === -1 && (
+        <button
+          onClick={startTour}
+          className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center animate-bounce-gentle"
+          title="Iniciar tour guiado"
+        >
+          <HelpCircle size={24} />
+        </button>
+      )}
+
       <style dangerouslySetInnerHTML={{__html: `
         html { scroll-behavior: smooth; }
         body { overflow-x: hidden; }
