@@ -2335,7 +2335,7 @@ export default function App() {
     return (
     <div className="flex flex-col h-full animate-in fade-in duration-500">
       {/* Desktop Simulator Container */}
-      <div className="flex-1 relative overflow-hidden rounded-sm border border-slate-300" style={{ height: '480px', backgroundImage: 'url(https://wallpapers.com/images/high/mountain-scenery-vector-desktop-4k-blxxs2h9mzqcud0q.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="flex-1 relative overflow-hidden rounded-sm border border-slate-300" style={{ height: '480px', backgroundImage: 'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         
         {/* Desktop Icons - Left Side */}
         <div className="absolute top-4 left-4 flex flex-col gap-6">
