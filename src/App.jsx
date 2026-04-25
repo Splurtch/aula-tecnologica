@@ -2165,8 +2165,16 @@ export default function App() {
         </div>
       </div>
 
+      {/* Connector Lines */}
+      <div className="absolute top-[calc(50%-20px)] sm:top-[calc(50%-24px)] left-0 right-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 0 }}>
+        {/* Line 1: Local to Sync */}
+        <div className="w-[15%] sm:w-[18%] h-1 bg-gradient-to-r from-emerald-500 to-amber-500 animate-dash-flow" style={{ animationDelay: '0s' }}></div>
+        {/* Line 2: Sync to Cloud */}
+        <div className="w-[15%] sm:w-[18%] h-1 bg-gradient-to-r from-amber-500 to-blue-500 animate-dash-flow" style={{ animationDelay: '0.5s' }}></div>
+      </div>
+
       {/* Simple Bubble Row */}
-      <div className="flex items-center justify-center gap-6 sm:gap-10 md:gap-16 py-10 sm:py-14">
+      <div className="relative flex items-center justify-center gap-6 sm:gap-10 md:gap-16 py-10 sm:py-14" style={{ zIndex: 1 }}>
         {/* Local Bubble */}
         <button
           onClick={() => handleSelect('local_work', null, cloudData)}
