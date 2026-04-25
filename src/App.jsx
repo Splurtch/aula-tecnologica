@@ -1282,6 +1282,62 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
+  // Función para reproducir sonidos UI (sintetizados con Web Audio API)
+  const playSound = (type) => {
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      switch (type) {
+        case 'click':
+          oscillator.frequency.value = 800;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.1;
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.1);
+          break;
+        case 'success':
+          oscillator.frequency.value = 523;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.15;
+          oscillator.start(audioContext.currentTime);
+          oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+          oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+          oscillator.stop(audioContext.currentTime + 0.3);
+          break;
+        case 'achievement':
+          oscillator.frequency.value = 392;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.2;
+          oscillator.start(audioContext.currentTime);
+          oscillator.frequency.setValueAtTime(523, audioContext.currentTime + 0.15);
+          oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.25);
+          oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.35);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+          oscillator.stop(audioContext.currentTime + 0.5);
+          break;
+        case 'tabChange':
+          oscillator.frequency.value = 600;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.05;
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.08);
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.08);
+          break;
+      }
+    } catch (e) {
+      // Silently fail if audio not supported
+    }
+  };
+
   // Estado para periféricos (hover)
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
 
@@ -1314,6 +1370,7 @@ export default function App() {
       if (prev[achievementId]) return prev;
       const newAchievements = { ...prev, [achievementId]: true };
       localStorage.setItem('aula-achievements', JSON.stringify(newAchievements));
+      playSound('achievement');
       return newAchievements;
     });
   };
@@ -1338,6 +1395,7 @@ export default function App() {
     setActiveTab(tab);
     setSelectedItem(null);
     setIsSectionMenuOpen(false);
+    playSound('tabChange');
   };
 
   const handleOpenGroupMenu = (group) => {
@@ -1373,11 +1431,13 @@ export default function App() {
   const handleSelect = (id, e, dataSet) => {
     if (e) e.stopPropagation();
     setSelectedItem((prev) => (prev?.id === id ? null : dataSet[id]));
+    playSound('click');
   };
 
   const handleStartModule = () => {
     if (!currentItems.length) return;
     setSelectedItem(currentItems[0]);
+    playSound('success');
   };
 
   const handleClearSelection = () => setSelectedItem(null);
