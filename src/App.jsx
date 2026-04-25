@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -1139,6 +1139,17 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-sky-50 hover:text-sky-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'desktop',
+    group: 'Navegacion y organizacion',
+    step: '08',
+    title: 'Escritorio',
+    subtitle: 'Interfaz y elementos del SO',
+    description: 'Aprende a moverte por el escritorio, barra de tareas, iconos, ventanas y menus.',
+    icon: Monitor,
+    activeClass: 'bg-violet-600 text-white shadow-xl border-violet-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-violet-50 hover:text-violet-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'content',
     group: 'Productividad',
     step: '09',
@@ -1215,6 +1226,7 @@ const tabDataMap = {
   internet: internetData,
   security: securityData,
   email: emailData,
+  desktop: {},
   content: contentData,
   files: filesData,
   keyboard: keyboardData,
@@ -2317,6 +2329,247 @@ export default function App() {
       </div>
     </div>
   );
+
+  // PESTAÑA: ESCRITORIO (Simulador Interactivo)
+  const renderDesktopTab = () => {
+    const [openWindow, setOpenWindow] = useState(null);
+    const [contextMenu, setContextMenu] = useState(null);
+    const [draggedItem, setDraggedItem] = useState(null);
+    const [trashItems, setTrashItems] = useState([]);
+    const [startMenuOpen, setStartMenuOpen] = useState(false);
+
+    const desktopIcons = [
+      { id: 'this_pc', icon: Monitor, label: 'Este PC', color: 'blue' },
+      { id: 'files', icon: FolderOpen, label: 'Archivos', color: 'amber' },
+      { id: 'trash', icon: Trash2, label: 'Papelera', color: 'rose' },
+    ];
+
+    const taskbarApps = [
+      { id: 'explorer', icon: FolderOpen, label: 'Explorador' },
+      { id: 'settings', icon: Cog, label: 'Configuración' },
+    ];
+
+    const windows = {
+      explorer: { title: 'Explorador de archivos', icon: FolderOpen, color: 'amber', content: 'Explora tus archivos y carpetas' },
+      settings: { title: 'Configuración', icon: Cog, color: 'cyan', content: 'Ajusta tu sistema preferences' },
+    };
+
+    const handleDesktopClick = () => {
+      setContextMenu(null);
+      setStartMenuOpen(false);
+    };
+
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      setContextMenu({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleIconClick = (id) => {
+      if (id === 'trash') {
+        setOpenWindow('trash');
+      } else {
+        setOpenWindow(id);
+      }
+      setStartMenuOpen(false);
+    };
+
+    const handleDragStart = (e, iconId) => {
+      setDraggedItem(iconId);
+      e.dataTransfer.setData('text/plain', iconId);
+    };
+
+    const handleDragOver = (e) => {
+      e.preventDefault();
+    };
+
+    const handleDropOnTrash = (e) => {
+      e.preventDefault();
+      if (draggedItem && draggedItem !== 'trash') {
+        setTrashItems(prev => [...prev, draggedItem]);
+        setDraggedItem(null);
+      }
+    };
+
+    const handleStartClick = () => {
+      setStartMenuOpen(!startMenuOpen);
+    };
+
+    return (
+    <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
+      isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+    }`}>
+      {/* Header */}
+      <div className={`flex items-center gap-4 p-4 sm:p-5 border-b ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+        <Monitor className={isDark ? 'text-violet-400' : 'text-violet-600'} size={24} />
+        <div>
+          <h2 className={`text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Simulador de Escritorio</h2>
+          <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Explora la interfaz del sistema operativo</p>
+        </div>
+      </div>
+
+      {/* Desktop Area */}
+      <div
+        className={`relative h-[400px] sm:h-[450px] overflow-hidden ${isDark ? 'bg-gradient-to-br from-slate-800 to-slate-900' : 'bg-gradient-to-br from-blue-100 to-slate-100'}`}
+        onClick={handleDesktopClick}
+        onContextMenu={handleContextMenu}
+      >
+        {/* Desktop Icons - Left Side */}
+        <div className="absolute top-4 left-4 flex flex-col gap-4">
+          {desktopIcons.map((icon) => (
+            <div
+              key={icon.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, icon.id)}
+              onClick={() => handleIconClick(icon.id)}
+              className={`flex flex-col items-center gap-1 p-2 rounded cursor-pointer transition-all hover:bg-white/20 ${draggedItem === icon.id ? 'opacity-50' : 'opacity-100'}`}
+            >
+              <div className={`w-12 h-12 rounded flex items-center justify-center ${
+                icon.color === 'blue' ? isDark ? 'bg-blue-500/30 text-blue-300' : 'bg-blue-200 text-blue-600'
+                : icon.color === 'amber' ? isDark ? 'bg-amber-500/30 text-amber-300' : 'bg-amber-200 text-amber-600'
+                : isDark ? 'bg-rose-500/30 text-rose-300' : 'bg-rose-200 text-rose-600'
+              }`}>
+                <icon.icon size={28} />
+              </div>
+              <span className={`text-[10px] font-medium text-center ${isDark ? 'text-white' : 'text-slate-700'}`}>{icon.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Trash Drop Zone */}
+        <div
+          className={`absolute bottom-4 right-4 flex flex-col items-center gap-1 p-2 rounded border-2 border-dashed transition-all ${
+            draggedItem ? 'border-rose-400 bg-rose-500/20' : 'border-transparent'
+          }`}
+          onDragOver={handleDragOver}
+          onDrop={handleDropOnTrash}
+        >
+          <div className={`w-12 h-12 rounded flex items-center justify-center ${isDark ? 'bg-rose-500/30 text-rose-300' : 'bg-rose-200 text-rose-600'}`}>
+            <Trash2 size={28} />
+          </div>
+          <span className={`text-[10px] font-medium ${isDark ? 'text-rose-300' : 'text-rose-600'}`}>Papelera {trashItems.length > 0 && `(${trashItems.length})`}</span>
+        </div>
+
+        {/* Open Window */}
+        {openWindow && windows[openWindow] && (() => {
+          const currentWin = windows[openWindow];
+          return (
+          <div className={`absolute top-16 left-8 sm:left-12 w-[280px] sm:w-[340px] rounded-sm border shadow-2xl ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
+            {/* Window Header */}
+            <div className={`flex items-center justify-between p-3 border-b ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
+              <div className="flex items-center gap-2">
+                <currentWin.icon size={16} className={currentWin.color === 'amber' ? 'text-amber-400' : 'text-cyan-400'} />
+                <span className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{currentWin.title}</span>
+              </div>
+              <button onClick={() => setOpenWindow(null)} className={`p-1 rounded hover:bg-slate-200 ${isDark ? 'hover:bg-slate-700' : ''}`}>
+                <X size={14} className={isDark ? 'text-slate-400' : 'text-slate-500'} />
+              </button>
+            </div>
+            {/* Window Content */}
+            <div className={`p-4 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className="text-sm">{currentWin.content}</p>
+              {openWindow === 'trash' && trashItems.length > 0 && (
+                <p className="mt-2 text-xs text-rose-400">Archivos eliminados: {trashItems.length}</p>
+              )}
+            </div>
+          </div>
+          );
+        })()}
+
+        {/* Context Menu */}
+        {contextMenu && (
+          <div
+            className={`absolute rounded-sm border shadow-lg py-2 min-w-[180px] z-50 ${
+              isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'
+            }`}
+            style={{ left: Math.min(contextMenu.x, 300), top: Math.min(contextMenu.y, 200) }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 ${isDark ? 'text-white hover:bg-slate-700' : 'text-slate-700'}`}>
+              Ver
+            </button>
+            <button className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 ${isDark ? 'text-white hover:bg-slate-700' : 'text-slate-700'}`}>
+              Ordenar por
+            </button>
+            <div className={`border-t my-2 ${isDark ? 'border-slate-700' : 'border-slate-200'}`}></div>
+            <button className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 ${isDark ? 'text-white hover:bg-slate-700' : 'text-slate-700'}`}>
+              Actualizar
+            </button>
+          </div>
+        )}
+
+        {/* Start Menu */}
+        {startMenuOpen && (
+          <div
+            className={`absolute bottom-14 left-4 w-[240px] rounded-sm border shadow-xl p-3 z-50 ${
+              isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className={`text-xs font-black uppercase tracking-widest mb-3 px-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Aplicaciones</p>
+            {taskbarApps.map((app) => (
+              <button
+                key={app.id}
+                onClick={() => { setOpenWindow(app.id); setStartMenuOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded text-left text-sm transition-colors ${
+                  isDark ? 'text-white hover:bg-slate-700' : 'text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                <app.icon size={18} className="text-violet-400" />
+                {app.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Taskbar */}
+      <div className={`flex items-center justify-between px-4 py-2 border-t ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-slate-50'}`}>
+        {/* Start Button */}
+        <button
+          onClick={handleStartClick}
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-sm transition-colors ${
+            startMenuOpen
+              ? isDark ? 'bg-violet-600 text-white' : 'bg-violet-100 text-violet-700'
+              : isDark ? 'hover:bg-slate-800 text-white' : 'hover:bg-slate-200 text-slate-700'
+          }`}
+        >
+          <Layers size={16} />
+          <span className="text-sm font-bold">Inicio</span>
+        </button>
+
+        {/* Opened Windows */}
+        <div className="flex items-center gap-2">
+          {Object.entries(windows).map(([key, win]) => (
+            <button
+              key={key}
+              onClick={() => setOpenWindow(openWindow === key ? null : key)}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-sm text-sm transition-colors ${
+                openWindow === key
+                  ? isDark ? 'bg-slate-700 text-white' : 'bg-slate-200 text-slate-900'
+                  : isDark ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-600'
+              }`}
+            >
+              <win.icon size={14} className={win.color === 'amber' ? 'text-amber-400' : 'text-cyan-400'} />
+              <span className="hidden sm:inline">{win.title.split(' ')[0]}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Clock */}
+        <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+          {new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
+        </div>
+      </div>
+
+      {/* Instructions */}
+      <div className={`p-4 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+        <p className={`text-xs text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+          💡 Arrastra iconos a la papelera | Click derecho para menú | Botón Inicio para apps | Click en iconos para abrir ventanas
+        </p>
+      </div>
+    </div>
+    );
+  };
 
   // PESTAÑA 4: ARCHIVOS
   const renderFilesTab = () => (
@@ -3994,6 +4247,7 @@ export default function App() {
           {activeTab === 'internet' && renderInternetTab()}
           {activeTab === 'security' && renderSecurityTab()}
           {activeTab === 'email' && renderEmailTab()}
+          {activeTab === 'desktop' && renderDesktopTab()}
           {activeTab === 'content' && renderContentTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
