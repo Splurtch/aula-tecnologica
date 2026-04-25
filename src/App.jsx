@@ -2333,62 +2333,177 @@ export default function App() {
   // PESTAÑA: ESCRITORIO (Simulador Interactivo)
   const renderDesktopTab = () => {
     return (
-    <div className="p-8">
-      <div className="flex items-center gap-4 mb-6">
-        <Monitor className="text-violet-600" size={32} />
-        <div>
-          <h2 className="text-2xl font-black text-slate-900">Simulador de Escritorio</h2>
-          <p className="text-slate-500 text-sm">Explora la interfaz del sistema operativo</p>
-        </div>
-      </div>
-
-      {/* Desktop simulator */}
-      <div className="relative bg-gradient-to-br from-blue-100 to-slate-100 rounded-sm border h-[400px] overflow-hidden">
-        {/* Icons */}
-        <div className="absolute top-4 left-4 flex flex-col gap-4">
-          <div className="flex flex-col items-center gap-1 p-2 rounded cursor-pointer hover:bg-blue-200/50 transition-all">
-            <div className="w-12 h-12 rounded bg-blue-200 flex items-center justify-center text-blue-600">
-              <Monitor size={28} />
+    <div className="flex flex-col h-full animate-in fade-in duration-500">
+      {/* Desktop Simulator Container */}
+      <div className="flex-1 relative overflow-hidden rounded-sm border border-slate-300" style={{ height: '480px', backgroundImage: 'url(https://wallpapers.com/images/high/mountain-scenery-vector-desktop-4k-blxxs2h9mzqcud0q.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        
+        {/* Desktop Icons - Left Side */}
+        <div className="absolute top-4 left-4 flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className="w-14 h-14 rounded-lg bg-blue-200 flex items-center justify-center text-blue-600 shadow-md group-hover:bg-blue-300 group-hover:scale-105 transition-all">
+              <Monitor size={32} />
             </div>
-            <span className="text-[10px] font-medium text-slate-700">Este PC</span>
+            <span className="text-[11px] font-medium text-slate-700 text-center">Este PC</span>
           </div>
-          <div className="flex flex-col items-center gap-1 p-2 rounded cursor-pointer hover:bg-amber-200/50 transition-all">
-            <div className="w-12 h-12 rounded bg-amber-200 flex items-center justify-center text-amber-600">
-              <FolderOpen size={28} />
+          <div className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className="w-14 h-14 rounded-lg bg-amber-200 flex items-center justify-center text-amber-600 shadow-md group-hover:bg-amber-300 group-hover:scale-105 transition-all">
+              <FolderOpen size={32} />
             </div>
-            <span className="text-[10px] font-medium text-slate-700">Archivos</span>
+            <span className="text-[11px] font-medium text-slate-700 text-center">Archivos</span>
           </div>
-          <div className="flex flex-col items-center gap-1 p-2 rounded cursor-pointer hover:bg-rose-200/50 transition-all">
-            <div className="w-12 h-12 rounded bg-rose-200 flex items-center justify-center text-rose-600">
-              <Trash2 size={28} />
+          <div className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className="w-14 h-14 rounded-lg bg-rose-200 flex items-center justify-center text-rose-600 shadow-md group-hover:bg-rose-300 group-hover:scale-105 transition-all">
+              <Trash2 size={32} />
             </div>
-            <span className="text-[10px] font-medium text-slate-700">Papelera</span>
+            <span className="text-[11px] font-medium text-slate-700 text-center">Papelera</span>
           </div>
         </div>
 
-        {/* Sample Window */}
-        <div className="absolute top-16 left-12 w-[300px] rounded-sm border shadow-xl bg-white border-slate-200">
-          <div className="flex items-center justify-between p-3 border-b border-slate-200">
+        {/* Desktop Icons - Right Side */}
+        <div className="absolute top-4 right-4 flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className="w-12 h-12 rounded-lg bg-emerald-200 flex items-center justify-center text-emerald-600 shadow group-hover:bg-emerald-300 transition-all">
+              <FileText size={28} />
+            </div>
+            <span className="text-[10px] font-medium text-slate-700">Informe.txt</span>
+          </div>
+          <div className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className="w-12 h-12 rounded-lg bg-purple-200 flex items-center justify-center text-purple-600 shadow group-hover:bg-purple-300 transition-all">
+              <ImageIcon size={28} />
+            </div>
+            <span className="text-[10px] font-medium text-slate-700">Foto.png</span>
+          </div>
+        </div>
+
+        {/* Center Window */}
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] rounded-lg bg-white border border-slate-200 shadow-2xl">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
             <div className="flex items-center gap-2">
               <FolderOpen size={16} className="text-amber-500" />
-              <span className="text-sm font-bold text-slate-900">Explorador</span>
+              <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
             </div>
-            <button className="p-1 rounded hover:bg-slate-100">
-              <X size={14} className="text-slate-400" />
+            <div className="flex items-center gap-1">
+              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">─</button>
+              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">□</button>
+              <button className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500">✕</button>
+            </div>
+          </div>
+          <div className="p-4">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-10 h-10 rounded bg-blue-100 flex items-center justify-center text-blue-600">
+                <FileText size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-700">Documentos</p>
+                <p className="text-xs text-slate-400">12 archivos</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-10 h-10 rounded bg-emerald-100 flex items-center justify-center text-emerald-600">
+                <FolderOpen size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-700">Proyectos</p>
+                <p className="text-xs text-slate-400">5 carpetas</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded bg-purple-100 flex items-center justify-center text-purple-600">
+                <Download size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-700">Descargas</p>
+                <p className="text-xs text-slate-400">3 archivos recientes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Start Menu */}
+        <div className="absolute bottom-16 left-4 w-[260px] bg-white rounded-lg border border-slate-200 shadow-2xl p-3 z-50">
+          <div className="flex items-center gap-3 px-3 py-2 mb-2 border-b border-slate-100">
+            <div className="w-8 h-8 rounded bg-violet-600 flex items-center justify-center text-white">
+              <Layers size={18} />
+            </div>
+            <span className="font-bold text-slate-800">Windows 12</span>
+          </div>
+          <div className="grid grid-cols-2 gap-1">
+            <button className="flex items-center gap-2 px-3 py-2 rounded text-sm text-slate-700 hover:bg-slate-100">
+              <FolderOpen size={16} className="text-amber-500" /> Archivos
+            </button>
+            <button className="flex items-center gap-2 px-3 py-2 rounded text-sm text-slate-700 hover:bg-slate-100">
+              <Cog size={16} className="text-slate-500" /> Ajustes
+            </button>
+            <button className="flex items-center gap-2 px-3 py-2 rounded text-sm text-slate-700 hover:bg-slate-100">
+              <Terminal size={16} className="text-emerald-500" /> Terminal
+            </button>
+            <button className="flex items-center gap-2 px-3 py-2 rounded text-sm text-slate-700 hover:bg-slate-100">
+              <Browser size={16} className="text-blue-500" /> Navegador
             </button>
           </div>
-          <div className="p-4 text-slate-600 text-sm">
-            <p>Arrastra iconos a la papelera</p>
-            <p className="mt-2 text-xs text-slate-400">Click en iconos para ver informacion</p>
+        </div>
+
+        {/* Trash Icon - Bottom Right */}
+        <div className="absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group">
+          <div className="w-14 h-14 rounded-lg bg-rose-200 flex items-center justify-center text-rose-600 shadow-md group-hover:bg-rose-300 group-hover:scale-105 transition-all">
+            <Trash2 size={28} />
+          </div>
+          <span className="text-[10px] font-medium text-slate-600">Papelera</span>
+        </div>
+
+        {/* TASKBAR */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300 flex items-center px-2">
+          {/* Start Button */}
+          <button className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors">
+            <Layers size={18} className="text-violet-600" />
+            <span className="text-sm font-bold text-slate-700">Inicio</span>
+          </button>
+
+          {/* Separator */}
+          <div className="w-px h-6 bg-slate-300 mx-2"></div>
+
+          {/* App Icons */}
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 text-slate-700">
+            <FolderOpen size={16} className="text-amber-500" />
+            <span className="text-sm">Explorador</span>
+          </button>
+
+          {/* Spacer */}
+          <div className="flex-1"></div>
+
+          {/* System Tray */}
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
+            <div className="flex items-center gap-1">
+              <Wifi size={14} className="text-slate-600" />
+              <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-white"></div>
+              </div>
+            </div>
+            <span className="text-xs text-slate-600">100%</span>
+          </div>
+
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
+            <span className="text-xs text-slate-600">🔊</span>
+            <span className="text-xs text-slate-600">🔔</span>
+          </div>
+
+          {/* Clock */}
+          <div className="flex flex-col items-center px-3 py-1 rounded hover:bg-slate-100">
+            <span className="text-xs font-medium text-slate-700">{new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
+            <span className="text-xs text-slate-500">{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
           </div>
         </div>
       </div>
 
-      {/* Instructions */}
+      {/* Instructions Panel */}
       <div className="mt-4 p-4 bg-slate-50 rounded-sm border border-slate-200">
-        <p className="text-sm text-slate-600 text-center">
-          💡 Arrastra archivos a la papelera | Click derecho para menu | Boton Inicio para apps
-        </p>
+        <h3 className="font-bold text-slate-800 mb-2">Explorando el Escritorio</h3>
+        <ul className="text-sm text-slate-600 space-y-1">
+          <li>• <strong>Iconos del escritorio:</strong> Este PC, Archivos y Papelera</li>
+          <li>• <strong>Ventana abierta:</strong> Explorador de archivos con estructura de carpetas</li>
+          <li>• <strong>Barra de tareas:</strong> Inicio, apps abiertas, notificaciones y reloj</li>
+          <li>• <strong>Zona inferior:</strong> Menú Inicio y system tray con estado de red</li>
+        </ul>
       </div>
     </div>
     );
