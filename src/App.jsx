@@ -10,7 +10,7 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 
@@ -1285,6 +1285,55 @@ export default function App() {
   // Estado para periféricos (hover)
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
 
+  // Estado para gamificación (achievements)
+  const [achievements, setAchievements] = useState(() => {
+    const saved = localStorage.getItem('aula-achievements');
+    return saved ? JSON.parse(saved) : {
+      firstModule: false,
+      halfCourse: false,
+      fullCourse: false,
+      hardwareComplete: false,
+      peripheralsComplete: false,
+      cloudComplete: false,
+      softwareComplete: false,
+      internetComplete: false,
+      securityComplete: false,
+      emailComplete: false,
+      contentComplete: false,
+      filesComplete: false,
+      keyboardComplete: false,
+      officeComplete: false,
+      aiComplete: false,
+      assessmentComplete: false,
+    };
+  });
+
+  // Función para desbloquear achievement
+  const unlockAchievement = (achievementId) => {
+    setAchievements(prev => {
+      if (prev[achievementId]) return prev;
+      const newAchievements = { ...prev, [achievementId]: true };
+      localStorage.setItem('aula-achievements', JSON.stringify(newAchievements));
+      return newAchievements;
+    });
+  };
+
+  // Verificar achievements al cambiar de tab
+  useEffect(() => {
+    if (activeTab === 'home') return;
+    
+    // First module
+    if (!achievements.firstModule) {
+      unlockAchievement('firstModule');
+    }
+    
+    // Half course (6 de 13 módulos)
+    const completedCount = Object.values(achievements).filter(Boolean).length;
+    if (completedCount >= 6 && !achievements.halfCourse) {
+      unlockAchievement('halfCourse');
+    }
+  }, [activeTab]);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setSelectedItem(null);
@@ -1525,6 +1574,56 @@ export default function App() {
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               No esperes a estar preparado. Nadie lo esta. Salta al primer modulo y aprende sobre la marcha.
             </p>
+          </div>
+        </div>
+
+        {/* Achievements Section */}
+        <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <Trophy size={20} className="text-amber-400" />
+              <h3 className="text-white font-black text-lg">Logros Desbloqueados</h3>
+            </div>
+            <span className={`text-xs font-bold px-3 py-1 rounded-sm ${isDark ? 'bg-amber-500/20 text-amber-300' : 'bg-amber-100 text-amber-700'}`}>
+              {Object.values(achievements).filter(Boolean).length}/16
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+            {[
+              { id: 'firstModule', icon: Zap, name: 'Primer Paso', desc: 'Completa tu primer módulo' },
+              { id: 'halfCourse', icon: Star, name: 'Mitad del Camino', desc: 'Completa 6 módulos' },
+              { id: 'hardwareComplete', icon: CircuitBoard, name: 'Hardware', desc: 'Domina los componentes' },
+              { id: 'peripheralsComplete', icon: Plug, name: 'Periféricos', desc: '懂的 los dispositivos' },
+              { id: 'cloudComplete', icon: Cloud, name: 'Nube', desc: 'Entiende la conectividad' },
+              { id: 'softwareComplete', icon: AppWindow, name: 'Software', desc: 'Domina el sistema' },
+              { id: 'keyboardComplete', icon: Keyboard, name: 'Atajos', desc: 'Aprende los shortcuts' },
+              { id: 'aiComplete', icon: Bot, name: 'IA', desc: 'Explora la inteligencia artificial' },
+            ].map((achievement) => {
+              const Icon = achievement.icon;
+              const isUnlocked = achievements[achievement.id];
+              return (
+                <div 
+                  key={achievement.id}
+                  className={`relative p-3 rounded-sm border text-center transition-all duration-300 ${
+                    isUnlocked 
+                      ? isDark ? 'border-amber-500/40 bg-amber-500/10' : 'border-amber-300 bg-amber-50'
+                      : isDark ? 'border-slate-700 bg-slate-800/50 opacity-50' : 'border-slate-200 bg-slate-50 opacity-50'
+                  }`}
+                  title={achievement.desc}
+                >
+                  <Icon size={24} className={`mx-auto ${isUnlocked ? 'text-amber-400' : 'text-slate-500'}`} />
+                  <p className={`text-[10px] font-bold mt-2 ${isUnlocked ? 'text-amber-300' : 'text-slate-500'}`}>
+                    {achievement.name}
+                  </p>
+                  {isUnlocked && (
+                    <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 flex items-center justify-center">
+                      <BadgeCheck size={10} className="text-slate-900" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -3206,7 +3305,35 @@ export default function App() {
               })}
             </nav>
 
-            <div className="ml-auto flex items-center gap-2 shrink-0">
+            {/* Progress Bar in Navbar */}
+            <div className="hidden xl:flex items-center gap-3 mx-4">
+              <div className="w-32 h-2 bg-slate-800 rounded-full overflow-hidden relative">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-500"
+                  style={{ width: `${(() => { const total = tabConfig.filter(t => t.id !== 'home').length; const current = tabConfig.findIndex(t => t.id === activeTab); return Math.round((current / total) * 100); })()}%` }}
+                ></div>
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                {(() => { const total = tabConfig.filter(t => t.id !== 'home').length; const current = tabConfig.findIndex(t => t.id === activeTab); return Math.round((current / total) * 100); })()}%
+              </span>
+            </div>
+
+            <div className="ml-auto flex items-center gap-3 shrink-0">
+              {/* Achievements indicator */}
+              <button
+                onClick={() => alert('Achievements: ' + Object.values(achievements).filter(Boolean).length + '/16 unlocked')}
+                className={`rounded-sm border px-3 py-2 transition-all duration-300 flex items-center gap-2 ${
+                  isDark || isScrolled 
+                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20' 
+                    : 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100'
+                }`}
+              >
+                <Trophy size={16} />
+                <span className="text-xs font-bold">
+                  {Object.values(achievements).filter(Boolean).length}/16
+                </span>
+              </button>
+
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
                 className={`rounded-sm border p-2.5 transition-all duration-300 ${
@@ -3478,14 +3605,54 @@ export default function App() {
             </div>
           </div>
 
-          <button
-            onClick={() => handleTabChange('home')}
-            className={`shrink-0 rounded-sm border px-4 py-2 font-bold text-sm transition-colors ${
-              isDark ? 'border-slate-700 bg-slate-950 text-white hover:bg-slate-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-            }`}
-          >
-            Ver inicio
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Previous Module Button */}
+            <button
+              onClick={() => {
+                const allTabs = tabConfig.filter(t => t.id !== 'home');
+                const currentIndex = allTabs.findIndex(t => t.id === activeTab);
+                if (currentIndex > 0) {
+                  handleTabChange(allTabs[currentIndex - 1].id);
+                } else {
+                  handleTabChange('home');
+                }
+              }}
+              className={`shrink-0 rounded-sm border p-2.5 transition-all duration-300 ${
+                isDark ? 'border-slate-700 bg-slate-950 text-slate-300 hover:bg-slate-800 hover:text-white' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+              title="Modulo anterior"
+            >
+              <ChevronRight size={18} className="rotate-180" />
+            </button>
+
+            {/* Module counter */}
+            <span className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+              {(() => {
+                const allTabs = tabConfig.filter(t => t.id !== 'home');
+                const currentIndex = allTabs.findIndex(t => t.id === activeTab);
+                return `${currentIndex + 1}/${allTabs.length}`;
+              })()}
+            </span>
+
+            {/* Next Module Button */}
+            <button
+              onClick={() => {
+                const allTabs = tabConfig.filter(t => t.id !== 'home');
+                const currentIndex = allTabs.findIndex(t => t.id === activeTab);
+                if (currentIndex < allTabs.length - 1) {
+                  handleTabChange(allTabs[currentIndex + 1].id);
+                } else {
+                  handleTabChange('home');
+                }
+              }}
+              className={`shrink-0 rounded-sm border px-4 py-2 font-bold text-sm transition-all duration-300 flex items-center gap-2 ${
+                isDark ? 'border-blue-500/50 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400' : 'border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-400'
+              }`}
+            >
+              Siguiente
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
         )}
 
