@@ -2151,26 +2151,78 @@ export default function App() {
   // PESTAÑA 2: NUBE
   const renderCloudTab = () => {
     return (
-    <div className="p-8">
-      <h2 className="text-2xl font-black mb-4">La Red y la Sincronización</h2>
-      <p className="text-sm mb-6">Haz clic en las burbujas para ver más información.</p>
+    <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
+      isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
+    }`}>
+      {/* Header */}
+      <div className={`flex items-center gap-4 p-5 sm:p-6 md:p-8 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+        <div className={`p-3 rounded-sm ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+          <Globe className={isDark ? 'text-blue-400' : 'text-blue-600'} size={28} />
+        </div>
+        <div>
+          <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-sky-300/70' : 'text-sky-700/70'}`}>Redes y sincronización</p>
+          <h2 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Diagrama funcional: local, red y nube</h2>
+        </div>
+      </div>
 
-      <div className="flex items-center justify-center gap-8 py-12">
-        <button onClick={() => handleSelect('local_work', null, cloudData)} className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center">
-          <Laptop size={32} className="text-emerald-600" />
+      {/* Simple Bubble Row */}
+      <div className="flex items-center justify-center gap-6 sm:gap-10 md:gap-16 py-10 sm:py-14">
+        {/* Local Bubble */}
+        <button
+          onClick={() => handleSelect('local_work', null, cloudData)}
+          className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            selectedItem?.id === 'local_work'
+              ? 'border-emerald-400 bg-emerald-500/30 shadow-[0_0_30px_rgba(52,211,153,0.4)]'
+              : 'border-slate-200 bg-slate-50 hover:border-emerald-300'
+          }`}
+        >
+          <Laptop size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'local_work' ? 'text-emerald-400' : 'text-slate-400'}`} />
         </button>
-        <button onClick={() => handleSelect('internet_sync', null, cloudData)} className="w-20 h-20 rounded-full bg-amber-100 border-2 border-amber-500 flex items-center justify-center">
-          <Wifi size={32} className="text-amber-600" />
+
+        {/* Sync Bubble */}
+        <button
+          onClick={() => handleSelect('internet_sync', null, cloudData)}
+          className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            selectedItem?.id === 'internet_sync'
+              ? 'border-amber-400 bg-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.4)]'
+              : 'border-slate-200 bg-slate-50 hover:border-amber-300'
+          }`}
+        >
+          <Wifi size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'internet_sync' ? 'text-amber-400' : 'text-slate-400'}`} />
         </button>
-        <button onClick={() => handleSelect('cloud_work', null, cloudData)} className="w-20 h-20 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center">
-          <Cloud size={32} className="text-blue-600" />
+
+        {/* Cloud Bubble */}
+        <button
+          onClick={() => handleSelect('cloud_work', null, cloudData)}
+          className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+            selectedItem?.id === 'cloud_work'
+              ? 'border-blue-400 bg-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.4)]'
+              : 'border-slate-200 bg-slate-50 hover:border-blue-300'
+          }`}
+        >
+          <Cloud size={36} className={`sm:w-12 sm:h-12 ${selectedItem?.id === 'cloud_work' ? 'text-blue-400' : 'text-slate-400'}`} />
         </button>
       </div>
 
+      {/* Labels Row */}
+      <div className="flex items-center justify-center gap-6 sm:gap-10 md:gap-16 pb-6">
+        <p className={`text-xs font-black uppercase ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>Local</p>
+        <p className={`text-xs font-black uppercase ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>Sync</p>
+        <p className={`text-xs font-black uppercase ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>Nube</p>
+      </div>
+
+      {/* Instruction */}
+      <p className={`text-center text-xs pb-6 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+        Haz clic en una burbuja para ver su descripción
+      </p>
+
+      {/* Detail Panel */}
       {selectedItem && cloudData[selectedItem.id] && (
-        <div className="mt-4 p-4 border rounded">
-          <h3 className="font-black">{selectedItem.name}</h3>
-          <p className="text-sm mt-2">{selectedItem.desc.split('\n\n')[0]}</p>
+        <div className={`mx-4 sm:mx-8 mb-4 sm:mb-6 rounded-sm border p-4 sm:p-6 ${
+          isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'
+        }`}>
+          <h3 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
+          <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
         </div>
       )}
     </div>
