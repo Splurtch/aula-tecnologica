@@ -388,29 +388,19 @@ const softwareOsExamples = [
 
 const softwareOsDetails = {
   windows: {
-    focus: 'Muy extendido en educacion, oficina y hogar.',
-    summary: 'Windows suele ser el sistema mas usado en ordenadores del aula y del trabajo. Destaca por compatibilidad con periféricos, programas y entornos muy distintos.',
-    zones: ['Escritorio y barra de tareas', 'Explorador de archivos', 'Configuracion del sistema'],
+    id: 'windows', name: 'Windows', focus: 'Muy extendido en educacion, oficina y hogar.', summary: 'Windows suele ser el sistema mas usado en ordenadores del aula y del trabajo. Destaca por compatibilidad con periféricos, programas y entornos muy distintos.', zones: ['Escritorio y barra de tareas', 'Explorador de archivos', 'Configuracion del sistema'],
   },
   macos: {
-    focus: 'Entorno muy cuidado y bien integrado con Apple.',
-    summary: 'macOS prioriza una experiencia muy fluida entre dispositivo, sistema y aplicaciones. Se asocia mucho con creatividad, organizacion y continuidad entre equipos Apple.',
-    zones: ['Dock de aplicaciones', 'Finder', 'Ajustes del sistema'],
+    id: 'macos', name: 'macOS', focus: 'Entorno muy cuidado y bien integrado con Apple.', summary: 'macOS prioriza una experiencia muy fluida entre dispositivo, sistema y aplicaciones. Se asocia mucho con creatividad, organizacion y continuidad entre equipos Apple.', zones: ['Dock de aplicaciones', 'Finder', 'Ajustes del sistema'],
   },
   linux: {
-    focus: 'Alternativa abierta y muy personalizable.',
-    summary: 'Linux es una familia de sistemas abiertos muy valiosa para aprender, reutilizar equipos, trabajar con servidores o entender mejor como se organiza un sistema operativo.',
-    zones: ['Distribucion y escritorio', 'Gestor de paquetes', 'Terminal y permisos'],
+    id: 'linux', name: 'Linux', focus: 'Alternativa abierta y muy personalizable.', summary: 'Linux es una familia de sistemas abiertos muy valiosa para aprender, reutilizar equipos, trabajar con servidores o entender mejor como se organiza un sistema operativo.', zones: ['Distribucion y escritorio', 'Gestor de paquetes', 'Terminal y permisos'],
   },
   android: {
-    focus: 'Sistema movil muy presente en telefonos y tablets.',
-    summary: 'Android ayuda a entender permisos, apps, ajustes y organizacion en un entorno movil. Es muy importante porque muchas personas acceden a lo digital primero desde aqui.',
-    zones: ['Pantalla de inicio', 'Ajustes y permisos', 'Tienda de aplicaciones'],
+    id: 'android', name: 'Android', focus: 'Sistema movil muy presente en telefonos y tablets.', summary: 'Android ayuda a entender permisos, apps, ajustes y organizacion en un entorno movil. Es muy importante porque muchas personas acceden a lo digital primero desde aqui.', zones: ['Pantalla de inicio', 'Ajustes y permisos', 'Tienda de aplicaciones'],
   },
   ios: {
-    focus: 'Ecosistema movil de Apple, guiado y muy estable.',
-    summary: 'iOS y iPadOS ponen el foco en simplicidad, privacidad y coherencia de uso. Son utiles para aprender como se controla un entorno movil mas cerrado y muy integrado.',
-    zones: ['Pantalla principal', 'Centro de control', 'Ajustes y App Store'],
+    id: 'ios', name: 'iOS', focus: 'Ecosistema movil de Apple, guiado y muy estable.', summary: 'iOS y iPadOS ponen el foco en simplicidad, privacidad y coherencia de uso. Son utiles para aprender como se controla un entorno movil mas cerrado y muy integrado.', zones: ['Pantalla principal', 'Centro de control', 'Ajustes y App Store'],
   },
 };
 
@@ -423,20 +413,14 @@ const softwareDriverFlow = [
 
 const softwareLicenseModels = {
   closed: {
-    label: 'Codigo cerrado',
-    summary: 'El fabricante controla el codigo, las funciones y la licencia de uso.',
-    color: 'indigo',
-    examples: [
+    id: 'closed', name: 'Código Cerrado', label: 'Codigo cerrado', summary: 'El fabricante controla el codigo, las funciones y la licencia de uso.', color: 'indigo', examples: [
       { name: 'Microsoft Office', use: 'Suite ofimatica comercial para documentos, hojas de calculo y presentaciones.' },
       { name: 'Adobe Photoshop', use: 'Edicion de imagen profesional con licencia propietaria.' },
       { name: 'Windows', use: 'Sistema operativo comercial con soporte y ecosistema cerrado.' },
     ],
   },
   open: {
-    label: 'Codigo abierto',
-    summary: 'El codigo se puede estudiar, mejorar o redistribuir segun su licencia.',
-    color: 'emerald',
-    examples: [
+    id: 'open', name: 'Código Abierto', label: 'Codigo abierto', summary: 'El codigo se puede estudiar, mejorar o redistribuir segun su licencia.', color: 'emerald', examples: [
       { name: 'LibreOffice', use: 'Alternativa libre a Office para escribir, calcular y presentar.' },
       { name: 'GIMP', use: 'Editor de imagen abierto, muy usado en educacion y comunidad.' },
       { name: 'Ubuntu / Linux', use: 'Sistema operativo abierto con muchas distribuciones y personalizacion.' },
