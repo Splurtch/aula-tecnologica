@@ -3405,13 +3405,91 @@ export default function App() {
         </p>
       </div>
 
+      {/* Operating Systems Section */}
+      <div className={`px-4 sm:px-8 pb-6`}>
+        <h3 className={`text-sm font-black uppercase tracking-wider mb-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Sistemas Operativos más usados</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          {softwareOsExamples.map((os) => (
+            <button
+              key={os.id}
+              onClick={() => handleSelect(os.id, null, softwareOsDetails)}
+              className={`rounded-sm border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${
+                isDark ? 'border-slate-800 bg-slate-900/80 hover:border-slate-600' : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-lg'
+              }`}
+            >
+              <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${os.accent} flex items-center justify-center text-white font-black text-sm mb-3`}>
+                {os.mark}
+              </div>
+              <p className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{os.name}</p>
+              <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{os.subtitle}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Software License Models Section */}
+      <div className={`px-4 sm:px-8 pb-6`}>
+        <h3 className={`text-sm font-black uppercase tracking-wider mb-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Tipos de licencia de software</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Closed Source */}
+          <button
+            onClick={() => handleSelect('closed', null, softwareLicenseModels)}
+            className={`rounded-sm border p-5 text-left transition-all duration-300 hover:-translate-y-1 ${
+              selectedItem?.id === 'closed' ? 'border-indigo-400 bg-indigo-500/10' : isDark ? 'border-slate-800 bg-slate-900/80 hover:border-slate-600' : 'border-slate-200 bg-white hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              </div>
+              <div>
+                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Código Cerrado</p>
+                <p className="text-xs text-slate-500">Software comercial</p>
+              </div>
+            </div>
+            <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>El fabricante controla el código, las funciones y la licencia. Ejemplos: Windows, Microsoft Office, Adobe Photoshop.</p>
+          </button>
+
+          {/* Open Source */}
+          <button
+            onClick={() => handleSelect('open', null, softwareLicenseModels)}
+            className={`rounded-sm border p-5 text-left transition-all duration-300 hover:-translate-y-1 ${
+              selectedItem?.id === 'open' ? 'border-emerald-400 bg-emerald-500/10' : isDark ? 'border-slate-800 bg-slate-900/80 hover:border-slate-600' : 'border-slate-200 bg-white hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              </div>
+              <div>
+                <p className={`font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Código Abierto</p>
+                <p className="text-xs text-slate-500">Software libre</p>
+              </div>
+            </div>
+            <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>El código se puede estudiar, mejorar y redistribuir. Ejemplos: Linux, LibreOffice, GIMP, Ubuntu.</p>
+          </button>
+        </div>
+      </div>
+
       {/* Detail Panel */}
-      {selectedItem && softwareData[selectedItem.id] && (
+      {selectedItem && (softwareData[selectedItem.id] || softwareOsDetails[selectedItem.id] || softwareLicenseModels[selectedItem.id]) && (
         <div className={`mx-4 sm:mx-8 mb-4 sm:mb-6 rounded-sm border p-4 sm:p-6 ${
           isDark ? 'border-slate-800 bg-slate-950/90' : 'border-slate-200 bg-slate-50'
         }`}>
-          <h3 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name}</h3>
-          <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc.split('\n\n')[0]}</p>
+          <h3 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{selectedItem.name || softwareOsExamples.find(o => o.id === selectedItem.id)?.name || softwareLicenseModels[selectedItem.id]?.label}</h3>
+          <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.desc || selectedItem.summary || ''}</p>
+          {selectedItem.focus && <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}><strong>Foco:</strong> {selectedItem.focus}</p>}
+          {selectedItem.zones && <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}><strong>Zonas clave:</strong> {selectedItem.zones.join(', ')}</p>}
+          {selectedItem.examples && (
+            <div className="mt-3 space-y-2">
+              {selectedItem.examples.map((ex, i) => (
+                <div key={i} className={`text-sm p-3 rounded-sm ${isDark ? 'bg-slate-900/50' : 'bg-white'}`}>
+                  <p className="font-bold">{ex.name}</p>
+                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{ex.use}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
