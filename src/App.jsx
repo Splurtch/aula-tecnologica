@@ -327,6 +327,57 @@ const softwareData = {
   },
 };
 
+// ==========================================
+// 1E. BASE DE DATOS: ESCRITORIO
+// ==========================================
+const desktopData = {
+  this_pc: {
+    id: 'this_pc', name: 'Este PC', category: 'Acceso al sistema', icon: Monitor, color: 'blue',
+    desc: 'El icono "Este PC" (o "Mi PC" en versiones antiguas de Windows) te da acceso directo al explorador de archivos del sistema.\n\nDesde aquí puedes explorar todos los discos, carpetas y dispositivos conectados a tu ordenador.',
+    details: 'Funciones principales:\n• Ver los discos duros y unidades (C:, D:, USB, etc.)\n• Acceder a carpetas del sistema y archivos personales\n• Gestionar dispositivos de almacenamiento externos\n• Abrir el administrador de dispositivos para ver hardware',
+  },
+  files: {
+    id: 'files', name: 'Archivos', category: 'Gestión documental', icon: FolderOpen, color: 'amber',
+    desc: 'El icono "Archivos" te lleva directamente a la carpeta de archivos personales del usuario.\n\nAquí se almacenan tus documentos, descargas, imágenes y todo lo que guardas en el equipo.',
+    details: 'Carpetas típicas que encontraras:\n• Documentos: Textos, PDFs, hojas de cálculo\n• Descargas: Archivos bajados de internet\n• Imágenes: Fotos y gráficos personales\n• Escritorio: Archivos visibles en el escritorio',
+  },
+  trash: {
+    id: 'trash', name: 'Papelera', category: 'Reciclaje del sistema', icon: Trash2, color: 'rose',
+    desc: 'La papelera de reciclaje es donde van a parar los archivos que eliminas. Funciona como una red de seguridad: puedes recuperar archivos eliminados por error durante un tiempo.\n\nSe vacía automáticamente o puedes vaciarla manualmente.',
+    details: 'Cómo funciona:\n• Los archivos eliminados van aquí, no desaparecen inmediatamente\n• Puedes hacer clic derecho > "Restaurar" para recuperar algo\n• La papelera tiene un límite de espacio\n• Vaciar la papelera borra los archivos permanentemente',
+  },
+  explorer: {
+    id: 'explorer', name: 'Explorador de Archivos', category: 'Ventana del sistema', icon: FolderOpen, color: 'amber',
+    desc: 'El Explorador de Archivos es la ventana principal de Windows para navegar por las carpetas y archivos del sistema.\n\nEs la herramienta más importante para organizar, mover, copiar y eliminar archivos.',
+    details: 'Partes del explorador:\n• Barra de direcciones: Muestra la ruta actual\n• Panel izquierdo: Acceso rápido a carpetas frecuentes\n• Área central: Contenido de la carpeta actual\n• Barra de búsqueda: Para encontrar archivos rápidamente',
+  },
+  start_menu: {
+    id: 'start_menu', name: 'Menú Inicio', category: 'Centro de navegación', icon: Layers, color: 'violet',
+    desc: 'El menú Inicio es el corazón de la navegación en Windows. Desde aquí accedes a todas las aplicaciones, configuraciones y opciones del sistema.\n\nEs el punto de partida para cualquier tarea que quieras realizar.',
+    details: 'Secciones del menú Inicio:\n• Iconos de aplicaciones: Accesos directos a programas\n• Ajuste rápido: Apagar, reiniciar, suspender\n• Todas las aplicaciones: Lista completa de programas\n• Barra de búsqueda: Buscar archivos o programas directamente',
+  },
+  taskbar: {
+    id: 'taskbar', name: 'Barra de Tareas', category: 'Barra inferior', icon: Monitor, color: 'slate',
+    desc: 'La barra de tareas es la barra horizontal que ves en la parte inferior de la pantalla de Windows.\n\nAquí tienes acceso rápido a tus aplicaciones abiertas, notificaciones del sistema y herramientas como el reloj.',
+    details: 'Elementos de la barra de tareas:\n• Botón Inicio: Acceso al menú de Windows\n• Iconos de apps: Programas abiertos o anclados\n• System Tray: Redes, volumen, batería, reloj\n• Barra de búsqueda: Buscar en el sistema',
+  },
+  system_tray: {
+    id: 'system_tray', name: 'Zona de Notificaciones', category: 'System Tray', icon: Wifi, color: 'cyan',
+    desc: 'La zona de notificaciones (system tray) se encuentra en la esquina derecha de la barra de tareas.\n\nAquí Windows muestra iconos de aplicaciones en segundo plano y alertas del sistema.',
+    details: 'Qué encontraras aquí:\n• WiFi/Bluetooth: Estado de conexiones\n• Volumen: Control de sonido del sistema\n• Batería: Estado de energía en portatiles\n• Reloj: Fecha y hora del sistema\n• Campana: Notificaciones y alertas',
+  },
+  desktop_icons: {
+    id: 'desktop_icons', name: 'Iconos del Escritorio', category: 'Accesos directos', icon: Monitor, color: 'blue',
+    desc: 'Los iconos del escritorio son accesos directos a programas, carpetas o archivos que quieres tener siempre a mano.\n\nPuedes añadir nuevos iconos, moverlos, reorganizarlos y eliminarlos fácilmente.',
+    details: 'Operaciones con iconos:\n• Crear acceso directo: Clic derecho > Nuevo > Acceso directo\n• Mover: Arrastrar el icono a la posición deseada\n• Renombrar: Clic derecho > Cambiar nombre\n• Eliminar: Clic derecho > Eliminar (va a la papelera)',
+  },
+  window_buttons: {
+    id: 'window_buttons', name: 'Botones de Ventana', category: 'Control de ventanas', icon: Monitor, color: 'slate',
+    desc: 'Los botones de control de ventana están en la esquina superior derecha de cada ventana.\n\nSirven para minimizar, maximizar o cerrar la ventana actual.',
+    details: 'Los tres botones:\n• Guión (─): Minimiza la ventana (la esconde)\n• Cuadrado (□): Cambia entre maximizada y tamaño normal\n• X (✕): Cierra la ventana (el programa puede seguir abierto)',
+  },
+};
+
 const softwareOsExamples = [
   { id: 'windows', name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400', logo: 'window' },
   { id: 'macos', name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300', logo: 'mac' },
@@ -2376,55 +2427,57 @@ export default function App() {
         
         {/* Desktop Icons - Left Side */}
         <div className="absolute top-4 left-4 flex flex-col gap-6">
-          <div className="flex flex-col items-center gap-1 cursor-pointer group">
-            <div className="w-14 h-14 rounded-lg bg-blue-200 flex items-center justify-center text-blue-600 shadow-md group-hover:bg-blue-300 group-hover:scale-105 transition-all">
-              <Monitor size={32} />
+          <button onClick={() => handleSelect('this_pc', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'this_pc' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'this_pc' ? 'bg-blue-300 ring-4 ring-blue-400' : 'bg-blue-200 group-hover:bg-blue-300'}`}>
+              <Monitor size={32} className={selectedItem?.id === 'this_pc' ? 'text-blue-700' : 'text-blue-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Este PC</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 cursor-pointer group">
-            <div className="w-14 h-14 rounded-lg bg-amber-200 flex items-center justify-center text-amber-600 shadow-md group-hover:bg-amber-300 group-hover:scale-105 transition-all">
-              <FolderOpen size={32} />
+          </button>
+          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'files' ? 'bg-amber-300 ring-4 ring-amber-400' : 'bg-amber-200 group-hover:bg-amber-300'}`}>
+              <FolderOpen size={32} className={selectedItem?.id === 'files' ? 'text-amber-700' : 'text-amber-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Archivos</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 cursor-pointer group">
-            <div className="w-14 h-14 rounded-lg bg-rose-200 flex items-center justify-center text-rose-600 shadow-md group-hover:bg-rose-300 group-hover:scale-105 transition-all">
-              <Trash2 size={32} />
+          </button>
+          <button onClick={() => handleSelect('trash', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'trash' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : 'bg-rose-200 group-hover:bg-rose-300'}`}>
+              <Trash2 size={32} className={selectedItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Papelera</span>
-          </div>
+          </button>
         </div>
 
         {/* Desktop Icons - Right Side */}
         <div className="absolute top-4 right-4 flex flex-col gap-4">
-          <div className="flex flex-col items-center gap-1 cursor-pointer group">
-            <div className="w-12 h-12 rounded-lg bg-emerald-200 flex items-center justify-center text-emerald-600 shadow group-hover:bg-emerald-300 transition-all">
-              <FileText size={28} />
+          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'files' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
+              <FileText size={28} className={selectedItem?.id === 'files' ? 'text-emerald-700' : 'text-emerald-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Informe.txt</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 cursor-pointer group">
-            <div className="w-12 h-12 rounded-lg bg-purple-200 flex items-center justify-center text-purple-600 shadow group-hover:bg-purple-300 transition-all">
-              <ImageIcon size={28} />
+          </button>
+          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'files' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
+              <ImageIcon size={28} className={selectedItem?.id === 'files' ? 'text-purple-700' : 'text-purple-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Foto.png</span>
-          </div>
+          </button>
         </div>
 
         {/* Center Window */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] rounded-lg bg-white border border-slate-200 shadow-2xl">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
-            <div className="flex items-center gap-2">
-              <FolderOpen size={16} className="text-amber-500" />
-              <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
+          <button onClick={() => handleSelect('explorer', null, desktopData)} className="w-full text-left">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
+              <div className="flex items-center gap-2">
+                <FolderOpen size={16} className="text-amber-500" />
+                <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">─</button>
+                <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">□</button>
+                <button className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500">✕</button>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">─</button>
-              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">□</button>
-              <button className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500">✕</button>
-            </div>
-          </div>
+          </button>
           <div className="p-4">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-10 h-10 rounded bg-blue-100 flex items-center justify-center text-blue-600">
@@ -2457,7 +2510,7 @@ export default function App() {
         </div>
 
         {/* Start Menu */}
-        <div className="absolute bottom-16 left-4 w-[260px] bg-white rounded-lg border border-slate-200 shadow-2xl p-3 z-50">
+        <button onClick={() => handleSelect('start_menu', null, desktopData)} className="absolute bottom-16 left-4 w-[260px] bg-white rounded-lg border border-slate-200 shadow-2xl p-3 z-50 text-left">
           <div className="flex items-center gap-3 px-3 py-2 mb-2 border-b border-slate-100">
             <div className="w-8 h-8 rounded bg-violet-600 flex items-center justify-center text-white">
               <Layers size={18} />
@@ -2478,20 +2531,20 @@ export default function App() {
               <Globe size={16} className="text-blue-500" /> Navegador
             </button>
           </div>
-        </div>
+        </button>
 
         {/* Trash Icon - Bottom Right */}
-        <div className="absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group">
-          <div className="w-14 h-14 rounded-lg bg-rose-200 flex items-center justify-center text-rose-600 shadow-md group-hover:bg-rose-300 group-hover:scale-105 transition-all">
-            <Trash2 size={28} />
+        <button onClick={() => handleSelect('trash', null, desktopData)} className="absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group">
+          <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : 'bg-rose-200 group-hover:bg-rose-300'}`}>
+            <Trash2 size={28} className={selectedItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'} />
           </div>
           <span className="text-[10px] font-medium text-slate-600">Papelera</span>
-        </div>
+        </button>
 
         {/* TASKBAR */}
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300 flex items-center px-2">
           {/* Start Button */}
-          <button className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors">
+          <button onClick={() => handleSelect('start_menu', null, desktopData)} className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors">
             <Layers size={18} className="text-violet-600" />
             <span className="text-sm font-bold text-slate-700">Inicio</span>
           </button>
@@ -2500,7 +2553,7 @@ export default function App() {
           <div className="w-px h-6 bg-slate-300 mx-2"></div>
 
           {/* App Icons */}
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 text-slate-700">
+          <button onClick={() => handleSelect('explorer', null, desktopData)} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 text-slate-700">
             <FolderOpen size={16} className="text-amber-500" />
             <span className="text-sm">Explorador</span>
           </button>
@@ -2509,7 +2562,7 @@ export default function App() {
           <div className="flex-1"></div>
 
           {/* System Tray */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
+          <button onClick={() => handleSelect('system_tray', null, desktopData)} className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
             <div className="flex items-center gap-1">
               <Wifi size={14} className="text-slate-600" />
               <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
@@ -2517,30 +2570,37 @@ export default function App() {
               </div>
             </div>
             <span className="text-xs text-slate-600">100%</span>
-          </div>
+          </button>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
+          <button onClick={() => handleSelect('taskbar', null, desktopData)} className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
             <span className="text-xs text-slate-600">🔊</span>
             <span className="text-xs text-slate-600">🔔</span>
-          </div>
+          </button>
 
           {/* Clock */}
-          <div className="flex flex-col items-center px-3 py-1 rounded hover:bg-slate-100">
+          <button onClick={() => handleSelect('system_tray', null, desktopData)} className="flex flex-col items-center px-3 py-1 rounded hover:bg-slate-100">
             <span className="text-xs font-medium text-slate-700">{new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
             <span className="text-xs text-slate-500">{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-          </div>
+          </button>
         </div>
       </div>
 
       {/* Instructions Panel */}
       <div className="p-4 bg-slate-50 border-t border-slate-200">
-        <h3 className="font-bold text-slate-800 mb-2">Explorando el Escritorio</h3>
+        <h3 className="font-bold text-slate-800 mb-2">
+          {selectedItem ? `Seleccionado: ${selectedItem.name}` : 'Explorando el Escritorio'}
+        </h3>
         <ul className="text-sm text-slate-600 space-y-1">
           <li>• <strong>Iconos del escritorio:</strong> Este PC, Archivos y Papelera</li>
           <li>• <strong>Ventana abierta:</strong> Explorador de archivos con estructura de carpetas</li>
           <li>• <strong>Barra de tareas:</strong> Inicio, apps abiertas, notificaciones y reloj</li>
           <li>• <strong>Zona inferior:</strong> Menú Inicio y system tray con estado de red</li>
         </ul>
+        {selectedItem && (
+          <p className="mt-2 text-xs text-violet-600 font-medium">
+            ↑ Consulta el panel derecho para ver la explicación completa
+          </p>
+        )}
       </div>
 
       {/* CTA: Support */}
