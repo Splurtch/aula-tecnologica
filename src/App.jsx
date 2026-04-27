@@ -1885,6 +1885,32 @@ export default function App() {
             </span>
           </button>
         </div>
+
+        {/* CTA: Support the Project */}
+        <div className="rounded-sm border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 p-6 backdrop-blur-sm">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/30 shrink-0 animate-glow-pulse">
+              <span className="text-3xl">☕</span>
+            </div>
+            <div className="text-center sm:text-left flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400 font-pixel mb-1">Apoya Este Proyecto</p>
+              <h3 className="text-white font-black text-xl">Si esto te está sirviendo, invítame a un café</h3>
+              <p className="text-sm text-slate-400 mt-1 max-w-lg">
+                Este aula es gratis y siempre lo será. Si te está ayudando en tu día a día, una pequeña contribución 
+                me ayuda a seguir manteniéndola y mejorándola para todos.
+              </p>
+            </div>
+            <a 
+              href="https://buymeacoffee.com/digitalsynapse" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="shrink-0 px-6 py-3 rounded-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-black font-pixel uppercase tracking-wider transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-amber-500/30 flex items-center gap-2"
+            >
+              <span>Invítame a un café</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+          </div>
+        </div>
       </div>
     );
   };
@@ -2515,6 +2541,27 @@ export default function App() {
           <li>• <strong>Barra de tareas:</strong> Inicio, apps abiertas, notificaciones y reloj</li>
           <li>• <strong>Zona inferior:</strong> Menú Inicio y system tray con estado de red</li>
         </ul>
+      </div>
+
+      {/* CTA: Support */}
+      <div className="mx-4 mb-4 rounded-sm border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 p-4 backdrop-blur-sm">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+            <span className="text-xl">☕</span>
+          </div>
+          <div className="text-center sm:text-left flex-1">
+            <p className="text-[9px] font-bold uppercase tracking-widest text-amber-400 font-pixel">Apoya Este Proyecto</p>
+            <p className="text-slate-800 font-semibold text-sm">Si esto te está sirviendo, invítame a un café</p>
+          </div>
+          <a 
+            href="https://buymeacoffee.com/digitalsynapse" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="shrink-0 px-4 py-2 rounded-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-amber-500/20"
+          >
+            Invítame a un café
+          </a>
+        </div>
       </div>
     </div>
     );
