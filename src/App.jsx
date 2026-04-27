@@ -346,6 +346,16 @@ const desktopData = {
     desc: 'La papelera de reciclaje es donde van a parar los archivos que eliminas. Funciona como una red de seguridad: puedes recuperar archivos eliminados por error durante un tiempo.\n\nSe vacía automáticamente o puedes vaciarla manualmente.',
     details: 'Cómo funciona:\n• Los archivos eliminados van aquí, no desaparecen inmediatamente\n• Puedes hacer clic derecho > "Restaurar" para recuperar algo\n• La papelera tiene un límite de espacio\n• Vaciar la papelera borra los archivos permanentemente',
   },
+  informe_txt: {
+    id: 'informe_txt', name: 'Informe.txt', category: 'Archivo de texto', icon: FileText, color: 'emerald',
+    desc: 'Un archivo de texto guardado en el escritorio. Los archivos .txt son documentos simples sin formato que contienen solo texto plano.\n\nSon ligeros, universales y se pueden abrir con cualquier editor de texto.',
+    details: 'Características de archivos .txt:\n• Solo texto plano, sin formato visual\n• Tamaño muy pequeño\n• Se abren con el Bloc de notas, Word, o cualquier editor\n• Muy útiles para notas rápidas y documentos simples',
+  },
+  foto_png: {
+    id: 'foto_png', name: 'Foto.png', category: 'Archivo de imagen', icon: ImageIcon, color: 'purple',
+    desc: 'Una imagen en formato PNG guardada en el escritorio. PNG es un formato de imagen que admite transparencias y tiene buena calidad.\n\nEs ideal para gráficos, capturas de pantalla e imágenes que necesitan fondo transparente.',
+    details: 'Formato PNG:\n• Compresión sin pérdida de calidad\n• Soporta transparencia (fondo transparente)\n• Ideal para iconos, logos y gráficos web\n• Más grande que JPEG pero mejor calidad',
+  },
   explorer: {
     id: 'explorer', name: 'Explorador de Archivos', category: 'Ventana del sistema', icon: FolderOpen, color: 'amber',
     desc: 'El Explorador de Archivos es la ventana principal de Windows para navegar por las carpetas y archivos del sistema.\n\nEs la herramienta más importante para organizar, mover, copiar y eliminar archivos.',
@@ -2433,15 +2443,15 @@ export default function App() {
 
         {/* Desktop Icons - Right Side */}
         <div className="absolute top-4 right-4 flex flex-col gap-4">
-          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'files' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
-              <FileText size={28} className={selectedItem?.id === 'files' ? 'text-emerald-700' : 'text-emerald-600'} />
+          <button onClick={() => handleSelect('informe_txt', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'informe_txt' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'informe_txt' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
+              <FileText size={28} className={selectedItem?.id === 'informe_txt' ? 'text-emerald-700' : 'text-emerald-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Informe.txt</span>
           </button>
-          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'files' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
-              <ImageIcon size={28} className={selectedItem?.id === 'files' ? 'text-purple-700' : 'text-purple-600'} />
+          <button onClick={() => handleSelect('foto_png', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'foto_png' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'foto_png' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
+              <ImageIcon size={28} className={selectedItem?.id === 'foto_png' ? 'text-purple-700' : 'text-purple-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Foto.png</span>
           </button>
@@ -3970,7 +3980,7 @@ export default function App() {
                     {sectionGroups[expandedSectionGroup]?.length || 0}
                   </span>
                 </div>
-                <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3">
                   {(sectionGroups[expandedSectionGroup] || []).map((tab) => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.id;
@@ -4255,126 +4265,6 @@ export default function App() {
           </div>
         </div>
         )}
-
-        <div className="hidden">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div>
-              <p className={`text-xs uppercase tracking-[0.25em] font-black ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Mapa del Aula</p>
-              <h3 className={`mt-2 text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Menu desplegable por clusters</h3>
-              <p className={`mt-2 text-sm leading-relaxed max-w-2xl ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                El menu se abre solo cuando hace falta y organiza los modulos por bloques de aprendizaje para no cargar la interfaz principal.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 sm:w-auto w-full">
-              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Secciones</p>
-                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{tabConfig.length}</p>
-              </div>
-              <div className={`rounded-sm border px-4 py-3 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
-                <p className={`text-[10px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Cluster</p>
-                <p className={`mt-2 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{activeTabMeta.group}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-5 relative">
-            <button
-              onClick={() => setIsSectionMenuOpen((value) => !value)}
-              className={`w-full rounded-sm border px-4 py-4 sm:px-5 sm:py-5 text-left transition-colors ${
-                isDark
-                  ? 'border-slate-800 bg-slate-950 hover:bg-slate-900'
-                  : 'border-slate-200 bg-slate-50 hover:bg-white'
-              }`}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                    Navegacion del aula
-                  </p>
-                  <h4 className={`mt-2 text-base sm:text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    {`Modulo ${activeTabMeta.step} · ${activeTabMeta.title}`}
-                  </h4>
-                  <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                    {sectionGroupMeta[activeTabMeta.group]?.summary}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className={`hidden sm:inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${
-                    isDark ? 'bg-slate-900 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'
-                  }`}>
-                    {activeTabMeta.group}
-                  </span>
-                  <span className={`rounded-full p-2 transition-transform ${isSectionMenuOpen ? 'rotate-180' : ''} ${
-                    isDark ? 'bg-slate-900 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'
-                  }`}>
-                    <ChevronDown size={18} />
-                  </span>
-                </div>
-              </div>
-            </button>
-
-            {isSectionMenuOpen && (
-              <div className={`mt-3 rounded-sm border p-3 sm:p-4 shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${
-                isDark ? 'border-slate-800 bg-slate-950/98' : 'border-slate-200 bg-white/98 backdrop-blur-xl'
-              }`}>
-                <div className="space-y-3">
-                  {Object.entries(sectionGroups).map(([group, tabs]) => {
-                    const isExpanded = expandedSectionGroup === group;
-                    return (
-                      <section
-                        key={group}
-                        className={`rounded-[22px] border ${
-                          isDark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200 bg-slate-50/80'
-                        }`}
-                      >
-                        <button
-                          onClick={() => setExpandedSectionGroup(isExpanded ? '' : group)}
-                          className="w-full px-4 py-4 text-left"
-                        >
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{group}</p>
-                              <p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                {sectionGroupMeta[group]?.summary}
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-3 shrink-0">
-                              <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${
-                                isDark ? 'bg-slate-950 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'
-                              }`}>
-                                {tabs.length} modulos
-                              </span>
-                              <span className={`rounded-full p-2 ${isDark ? 'bg-slate-950 text-slate-300' : 'bg-white text-slate-500 border border-slate-200'}`}>
-                                {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                              </span>
-                            </div>
-                          </div>
-                        </button>
-
-                        {isExpanded && (
-                          <div className="px-3 pb-3 sm:px-4 sm:pb-4">
-                            <div className="space-y-3">
-                              {tabs.map((tab) => (
-                                <SectionMenuItem
-                                  key={tab.id}
-                                  tab={tab}
-                                  isActive={activeTab === tab.id}
-                                  onClick={handleTabChange}
-                                  isDark={isDark}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </section>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
       </header>
 
       {/* ÁREA PRINCIPAL DIVIDIDA */}
