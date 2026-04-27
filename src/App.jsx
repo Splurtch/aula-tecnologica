@@ -1593,7 +1593,7 @@ export default function App() {
   };
 
   const handleSelect = (id, e, dataSet) => {
-    if (e) e.stopPropagation();
+    if (e && e.stopPropagation) e.stopPropagation();
     setSelectedItem((prev) => (prev?.id === id ? null : dataSet[id]));
     playSound('click');
   };
