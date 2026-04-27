@@ -3807,6 +3807,18 @@ export default function App() {
                   <ChevronDown size={16} />
                 </span>
               </button>
+
+              <a
+                href="https://buymeacoffee.com/digitalsynapse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-sm border px-2.5 py-2 transition-all duration-300 text-amber-400 hover:text-amber-300 ${
+                  isDark || isScrolled ? 'border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20' : 'border-amber-300 bg-amber-50 hover:bg-amber-100'
+                }`}
+                title="Invítame a un café"
+              >
+                ☕
+              </a>
             </div>
           </div>
 
@@ -3906,6 +3918,17 @@ export default function App() {
             </button>
 
             <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="https://buymeacoffee.com/digitalsynapse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-full border p-2 text-amber-400 hover:text-amber-300 ${
+                  isDark ? 'border-white/10 bg-white/5 hover:bg-white/10' : 'border-slate-200 bg-white hover:bg-slate-50'
+                }`}
+                title="Invítame a un café"
+              >
+                ☕
+              </a>
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
                 className={`rounded-full border p-2.5 transition-colors ${
@@ -4317,11 +4340,21 @@ export default function App() {
               </div>
             </div>
 
-            <p className={`max-w-2xl text-sm leading-relaxed ${
-              isDark ? 'text-slate-400' : 'text-slate-300'
-            }`}>
-              Aula de Competencias Digitales desarrollada por Digital Synapse para ofrecer una experiencia de aprendizaje mas clara, visual y accesible en cualquier dispositivo.
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <p className={`max-w-2xl text-sm leading-relaxed text-center sm:text-left ${
+                isDark ? 'text-slate-400' : 'text-slate-300'
+              }`}>
+                Aula de Competencias Digitales desarrollada para ofrecer una experiencia de aprendizaje mas clara, visual y accesible.
+              </p>
+              <a
+                href="https://buymeacoffee.com/digitalsynapse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 px-4 py-2 rounded-sm bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-amber-500/20 flex items-center gap-2"
+              >
+                <span>☕ Invítame a un café</span>
+              </a>
+            </div>
           </div>
         </div>
       </footer>
