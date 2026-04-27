@@ -3466,12 +3466,14 @@ export default function App() {
           {selectedItem.zones && <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}><strong>Zonas clave:</strong> {selectedItem.zones.join(', ')}</p>}
           {selectedItem.examples && (
             <div className="mt-3 space-y-2">
-              {selectedItem.examples.map((ex, i) => (
+              {typeof selectedItem.examples === 'string' ? (
+                <p className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{selectedItem.examples}</p>
+              ) : Array.isArray(selectedItem.examples) ? selectedItem.examples.map((ex, i) => (
                 <div key={i} className={`text-sm p-3 rounded-sm ${isDark ? 'bg-slate-900/50' : 'bg-white'}`}>
                   <p className="font-bold">{ex.name}</p>
                   <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{ex.use}</p>
                 </div>
-              ))}
+              )) : null}
             </div>
           )}
         </div>
