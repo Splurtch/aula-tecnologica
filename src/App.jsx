@@ -10,7 +10,8 @@ import {
   MailWarning, Bug, AlertOctagon, Bot, Sparkles, Brain,
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
-  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog
+  Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog,
+  Radio, Cable, Settings2, Network, Signal, Router, Gauge, AlertTriangle, CheckCircle2, XCircle
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
@@ -240,6 +241,128 @@ const filesData = {
     desc: 'Saber organizar archivos incluye saber identificar las diferentes unidades donde puedes ubicarlos. El Sistema Operativo asigna a cada soporte físico (Disco duro, pendrive, CD) una "Letra de Unidad" para poder localizarlos.\n\nEs crucial entender la diferencia entre "Copiar" (clonar el archivo dejando el original donde estaba) y "Mover / Cortar" (llevarse el archivo a otro sitio eliminándolo del origen), para no perder información valiosa al traspasar datos a un pendrive.',
     details: 'Soportes Habituales:\n• Disco C: (Disco Local Principal): Es la unidad de almacenamiento interna por defecto. Es el disco más rápido porque va dentro del ordenador, pero si el equipo se rompe, el disco se queda dentro.\n• Dispositivos Extraíbles (Pendrives USB / Discos Externos): Unidades portátiles. Suelen asignarse con las letras D:, E:, F:. Son vitales para llevar documentos grandes físicamente o hacer Copias de Seguridad (Backups) aisladas.\n• Carpetas en Red / Nube Virtual: Aunque las ves como una carpeta más en tu sistema (ej. Dropbox), físicamente son discos duros en la otra punta del planeta conectados a través de Internet.'
   }
+};
+
+// ==========================================
+// 2. BASE DE DATOS: REDES (INSTALACIÓN)
+// ==========================================
+const redInstalacionData = {
+  wifi_planning: {
+    id: 'wifi_planning', name: 'Planificación de Red WiFi', category: 'Diseño de Red Doméstica', icon: Gauge, color: 'cyan',
+    desc: 'Antes de comprar equipos o taladrar agujeros, una buena planificación te ahorra tiempo y dinero. Una red WiFi bien diseñada empieza en papel, no en el router.\n\nEl objetivo es cubrir toda tu casa con señal estable, minimizando zonas muertas y maximizando la velocidad en los puntos donde más la necesitas.',
+    pros: ['Cobertura óptima: Un plano bien hecho evita puntos ciegos y repeticiones innecesarias.', 'Presupuesto realista: Saber qué equipos necesitas antes de comprar evita gastos inútiles.', 'Escalabilidad: Una red bien planificada permite añadir dispositivos sin problemas.', 'Resolución de problemas: Entender tu topología facilita diagnosticar fallos.'],
+    cons: ['Dedicación inicial: Requiere tiempo dibujar el plano y calcular posiciones.', 'Factores externos: Las paredes de hormigón, espejos y otros routers vecinos pueden afectar.', 'Equipos limitados: Los routers básicos no pueden cubrir casas grandes sin repetidores.'],
+    examples: 'Herramientas: NetSpot, WiFi Analyzer, Ekahau HeatMapper. Ejemplo: Casa de 120m² con tres plantas → 1 router central + 2 repetidores.',
+    tips: ['Dibuja un plano a escala de tu casa', 'Identifica puntos donde necesitas más velocidad', 'Considera qué habitaciones tienen más paredes', 'Marca la posición del router principal'],
+  },
+  router_config: {
+    id: 'router_config', name: 'Configuración del Router', category: 'Gestión de Dispositivos', icon: Settings2, color: 'blue',
+    desc: 'El router es el cerebro de tu red doméstica. Recibe la señal de Internet del proveedor y la reparte entre todos tus dispositivos vía WiFi o cables Ethernet.\n\nAcceder a su panel (normalmente 192.168.1.1) permite cambiar nombre, contraseña, canal y crear red de invitados.',
+    pros: ['Control total: Tú decides quién se conecta y cómo.', 'Seguridad: Cambiar la contraseña por defecto es el primer paso contra intrusiones.', 'Optimización: Elegir el canal menos congestionado mejora velocidad hasta 30%.', 'Red de invitados: Mantén visitas separadas de dispositivos principales.'],
+    cons: ['Complejidad técnica: Los menús pueden ser abrumadores.', 'Riesgo de lockout: Cambiar ciertos parámetros sin saber puede dejarte sin Internet.', 'Actualizaciones: Firmware desactualizado puede tener vulnerabilidades.'],
+    examples: 'Cambiar SSID a "MiCasa_WiFi", contraseña a frase larga segura, desactivar WPS (vulnerable), configurar canal 5GHz.',
+    tips: ['Accede a 192.168.1.1 desde tu navegador', 'Busca pestaña "Wireless" o "WiFi Settings"', 'Usa frase como contraseña: "MiPerroY3Gat0s-2024"', 'Activa canal 5GHz si tus dispositivos lo soportan'],
+  },
+  wifi_bands: {
+    id: 'wifi_bands', name: 'Bandas WiFi: 2.4GHz vs 5GHz', category: 'Frecuencias y Rendimiento', icon: Radio, color: 'purple',
+    desc: 'Tu router emite en dos frecuencias diferentes. 2.4GHz es como carretera vecinal: más lenta pero llega más lejos y atraviesa paredes. 5GHz es como autopista: mucho más rápida pero con menos alcance.',
+    pros: ['2.4GHz: Mayor alcance (~40m), mejor penetración a través de paredes.', '5GHz: Velocidades hasta 6Gbps teóricos, ideal para streaming 4K y gaming.', 'Doble banda: Routers modernos emiten ambas con el mismo nombre, cambiando automáticamente.'],
+    cons: ['2.4GHz: Velocidad máx ~600Mbps, congestionada por vecinos y dispositivos.', '5GHz: Alcance reducido (~15m), señal debilitada por paredes gruesas.', 'Dispositivos antiguos: Algunos solo soportan 2.4GHz.'],
+    examples: 'Estar en el salón con videollamada → conecta a 5GHz. Estar en el jardín leyendo → 2.4GHz es suficiente.',
+    tips: ['Para streaming y gaming → 5GHz', 'Para dispositivos IoT (bombillas, sensores) → 2.4GHz', 'WiFi 6E y WiFi 7 añaden banda de 6GHz'],
+  },
+  mesh_network: {
+    id: 'mesh_network', name: 'Sistemas WiFi Mesh (Mallada)', category: 'Soluciones de Cobertura', icon: Network, color: 'emerald',
+    desc: 'Cuando un solo router no puede cubrir toda tu casa, los sistemas WiFi Mesh crean UNA SOLA RED que se extiende por toda la casa.\n\nFunciona con nodos que se hablan entre sí, creando una red única que automáticamente te conecta al nodo más cercano.',
+    pros: ['Roaming Seamless: Te mueves por la casa sin cortes perceptibles.', 'Una sola red: No hay que reconectarse manualmente.', 'Autoconfiguración: Los nodos mesh se configuran solos.', 'Gestión centralizada: Una sola app controla todos los nodos.'],
+    cons: ['Coste elevado: Sistema mesh de 3 nodos puede costar 150€-400€.', 'Rendimiento en borde: El último nodo puede tener menos velocidad.', 'Ecosistema cerrado: Suelen ser específicos de marca.'],
+    examples: 'Para 200m² con 3 plantas → 3 nodos en configuración encadenada, uno por planta.',
+    tips: ['Para casas de más de 150m² o varias plantas → considera mesh', 'Los nodos necesitan toma de corriente cerca', 'Coloca nodo principal cerca del router'],
+  },
+  speed_test: {
+    id: 'speed_test', name: 'Diagnóstico y Test de Velocidad', category: 'Medición y Optimización', icon: Signal, color: 'amber',
+    desc: 'Saber medir correctamente tu velocidad de Internet es esencial. Un test mide ancho de banda de descarga (Mbps), subida (Mbps) y ping (latencia).\n\nDiferencia: 8 megabits = 1 megabyte. Si descargas a 100Mbps, estás descargando ~12.5MB por segundo.',
+    pros: ['Verificación de contrato: Comprueba que tu ISP te da la velocidad contratada.', 'Detección de problemas: Identifica dónde está el cuello de botella.', 'Optimización WiFi: Mide velocidad en diferentes habitaciones.', 'Gratuito: Speedtest.net, Fast.com, nperf.com son gratis y fiables.'],
+    cons: ['Velocidad WiFi vs cable: Siempre habrá pérdida en WiFi (hasta 30%).', 'Congestión temporal: La velocidad puede caer en horas punta.', 'Servidor distante: La ubicación del servidor puede afectar resultados.'],
+    examples: 'Diagnóstico: 1) Cable Ethernet directo al módem → 500Mbps. 2) WiFi 5GHz junto al router → 450Mbps. 3) WiFi en habitación lejana → 80Mbps → Necesitas mesh.',
+    tips: ['Para test preciso: conecta por cable Ethernet', 'Cierra apps en segundo plano', 'Ping bajo (<30ms) es crítico para gaming'],
+  },
+};
+
+// ==========================================
+// 3. BASE DE DATOS: INTERNET (FUNDAMENTOS)
+// ==========================================
+const redBasicosData = {
+  protocolos_ip: {
+    id: 'protocolos_ip', name: 'Protocolos y Direcciones IP', category: 'Fundamentos de Red', icon: Cable, color: 'blue',
+    desc: 'Internet se basa en "reglas del juego" llamadas protocolos. El más fundamental es TCP/IP, el idioma que hablan todos los dispositivos para comunicarse.\n\nUna dirección IP es como la dirección postal de tu dispositivo en la red. Permite que los datos lleguen al destino correcto.',
+    pros: ['Identificación única: Cada dispositivo tiene una IP única, como un DNI.', 'Enrutamiento automático: Los routers dirigen paquetes sin intervención humana.', 'Escalabilidad: Funciona desde 3 hasta miles de millones de dispositivos.', 'Estandarización: TCP/IP es universal.'],
+    cons: ['IPv4 agotado: Solo ~4.000 millones de direcciones, insuficiente para IoT.', 'Complejidad técnica: Subredes, puertas de enlace y máscaras pueden ser confusas.', 'Sin seguridad nativa: IP no incluye encriptación.'],
+    examples: 'Cuando escribes google.com, un servidor DNS traduce a 142.250.80.46. Tu router envía el paquete hacia el ISP, que lo reenvía por la red troncal.',
+    tips: ['IPv4 parece 192.168.1.1, IPv6 parece 2001:0db8...', 'En casa, tu IP privada suele empezar en 192.168.x.x', 'Para ver IP privada: ipconfig en Windows, ifconfig en Mac/Linux'],
+  },
+  dns_servidores: {
+    id: 'dns_servidores', name: 'Sistema DNS', category: 'Traducción de Nombres', icon: Globe, color: 'purple',
+    desc: 'DNS (Domain Name System) es como la "agenda telefónica de Internet". Traduce nombres legibles (google.com) a direcciones IP numéricas.\n\nSin DNS, tendrías que memorizar números como 142.250.80.46 para cada web.',
+    pros: ['Facilidad de uso: No necesitamos recordar direcciones IP.', 'Caché inteligente: Guarda traducciones recientes para acelerar.', 'Balanceo de carga: Puede dirigirte al servidor más cercano.', 'Desacoplamiento: Empresas pueden cambiar IPs sin que lo notes.'],
+    cons: ['Punto único de fallo: Si el DNS cae, no puedes navegar.', 'Ataques de envenenamiento: DNS spoofing puede redirigirte a webs falsas.', 'Censura: Los gobiernos pueden bloquear DNS.', 'Latencia adicional: Cada consulta DNS añade milisegundos.'],
+    examples: 'Proceso: 1) Escribes midominio.es. 2) Tu PC pregunta al DNS. 3) Si no tiene caché, pregunta al DNS raíz. 4) Obtienes la IP finalmente.',
+    tips: ['Si una web no carga, prueba DNS 8.8.8.8 (Google) o 1.1.1.1 (Cloudflare)', 'Flush DNS cache: ipconfig /flushdns en Windows', 'DNS público más rápido: Cloudflare 1.1.1.1'],
+  },
+  html_http_https: {
+    id: 'html_http_https', name: 'La Web: HTML, HTTP y HTTPS', category: 'Tecnología Web', icon: Globe, color: 'emerald',
+    desc: 'Cuando visitas una web, tu navegador descarga código HTML, lo interpreta y lo muestra. HTTP es el protocolo de comunicación; HTTPS es la versión encriptada con certificados TLS/SSL.\n\nHTTPS protege tus datos de oídos indiscretos.',
+    pros: ['HTTP: Protocolo simple y eficiente para contenido público.', 'HTTPS: Encriptación que protege contraseñas y datos bancarios.', 'HTML: Estándar universal que funciona en cualquier dispositivo.', 'Certificados gratis: Let\'s Encrypt ofrece TLS gratuito.'],
+    cons: ['HTTP sin cifrar: Cualquiera en la misma red puede espiar tu tráfico.', 'Certificados autofirmados: Dan error y no son de confianza.', 'Mezcla de contenido: Webs en HTTPS que cargan HTTP muestran avisos.', 'Complejidad técnica: Implementar HTTPS requiere configuración.'],
+    examples: 'HTTP es como enviar postal sin sobre: cualquiera puede leerla. HTTPS es como meter la postal en un sobre sellado.',
+    tips: ['Nunca introduzcas contraseñas en webs sin HTTPS (candado)', 'HTTP/3 (QUIC) es la nueva versión más rápida', 'HTTPS Everywhere redirecciona automáticamente a segura'],
+  },
+  hosting_dominio: {
+    id: 'hosting_dominio', name: 'Hosting y Dominio', category: 'Infraestructura Web', icon: Server, color: 'amber',
+    desc: 'Para que una web esté en Internet necesitas: dominio (el nombre, como midominio.com) y hosting (el espacio donde viven los archivos, en un servidor).\n\nEl dominio es como el nombre de la tienda; el hosting es el local físico.',
+    pros: ['Separación: Puedes cambiar hosting sin cambiar tu nombre.', 'Escalabilidad: Los servicios escalan según el tráfico.', 'Dominios baratos: .com/.es rondan 10-15€/año.', 'CDN global: Cloudflare acelera entrega desde servidores cercanos.'],
+    cons: ['Coste variable: Hosting compartido ~5€/mes vs dedicado ~100€/mes.', 'Contratos a largo plazo: Muchos requieren pago anual.', 'Migraciones complicadas: Mover web grande puede ser técnico.', 'Proveedores cuestionables: Algunos sobrevenden servidores.'],
+    examples: 'Stack: Dominio en Namecheap + Hosting en Cloudflare Pages (gratis para estáticos) + SSL de Let\'s Encrypt (gratis) = web pro por ~15$/año.',
+    tips: ['Si usas WordPress, hosting especializado puede ser mejor', 'Cloudflare Pages ofrece hosting estático gratis con CDN', 'Verifica que el hosting incluye SSL antes de comprar'],
+  },
+};
+
+// ==========================================
+// 4. BASE DE DATOS: NAVEGADORES
+// ==========================================
+const navegadoresData = {
+  chromeMozilla: {
+    id: 'chromeMozilla', name: 'Google Chrome vs Mozilla Firefox', category: 'Comparativa de Navegadores', icon: Globe, color: 'blue',
+    desc: 'Chrome y Firefox son los dos navegadores principales de código abierto. Chrome pertenece a Google; Firefox es de la fundación Mozilla sin fines de lucro.\n\nDiferencia clave: Firefox NO rastrea tu historial para vender publicidad. Firefox prioriza privacidad; Chrome prioriza integración con ecosistema Google.',
+    pros: ['Chrome: Velocidad máxima, extensiones infinitas, sincronización con cuenta Google.', 'Firefox: Código abierto real, mejor privacidad, menor consumo de RAM.', 'Firefox: engine Gecko más respetuoso con estándares web.', 'Chrome: Mejor integración con servicios Google.'],
+    cons: ['Chrome: Consumo alto de RAM (cada pestaña es proceso separado).', 'Chrome: Recopilación de datos de uso para Google.', 'Firefox: Menor cantidad de extensiones que Chrome.', 'Firefox: Algunos sitios optimizados solo para Chrome pueden tener problemas.'],
+    examples: 'Usuario que vive en ecosistema Google → Chrome. Usuario preocupado por privacidad → Firefox.',
+    tips: ['Instala ambos y usa cada uno para lo que mejor se adapte', 'En Firefox, about:config permite ajustes finos', 'Usa Ctrl+Shift+P para ventana privada en Chrome'],
+  },
+  edgeSafari: {
+    id: 'edgeSafari', name: 'Microsoft Edge y Safari', category: 'Navegadores de Sistema', icon: Monitor, color: 'purple',
+    desc: 'Edge es el navegador de Microsoft en Windows 10/11. Excelente rendimiento en batería, basado en Chromium, con integración Windows.\n\nSafari es exclusivo de Apple (macOS, iOS). Optimizado para batería, pero solo funciona en dispositivos Apple.',
+    pros: ['Edge: Excelente rendimiento en batería vs Chrome.', 'Edge: Colecciones (guardar grupos de pestañas).', 'Safari: Optimización de batería líder en Macs.', 'Safari: Tracking prevention automático.'],
+    cons: ['Edge: Preinstalado en Windows, ventaja pero no obligatorio.', 'Safari: Solo funciona en dispositivos Apple.', 'Edge: Colecciones son ecosistema Microsoft.', 'Safari: Algunas webs específicas para Chrome pueden no funcionar perfectamente.'],
+    examples: 'MacBook Pro con 10 pestañas: Safari consume 3% CPU vs Chrome 12%. iPhone: Safari es obligatorio por App Store.',
+    tips: ['En Windows, Edge es buena opción si Chrome consume demasiada RAM', 'En Mac, Safari + Bitwarden es combo privacidad+velocidad', 'iPhone/iPad: Safari es obligatorio por requisitos App Store'],
+  },
+  busqueda_avanzada: {
+    id: 'busqueda_avanzada', name: 'Búsqueda Avanzada y Operadores', category: 'Técnicas de Búsqueda', icon: Search, color: 'cyan',
+    desc: 'La mayoría usa Google mal: escribe frases completas como si hablaran con humano. Los operadores booleanos filtran resultados.\n\nGoogle procesa ~3.500 millones de búsquedas/día. Saber buscar te separa del 99% que pierde tiempo.',
+    pros: ['Comillas (""): Busca frase exacta, elimina ruido.', 'Guión (-): Excluye términos unwanted.', 'site: Limita a dominio específico (.gob.es, .edu.es).', 'filetype: Busca solo PDFs, DOCs específicos.'],
+    cons: ['Sintaxis olvidadiza: Un error y no funciona.', 'No todos los motores soportan todos los operadores.', 'Google personaliza resultados basándose en historial.', 'Búsqueda por voz ha reducido uso de operadores.'],
+    examples: '"becasMaster" site:gob.es filetype:pdf -2019 → Solo resultados oficiales PDFs, excluyendo archivos antiguos.',
+    tips: ['Usa site:gob.es para información oficial fiable', 'Usa filetype:pdf para documentos específicos', 'Usa - para excluir palabras', 'Combina: "trabajo" "remoto" site:infojobs.net'],
+  },
+  fake_news: {
+    id: 'fake_news', name: 'Detectar Fake News y Desinformación', category: 'Pensamiento Crítico Digital', icon: AlertTriangle, color: 'red',
+    desc: 'La habilidad más valiosa no es encontrar información, sino verificar su autenticidad. Fake news están en todas partes.\n\nEl "cotejo" significa no creerte el primer resultado. Cruza con 2-3 fuentes fiables antes de dar algo por válido.',
+    pros: ['Pensamiento crítico: Te hace consumidor inteligente.', 'Evita pánico innecesario: Muchas noticias virales son falsas.', 'Protege decisiones: Decisiones basadas en datos falsos llevan a errores.', 'Inmunidad emocional: No caer en manipulación.'],
+    cons: ['Requiere esfuerzo: Verificar toma más tiempo.', 'Sesgo de confirmación: Tiendes a creer lo que ya crees.', 'Info que cambia: Lo cierto hoy puede ser falso mañana.', 'Sobrecarga: Verificar todo puede paralizar.'],
+    examples: 'Red flags: URL rara (googIe.com con I mayúscula), sitio sin autor, fecha antigua presentada como actual, medio sensacionalista.',
+    tips: ['Verifica URL completa: que sea el dominio real', 'Busca el mismo titular en medios conocidos', 'Check Date: muchas noticias falsas son reactivadas', 'Usa Snopes.com o Maldita.es para verificar'],
+  },
 };
 
 // ==========================================
@@ -1135,9 +1258,42 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-violet-50 hover:text-violet-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'red_instalacion',
+    group: 'Navegacion y organizacion',
+    step: '09',
+    title: 'Redes WiFi',
+    subtitle: 'Instalación y configuración',
+    description: 'Aprende a instalar, configurar y optimizar redes WiFi en casa.',
+    icon: Wifi,
+    activeClass: 'bg-cyan-600 text-white shadow-xl border-cyan-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-cyan-50 hover:text-cyan-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'red_basicos',
+    group: 'Navegacion y organizacion',
+    step: '10',
+    title: 'Internet',
+    subtitle: 'Fundamentos y conexión',
+    description: 'Comprende cómo funciona Internet: protocolos, DNS, IP y más.',
+    icon: Globe,
+    activeClass: 'bg-blue-600 text-white shadow-xl border-blue-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-blue-50 hover:text-blue-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'navegadores',
+    group: 'Navegacion y organizacion',
+    step: '11',
+    title: 'Navegadores',
+    subtitle: 'Buscadores y navegación web',
+    description: 'Domina navegadores, buscadores y técnicas de búsqueda efectiva.',
+    icon: AppWindow,
+    activeClass: 'bg-purple-600 text-white shadow-xl border-purple-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-purple-50 hover:text-purple-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'content',
     group: 'Productividad',
-    step: '09',
+    step: '12',
     title: 'Contenido',
     subtitle: 'Creacion de contenido digital',
     description: 'Aprende a crear contenido efectivo: copywriting, blogs, redes sociales, video, podcast y buenas practicas.',
@@ -1148,7 +1304,7 @@ const tabConfig = [
   {
     id: 'files',
     group: 'Navegacion y organizacion',
-    step: '09',
+    step: '13',
     title: 'Archivos',
     subtitle: 'Orden, formatos y carpetas',
     description: 'Organiza documentos y entiende como se almacenan.',
@@ -1159,7 +1315,7 @@ const tabConfig = [
   {
     id: 'keyboard',
     group: 'Productividad',
-    step: '10',
+    step: '14',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
     description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
@@ -1170,7 +1326,7 @@ const tabConfig = [
   {
     id: 'office',
     group: 'Productividad',
-    step: '11',
+    step: '15',
     title: 'Ofimatica',
     subtitle: 'Documentos, calculo y presentacion',
     description: 'Elige la herramienta adecuada para redactar, calcular, presentar y compartir.',
@@ -1181,7 +1337,7 @@ const tabConfig = [
   {
     id: 'ai',
     group: 'Inteligencia artificial',
-    step: '12',
+    step: '16',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
     description: 'Explora modelos, asistentes y creadores multimedia.',
@@ -1192,7 +1348,7 @@ const tabConfig = [
   {
     id: 'assessment',
     group: 'Evaluacion final',
-    step: '13',
+    step: '17',
     title: 'Ponte a prueba',
     subtitle: 'Retos, orden y clasificacion',
     description: 'Reune todo lo aprendido en quizzes, arrastre, orden y retos finales.',
@@ -1212,6 +1368,9 @@ const tabDataMap = {
   security: securityData,
   email: emailData,
   desktop: {},
+  red_instalacion: redInstalacionData,
+  red_basicos: redBasicosData,
+  navegadores: navegadoresData,
   content: contentData,
   files: filesData,
   keyboard: keyboardData,
@@ -2281,6 +2440,381 @@ export default function App() {
         </div>
       )}
     </div>
+    );
+  };
+
+  // PESTAÑA 09: REDES - INSTALACIÓN
+  const renderRedInstalacionTab = () => {
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+          <div className="flex items-center gap-4 mb-6">
+            <div className={`p-3 rounded-sm ${isDark ? 'bg-cyan-500/20' : 'bg-cyan-100'}`}>
+              <Wifi className={isDark ? 'text-cyan-400' : 'text-cyan-600'} size={28} />
+            </div>
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-cyan-300/70' : 'text-cyan-600/70'}`}>Redes y conexión</p>
+              <h2 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Instalación y Configuración de Red WiFi</h2>
+            </div>
+          </div>
+          <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            Aprende a planificar, instalar y optimizar redes WiFi en casa. Desde elegir la ubicación del router hasta configurar un sistema mesh completo.
+          </p>
+        </div>
+
+        {/* WiFi Bands Visual Selector */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Simulador de Cobertura WiFi</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* 2.4GHz Coverage */}
+            <button
+              onClick={() => handleSelect('wifi_bands', null, redInstalacionData)}
+              className={`p-4 rounded-sm border-2 transition-all ${
+                selectedItem?.id === 'wifi_bands'
+                  ? 'border-cyan-400 bg-cyan-500/20'
+                  : 'border-slate-600 bg-slate-800/50 hover:border-cyan-400/50'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Radio size={20} className={isDark ? 'text-cyan-400' : 'text-cyan-600'} />
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>2.4 GHz</span>
+              </div>
+              <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Alcance: 40m · Velocidad: 600Mbps</p>
+              <div className="mt-3 h-2 rounded-full bg-slate-700 overflow-hidden">
+                <div className="h-full w-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full opacity-50"></div>
+              </div>
+              <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Penetra paredes</p>
+            </button>
+
+            {/* 5GHz Coverage */}
+            <button
+              onClick={() => handleSelect('wifi_bands', null, redInstalacionData)}
+              className={`p-4 rounded-sm border-2 transition-all ${
+                selectedItem?.id === 'wifi_bands'
+                  ? 'border-purple-400 bg-purple-500/20'
+                  : 'border-slate-600 bg-slate-800/50 hover:border-purple-400/50'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Radio size={20} className={isDark ? 'text-purple-400' : 'text-purple-600'} />
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>5 GHz</span>
+              </div>
+              <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Alcance: 15m · Velocidad: 6Gbps</p>
+              <div className="mt-3 h-2 rounded-full bg-slate-700 overflow-hidden">
+                <div className="h-full w-2/5 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-full opacity-50"></div>
+              </div>
+              <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Máxima velocidad</p>
+            </button>
+
+            {/* Mesh Network */}
+            <button
+              onClick={() => handleSelect('mesh_network', null, redInstalacionData)}
+              className={`p-4 rounded-sm border-2 transition-all ${
+                selectedItem?.id === 'mesh_network'
+                  ? 'border-emerald-400 bg-emerald-500/20'
+                  : 'border-slate-600 bg-slate-800/50 hover:border-emerald-400/50'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Network size={20} className={isDark ? 'text-emerald-400' : 'text-emerald-600'} />
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>WiFi Mesh</span>
+              </div>
+              <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Cobertura: 200m²+ · Sin cortes</p>
+              <div className="mt-3 h-2 rounded-full bg-slate-700 overflow-hidden">
+                <div className="h-full w-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full opacity-50"></div>
+              </div>
+              <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Red unificada</p>
+            </button>
+          </div>
+        </div>
+
+        {/* Router Config Simulator */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Panel de Configuración del Router</h3>
+            <button onClick={() => handleSelect('router_config', null, redInstalacionData)} className={`px-3 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-widest border transition-all ${isDark ? 'border-slate-600 text-slate-300 hover:bg-slate-800' : 'border-slate-300 text-slate-600 hover:bg-slate-100'}`}>
+              Ver detalles
+            </button>
+          </div>
+          <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-3 h-3 rounded-full bg-emerald-500`}></div>
+              <span className={`text-sm font-medium ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>192.168.1.1 - Conexión activa</span>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 rounded-sm bg-slate-800/50">
+                <div className="flex items-center gap-2">
+                  <Wifi size={16} className="text-slate-400" />
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Nombre SSID</span>
+                </div>
+                <span className={`text-sm font-mono ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>MiCasa_WiFi</span>
+              </div>
+              <div className="flex items-center justify-between p-3 rounded-sm bg-slate-800/50">
+                <div className="flex items-center gap-2">
+                  <Signal size={16} className="text-slate-400" />
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Canal activo</span>
+                </div>
+                <span className={`text-sm font-mono ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>6 (2.4GHz) · 36 (5GHz)</span>
+              </div>
+              <div className="flex items-center justify-between p-3 rounded-sm bg-slate-800/50">
+                <div className="flex items-center gap-2">
+                  <Gauge size={16} className="text-slate-400" />
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Velocidad estimada</span>
+                </div>
+                <span className={`text-sm font-mono ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>450 Mbps ↓ / 50 Mbps ↑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Speed Test Interactive */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Test de Velocidad Interactivo</h3>
+          <div className={`rounded-sm border p-6 text-center ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+            <button onClick={() => handleSelect('speed_test', null, redInstalacionData)} className={`px-6 py-3 rounded-sm font-bold uppercase tracking-widest transition-all ${isDark ? 'bg-amber-500/20 text-amber-400 border border-amber-500/50 hover:bg-amber-500/30' : 'bg-amber-100 text-amber-700 border border-amber-300 hover:bg-amber-200'}`}>
+              <Signal size={20} className="inline mr-2" />
+              Iniciar Test
+            </button>
+            <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="p-3 rounded-sm bg-slate-800/50">
+                <p className={`text-[10px] uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Descarga</p>
+                <p className={`text-xl font-black ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>— Mbps</p>
+              </div>
+              <div className="p-3 rounded-sm bg-slate-800/50">
+                <p className={`text-[10px] uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Subida</p>
+                <p className={`text-xl font-black ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>— Mbps</p>
+              </div>
+              <div className="p-3 rounded-sm bg-slate-800/50">
+                <p className={`text-[10px] uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Ping</p>
+                <p className={`text-xl font-black ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>— ms</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // PESTAÑA 10: INTERNET FUNDAMENTOS
+  const renderRedBasicosTab = () => {
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+          <div className="flex items-center gap-4 mb-6">
+            <div className={`p-3 rounded-sm ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+              <Globe className={isDark ? 'text-blue-400' : 'text-blue-600'} size={28} />
+            </div>
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-blue-300/70' : 'text-blue-600/70'}`}>Internet y conexión</p>
+              <h2 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Fundamentos de Internet</h2>
+            </div>
+          </div>
+          <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            Comprende cómo funciona Internet: protocolos TCP/IP, sistema DNS, tecnología web (HTML/HTTP/HTTPS) y la infraestructura que hay detrás.
+          </p>
+        </div>
+
+        {/* DNS Visualization */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>¿Cómo funciona DNS?</h3>
+          <div className={`rounded-sm border p-4 ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+            <div className="flex items-center justify-between gap-2 overflow-x-auto pb-2">
+              {[
+                { label: 'Tu PC', icon: Monitor, color: 'slate' },
+                { label: 'DNS ISP', icon: Globe, color: 'cyan' },
+                { label: 'DNS Raíz', icon: Database, color: 'purple' },
+                { label: 'google.com', icon: Server, color: 'blue' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-sm border-2 flex items-center justify-center ${isDark ? 'border-slate-600 bg-slate-800' : 'border-slate-300 bg-slate-100'}`}>
+                    <item.icon size={20} className={isDark ? 'text-slate-400' : 'text-slate-500'} />
+                  </div>
+                  <p className={`text-[10px] font-bold text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.label}</p>
+                  {i < 3 && <ArrowRight size={16} className={`flex-shrink-0 mx-1 ${isDark ? 'text-slate-600' : 'text-slate-300'}`} />}
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 p-3 rounded-sm bg-slate-800/50">
+              <p className={`text-xs font-mono ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>google.com → 142.250.80.46</p>
+              <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Traducción completada en 12ms</p>
+            </div>
+          </div>
+          <button onClick={() => handleSelect('dns_servidores', null, redBasicosData)} className={`mt-4 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-widest border transition-all ${isDark ? 'border-purple-500/50 text-purple-400 hover:bg-purple-500/20' : 'border-purple-300 text-purple-600 hover:bg-purple-50'}`}>
+            Profundizar en DNS
+          </button>
+        </div>
+
+        {/* IP Address Display */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Tu Identidad en la Red</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button onClick={() => handleSelect('protocolos_ip', null, redBasicosData)} className={`p-4 rounded-sm border text-left ${isDark ? 'border-slate-700 bg-slate-900 hover:border-blue-500/50' : 'border-slate-200 bg-white hover:border-blue-300'}`}>
+              <div className="flex items-center gap-3 mb-2">
+                <Cable size={20} className={isDark ? 'text-blue-400' : 'text-blue-600'} />
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>IP Privada</span>
+              </div>
+              <p className={`text-sm font-mono ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>192.168.1.42</p>
+              <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Tu red local (casa)</p>
+            </button>
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+              <div className="flex items-center gap-3 mb-2">
+                <Globe size={20} className={isDark ? 'text-emerald-400' : 'text-emerald-600'} />
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>IP Pública</span>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full ${isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`}>Tu proveedor</span>
+              </div>
+              <p className={`text-sm font-mono ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>85.84.123.456</p>
+              <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Lo que ve Internet</p>
+            </div>
+          </div>
+        </div>
+
+        {/* HTTP/HTTPS Visual */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>HTTP vs HTTPS</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button onClick={() => handleSelect('html_http_https', null, redBasicosData)} className={`p-4 rounded-sm border text-left ${isDark ? 'border-red-500/30 bg-red-950/30 hover:border-red-500/60' : 'border-red-200 bg-red-50 hover:border-red-300'}`}>
+              <div className="flex items-center gap-3 mb-3">
+                <XCircle size={24} className="text-red-500" />
+                <span className={`font-black text-lg ${isDark ? 'text-red-400' : 'text-red-600'}`}>HTTP</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <XCircle size={14} className="text-red-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Sin encriptación</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <XCircle size={14} className="text-red-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Datos visibles</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <XCircle size={14} className="text-red-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Vulnerable a interceptación</span>
+                </div>
+              </div>
+            </button>
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-emerald-500/30 bg-emerald-950/30' : 'border-emerald-200 bg-emerald-50'}`}>
+              <div className="flex items-center gap-3 mb-3">
+                <CheckCircle2 size={24} className="text-emerald-500" />
+                <span className={`font-black text-lg ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>HTTPS</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>TLS/SSL cifrado</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Certificado de identidad</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                  <span className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Datos protegidos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // PESTAÑA 11: NAVEGADORES
+  const renderNavegadoresTab = () => {
+    return (
+      <div className="flex flex-col gap-6 animate-in fade-in duration-500">
+        <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>
+          <div className="flex items-center gap-4 mb-6">
+            <div className={`p-3 rounded-sm ${isDark ? 'bg-purple-500/20' : 'bg-purple-100'}`}>
+              <AppWindow className={isDark ? 'text-purple-400' : 'text-purple-600'} size={28} />
+            </div>
+            <div>
+              <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${isDark ? 'text-purple-300/70' : 'text-purple-600/70'}`}>Navegación web</p>
+              <h2 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Navegadores y Búsqueda Efectiva</h2>
+            </div>
+          </div>
+          <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            Domina Chrome, Firefox, Edge y Safari. Aprende técnicas de búsqueda avanzada con operadores booleanos y cómo detectar fake news.
+          </p>
+        </div>
+
+        {/* Browser Selector */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Comparativa de Navegadores</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { id: 'chromeMozilla', name: 'Chrome', color: 'blue', icon: Globe },
+              { id: 'chromeMozilla', name: 'Firefox', color: 'orange', icon: Globe },
+              { id: 'edgeSafari', name: 'Edge', color: 'cyan', icon: Monitor },
+              { id: 'edgeSafari', name: 'Safari', color: 'purple', icon: Monitor },
+            ].map((browser) => (
+              <button
+                key={browser.name}
+                onClick={() => handleSelect(browser.id, null, navegadoresData)}
+                className={`p-4 rounded-sm border transition-all hover:scale-[1.02] ${
+                  selectedItem?.id === browser.id
+                    ? `border-${browser.color}-400 bg-${browser.color}-500/20`
+                    : isDark ? 'border-slate-700 bg-slate-900 hover:border-slate-500' : 'border-slate-200 bg-white hover:border-slate-300'
+                }`}
+              >
+                <browser.icon size={24} className={`mx-auto mb-2 ${isDark ? 'text-slate-300' : 'text-slate-500'}`} />
+                <p className={`text-sm font-bold text-center ${isDark ? 'text-white' : 'text-slate-800'}`}>{browser.name}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Search Operators */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Operadores de Búsqueda Avanzada</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[
+              { op: '"texto"', desc: 'Frase exacta', example: '"curso Python gratis"' },
+              { op: '-palabra', desc: 'Excluir término', example: 'receta -tortilla -cebolla' },
+              { op: 'site:dominio', desc: 'Solo ese sitio', example: 'becas site:gob.es' },
+              { op: 'filetype:pdf', desc: 'Solo documentos', example: 'informe filetype:pdf' },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleSelect('busqueda_avanzada', null, navegadoresData)}
+                className={`p-3 rounded-sm border text-left ${isDark ? 'border-slate-700 bg-slate-900 hover:border-cyan-500/50' : 'border-slate-200 bg-white hover:border-cyan-300'}`}
+              >
+                <div className="flex items-center gap-3">
+                  <code className={`px-2 py-1 rounded text-xs font-mono ${isDark ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-100 text-cyan-700'}`}>{item.op}</code>
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{item.desc}</span>
+                </div>
+                <p className={`text-[10px] mt-1 font-mono ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.example}</p>
+              </button>
+            ))}
+          </div>
+          <button onClick={() => handleSelect('busqueda_avanzada', null, navegadoresData)} className={`mt-4 px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-widest border transition-all ${isDark ? 'border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20' : 'border-cyan-300 text-cyan-600 hover:bg-cyan-50'}`}>
+            Profundizar en búsqueda
+          </button>
+        </div>
+
+        {/* Fake News Detector */}
+        <div className={`rounded-sm border p-5 sm:p-6 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Detector de Fake News</h3>
+            <button onClick={() => handleSelect('fake_news', null, navegadoresData)} className={`px-3 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-widest border transition-all ${isDark ? 'border-red-500/50 text-red-400 hover:bg-red-500/20' : 'border-red-300 text-red-600 hover:bg-red-50'}`}>
+              Ver Red Flags
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+            {[
+              { flag: 'URL rara', icon: AlertTriangle },
+              { flag: 'Sin autor', icon: User },
+              { flag: 'Fecha falsa', icon: Calendar },
+              { flag: 'Sensacional', icon: Zap },
+              { flag: 'Sin fuentes', icon: FileQuestion },
+            ].map((item, i) => (
+              <div key={i} className={`p-3 rounded-sm border text-center ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+                <item.icon size={20} className={`mx-auto mb-1 ${isDark ? 'text-red-400' : 'text-red-500'}`} />
+                <p className={`text-[10px] font-bold ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{item.flag}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -4002,6 +4536,9 @@ export default function App() {
           {activeTab === 'security' && renderSecurityTab()}
           {activeTab === 'email' && renderEmailTab()}
           {activeTab === 'desktop' && <DesktopTab />}
+          {activeTab === 'red_instalacion' && renderRedInstalacionTab()}
+          {activeTab === 'red_basicos' && renderRedBasicosTab()}
+          {activeTab === 'navegadores' && renderNavegadoresTab()}
           {activeTab === 'content' && renderContentTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
