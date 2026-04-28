@@ -23,6 +23,31 @@ const BrowserLogos = {
   safari: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/safari/safari.svg',
 };
 
+const SoftwareLogos = {
+  windows: 'https://cdn.simpleicons.org/windows',
+  apple: 'https://cdn.simpleicons.org/apple',
+  linux: 'https://cdn.simpleicons.org/linux',
+  android: 'https://cdn.simpleicons.org/android',
+  chrome: 'https://cdn.simpleicons.org/googlechrome',
+  firefox: 'https://cdn.simpleicons.org/firefox',
+  vscode: 'https://cdn.simpleicons.org/visualstudiocode',
+  word: 'https://cdn.simpleicons.org/microsoftword',
+  excel: 'https://cdn.simpleicons.org/microsoftexcel',
+  powerpoint: 'https://cdn.simpleicons.org/microsoftpowerpoint',
+  photoshop: 'https://cdn.simpleicons.org/adobephotoshop',
+  illustrator: 'https://cdn.simpleicons.org/adobeillustrator',
+  slack: 'https://cdn.simpleicons.org/slack',
+  zoom: 'https://cdn.simpleicons.org/zoom',
+  github: 'https://cdn.simpleicons.org/github',
+  git: 'https://cdn.simpleicons.org/git',
+  npm: 'https://cdn.simpleicons.org/npm',
+  python: 'https://cdn.simpleicons.org/python',
+  javascript: 'https://cdn.simpleicons.org/javascript',
+  react: 'https://cdn.simpleicons.org/react',
+  vue: 'https://cdn.simpleicons.org/vuedotjs',
+  angular: 'https://cdn.simpleicons.org/angular',
+};
+
 // ==========================================
 // 1. BASE DE DATOS: HARDWARE (AMPLIADA)
 // ==========================================
