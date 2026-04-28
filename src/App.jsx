@@ -2403,6 +2403,14 @@ export default function App() {
 
   // PESTAÑA: ESCRITORIO (Simulador Interactivo)
   const renderDesktopTab = () => {
+    // Estados locales del Escritorio
+    const [showExplorer, setShowExplorer] = useState(false);
+    const [showStartMenu, setShowStartMenu] = useState(false);
+    const [selectedDesktopItem, setSelectedDesktopItem] = useState(null);
+    const [draggingItem, setDraggingItem] = useState(null);
+    const [trashHover, setTrashHover] = useState(false);
+    const [openWindows, setOpenWindows] = useState([]);
+
     return (
     <div className="relative overflow-hidden rounded-sm border animate-in fade-in duration-500 bg-slate-100 border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]">
       {/* Header */}
@@ -2421,21 +2429,21 @@ export default function App() {
         
         {/* Desktop Icons - Left Side */}
         <div className="absolute top-4 left-4 flex flex-col gap-6">
-          <button onClick={() => handleSelect('this_pc', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'this_pc' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'this_pc' ? 'bg-blue-300 ring-4 ring-blue-400' : 'bg-blue-200 group-hover:bg-blue-300'}`}>
-              <Monitor size={32} className={selectedItem?.id === 'this_pc' ? 'text-blue-700' : 'text-blue-600'} />
+          <button onClick={() => setSelectedDesktopItem(desktopData.this_pc)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'this_pc' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedDesktopItem?.id === 'this_pc' ? 'bg-blue-300 ring-4 ring-blue-400' : 'bg-blue-200 group-hover:bg-blue-300'}`}>
+              <Monitor size={32} className={selectedDesktopItem?.id === 'this_pc' ? 'text-blue-700' : 'text-blue-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Este PC</span>
           </button>
-          <button onClick={() => handleSelect('files', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'files' ? 'bg-amber-300 ring-4 ring-amber-400' : 'bg-amber-200 group-hover:bg-amber-300'}`}>
-              <FolderOpen size={32} className={selectedItem?.id === 'files' ? 'text-amber-700' : 'text-amber-600'} />
+          <button onClick={() => setSelectedDesktopItem(desktopData.files)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'files' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedDesktopItem?.id === 'files' ? 'bg-amber-300 ring-4 ring-amber-400' : 'bg-amber-200 group-hover:bg-amber-300'}`}>
+              <FolderOpen size={32} className={selectedDesktopItem?.id === 'files' ? 'text-amber-700' : 'text-amber-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Archivos</span>
           </button>
-          <button onClick={() => handleSelect('trash', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'trash' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : 'bg-rose-200 group-hover:bg-rose-300'}`}>
-              <Trash2 size={32} className={selectedItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'} />
+          <button onClick={() => setSelectedDesktopItem(desktopData.trash)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'trash' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedDesktopItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : 'bg-rose-200 group-hover:bg-rose-300'}`}>
+              <Trash2 size={32} className={selectedDesktopItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'} />
             </div>
             <span className="text-[11px] font-medium text-slate-700 text-center">Papelera</span>
           </button>
@@ -2443,35 +2451,34 @@ export default function App() {
 
         {/* Desktop Icons - Right Side */}
         <div className="absolute top-4 right-4 flex flex-col gap-4">
-          <button onClick={() => handleSelect('informe_txt', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'informe_txt' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'informe_txt' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
-              <FileText size={28} className={selectedItem?.id === 'informe_txt' ? 'text-emerald-700' : 'text-emerald-600'} />
+          <button onClick={() => setSelectedDesktopItem(desktopData.informe_txt)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'informe_txt' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedDesktopItem?.id === 'informe_txt' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
+              <FileText size={28} className={selectedDesktopItem?.id === 'informe_txt' ? 'text-emerald-700' : 'text-emerald-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Informe.txt</span>
           </button>
-          <button onClick={() => handleSelect('foto_png', null, desktopData)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedItem?.id === 'foto_png' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedItem?.id === 'foto_png' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
-              <ImageIcon size={28} className={selectedItem?.id === 'foto_png' ? 'text-purple-700' : 'text-purple-600'} />
+          <button onClick={() => setSelectedDesktopItem(desktopData.foto_png)} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'foto_png' ? 'scale-110' : 'hover:scale-105'}`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedDesktopItem?.id === 'foto_png' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
+              <ImageIcon size={28} className={selectedDesktopItem?.id === 'foto_png' ? 'text-purple-700' : 'text-purple-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Foto.png</span>
           </button>
         </div>
 
-        {/* Center Window */}
+        {/* Center Window - Solo visible si showExplorer es true */}
+        {showExplorer && (
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] rounded-lg bg-white border border-slate-200 shadow-2xl">
-          <button onClick={() => handleSelect('explorer', null, desktopData)} className="w-full text-left">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
-              <div className="flex items-center gap-2">
-                <FolderOpen size={16} className="text-amber-500" />
-                <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">─</button>
-                <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">□</button>
-                <button className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500">✕</button>
-              </div>
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
+            <div className="flex items-center gap-2">
+              <FolderOpen size={16} className="text-amber-500" />
+              <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
             </div>
-          </button>
+            <div className="flex items-center gap-1">
+              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">─</button>
+              <button className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500">□</button>
+              <button onClick={() => setShowExplorer(false)} className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500">✕</button>
+            </div>
+          </div>
           <div className="p-4">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-10 h-10 rounded bg-blue-100 flex items-center justify-center text-blue-600">
@@ -2502,9 +2509,11 @@ export default function App() {
             </div>
           </div>
         </div>
+        )}
 
-        {/* Start Menu */}
-        <button onClick={() => handleSelect('start_menu', null, desktopData)} className="absolute bottom-16 left-4 w-[260px] bg-white rounded-lg border border-slate-200 shadow-2xl p-3 z-50 text-left">
+        {/* Start Menu - Solo visible si showStartMenu es true */}
+        {showStartMenu && (
+        <div className="absolute bottom-16 left-4 w-[260px] bg-white rounded-lg border border-slate-200 shadow-2xl p-3 z-50 text-left">
           <div className="flex items-center gap-3 px-3 py-2 mb-2 border-b border-slate-100">
             <div className="w-8 h-8 rounded bg-violet-600 flex items-center justify-center text-white">
               <Layers size={18} />
@@ -2525,7 +2534,8 @@ export default function App() {
               <Globe size={16} className="text-blue-500" /> Navegador
             </button>
           </div>
-        </button>
+        </div>
+        )}
 
         {/* Trash Icon - Bottom Right */}
         <button onClick={() => handleSelect('trash', null, desktopData)} className="absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group">
@@ -2538,7 +2548,7 @@ export default function App() {
         {/* TASKBAR */}
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300 flex items-center px-2">
           {/* Start Button */}
-          <button onClick={() => handleSelect('start_menu', null, desktopData)} className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors">
+          <button onClick={() => setShowStartMenu(!showStartMenu)} className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors">
             <Layers size={18} className="text-violet-600" />
             <span className="text-sm font-bold text-slate-700">Inicio</span>
           </button>
@@ -2547,7 +2557,7 @@ export default function App() {
           <div className="w-px h-6 bg-slate-300 mx-2"></div>
 
           {/* App Icons */}
-          <button onClick={() => handleSelect('explorer', null, desktopData)} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 text-slate-700">
+          <button onClick={() => setShowExplorer(!showExplorer)} className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 text-slate-700">
             <FolderOpen size={16} className="text-amber-500" />
             <span className="text-sm">Explorador</span>
           </button>
@@ -2566,36 +2576,56 @@ export default function App() {
             <span className="text-xs text-slate-600">100%</span>
           </button>
 
-          <button onClick={() => handleSelect('taskbar', null, desktopData)} className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
+          <button onClick={() => setSelectedDesktopItem(desktopData.taskbar)} className="flex items-center gap-2 px-3 py-1.5 rounded hover:bg-slate-100">
             <span className="text-xs text-slate-600">🔊</span>
             <span className="text-xs text-slate-600">🔔</span>
           </button>
 
           {/* Clock */}
-          <button onClick={() => handleSelect('system_tray', null, desktopData)} className="flex flex-col items-center px-3 py-1 rounded hover:bg-slate-100">
+          <button onClick={() => setSelectedDesktopItem(desktopData.system_tray)} className="flex flex-col items-center px-3 py-1 rounded hover:bg-slate-100">
             <span className="text-xs font-medium text-slate-700">{new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
             <span className="text-xs text-slate-500">{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
           </button>
         </div>
       </div>
 
-      {/* Instructions Panel */}
-      <div className="p-4 bg-slate-50 border-t border-slate-200">
-        <h3 className="font-bold text-slate-800 mb-2">
-          {selectedItem ? `Seleccionado: ${selectedItem.name}` : 'Explorando el Escritorio'}
-        </h3>
-        <ul className="text-sm text-slate-600 space-y-1">
-          <li>• <strong>Iconos del escritorio:</strong> Este PC, Archivos y Papelera</li>
-          <li>• <strong>Ventana abierta:</strong> Explorador de archivos con estructura de carpetas</li>
-          <li>• <strong>Barra de tareas:</strong> Inicio, apps abiertas, notificaciones y reloj</li>
-          <li>• <strong>Zona inferior:</strong> Menú Inicio y system tray con estado de red</li>
-        </ul>
-        {selectedItem && (
+      {/* Panel Inferior: Descripción del elemento seleccionado */}
+      {selectedDesktopItem && (
+        <div className="p-4 bg-gradient-to-r from-violet-50 to-purple-50 border-t border-violet-200">
+          <div className="flex items-start gap-4">
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center bg-${selectedDesktopItem.color}-100`}>
+              {selectedDesktopItem.icon && <selectedDesktopItem.icon size={24} className={`text-${selectedDesktopItem.color}-600`} />}
+            </div>
+            <div className="flex-1">
+              <h4 className="font-bold text-slate-800">{selectedDesktopItem.name}</h4>
+              <p className="text-sm text-slate-600 mt-1">{selectedDesktopItem.desc}</p>
+              {selectedDesktopItem.details && (
+                <ul className="mt-2 space-y-1">
+                  {selectedDesktopItem.details.split('\n').map((line, i) => (
+                    <li key={i} className="text-xs text-slate-500">• {line}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Panel de Instrucciones (cuando no hay nada seleccionado) */}
+      {!selectedDesktopItem && (
+        <div className="p-4 bg-slate-50 border-t border-slate-200">
+          <h3 className="font-bold text-slate-800 mb-2">Explorando el Escritorio</h3>
+          <ul className="text-sm text-slate-600 space-y-1">
+            <li>• <strong>Iconos del escritorio:</strong> Este PC, Archivos y Papelera</li>
+            <li>• <strong>Ventana del Explorador:</strong> Clic en "Explorador" de la taskbar para abrir</li>
+            <li>• <strong>Barra de tareas:</strong> Inicio, apps abiertas, notificaciones y reloj</li>
+            <li>• <strong>Menú Inicio:</strong> Clic en "Inicio" para abrir</li>
+          </ul>
           <p className="mt-2 text-xs text-violet-600 font-medium">
-            ↑ Consulta el panel derecho para ver la explicación completa
+            ↑ Selecciona un elemento del escritorio para ver su descripción
           </p>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* CTA: Support */}
       <div className="mx-4 mb-4 rounded-sm border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 p-4 backdrop-blur-sm">
