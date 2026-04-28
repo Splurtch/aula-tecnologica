@@ -2410,6 +2410,27 @@ export default function App() {
     const [draggingItem, setDraggingItem] = useState(null);
     const [trashHover, setTrashHover] = useState(false);
     const [openWindows, setOpenWindows] = useState([]);
+    const [explorerPos, setExplorerPos] = useState({ x: 150, y: 80 });
+    const [isDraggingExplorer, setIsDraggingExplorer] = useState(false);
+    const [dragOffsetExplorer, setDragOffsetExplorer] = useState({ x: 0, y: 0 });
+
+    const handleExplorerDragStart = (e) => {
+      setIsDraggingExplorer(true);
+      setDragOffsetExplorer({
+        x: e.clientX - explorerPos.x,
+        y: e.clientY - explorerPos.y
+      });
+    };
+
+    const handleExplorerDragMove = (e) => {
+      if (!isDraggingExplorer) return;
+      setExplorerPos({
+        x: e.clientX - dragOffsetExplorer.x,
+        y: e.clientY - dragOffsetExplorer.y
+      });
+    };
+
+    const handleExplorerDragEnd = () => setIsDraggingExplorer(false);
 
     return (
     <div className="relative overflow-hidden rounded-sm border animate-in fade-in duration-500 bg-slate-100 border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]">
@@ -2425,7 +2446,13 @@ export default function App() {
       </div>
 
       {/* Desktop Simulator Container */}
-      <div className="relative overflow-hidden" style={{ height: '520px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
+      <div 
+        className="relative overflow-hidden" 
+        style={{ height: '520px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}
+        onMouseMove={handleExplorerDragMove}
+        onMouseUp={handleExplorerDragEnd}
+        onMouseLeave={handleExplorerDragEnd}
+      >
         
         {/* Desktop Icons - Left Side */}
         <div className="absolute top-4 left-4 flex flex-col gap-6">
@@ -2467,8 +2494,14 @@ export default function App() {
 
         {/* Center Window - Solo visible si showExplorer es true */}
         {showExplorer && (
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] rounded-lg bg-white border border-slate-200 shadow-2xl">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
+        <div 
+          className="absolute w-[320px] rounded-lg bg-white border border-slate-200 shadow-2xl z-50"
+          style={{ left: explorerPos.x, top: explorerPos.y }}
+        >
+          <div 
+            className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg cursor-move"
+            onMouseDown={handleExplorerDragStart}
+          >
             <div className="flex items-center gap-2">
               <FolderOpen size={16} className="text-amber-500" />
               <span className="text-sm font-bold text-slate-700">Explorador de archivos</span>
@@ -2480,7 +2513,10 @@ export default function App() {
             </div>
           </div>
           <div className="p-4">
-            <div className="flex items-center gap-4 mb-4">
+            <div 
+              onClick={() => setSelectedDesktopItem({ ...desktopData.files, name: 'Documentos', desc: 'Carpeta con tus documentos personales guardados en el sistema.' })}
+              className="flex items-center gap-4 mb-4 cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors"
+            >
               <div className="w-10 h-10 rounded bg-blue-100 flex items-center justify-center text-blue-600">
                 <FileText size={20} />
               </div>
@@ -2489,7 +2525,10 @@ export default function App() {
                 <p className="text-xs text-slate-400">12 archivos</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 mb-4">
+            <div 
+              onClick={() => setSelectedDesktopItem({ ...desktopData.files, name: 'Proyectos', desc: 'Carpeta que contiene tus proyectos de trabajo o estudio.' })}
+              className="flex items-center gap-4 mb-4 cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors"
+            >
               <div className="w-10 h-10 rounded bg-emerald-100 flex items-center justify-center text-emerald-600">
                 <FolderOpen size={20} />
               </div>
@@ -2498,7 +2537,10 @@ export default function App() {
                 <p className="text-xs text-slate-400">5 carpetas</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div 
+              onClick={() => setSelectedDesktopItem({ ...desktopData.files, name: 'Descargas', desc: 'Carpeta con archivos descargados de internet.' })}
+              className="flex items-center gap-4 cursor-pointer hover:bg-slate-50 p-2 rounded-lg transition-colors"
+            >
               <div className="w-10 h-10 rounded bg-purple-100 flex items-center justify-center text-purple-600">
                 <Download size={20} />
               </div>
