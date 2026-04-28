@@ -3971,109 +3971,115 @@ export default function App() {
         </div>
 
         {selectedItem?.id === 'social_media' && (
-          <div className="flex justify-center">
-            <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={SoftwareLogos.instagram} alt="Instagram" className="w-6 h-6" />
-                <span className={`text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Post para RRSS</span>
-              </div>
-              <div className={`p-4 rounded-sm ${isDark ? 'bg-slate-900 border border-slate-700' : 'bg-white border border-slate-200'}`}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-slate-300 rounded-full"></div>
-                  <div className="h-3 w-20 bg-slate-300 rounded"></div>
-                </div>
-                <p className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>El 90% comete este error 🚨</p>
-                <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Pierdes horas redactando y nadie te lee.</p>
-                <ul className={`text-sm mt-3 space-y-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                  <li>👉 Facilita la lectura</li>
-                  <li>👉 Aumenta la retención</li>
-                </ul>
-                <p className={`text-sm font-semibold mt-4 ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>Guárdalo para luego 📌</p>
-              </div>
-              <p className={`text-xs mt-3 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Párrafos de 2 líneas máximo, gancho en primera línea, CTA claro</p>
+          <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={SoftwareLogos.instagram} alt="Instagram" className="w-8 h-8" />
+              <span className={`text-base font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Post para RRSS</span>
             </div>
+            <div className={`p-6 rounded-lg ${isDark ? 'bg-slate-900 border-2 border-slate-700' : 'bg-white border-2 border-slate-200'}`} style={{maxWidth: '400px'}}>
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full"></div>
+                <div className="space-y-2">
+                  <div className="h-4 w-32 bg-slate-300 rounded"></div>
+                  <div className="h-3 w-20 bg-slate-200 rounded"></div>
+                </div>
+              </div>
+              <p className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>El 90% comete este error 🚨</p>
+              <p className={`text-base mt-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Pierdes horas redactando y nadie te lee.</p>
+              <ul className={`text-base mt-4 space-y-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                <li>👉 Facilita la lectura</li>
+                <li>👉 Aumenta la retención</li>
+              </ul>
+              <p className={`text-base font-semibold mt-5 ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>Guárdalo para luego 📌</p>
+            </div>
+            <p className={`text-xs mt-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Párrafos de 2 líneas máximo, gancho en primera línea, CTA claro</p>
           </div>
         )}
 
         {(selectedItem?.id === 'copywriting' || selectedItem?.id === 'blogs') && (
-          <div className="flex justify-center">
-            <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={SoftwareLogos.wordpress} alt="Web" className="w-6 h-6" />
-                <span className={`text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Artículo Web / Blog</span>
-              </div>
-              <div className={`bg-white w-full max-w-md mx-auto p-6 shadow-sm border border-slate-200 ${isDark ? 'bg-slate-800 border-slate-700' : ''}`}>
-                <div className="h-5 w-full bg-slate-800 rounded mb-3"></div>
-                <div className="h-5 w-2/3 bg-slate-800 rounded mb-5"></div>
-                <div className="h-3 w-full bg-slate-300 rounded mb-2"></div>
-                <div className="h-3 w-full bg-slate-300 rounded mb-2"></div>
-                <div className="h-3 w-4/5 bg-slate-300 rounded mb-6"></div>
-                <div className="h-4 w-1/2 bg-emerald-500 rounded mb-3"></div>
-                <div className="flex gap-4 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-slate-400 mt-1"></div>
-                  <div className="h-3 w-full bg-slate-300 rounded mt-1"></div>
-                </div>
-                <div className="flex gap-4 mb-5">
-                  <div className="w-2 h-2 rounded-full bg-slate-400 mt-1"></div>
-                  <div className="h-3 w-5/6 bg-slate-300 rounded mt-1"></div>
-                </div>
-                <div className="border-l-3 border-emerald-500 pl-3 bg-emerald-50 p-3 mb-3">
-                  <div className="h-3 w-full bg-emerald-200 rounded mb-2"></div>
-                  <div className="h-3 w-3/4 bg-emerald-200 rounded"></div>
-                </div>
-              </div>
-              <p className={`text-xs mt-3 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Márgenes anchos, H1/H2 jerárquicos, línea de 70-80 caracteres</p>
+          <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={SoftwareLogos.wordpress} alt="Web" className="w-8 h-8" />
+              <span className={`text-base font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Artículo Web / Blog</span>
             </div>
+            <div className={`bg-white w-full max-w-2xl mx-auto p-8 shadow-lg border border-slate-200 ${isDark ? 'bg-slate-800 border-slate-700' : ''}`}>
+              <div className="h-8 w-full bg-slate-800 rounded mb-4"></div>
+              <div className="h-6 w-2/3 bg-slate-700 rounded mb-6"></div>
+              <div className="space-y-3 mb-6">
+                <div className="h-4 w-full bg-slate-300 rounded"></div>
+                <div className="h-4 w-full bg-slate-300 rounded"></div>
+                <div className="h-4 w-4/5 bg-slate-300 rounded"></div>
+                <div className="h-4 w-full bg-slate-300 rounded"></div>
+              </div>
+              <div className="h-6 w-1/3 bg-emerald-500 rounded mb-5"></div>
+              <div className="space-y-3 mb-6">
+                <div className="flex gap-3">
+                  <div className="w-3 h-3 rounded-full bg-slate-400 mt-1"></div>
+                  <div className="h-4 w-full bg-slate-300 rounded mt-1"></div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-3 h-3 rounded-full bg-slate-400 mt-1"></div>
+                  <div className="h-4 w-5/6 bg-slate-300 rounded mt-1"></div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-3 h-3 rounded-full bg-slate-400 mt-1"></div>
+                  <div className="h-4 w-full bg-slate-300 rounded mt-1"></div>
+                </div>
+              </div>
+              <div className="border-l-4 border-emerald-500 pl-4 bg-emerald-50 p-4">
+                <div className="h-4 w-full bg-emerald-200 rounded mb-2"></div>
+                <div className="h-4 w-3/4 bg-emerald-200 rounded"></div>
+              </div>
+            </div>
+            <p className={`text-xs mt-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Márgenes anchos, H1/H2 jerárquicos, línea de 70-80 caracteres</p>
           </div>
         )}
 
         {selectedItem?.id === 'video' && (
-          <div className="flex justify-center">
-            <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={SoftwareLogos.youtube} alt="Video" className="w-6 h-6" />
-                <span className={`text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Zonas de Seguridad Vídeo</span>
-              </div>
-              <div className="relative w-full max-w-[200px] aspect-[9/16] mx-auto bg-slate-800 rounded-2xl border-4 border-slate-900 overflow-hidden">
-                <div className="absolute right-0 bottom-20 w-12 h-[40%] bg-red-500/40 flex flex-col items-center justify-evenly text-[10px] text-white font-bold p-2 text-center z-20">
-                  <span>UI</span>
-                </div>
-                <div className="absolute bottom-0 left-0 w-full h-16 bg-red-500/40 flex items-center justify-center text-[10px] text-white font-bold px-2 text-center z-20">
-                  DESCRIP
-                </div>
-                <div className="absolute inset-0 mt-10 mb-20 ml-3 mr-12 border-2 border-dashed border-green-400 flex flex-col items-center p-2 z-10">
-                  <span className="text-green-400 text-[10px] font-bold">ZONA SEGURA</span>
-                  <div className="bg-white text-slate-900 font-bold text-xs px-2 py-1 rounded mb-auto mt-2">TÍTULO</div>
-                  <div className="w-12 h-12 border-2 border-purple-400 bg-purple-900/50 rounded-full flex items-center justify-center mb-auto">
-                    <span className="text-purple-300 text-[10px]">USER</span>
-                  </div>
-                  <div className="bg-yellow-400 text-black font-bold px-2 py-1 text-xs rounded mb-2">SUBTÍTULOS</div>
-                </div>
-              </div>
-              <p className={`text-xs mt-3 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Formato 9:16 para RRSS - Respeta zonas UI y descripción</p>
+          <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={SoftwareLogos.youtube} alt="Video" className="w-8 h-8" />
+              <span className={`text-base font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Zonas de Seguridad Vídeo</span>
             </div>
+            <div className="relative max-w-[240px] aspect-[9/16] mx-auto bg-slate-800 rounded-2xl border-4 border-slate-900 overflow-hidden shadow-2xl">
+              <div className="absolute right-0 bottom-24 w-14 h-[40%] bg-red-500/50 flex flex-col items-center justify-evenly text-xs text-white font-bold p-2 text-center z-20">
+                <span>UI</span>
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-20 bg-red-500/50 flex items-center justify-center text-xs text-white font-bold px-2 text-center z-20">
+                DESCRIPCIÓN
+              </div>
+              <div className="absolute inset-0 mt-12 mb-24 ml-4 mr-14 border-2 border-dashed border-green-400 flex flex-col items-center p-3 z-10">
+                <span className="text-green-400 text-xs font-bold">ZONA SEGURA</span>
+                <div className="bg-white text-slate-900 font-bold text-sm px-3 py-2 rounded mb-auto mt-3">TÍTULO</div>
+                <div className="w-16 h-16 border-2 border-purple-400 bg-purple-900/50 rounded-full flex items-center justify-center mb-auto">
+                  <span className="text-purple-300 text-xs">USER</span>
+                </div>
+                <div className="bg-yellow-400 text-black font-bold px-3 py-2 text-sm rounded mb-3">SUBTÍTULOS</div>
+              </div>
+            </div>
+            <p className={`text-xs mt-4 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Formato 9:16 para RRSS - Respeta zonas UI y descripción</p>
           </div>
         )}
 
         {(!selectedItem || selectedItem.id === 'fundamentals' || selectedItem.id === 'podcast') && (
-          <div className="flex justify-center">
-            <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={SoftwareLogos.chrome} alt="Web" className="w-6 h-6" />
-                <span className={`text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Hero Banner Web</span>
-              </div>
-              <div className="relative w-full aspect-[21/9] rounded-lg overflow-hidden border border-slate-300 shadow bg-slate-300 flex items-center">
-                <img src={ContentImages.heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/20"></div>
-                <div className="relative z-10 w-2/3 pl-6 space-y-2">
-                  <div className="bg-white/20 text-white text-xs uppercase tracking-wider px-2 py-1 inline-block rounded font-bold">Novedad</div>
-                  <h3 className="text-white font-bold text-lg leading-tight">Soluciones Digitales</h3>
-                  <p className="text-slate-300 text-sm hidden sm:block">Texto secundario en zona segura</p>
-                  <div className="mt-2 bg-purple-500 text-white text-sm font-bold px-4 py-2 rounded inline-block">Descubrir</div>
+          <div className={`p-6 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={SoftwareLogos.chrome} alt="Web" className="w-8 h-8" />
+              <span className={`text-base font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Hero Banner Web</span>
+            </div>
+            <div className="relative w-full aspect-[21/9] rounded-lg overflow-hidden border border-slate-300 shadow-2xl">
+              <img src={ContentImages.heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent"></div>
+              <div className="absolute inset-0 flex items-center">
+                <div className="relative z-10 w-3/4 pl-8 space-y-3">
+                  <div className="bg-white/20 text-white text-sm uppercase tracking-wider px-3 py-1.5 inline-block rounded font-bold">Novedad</div>
+                  <h3 className="text-white font-black text-2xl leading-tight">Soluciones Digitales</h3>
+                  <p className="text-slate-300 text-base">Texto secundario en zona segura</p>
+                  <div className="mt-3 bg-purple-500 text-white text-base font-bold px-6 py-3 rounded-lg inline-block">Descubrir</div>
                 </div>
               </div>
-              <p className={`text-xs mt-3 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Gradiente oscuro a la izquierda para legibilidad del texto</p>
             </div>
+            <p className={`text-xs mt-4 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Gradiente oscuro a la izquierda para legibilidad del texto</p>
           </div>
         )}
       </section>
