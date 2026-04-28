@@ -2402,7 +2402,7 @@ export default function App() {
   );
 
   // PESTAÑA: ESCRITORIO (Simulador Interactivo)
-  const renderDesktopTab = () => {
+  const renderDesktopTab = React.memo(() => {
     // Estados locales del Escritorio
     const [showExplorer, setShowExplorer] = useState(false);
     const [showStartMenu, setShowStartMenu] = useState(false);
@@ -2864,7 +2864,7 @@ export default function App() {
       </div>
     </div>
     );
-  };
+  });
 
   // PESTAÑA 4: ARCHIVOS
   const renderFilesTab = () => (
