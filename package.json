@@ -23,6 +23,10 @@
     "react-icons": "^5.6.0"
   },
   "devDependencies": {
+    "@browser-logos/chrome": "^2.0.0",
+    "@browser-logos/edge": "^2.0.7",
+    "@browser-logos/firefox": "^3.0.10",
+    "@browser-logos/safari": "^2.1.0",
     "@eslint/js": "^9.39.4",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/react": "^19.2.14",

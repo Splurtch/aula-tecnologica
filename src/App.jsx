@@ -11,10 +11,17 @@ import {
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
   Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog,
-  Radio, Cable, Settings2, Network, Signal, Router, Gauge, AlertTriangle, CheckCircle2, XCircle
+  Radio, Cable, Settings2, Network, Signal, Router, Gauge, AlertTriangle, CheckCircle2, XCircle, User, Calendar
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
+
+const BrowserLogos = {
+  chrome: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/chrome/chrome.svg',
+  firefox: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/firefox/firefox.svg',
+  edge: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/edge/edge.svg',
+  safari: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/safari/safari.svg',
+};
 
 // ==========================================
 // 1. BASE DE DATOS: HARDWARE (AMPLIADA)
@@ -2742,21 +2749,21 @@ export default function App() {
           <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Comparativa de Navegadores</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { id: 'chromeMozilla', name: 'Chrome', color: 'blue', icon: Globe },
-              { id: 'chromeMozilla', name: 'Firefox', color: 'orange', icon: Globe },
-              { id: 'edgeSafari', name: 'Edge', color: 'cyan', icon: Monitor },
-              { id: 'edgeSafari', name: 'Safari', color: 'purple', icon: Monitor },
+              { id: 'chromeMozilla', name: 'Chrome', logo: BrowserLogos.chrome },
+              { id: 'chromeMozilla', name: 'Firefox', logo: BrowserLogos.firefox },
+              { id: 'edgeSafari', name: 'Edge', logo: BrowserLogos.edge },
+              { id: 'edgeSafari', name: 'Safari', logo: BrowserLogos.safari },
             ].map((browser) => (
               <button
                 key={browser.name}
                 onClick={() => handleSelect(browser.id, null, navegadoresData)}
-                className={`p-4 rounded-sm border transition-all hover:scale-[1.02] ${
+                className={`p-4 rounded-sm border transition-all hover:scale-[1.02] flex flex-col items-center gap-2 ${
                   selectedItem?.id === browser.id
-                    ? `border-${browser.color}-400 bg-${browser.color}-500/20`
+                    ? 'border-blue-400 bg-blue-500/20'
                     : isDark ? 'border-slate-700 bg-slate-900 hover:border-slate-500' : 'border-slate-200 bg-white hover:border-slate-300'
                 }`}
               >
-                <browser.icon size={24} className={`mx-auto mb-2 ${isDark ? 'text-slate-300' : 'text-slate-500'}`} />
+                <img src={browser.logo} alt={browser.name} className="w-12 h-12 object-contain" />
                 <p className={`text-sm font-bold text-center ${isDark ? 'text-white' : 'text-slate-800'}`}>{browser.name}</p>
               </button>
             ))}
