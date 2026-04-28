@@ -2543,14 +2543,24 @@ export default function App() {
 
         {/* Desktop Icons - Right Side */}
         <div className="absolute top-4 right-4 flex flex-col gap-4">
-          <button onClick={() => { setSelectedDesktopItem(desktopData.informe_txt); setShowInformeWindow(true); }} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'informe_txt' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedDesktopItem?.id === 'informe_txt' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
+          <button 
+            draggable
+            onDragStart={() => setDraggingItem('informe_txt')}
+            onClick={() => { setSelectedDesktopItem(desktopData.informe_txt); setShowInformeWindow(true); }} 
+            className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'informe_txt' ? 'scale-110' : 'hover:scale-105'}`}
+          >
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${draggingItem === 'informe_txt' ? 'opacity-50 scale-90' : ''} ${selectedDesktopItem?.id === 'informe_txt' ? 'bg-emerald-300 ring-2 ring-emerald-400' : 'bg-emerald-200 group-hover:bg-emerald-300'}`}>
               <FileText size={28} className={selectedDesktopItem?.id === 'informe_txt' ? 'text-emerald-700' : 'text-emerald-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Informe.txt</span>
           </button>
-          <button onClick={() => { setSelectedDesktopItem(desktopData.foto_png); setShowFotoWindow(true); }} className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'foto_png' ? 'scale-110' : 'hover:scale-105'}`}>
-            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${selectedDesktopItem?.id === 'foto_png' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
+          <button 
+            draggable
+            onDragStart={() => setDraggingItem('foto_png')}
+            onClick={() => { setSelectedDesktopItem(desktopData.foto_png); setShowFotoWindow(true); }} 
+            className={`flex flex-col items-center gap-1 cursor-pointer group transition-all ${selectedDesktopItem?.id === 'foto_png' ? 'scale-110' : 'hover:scale-105'}`}
+          >
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow transition-all ${draggingItem === 'foto_png' ? 'opacity-50 scale-90' : ''} ${selectedDesktopItem?.id === 'foto_png' ? 'bg-purple-300 ring-2 ring-purple-400' : 'bg-purple-200 group-hover:bg-purple-300'}`}>
               <ImageIcon size={28} className={selectedDesktopItem?.id === 'foto_png' ? 'text-purple-700' : 'text-purple-600'} />
             </div>
             <span className="text-[10px] font-medium text-slate-700">Foto.png</span>
@@ -2651,12 +2661,29 @@ export default function App() {
         )}
 
         {/* Trash Icon - Bottom Right */}
-        <button onClick={() => handleSelect('trash', null, desktopData)} className="absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group">
-          <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all ${selectedItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : 'bg-rose-200 group-hover:bg-rose-300'}`}>
-            <Trash2 size={28} className={selectedItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'} />
-          </div>
-          <span className="text-[10px] font-medium text-slate-600">Papelera</span>
-        </button>
+        <div 
+          onDragOver={(e) => { e.preventDefault(); setTrashHover(true); }}
+          onDragLeave={() => setTrashHover(false)}
+          onDrop={() => {
+            if (draggingItem === 'informe_txt') {
+              setShowInformeWindow(false);
+              setSelectedDesktopItem({ ...desktopData.trash, name: 'Informe.txt eliminado', desc: 'El archivo Informe.txt ha sido movido a la papelera. Puedes recuperarlo o eliminarlo permanentemente.' });
+            } else if (draggingItem === 'foto_png') {
+              setShowFotoWindow(false);
+              setSelectedDesktopItem({ ...desktopData.trash, name: 'Foto.png eliminado', desc: 'La imagen Foto.png ha sido movida a la papelera. Puedes recuperarla o eliminarla permanentemente.' });
+            }
+            setDraggingItem(null);
+            setTrashHover(false);
+          }}
+          className={`absolute bottom-4 right-4 flex flex-col items-center gap-1 cursor-pointer group transition-all duration-200 ${trashHover ? 'scale-125' : ''}`}
+        >
+          <button className="flex flex-col items-center gap-1 cursor-pointer group">
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shadow-md transition-all duration-200 ${trashHover ? 'bg-rose-400 ring-4 ring-rose-500 animate-bounce' : 'bg-rose-200 group-hover:bg-rose-300'} ${selectedDesktopItem?.id === 'trash' ? 'bg-rose-300 ring-4 ring-rose-400' : ''}`}>
+              <Trash2 size={28} className={`transition-all ${trashHover ? 'text-white' : selectedDesktopItem?.id === 'trash' ? 'text-rose-700' : 'text-rose-600'}`} />
+            </div>
+            <span className="text-[10px] font-medium text-slate-600">Papelera</span>
+          </button>
+        </div>
 
         {/* TASKBAR */}
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300 flex items-center px-2">
