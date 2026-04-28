@@ -209,18 +209,9 @@ export default function DesktopTab() {
   };
 
   return (
-    <div className="rounded-sm border bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)] overflow-hidden flex flex-col" style={{ maxHeight: '85vh' }}>
-      <div className="flex items-center gap-4 p-5 sm:p-6 md:p-8 border-b border-slate-200 bg-gradient-to-r from-slate-800 to-slate-700">
-        <div className="p-3 rounded-sm bg-violet-100/10 backdrop-blur">
-          <Monitor className="text-violet-400" size={28} />
-        </div>
-        <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.25em] text-violet-400/70">Navegación y organización</p>
-          <h2 className="text-xl sm:text-2xl font-black text-white">Escritorio Virtual</h2>
-        </div>
-      </div>
-
-      <div className="relative flex-shrink-0" style={{ height: '380px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
+    <div className="space-y-0">
+      {/* Escritorio Virtual - Altura fija */}
+      <div className="relative rounded-sm border border-slate-300 overflow-hidden shadow-[0_12px_40px_rgba(15,23,42,0.15)]" style={{ height: '380px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
         <div className="absolute top-4 left-4 flex flex-col gap-5">
           <DesktopIcon item={desktopData.this_pc} isSelected={selectedItem?.id === 'this_pc'} onClick={() => handleClick(desktopData.this_pc)} onDoubleClick={() => handleDoubleClick(desktopData.this_pc)} onContextMenu={(e) => handleContextMenu(e, desktopData.this_pc)} />
           <DesktopIcon item={desktopData.files} isSelected={selectedItem?.id === 'files'} onClick={() => handleClick(desktopData.files)} onDoubleClick={() => handleDoubleClick(desktopData.files)} onContextMenu={(e) => handleContextMenu(e, desktopData.files)} />
@@ -287,7 +278,8 @@ export default function DesktopTab() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto bg-white">
+      {/* Panel Explicativo con estilo consistente */}
+      <div className="border-t border-slate-200 bg-gradient-to-b from-slate-50 to-white rounded-b-sm">
         {renderPanelExplicativo()}
       </div>
 
