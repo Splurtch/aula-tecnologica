@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Monitor, FolderOpen, Trash2, FileText, ImageIcon, Layers, Cog,
+  Monitor, FolderOpen, Trash2, FileText, Image as ImageIcon, Layers, Cog,
   Terminal, Globe, Wifi, Download
 } from 'lucide-react';
-import { desktopData } from '../App.jsx';
+import { desktopData } from '../data/desktopData.js';
 
 export default function DesktopTab() {
   const [showExplorer, setShowExplorer] = useState(false);
