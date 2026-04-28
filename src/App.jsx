@@ -13,6 +13,7 @@ import {
   Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
+import DesktopTab from './components/DesktopTab.jsx';
 
 // ==========================================
 // 1. BASE DE DATOS: HARDWARE (AMPLIADA)
@@ -330,7 +331,7 @@ const softwareData = {
 // ==========================================
 // 1E. BASE DE DATOS: ESCRITORIO
 // ==========================================
-const desktopData = {
+export const desktopData = {
   this_pc: {
     id: 'this_pc', name: 'Este PC', category: 'Acceso al sistema', icon: Monitor, color: 'blue',
     desc: 'El icono "Este PC" (o "Mi PC" en versiones antiguas de Windows) te da acceso directo al explorador de archivos del sistema.\n\nDesde aquí puedes explorar todos los discos, carpetas y dispositivos conectados a tu ordenador.',
@@ -4525,7 +4526,7 @@ export default function App() {
           {activeTab === 'internet' && renderInternetTab()}
           {activeTab === 'security' && renderSecurityTab()}
           {activeTab === 'email' && renderEmailTab()}
-          {activeTab === 'desktop' && renderDesktopTab()}
+          {activeTab === 'desktop' && <DesktopTab />}
           {activeTab === 'content' && renderContentTab()}
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
