@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Monitor, FolderOpen, Trash2, FileText, Image as ImageIcon, Layers, Cog,
-  Terminal, Globe, Wifi, Download, Settings, Search, HardDrive,
-  CircleCheck, CircleX, Zap, ShieldCheck, Info, ChevronRight
+  Terminal, Globe, Wifi, Download, Settings, Search, HardDrive, Battery, Volume2,
+  CircleCheck, CircleX, Zap, ShieldCheck, Info, ChevronRight, PanelBottom
 } from 'lucide-react';
 import { desktopData } from '../data/desktopData.js';
 
@@ -53,7 +53,7 @@ export default function DesktopTab() {
   const renderPanelExplicativo = () => {
     if (!selectedItem) {
       return (
-        <div className="p-5 sm:p-6 md:p-7 flex-grow overflow-y-auto space-y-5 sm:space-y-6 custom-scrollbar">
+        <div className="p-6 space-y-5">
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-lg bg-violet-100">
               <Monitor size={24} className="text-violet-600" />
@@ -78,8 +78,8 @@ export default function DesktopTab() {
     const tips = selectedItem.tips || ['Haz clic para seleccionar y ver más información', 'Doble clic para abrir aplicaciones o ventanas', 'Arrastra archivos a la papelera para eliminarlos'];
 
     return (
-      <div className="p-5 sm:p-6 md:p-7 flex-grow overflow-y-auto space-y-5 sm:space-y-6 custom-scrollbar">
-        <section className="rounded-sm border p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-slate-200">
+      <div className="p-6 space-y-5">
+        <section className="rounded-sm border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-slate-200">
           <div>
             <p className="text-[9px] uppercase tracking-widest font-semibold text-slate-400">Ruta actual</p>
             <p className="text-sm font-medium mt-0.5 text-slate-700">Escritorio / {selectedItem.name}</p>
@@ -104,21 +104,23 @@ export default function DesktopTab() {
           </div>
         </section>
 
-        <section className="p-5 rounded-sm border shadow-inner bg-slate-50 border-slate-200">
-          <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
-            <Info size={16} />
-            Profundización
-          </h4>
-          <div className="space-y-2.5">
-            <p className="text-[14px] font-medium mb-1.5 text-slate-700">Características:</p>
-            {selectedItem.details?.split('\n').map((line, i) => (
-              <p key={i} className="text-[14px] font-medium text-slate-600">• {line.replace(/^[•\-]\s*/, '')}</p>
-            ))}
-          </div>
-        </section>
+        {selectedItem.details && (
+          <section className="p-5 rounded-sm border shadow-inner bg-slate-50 border-slate-200">
+            <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <Info size={16} />
+              Profundización
+            </h4>
+            <div className="space-y-2.5">
+              <p className="text-[14px] font-medium mb-1.5 text-slate-700">Características:</p>
+              {selectedItem.details.split('\n').map((line, i) => (
+                <p key={i} className="text-[14px] font-medium text-slate-600">• {line.replace(/^[•\-]\s*/, '')}</p>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="space-y-4">
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow bg-emerald-50 border border-emerald-200">
               <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-emerald-700">
                 <CircleCheck size={16} className="text-emerald-600" />
@@ -209,16 +211,16 @@ export default function DesktopTab() {
   };
 
   return (
-    <div className="space-y-0">
-      {/* Escritorio Virtual - Altura fija */}
-      <div className="relative rounded-sm border border-slate-300 overflow-hidden shadow-[0_12px_40px_rgba(15,23,42,0.15)]" style={{ height: '380px', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
-        <div className="absolute top-4 left-4 flex flex-col gap-5">
+    <div className="flex flex-col gap-0 animate-in fade-in duration-500">
+      {/* Escritorio Virtual - 16:9 aspect ratio */}
+      <div className="relative rounded-sm border border-slate-300 overflow-hidden shadow-[0_12px_40px_rgba(15,23,42,0.15)] w-full" style={{ aspectRatio: '16/9', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
+        <div className="absolute top-5 left-5 flex flex-col gap-5">
           <DesktopIcon item={desktopData.this_pc} isSelected={selectedItem?.id === 'this_pc'} onClick={() => handleClick(desktopData.this_pc)} onDoubleClick={() => handleDoubleClick(desktopData.this_pc)} onContextMenu={(e) => handleContextMenu(e, desktopData.this_pc)} />
           <DesktopIcon item={desktopData.files} isSelected={selectedItem?.id === 'files'} onClick={() => handleClick(desktopData.files)} onDoubleClick={() => handleDoubleClick(desktopData.files)} onContextMenu={(e) => handleContextMenu(e, desktopData.files)} />
           <DesktopIcon item={desktopData.trash} isSelected={selectedItem?.id === 'trash'} onClick={() => handleClick(desktopData.trash)} onDoubleClick={() => handleDoubleClick(desktopData.trash)} onContextMenu={(e) => handleContextMenu(e, desktopData.trash)} onDrop={handleDragToTrash} />
         </div>
 
-        <div className="absolute top-4 right-4 flex flex-col gap-4">
+        <div className="absolute top-5 right-5 flex flex-col gap-4">
           <DesktopIcon item={desktopData.informe_txt} isSelected={selectedItem?.id === 'informe_txt'} onClick={() => handleClick(desktopData.informe_txt)} onDoubleClick={() => handleDoubleClick(desktopData.informe_txt)} onContextMenu={(e) => handleContextMenu(e, desktopData.informe_txt)} draggable onDragData="informe_txt" />
           <DesktopIcon item={desktopData.foto_png} isSelected={selectedItem?.id === 'foto_png'} onClick={() => handleClick(desktopData.foto_png)} onDoubleClick={() => handleDoubleClick(desktopData.foto_png)} onContextMenu={(e) => handleContextMenu(e, desktopData.foto_png)} draggable onDragData="foto_png" />
         </div>
@@ -249,19 +251,22 @@ export default function DesktopTab() {
           {showFotoWindow && <VentanaImagen onClose={() => setShowFotoWindow(false)} />}
         </AnimatePresence>
 
-        <div className="absolute bottom-0 left-0 right-0 h-13 bg-white/95 backdrop-blur border-t border-slate-300/80 flex items-center px-3">
-          <button onClick={() => setShowStartMenu(!showStartMenu)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-slate-200/80 transition-colors">
-            <Layers size={20} className="text-violet-600" />
+        {/* Barra de tareas con Zona de notificaciones clickeable */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300/80 flex items-center px-4">
+          <button onClick={() => setShowStartMenu(!showStartMenu)} className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-200/80 transition-colors">
+            <Layers size={18} className="text-violet-600" />
             <span className="font-semibold text-slate-700 text-sm">Inicio</span>
           </button>
-          <div className="w-px h-7 bg-slate-300 mx-2"></div>
-          <button onClick={() => setShowExplorer(true)} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
-            <FolderOpen size={18} className="text-amber-500" />
+          <div className="w-px h-6 bg-slate-300 mx-2"></div>
+          <button onClick={() => { setShowExplorer(true); handleClick(desktopData.files); }} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+            <FolderOpen size={16} className="text-amber-500" />
             <span className="text-sm">Explorador</span>
           </button>
           <div className="flex-1"></div>
-          <div className="flex items-center gap-4 pr-2">
-            <div className="flex items-center gap-1.5">
+
+          {/* Zona de notificaciones clickeable */}
+          <button onClick={() => handleClick({ id: 'system_tray', name: 'Zona de Notificaciones', category: 'Barra de tareas', desc: 'La Zona de Notificaciones (System Tray) es el area ubicada en la esquina derecha de la barra de tareas. Aqui se muestran iconos de estado del sistema como WiFi, volumen, bateria, reloj y notificaciones de aplicaciones.\n\nEs un area fundamental para ver rapidamente el estado del equipo y acceder a ajustes rapidos sin necesidad de abrir menus completos.', details: 'Elementos habituales en la bandeja:\n• WiFi / Ethernet: Indica si hay conexion a internet.\n• Volumen: Permite ajustar el audio rapidamente.\n• Bateria: Muestra el nivel de carga en portatiles.\n• Reloj: Fecha y hora actual, acceso rapido al calendario.\n• Notificaciones: Alertas de aplicaciones y mensajes pendientes.', pros: ['Permite ver el estado del sistema de un vistazo.', 'Acceso rapido a ajustes sin abrir menus.', 'Notificaciones de aplicaciones importantes.'], cons: ['Puede saturarse con demasiados iconos.', 'Algunas notificaciones son intrusivas o distraccion.', 'Iconos pequenos son difficiles de leer para algunos usuarios.'], examples: 'Hacer clic en la hora para ver el calendario, ajustar volumen rapidamente, conectar WiFi desde el icono, ver nivel de bateria.', tips: ['Organiza los iconos que ves clickeando en la flecha pequenos.', 'Elimina aplicaciones que inician en segundo plano innecesarias.', 'La hora clickeable da acceso rapido a alarma y calendario.'] })} className="flex items-center gap-3 pr-2 hover:bg-slate-100 rounded-lg py-1 px-2 transition-colors">
+            <div className="flex items-center gap-2">
               <Wifi size={14} className="text-emerald-500" />
               <div className="w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
                 <div className="w-2 h-2 rounded-full bg-white"></div>
@@ -274,12 +279,12 @@ export default function DesktopTab() {
               <span className="text-slate-700 font-medium">{new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
               <span className="text-slate-500">{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
 
       {/* Panel Explicativo con estilo consistente */}
-      <div className="border-t border-slate-200 bg-gradient-to-b from-slate-50 to-white rounded-b-sm">
+      <div className="rounded-sm border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.08)] mt-4">
         {renderPanelExplicativo()}
       </div>
 
@@ -294,7 +299,7 @@ export default function DesktopTab() {
         )}
       </AnimatePresence>
 
-      <div className="mx-4 mb-4 mt-2 rounded-sm border border-amber-500/30 bg-gradient-to-r from-amber-50 to-orange-50 p-4">
+      <div className="mx-4 mt-4 rounded-sm border border-amber-500/30 bg-gradient-to-r from-amber-50 to-orange-50 p-4">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
             <span className="text-xl">☕</span>
@@ -328,10 +333,10 @@ function DesktopIcon({ item, isSelected, onClick, onDoubleClick, onContextMenu, 
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       onContextMenu={onContextMenu}
-      className={`flex flex-col items-center gap-1.5 p-2 rounded-lg transition-all cursor-pointer group ${isSelected ? 'bg-white/25 ring-2 ring-white/60' : 'hover:bg-white/15'} ${isDragOver ? 'bg-rose-500/60 scale-110 ring-2 ring-rose-400' : ''}`}
+      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all cursor-pointer group ${isSelected ? 'bg-white/25 ring-2 ring-white/60' : 'hover:bg-white/15'} ${isDragOver ? 'bg-rose-500/60 scale-110 ring-2 ring-rose-400' : ''}`}
     >
-      <div className={`w-15 h-15 rounded-xl flex items-center justify-center shadow-lg transition-all ${isSelected ? 'bg-white/30 ring-2 ring-white' : 'bg-white/20 group-hover:bg-white/25'}`}>
-        <item.icon size={34} className="text-white drop-shadow-lg" />
+      <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg transition-all ${isSelected ? 'bg-white/30 ring-2 ring-white' : 'bg-white/20 group-hover:bg-white/25'}`}>
+        <item.icon size={32} className="text-white drop-shadow-lg" />
       </div>
       <span className="text-[11px] font-semibold text-white text-center drop-shadow-md max-w-[70px] leading-tight">{item.name}</span>
     </motion.button>
@@ -718,7 +723,7 @@ function SimulatorTaskbar() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 pb-3 border-b border-slate-700">
-        <Monitor size={20} className="text-slate-400" />
+        <PanelBottom size={20} className="text-slate-400" />
         <span className="font-bold text-white text-lg">Barra de Tareas</span>
       </div>
       <div className="bg-slate-800 rounded-xl p-2 flex items-center gap-1.5 border border-slate-700">
@@ -743,7 +748,7 @@ function SimulatorSystemTray() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 pb-3 border-b border-slate-700">
-        <Wifi size={20} className="text-cyan-400" />
+        <PanelBottom size={20} className="text-cyan-400" />
         <span className="font-bold text-white text-lg">Zona de Notificaciones</span>
       </div>
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
@@ -755,11 +760,17 @@ function SimulatorSystemTray() {
           <span className="text-xs text-emerald-400 font-semibold">Conectado</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-slate-400">Volumen</span>
+          <div className="flex items-center gap-2">
+            <Volume2 size={16} className="text-slate-400" />
+            <span className="text-sm text-slate-400">Volumen</span>
+          </div>
           <span className="text-sm text-slate-200">🔊 75%</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-slate-400">Batería</span>
+          <div className="flex items-center gap-2">
+            <Battery size={16} className="text-emerald-400" />
+            <span className="text-sm text-slate-400">Batería</span>
+          </div>
           <span className="text-sm text-emerald-400">92% ⚡</span>
         </div>
         <div className="flex items-center justify-between pt-2 border-t border-slate-700">
@@ -767,7 +778,9 @@ function SimulatorSystemTray() {
           <span className="text-sm text-slate-200 font-medium">{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
       </div>
-      <p className="text-xs text-slate-500 text-center">Iconos de estado, alertas del sistema y acceso rápido a configuración</p>
+      <div className="bg-slate-700/50 rounded-lg p-3 text-center">
+        <p className="text-xs text-slate-300">Haz clic en la zona de notificaciones de la barra de tareas para ver su estado y acceder a ajustes rápidos</p>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Monitor, FolderOpen, Trash2, FileText, Image as ImageIcon, Layers, Wifi } from 'lucide-react';
+import { Monitor, FolderOpen, Trash2, FileText, Image as ImageIcon, Layers, PanelBottom } from 'lucide-react';
 
 export const desktopData = {
   this_pc: {
@@ -77,10 +77,14 @@ export const desktopData = {
     id: 'system_tray',
     name: 'Zona de Notificaciones',
     category: 'System Tray',
-    icon: Wifi,
+    icon: PanelBottom,
     color: 'cyan',
-    desc: 'La zona de notificaciones (system tray) se encuentra en la esquina derecha de la barra de tareas.\n\nAquí Windows muestra iconos de aplicaciones en segundo plano y alertas del sistema.',
-    details: 'Qué encontraras aquí:\n• WiFi/Bluetooth: Estado de conexiones\n• Volumen: Control de sonido del sistema\n• Reloj: Fecha y hora del sistema\n• Campana: Notificaciones y alertas',
+    desc: 'La zona de notificaciones (system tray) se encuentra en la esquina derecha de la barra de tareas.\n\nAquí Windows muestra iconos de aplicaciones en segundo plano, el estado de conexiones (WiFi, Bluetooth), volumen, batería y el reloj con fecha.',
+    details: 'Qué encontraras aquí:\n• WiFi/Ethernet: Estado de la conexión a internet\n• Volumen: Control rápido de audio del sistema\n• Batería: Nivel de carga en portátiles\n• Reloj: Fecha y hora actual, acceso rápido al calendario\n• Campana: Notificaciones pendientes de aplicaciones',
+    pros: ['Permite ver estado del sistema de un vistazo.', 'Acceso rápido a ajustes sin abrir menús.', 'Notificaciones de aplicaciones importantes.'],
+    cons: ['Puede saturarse con demasiados iconos de apps.', 'Algunas notificaciones pueden ser intrusivas.', 'Iconos pequeños son difíciles de ver para algunos usuarios.'],
+    examples: 'Hacer clic en la hora para ver calendario, ajustar volumen rápidamente, conectar WiFi, ver nivel de batería del portátil.',
+    tips: ['Organiza los iconos pequeños con la flecha lateral.', 'Elimina apps que inician en segundo plano innecesarias.', 'Clic en la hora da acceso rápido a alarma y calendario.'],
   },
   desktop_icons: {
     id: 'desktop_icons',
