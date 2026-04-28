@@ -14,6 +14,7 @@ export default function DesktopTab() {
   const [showExplorer, setShowExplorer] = useState(false);
   const [showInformeWindow, setShowInformeWindow] = useState(false);
   const [showFotoWindow, setShowFotoWindow] = useState(false);
+  const [showMiPcWindow, setShowMiPcWindow] = useState(false);
   const [trashItems, setTrashItems] = useState([]);
 
   const handleClick = useCallback((item) => {
@@ -21,8 +22,14 @@ export default function DesktopTab() {
     setContextMenu(null);
   }, []);
 
+  const handleDesktopClick = useCallback(() => {
+    setSelectedItem(desktopData.inicio);
+    setContextMenu(null);
+  }, []);
+
   const handleDoubleClick = useCallback((item) => {
     setSelectedItem(item);
+    if (item.id === 'this_pc') { setShowMiPcWindow(true); }
     if (item.id === 'informe_txt') setShowInformeWindow(true);
     if (item.id === 'foto_png') setShowFotoWindow(true);
     if (item.id === 'files') setShowExplorer(true);
@@ -55,18 +62,18 @@ export default function DesktopTab() {
       return (
         <div className="p-6 space-y-5">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 rounded-lg bg-violet-100">
-              <Monitor size={24} className="text-violet-600" />
+            <div className="p-3 rounded-lg bg-violet-500/20">
+              <Monitor size={24} className="text-violet-400" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-800">Escritorio Virtual Interactivo</h3>
-              <p className="text-sm text-slate-500">Selecciona cualquier elemento del escritorio para explorar su funcionamiento</p>
+              <h3 className="font-bold text-white">Escritorio Virtual Interactivo</h3>
+              <p className="text-sm text-slate-400">Selecciona cualquier elemento del escritorio para explorar su funcionamiento</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            <span className="px-2.5 py-1 bg-slate-200 text-slate-600 rounded text-xs font-medium">Click = Seleccionar</span>
-            <span className="px-2.5 py-1 bg-slate-200 text-slate-600 rounded text-xs font-medium">Doble click = Abrir</span>
-            <span className="px-2.5 py-1 bg-slate-200 text-slate-600 rounded text-xs font-medium">Click derecho = Menú</span>
+            <span className="px-2.5 py-1 bg-slate-800 text-slate-300 rounded text-xs font-medium border border-slate-700">Click = Seleccionar</span>
+            <span className="px-2.5 py-1 bg-slate-800 text-slate-300 rounded text-xs font-medium border border-slate-700">Doble click = Abrir</span>
+            <span className="px-2.5 py-1 bg-slate-800 text-slate-300 rounded text-xs font-medium border border-slate-700">Click derecho = Menú</span>
           </div>
         </div>
       );
@@ -79,41 +86,52 @@ export default function DesktopTab() {
 
     return (
       <div className="p-6 space-y-5">
-        <section className="rounded-sm border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-slate-200">
+        <section className="rounded-sm border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-800/50 border-slate-700">
           <div>
-            <p className="text-[9px] uppercase tracking-widest font-semibold text-slate-400">Ruta actual</p>
-            <p className="text-sm font-medium mt-0.5 text-slate-700">Escritorio / {selectedItem.name}</p>
+            <p className="text-[9px] uppercase tracking-widest font-semibold text-slate-500">Ruta actual</p>
+            <p className="text-sm font-medium mt-0.5 text-slate-200">Escritorio / {selectedItem.name}</p>
           </div>
           <button
             onClick={() => setSelectedItem(null)}
-            className="rounded-sm border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest transition-all border-slate-300 text-slate-600 hover:bg-slate-100"
+            className="rounded-sm border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest transition-all border-slate-600 text-slate-300 hover:bg-slate-700"
           >
             Cambiar tema
           </button>
         </section>
 
+        {/* SIMULADOR INTERACTIVO - PRIMERO */}
+        <section className="p-5 rounded-sm border border-slate-700 bg-slate-800/30">
+          <h4 className="text-xs font-semibold text-violet-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <Monitor size={16} />
+            Simulador Interactivo
+          </h4>
+          <div className="bg-slate-900 rounded-lg p-4 border border-slate-700">
+            {renderSimulator(selectedItem.id)}
+          </div>
+        </section>
+
         <section>
-          <h4 className="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2 text-slate-800 border-slate-200">
-            <FileText size={16} className="text-slate-600" />
+          <h4 className="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2 text-slate-200 border-slate-700">
+            <FileText size={16} className="text-slate-400" />
             Concepto
           </h4>
           <div className="space-y-3">
             {selectedItem.desc.split('\n\n').map((para, i) => (
-              <p key={i} className="text-[14px] leading-relaxed text-slate-600">{para}</p>
+              <p key={i} className="text-[14px] leading-relaxed text-slate-300">{para}</p>
             ))}
           </div>
         </section>
 
         {selectedItem.details && (
-          <section className="p-5 rounded-sm border shadow-inner bg-slate-50 border-slate-200">
-            <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+          <section className="p-5 rounded-sm border shadow-inner bg-slate-800/30 border-slate-700">
+            <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-widest mb-3 flex items-center gap-2">
               <Info size={16} />
               Profundización
             </h4>
             <div className="space-y-2.5">
-              <p className="text-[14px] font-medium mb-1.5 text-slate-700">Características:</p>
+              <p className="text-[14px] font-medium mb-1.5 text-slate-200">Características:</p>
               {selectedItem.details.split('\n').map((line, i) => (
-                <p key={i} className="text-[14px] font-medium text-slate-600">• {line.replace(/^[•\-]\s*/, '')}</p>
+                <p key={i} className="text-[14px] font-medium text-slate-400">• {line.replace(/^[•\-]\s*/, '')}</p>
               ))}
             </div>
           </section>
@@ -121,29 +139,29 @@ export default function DesktopTab() {
 
         <section className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div className="p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow bg-emerald-50 border border-emerald-200">
-              <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-emerald-700">
-                <CircleCheck size={16} className="text-emerald-600" />
+            <div className="p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow bg-emerald-500/10 border border-emerald-500/30">
+              <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-emerald-400">
+                <CircleCheck size={16} className="text-emerald-400" />
                 Ventajas
               </h4>
               <ul className="space-y-2.5">
                 {pros.map((pro, i) => (
-                  <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-600">
-                    <CircleCheck size={14} className="text-emerald-500 mt-0.5 shrink-0" />
+                  <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-300">
+                    <CircleCheck size={14} className="text-emerald-400 mt-0.5 shrink-0" />
                     {pro}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow bg-red-50 border border-red-200">
-              <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-red-700">
-                <CircleX size={16} className="text-red-600" />
+            <div className="p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow bg-red-500/10 border border-red-500/30">
+              <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-red-400">
+                <CircleX size={16} className="text-red-400" />
                 Desventajas
               </h4>
               <ul className="space-y-2.5">
                 {cons.map((con, i) => (
-                  <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-600">
-                    <CircleX size={14} className="text-red-500 mt-0.5 shrink-0" />
+                  <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-300">
+                    <CircleX size={14} className="text-red-400 mt-0.5 shrink-0" />
                     {con}
                   </li>
                 ))}
@@ -160,34 +178,24 @@ export default function DesktopTab() {
               Ejemplos Reales
             </h4>
             {examples.map((ex, i) => (
-              <p key={i} className="text-[14px] text-slate-200 leading-relaxed relative z-10 italic">"{ex}"</p>
+              <p key={i} className="text-[14px] text-slate-300 leading-relaxed relative z-10 italic">"{ex}"</p>
             ))}
           </div>
         </section>
 
-        <section className="p-5 rounded-sm border shadow-inner bg-slate-50 border-slate-200">
-          <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+        <section className="p-5 rounded-sm border shadow-inner bg-slate-800/30 border-slate-700">
+          <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-widest mb-3 flex items-center gap-2">
             <ShieldCheck size={16} />
             Consejos Prácticos
           </h4>
           <ul className="space-y-2.5">
             {tips.map((tip, i) => (
-              <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-600">
-                <ChevronRight size={14} className="text-slate-400 mt-0.5 shrink-0" />
+              <li key={i} className="text-[14px] flex items-start gap-2.5 leading-relaxed text-slate-300">
+                <ChevronRight size={14} className="text-slate-500 mt-0.5 shrink-0" />
                 <span>{tip}</span>
               </li>
             ))}
           </ul>
-        </section>
-
-        <section className="p-5 rounded-sm border border-slate-200 bg-white">
-          <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <Monitor size={16} />
-            Simulador Interactivo
-          </h4>
-          <div className="bg-slate-900 rounded-lg p-4 border border-slate-700">
-            {renderSimulator(selectedItem.id)}
-          </div>
         </section>
       </div>
     );
@@ -213,7 +221,7 @@ export default function DesktopTab() {
   return (
     <div className="flex flex-col gap-0 animate-in fade-in duration-500">
       {/* Escritorio Virtual - 16:9 aspect ratio */}
-      <div className="relative rounded-sm border border-slate-300 overflow-hidden shadow-[0_12px_40px_rgba(15,23,42,0.15)] w-full" style={{ aspectRatio: '16/9', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }}>
+      <div className="relative rounded-sm border border-slate-300 overflow-hidden shadow-[0_12px_40px_rgba(15,23,42,0.15)] w-full cursor-pointer" style={{ aspectRatio: '16/9', background: 'linear-gradient(180deg, #1e3a5f 0%, #2d5a87 40%, #4a90a4 70%, #7ab8c9 100%)' }} onClick={handleDesktopClick}>
         <div className="absolute top-5 left-5 flex flex-col gap-5">
           <DesktopIcon item={desktopData.this_pc} isSelected={selectedItem?.id === 'this_pc'} onClick={() => handleClick(desktopData.this_pc)} onDoubleClick={() => handleDoubleClick(desktopData.this_pc)} onContextMenu={(e) => handleContextMenu(e, desktopData.this_pc)} />
           <DesktopIcon item={desktopData.files} isSelected={selectedItem?.id === 'files'} onClick={() => handleClick(desktopData.files)} onDoubleClick={() => handleDoubleClick(desktopData.files)} onContextMenu={(e) => handleContextMenu(e, desktopData.files)} />
@@ -251,6 +259,10 @@ export default function DesktopTab() {
           {showFotoWindow && <VentanaImagen onClose={() => setShowFotoWindow(false)} />}
         </AnimatePresence>
 
+        <AnimatePresence>
+          {showMiPcWindow && <VentanaMiPC onClose={() => setShowMiPcWindow(false)} />}
+        </AnimatePresence>
+
         {/* Barra de tareas con Zona de notificaciones clickeable */}
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/95 backdrop-blur border-t border-slate-300/80 flex items-center px-4">
           <button onClick={() => setShowStartMenu(!showStartMenu)} className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-200/80 transition-colors">
@@ -284,7 +296,7 @@ export default function DesktopTab() {
       </div>
 
       {/* Panel Explicativo con estilo consistente */}
-      <div className="rounded-sm border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.08)] mt-4">
+      <div className="mt-4 rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)]">
         {renderPanelExplicativo()}
       </div>
 
@@ -516,6 +528,43 @@ function VentanaImagen({ onClose }) {
           <span className="px-3 py-1.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">PNG</span>
           <span className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs">2.4 MB</span>
           <span className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs">Transparente</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function VentanaMiPC({ onClose }) {
+  return (
+    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+      className="absolute top-12 left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-xl border border-slate-200 shadow-2xl z-50 overflow-hidden"
+    >
+      <div className="bg-slate-100 px-4 py-3 border-b border-slate-200 flex items-center justify-between rounded-t-xl">
+        <div className="flex items-center gap-2">
+          <HardDrive size={18} className="text-blue-500" />
+          <span className="font-semibold text-slate-700">Este PC</span>
+        </div>
+        <button onClick={onClose} className="w-7 h-7 rounded hover:bg-red-100 flex items-center justify-center text-red-500 text-lg">✕</button>
+      </div>
+      <div className="p-5">
+        <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { letter: 'C:', name: 'Disco local (SSD)', size: '256 GB', used: 178, color: 'blue', icon: HardDrive },
+              { letter: 'D:', name: 'Datos', size: '512 GB', used: 324, color: 'emerald', icon: HardDrive },
+              { letter: 'E:', name: 'USB', size: '32 GB', used: 8, color: 'amber', icon: HardDrive },
+            ].map((drive) => (
+              <div key={drive.letter} className="bg-white rounded-xl p-4 border border-slate-200 text-center hover:border-blue-300 hover:shadow-md transition-all cursor-pointer">
+                <drive.icon size={32} className={`mx-auto text-${drive.color}-500 mb-2`} />
+                <p className="font-bold text-slate-800">{drive.letter}</p>
+                <p className="text-xs text-slate-500">{drive.name}</p>
+                <p className="text-[10px] text-slate-400 mt-1">{drive.size}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <p className="text-xs text-slate-500 text-center">Discos y dispositivos de almacenamiento conectados</p>
+          </div>
         </div>
       </div>
     </motion.div>

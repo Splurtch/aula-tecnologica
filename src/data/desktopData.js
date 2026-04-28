@@ -1,6 +1,19 @@
 import { Monitor, FolderOpen, Trash2, FileText, Image as ImageIcon, Layers, PanelBottom } from 'lucide-react';
 
 export const desktopData = {
+  inicio: {
+    id: 'inicio',
+    name: 'Escritorio',
+    category: 'Pantalla principal',
+    icon: Monitor,
+    color: 'violet',
+    desc: 'El escritorio es la pantalla principal que ves al encender el ordenador.\n\nAquí tienes todos los iconos de acceso rápido, la barra de tareas abajo y puedes trabajar con varias ventanas simultáneamente.',
+    details: 'Partes del escritorio:\n• Iconos: Acceso directo a programas y archivos\n• Barra de tareas: Aplicaciones abiertas y menú Inicio\n• Zona de notificaciones: Reloj, WiFi, volumen, batería\n• Ventanas: Pueden minimizarse, maximizarse o cerrarse',
+    pros: ['Punto de entrada rápido a todas las funciones.', 'Permite multitarea con varias ventanas.', 'Personalizable con tus iconos favoritos.'],
+    cons: ['Demasiados iconos pueden dificultar encontrar cosas.', 'Las ventanas abiertas pueden tapar escritorios.', 'Sin organización se vuelve caótico.'],
+    examples: 'Doble clic en Este PC abre el explorador, doble clic en un archivo lo abre con su programa.',
+    tips: ['Mantén solo los iconos que usas frecuentemente.', 'Crea carpetas para agrupar archivos relacionados.', 'Minimiza ventanas que no uses para ver más escritorio.'],
+  },
   this_pc: {
     id: 'this_pc',
     name: 'Este PC',
