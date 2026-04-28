@@ -24,44 +24,51 @@ const BrowserLogos = {
 };
 
 const SoftwareLogos = {
-  windows: 'https://cdn.simpleicons.org/windows',
-  apple: 'https://cdn.simpleicons.org/apple',
-  linux: 'https://cdn.simpleicons.org/linux',
-  android: 'https://cdn.simpleicons.org/android',
-  chrome: 'https://cdn.simpleicons.org/googlechrome',
-  firefox: 'https://cdn.simpleicons.org/firefox',
-  vscode: 'https://cdn.simpleicons.org/visualstudiocode',
-  word: 'https://cdn.simpleicons.org/microsoftword',
-  excel: 'https://cdn.simpleicons.org/microsoftexcel',
-  powerpoint: 'https://cdn.simpleicons.org/microsoftpowerpoint',
-  photoshop: 'https://cdn.simpleicons.org/adobephotoshop',
-  illustrator: 'https://cdn.simpleicons.org/adobeillustrator',
-  adobe: 'https://cdn.simpleicons.org/adobe',
-  slack: 'https://cdn.simpleicons.org/slack',
-  zoom: 'https://cdn.simpleicons.org/zoom',
-  github: 'https://cdn.simpleicons.org/github',
-  git: 'https://cdn.simpleicons.org/git',
-  npm: 'https://cdn.simpleicons.org/npm',
-  python: 'https://cdn.simpleicons.org/python',
-  javascript: 'https://cdn.simpleicons.org/javascript',
-  react: 'https://cdn.simpleicons.org/react',
-  vue: 'https://cdn.simpleicons.org/vuedotjs',
-  angular: 'https://cdn.simpleicons.org/angular',
-  canva: 'https://cdn.simpleicons.org/canva',
-  capcut: 'https://cdn.simpleicons.org/capcut',
-  audacity: 'https://cdn.simpleicons.org/audacity',
-  descript: 'https://cdn.simpleicons.org/descript',
-  notion: 'https://cdn.simpleicons.org/notion',
-  chatgpt: 'https://cdn.simpleicons.org/openai',
-  spotify: 'https://cdn.simpleicons.org/spotify',
-  youtube: 'https://cdn.simpleicons.org/youtube',
-  wordpress: 'https://cdn.simpleicons.org/wordpress',
-  twitter: 'https://cdn.simpleicons.org/x',
-  instagram: 'https://cdn.simpleicons.org/instagram',
-  linkedin: 'https://cdn.simpleicons.org/linkedin',
-  tiktok: 'https://cdn.simpleicons.org/tiktok',
-  behance: 'https://cdn.simpleicons.org/behance',
-  dribbble: 'https://cdn.simpleicons.org/dribbble',
+  windows: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/windows.svg',
+  apple: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/apple.svg',
+  linux: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/linux.svg',
+  android: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/android.svg',
+  chrome: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/googlechrome.svg',
+  firefox: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/firefox.svg',
+  vscode: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/visualstudiocode.svg',
+  word: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/microsoftword.svg',
+  excel: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/microsoftexcel.svg',
+  powerpoint: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/microsoftpowerpoint.svg',
+  photoshop: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/adobephotoshop.svg',
+  illustrator: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/adobeillustrator.svg',
+  adobe: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/adobe.svg',
+  slack: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/slack.svg',
+  zoom: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/zoom.svg',
+  github: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/github.svg',
+  git: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/git.svg',
+  npm: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/npm.svg',
+  python: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/python.svg',
+  javascript: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/javascript.svg',
+  react: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/react.svg',
+  vue: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/vuedotjs.svg',
+  angular: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/angular.svg',
+  canva: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/canva.svg',
+  capcut: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/capcut.svg',
+  audacity: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/audacity.svg',
+  descript: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/descript.svg',
+  notion: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/notion.svg',
+  chatgpt: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/openai.svg',
+  spotify: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/spotify.svg',
+  youtube: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/youtube.svg',
+  wordpress: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/wordpress.svg',
+  twitter: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/x.svg',
+  instagram: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/instagram.svg',
+  linkedin: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/linkedin.svg',
+  tiktok: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/tiktok.svg',
+  behance: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/behance.svg',
+  dribbble: 'https://cdn.jsdelivr.net/npm/simple-icons@v19/icons/dribbble.svg',
+};
+
+const ContentImages = {
+  heroBg: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',
+  socialBg: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&q=80',
+  videoBg: 'https://images.unsplash.com/photo-1492724441300-6ee9f72b7e1a?w=400&q=80',
+  blogBg: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=80',
 };
 
 // ==========================================
@@ -3986,109 +3993,116 @@ export default function App() {
             <h3 className={`text-lg font-semibold mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>Plantillas de contenido</h3>
           </div>
           <span className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-sm border ${isDark ? 'text-purple-300 border-purple-500/30 bg-purple-500/10' : 'text-purple-700 border-purple-200 bg-purple-50'}`}>
-            Templates
+            {selectedItem?.name || 'Templates'}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Social Media Post Example */}
-          <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <img src={SoftwareLogos.instagram} alt="Instagram" className="w-5 h-5" />
-              <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Post para RRSS</span>
-            </div>
-            <div className={`p-3 rounded-sm ${isDark ? 'bg-slate-900 border border-slate-700' : 'bg-white border border-slate-200'}`}>
+        {selectedItem?.id === 'social_media' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-6 h-6 bg-slate-300 rounded-full"></div>
-                <div className="h-2 w-16 bg-slate-300 rounded"></div>
+                <img src={SoftwareLogos.instagram} alt="Instagram" className="w-5 h-5" />
+                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Post para RRSS</span>
               </div>
-              <p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>El 90% comete este error 🚨</p>
-              <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Pierdes horas redactando y nadie te lee.</p>
-              <ul className={`text-xs mt-2 space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                <li>👉 Facilita la lectura</li>
-                <li>👉 Aumenta la retención</li>
-              </ul>
-              <p className={`text-xs font-semibold mt-3 ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>Guárdalo para luego 📌</p>
-            </div>
-            <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Párrafos de 2 líneas máximo, gancho en primera línea, CTA claro</p>
-          </div>
-
-          {/* Web Article Layout Example */}
-          <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <img src={SoftwareLogos.wordpress} alt="Web" className="w-5 h-5" />
-              <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Artículo Web / Blog</span>
-            </div>
-            <div className={`bg-white w-full max-w-[280px] mx-auto p-4 shadow-sm border border-slate-200 ${isDark ? 'bg-slate-800 border-slate-700' : ''}`}>
-              <div className="h-4 w-full bg-slate-800 rounded mb-2"></div>
-              <div className="h-4 w-2/3 bg-slate-800 rounded mb-4"></div>
-              <div className="h-2 w-full bg-slate-300 rounded mb-1.5"></div>
-              <div className="h-2 w-full bg-slate-300 rounded mb-1.5"></div>
-              <div className="h-2 w-4/5 bg-slate-300 rounded mb-5"></div>
-              <div className="h-3 w-1/2 bg-emerald-500 rounded mb-2"></div>
-              <div className="flex gap-3 mb-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1"></div>
-                <div className="h-2 w-full bg-slate-300 rounded mt-1"></div>
-              </div>
-              <div className="flex gap-3 mb-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1"></div>
-                <div className="h-2 w-5/6 bg-slate-300 rounded mt-1"></div>
-              </div>
-              <div className="border-l-2 border-emerald-500 pl-2 bg-emerald-50 p-2 mb-2">
-                <div className="h-2 w-full bg-emerald-200 rounded mb-1"></div>
-                <div className="h-2 w-3/4 bg-emerald-200 rounded"></div>
-              </div>
-            </div>
-            <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Márgenes anchos, H1/H2 jerárquicos, línea de 70-80 caracteres</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
-          {/* Video Safe Zone Example */}
-          <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <img src={SoftwareLogos.youtube} alt="Video" className="w-5 h-5" />
-              <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Zonas de Seguridad Vídeo</span>
-            </div>
-            <div className="relative w-full max-w-[180px] aspect-[9/16] mx-auto bg-slate-800 rounded-2xl border-4 border-slate-900 overflow-hidden">
-              {/* UI ZONES (RED) */}
-              <div className="absolute right-0 bottom-16 w-10 h-[40%] bg-red-500/40 flex flex-col items-center justify-evenly text-[8px] text-white font-bold p-1 text-center z-20">
-                <span>UI</span>
-              </div>
-              <div className="absolute bottom-0 left-0 w-full h-14 bg-red-500/40 flex items-center justify-center text-[8px] text-white font-bold px-1 text-center z-20">
-                DESCRIP
-              </div>
-              {/* SAFE ZONE (GREEN) */}
-              <div className="absolute inset-0 mt-8 mb-16 ml-2 mr-10 border-2 border-dashed border-green-400 flex flex-col items-center p-1 z-10">
-                <span className="text-green-400 text-[8px] font-bold">ZONA SEGURA</span>
-                <div className="bg-white text-slate-900 font-bold text-[10px] px-1 py-0.5 rounded mb-auto mt-1">TÍTULO</div>
-                <div className="w-10 h-10 border-2 border-purple-400 bg-purple-900/50 rounded-full flex items-center justify-center mb-auto">
-                  <span className="text-purple-300 text-[8px]">USER</span>
+              <div className={`p-3 rounded-sm ${isDark ? 'bg-slate-900 border border-slate-700' : 'bg-white border border-slate-200'}`}>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-slate-300 rounded-full"></div>
+                  <div className="h-2 w-16 bg-slate-300 rounded"></div>
                 </div>
-                <div className="bg-yellow-400 text-black font-bold px-1 py-0.5 text-[10px] rounded mb-1">SUBTÍTULOS</div>
+                <p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>El 90% comete este error 🚨</p>
+                <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Pierdes horas redactando y nadie te lee.</p>
+                <ul className={`text-xs mt-2 space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <li>👉 Facilita la lectura</li>
+                  <li>👉 Aumenta la retención</li>
+                </ul>
+                <p className={`text-xs font-semibold mt-3 ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>Guárdalo para luego 📌</p>
               </div>
+              <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Párrafos de 2 líneas máximo, gancho en primera línea, CTA claro</p>
             </div>
-            <p className={`text-[10px] mt-2 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Formato 9:16 para RRSS - Respeta zonas UI y descripción</p>
           </div>
+        )}
 
-          {/* Hero Banner Example */}
-          <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <img src={SoftwareLogos.chrome} alt="Web" className="w-5 h-5" />
-              <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Hero Banner Web</span>
-            </div>
-            <div className="relative w-full aspect-[21/9] rounded-lg overflow-hidden border border-slate-300 shadow bg-slate-300 flex items-center">
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
-              <div className="relative z-10 w-2/3 pl-4 space-y-1">
-                <div className="bg-white/20 text-white text-[8px] uppercase tracking-wider px-1.5 py-0.5 inline-block rounded font-bold">Novedad</div>
-                <h3 className="text-white font-bold text-sm leading-tight">Soluciones Digitales</h3>
-                <p className="text-slate-300 text-[10px] hidden sm:block">Texto secundario en zona segura</p>
-                <div className="mt-1 bg-purple-500 text-white text-[10px] font-bold px-2 py-1 rounded inline-block">Descubrir</div>
+        {(selectedItem?.id === 'copywriting' || selectedItem?.id === 'blogs') && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+              <div className="flex items-center gap-2 mb-3">
+                <img src={SoftwareLogos.wordpress} alt="Web" className="w-5 h-5" />
+                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Artículo Web / Blog</span>
               </div>
+              <div className={`bg-white w-full max-w-[280px] mx-auto p-4 shadow-sm border border-slate-200 ${isDark ? 'bg-slate-800 border-slate-700' : ''}`}>
+                <div className="h-4 w-full bg-slate-800 rounded mb-2"></div>
+                <div className="h-4 w-2/3 bg-slate-800 rounded mb-4"></div>
+                <div className="h-2 w-full bg-slate-300 rounded mb-1.5"></div>
+                <div className="h-2 w-full bg-slate-300 rounded mb-1.5"></div>
+                <div className="h-2 w-4/5 bg-slate-300 rounded mb-5"></div>
+                <div className="h-3 w-1/2 bg-emerald-500 rounded mb-2"></div>
+                <div className="flex gap-3 mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1"></div>
+                  <div className="h-2 w-full bg-slate-300 rounded mt-1"></div>
+                </div>
+                <div className="flex gap-3 mb-4">
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1"></div>
+                  <div className="h-2 w-5/6 bg-slate-300 rounded mt-1"></div>
+                </div>
+                <div className="border-l-2 border-emerald-500 pl-2 bg-emerald-50 p-2 mb-2">
+                  <div className="h-2 w-full bg-emerald-200 rounded mb-1"></div>
+                  <div className="h-2 w-3/4 bg-emerald-200 rounded"></div>
+                </div>
+              </div>
+              <p className={`text-[10px] mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Márgenes anchos, H1/H2 jerárquicos, línea de 70-80 caracteres</p>
             </div>
-            <p className={`text-[10px] mt-2 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Gradiente oscuro a la izquierda para legibilidad del texto</p>
           </div>
-        </div>
+        )}
+
+        {selectedItem?.id === 'video' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+              <div className="flex items-center gap-2 mb-3">
+                <img src={SoftwareLogos.youtube} alt="Video" className="w-5 h-5" />
+                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Zonas de Seguridad Vídeo</span>
+              </div>
+              <div className="relative w-full max-w-[180px] aspect-[9/16] mx-auto bg-slate-800 rounded-2xl border-4 border-slate-900 overflow-hidden">
+                <div className="absolute right-0 bottom-16 w-10 h-[40%] bg-red-500/40 flex flex-col items-center justify-evenly text-[8px] text-white font-bold p-1 text-center z-20">
+                  <span>UI</span>
+                </div>
+                <div className="absolute bottom-0 left-0 w-full h-14 bg-red-500/40 flex items-center justify-center text-[8px] text-white font-bold px-1 text-center z-20">
+                  DESCRIP
+                </div>
+                <div className="absolute inset-0 mt-8 mb-16 ml-2 mr-10 border-2 border-dashed border-green-400 flex flex-col items-center p-1 z-10">
+                  <span className="text-green-400 text-[8px] font-bold">ZONA SEGURA</span>
+                  <div className="bg-white text-slate-900 font-bold text-[10px] px-1 py-0.5 rounded mb-auto mt-1">TÍTULO</div>
+                  <div className="w-10 h-10 border-2 border-purple-400 bg-purple-900/50 rounded-full flex items-center justify-center mb-auto">
+                    <span className="text-purple-300 text-[8px]">USER</span>
+                  </div>
+                  <div className="bg-yellow-400 text-black font-bold px-1 py-0.5 text-[10px] rounded mb-1">SUBTÍTULOS</div>
+                </div>
+              </div>
+              <p className={`text-[10px] mt-2 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Formato 9:16 para RRSS - Respeta zonas UI y descripción</p>
+            </div>
+          </div>
+        )}
+
+        {(!selectedItem || selectedItem.id === 'fundamentals' || selectedItem.id === 'podcast') && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className={`p-4 rounded-sm border ${isDark ? 'border-slate-700 bg-slate-950/50' : 'border-slate-200 bg-slate-50'}`}>
+              <div className="flex items-center gap-2 mb-3">
+                <img src={SoftwareLogos.chrome} alt="Web" className="w-5 h-5" />
+                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Hero Banner Web</span>
+              </div>
+              <div className="relative w-full aspect-[21/9] rounded-lg overflow-hidden border border-slate-300 shadow bg-slate-300 flex items-center">
+                <img src={ContentImages.heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
+                <div className="relative z-10 w-2/3 pl-4 space-y-1">
+                  <div className="bg-white/20 text-white text-[8px] uppercase tracking-wider px-1.5 py-0.5 inline-block rounded font-bold">Novedad</div>
+                  <h3 className="text-white font-bold text-sm leading-tight">Soluciones Digitales</h3>
+                  <p className="text-slate-300 text-[10px] hidden sm:block">Texto secundario en zona segura</p>
+                  <div className="mt-1 bg-purple-500 text-white text-[10px] font-bold px-2 py-1 rounded inline-block">Descubrir</div>
+                </div>
+              </div>
+              <p className={`text-[10px] mt-2 text-center ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Gradiente oscuro a la izquierda para legibilidad del texto</p>
+            </div>
+          </div>
+        )}
       </section>
 
       <InteractiveButton id="legal" dataSet={contentData} extraClass="min-h-[90px]" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
