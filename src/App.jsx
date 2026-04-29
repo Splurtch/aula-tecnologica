@@ -508,11 +508,11 @@ const softwareData = {
 };
 
 const softwareOsExamples = [
-  { id: 'windows', name: 'Windows', mark: 'W', subtitle: 'Escritorio y aula', accent: 'from-blue-500 via-sky-500 to-cyan-400', logo: 'window' },
-  { id: 'macos', name: 'macOS', mark: 'M', subtitle: 'Creatividad y ecosistema Apple', accent: 'from-slate-500 via-slate-400 to-zinc-300', logo: 'mac' },
-  { id: 'linux', name: 'Linux', mark: 'L', subtitle: 'Codigo abierto y servidores', accent: 'from-amber-400 via-orange-400 to-red-400', logo: 'linux' },
-  { id: 'android', name: 'Android', mark: 'A', subtitle: 'Movil y tablet', accent: 'from-emerald-500 via-lime-400 to-green-300', logo: 'android' },
-  { id: 'ios', name: 'iOS', mark: 'i', subtitle: 'iPhone y apps moviles', accent: 'from-fuchsia-500 via-violet-400 to-indigo-400', logo: 'ios' },
+  { id: 'windows', name: 'Windows', subtitle: 'Escritorio y aula', logo: SoftwareLogos.windows },
+  { id: 'macos', name: 'macOS', subtitle: 'Creatividad y ecosistema Apple', logo: SoftwareLogos.apple },
+  { id: 'linux', name: 'Linux', subtitle: 'Codigo abierto y servidores', logo: SoftwareLogos.linux },
+  { id: 'android', name: 'Android', subtitle: 'Movil y tablet', logo: SoftwareLogos.android },
+  { id: 'ios', name: 'iOS', subtitle: 'iPhone y apps moviles', logo: SoftwareLogos.apple },
 ];
 
 const softwareOsDetails = {
@@ -3723,9 +3723,7 @@ export default function App() {
                 isDark ? 'border-slate-800 bg-slate-900/80 hover:border-slate-600' : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-lg'
               }`}
             >
-              <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${os.accent} flex items-center justify-center text-white font-black text-sm mb-3`}>
-                {os.mark}
-              </div>
+              <img src={os.logo} alt={os.name} className="w-12 h-12 object-contain mb-3" />
               <p className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{os.name}</p>
               <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{os.subtitle}</p>
             </button>
