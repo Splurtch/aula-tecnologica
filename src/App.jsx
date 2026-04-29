@@ -37,7 +37,8 @@ const SoftwareLogos = {
   powerpoint: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/microsoftpowerpoint/microsoftpowerpoint-original.svg',
   photoshop: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/photoshop/photoshop-original.svg',
   illustrator: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/illustrator/illustrator-original.svg',
-  adobe: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/aftereffects/aftereffects-original.svg',
+  premiere: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/premiere/premiere-original.svg',
+  aftereffects: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/aftereffects/aftereffects-original.svg',
   slack: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/slack/slack-original.svg',
   zoom: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/zoom/zoom-original.svg',
   github: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/github/github-original.svg',
@@ -52,6 +53,7 @@ const SoftwareLogos = {
   capcut: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/capcut/capcut-original.svg',
   audacity: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/audacity/audacity-original.svg',
   descript: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/descript/descript-original.svg',
+  alitu: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/googlepodcast/googlepodcast-original.svg',
   notion: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/notion/notion-original.svg',
   chatgpt: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/openai/openai-original.svg',
   spotify: 'https://cdn.jsdelivr.net/npm/devicon@latest/icons/spotify/spotify-original.svg',
@@ -1070,12 +1072,12 @@ const contentData = {
 const contentTools = {
   canva: { name: 'Canva', category: 'Diseño', description: 'Diseño gráfico rápido para RRSS, presentations y más.', url: 'canva.com', logo: SoftwareLogos.canva },
   capcut: { name: 'CapCut', category: 'Video', description: 'Edición de vídeo profesional en móvil y desktop.', url: 'capcut.com', logo: SoftwareLogos.capcut },
-  premiere: { name: 'Premiere Pro', category: 'Video', description: 'Edición de vídeo profesional para proyectos serios.', url: 'adobe.com/premiere', logo: SoftwareLogos.adobe },
+  premiere: { name: 'Premiere Pro', category: 'Video', description: 'Edición de vídeo profesional para proyectos serios.', url: 'adobe.com/premiere', logo: SoftwareLogos.premiere },
   audacity: { name: 'Audacity', category: 'Audio', description: 'Editor de audio gratuito y potente.', url: 'audacityteam.org', logo: SoftwareLogos.audacity },
   descript: { name: 'Descript', category: 'Audio', description: 'Edita audio como texto + transcripción automática.', url: 'descript.com', logo: SoftwareLogos.descript },
-  alitu: { name: 'Alitu', category: 'Audio', description: 'Editor simplificado para podcasters.', url: 'alitu.com', logo: null },
+  alitu: { name: 'Alitu', category: 'Audio', description: 'Editor simplificado para podcasters.', url: 'alitu.com', logo: SoftwareLogos.alitu },
   chatgpt: { name: 'ChatGPT', category: 'Planificación', description: 'Generación de ideas, borradores y research.', url: 'chat.openai.com', logo: SoftwareLogos.chatgpt },
-  notion: { name: 'Notion', category: 'Planificación', descripción: 'Gestión de calendarios editoriales y notas.', url: 'notion.so', logo: SoftwareLogos.notion },
+  notion: { name: 'Notion', category: 'Planificación', description: 'Gestión de calendarios editoriales y notas.', url: 'notion.so', logo: SoftwareLogos.notion },
 };
 
 const contentSteps = [
