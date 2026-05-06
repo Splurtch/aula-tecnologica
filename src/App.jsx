@@ -4680,26 +4680,38 @@ export default function App() {
               </div>
             </button>
 
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden xl:flex items-center gap-0.5 overflow-x-auto">
               {orderedSectionGroups.map(([group, tabs]) => {
                 const isActiveGroup = activeTabMeta.group === group;
+                const groupAbbrev = {
+                  'Inicio': 'Inicio',
+                  'Fundamentos del Ordenador': 'Fundamentos',
+                  'Almacenamiento y Datos': 'Almacenamiento',
+                  'Datos y Seguridad': 'Seguridad',
+                  'Navegacion y Comunicacion': 'Navegacion',
+                  'Entorno de Trabajo': 'Entorno',
+                  'Comunicacion Digital': 'Comunicacion',
+                  'Productividad': 'Productividad',
+                  'Tecnologias Emergentes': 'IA',
+                  'Evaluacion Final': 'Evaluacion'
+                }[group] || group;
                 return (
                   <button
                     key={group}
                     onMouseEnter={() => handleOpenGroupMenu(group)}
                     onClick={() => handleOpenGroupMenu(group)}
-                    className={`group flex items-center gap-1 px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-sm ${
+                    className={`group flex items-center gap-1 px-2 py-2 text-xs font-bold transition-all duration-300 rounded-sm whitespace-nowrap ${
                       isActiveGroup
                         ? isDark || !isScrolled
-                          ? 'text-white bg-white/8'
-                          : 'text-white bg-white/10'
+                          ? 'text-white bg-white/10'
+                          : 'text-white bg-slate-900/10'
                         : isDark || !isScrolled
-                          ? 'text-slate-300 hover:text-white hover:bg-white/5'
-                          : 'text-slate-200 hover:text-white hover:bg-white/5'
+                          ? 'text-slate-400 hover:text-white hover:bg-white/5'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-white/5'
                     }`}
                   >
-                    <span>{group}</span>
-                    {tabs.length > 1 && <ChevronDown size={12} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
+                    <span>{groupAbbrev}</span>
+                    {tabs.length > 1 && <ChevronDown size={10} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
                   </button>
                 );
               })}
