@@ -11,7 +11,8 @@ import {
   Terminal, Library, Flame, BrainCircuit, Headphones,
   Presentation, Blocks, FileSearch,
   Palette, Video, Mic, ImagePlus, Moon, Sun, ChevronDown, ChevronRight, Layers, ArrowRight, Menu, X, Move, Trophy, Zap, BadgeCheck, Star, Crown, HelpCircle, Trash2, Cog,
-  Radio, Cable, Settings2, Network, Signal, Router, Gauge, AlertTriangle, CheckCircle2, XCircle, User, Calendar
+  Radio, Cable, Settings2, Network, Signal, Router, Gauge, AlertTriangle, CheckCircle2, XCircle, User, Calendar,
+  Smartphone, Lock, MessageSquare, MessageCircle
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
@@ -1129,6 +1130,210 @@ const contentData = {
   }
 };
 
+// ==========================================
+// 7. BASE DE DATOS: COPIA DE SEGURIDAD
+// ==========================================
+const backupData = {
+  backup_strategies: {
+    id: 'backup_strategies', name: 'Estrategias de Respaldo', category: 'Fundamentos', icon: Database, color: 'blue',
+    desc: 'La perdida de datos es una de las experiencias mas frustrantes que puedes experimentar. Un disco que falla, un archivo borrado por error o un ransomware que encripta todo puede destruir anos de trabajo en segundos.\n\nLa solucion no es esperar a que no ocurra, sino tener un sistema de respaldo que te permita recuperarlo todo cuando algo falle.',
+    details: 'Regla 3-2-1:\n• 3 copias de tus datos importantes\n• 2 medios diferentes de almacenamiento (disco externo, nube)\n• 1 copia en ubicacion fisica diferente (offsite)\n\nTipos de respaldo:\n• Completo: Copia todo cada vez. Simple pero consume mucho espacio y tiempo.\n• Incremental: Solo copia los cambios desde el ultimo respaldo.\n• Diferencial: Copia los cambios desde el ultimo respaldo completo.',
+    pros: ['Proteccion contra fallos de hardware, errores humanos y malware.', 'Permite recuperacion ante desastres naturales o robos.', 'Tranquilidad para trabajar sin miedo a perder información.'],
+    cons: ['Requiere disciplina y habito de hacer respaldos regularmente.', 'El almacenamiento en la nube tiene coste recurrente.', 'Las copias antiguas pueden quedar obsoletas si no se actualizan.'],
+    examples: 'Un estudiante que pierde su TFg por no hacer backup. Una empresa que paga rescate de 5000 euros porque su unica copia estaba en el mismo servidor encriptado.',
+    tips: ['Automatiza los respaldos para no depender de la memoria.', 'Verifica periodicamente que tus respaldos se pueden restaurar.', 'Prueba al menos una vez al ano que puedes recuperar un archivo.']
+  },
+  local_backup: {
+    id: 'local_backup', name: 'Respaldo Local', category: 'Medios Fisicos', icon: HardDrive, color: 'emerald',
+    desc: 'El respaldo local significa guardar copias de tus datos en dispositivos de almacenamiento que estan fisicamente conectados a tu equipo o en tu misma ubicacion.\n\nEs la forma mas rapida y controlada de hacer copias de seguridad, sin depender de conexion a internet ni de servicios de terceros.',
+    details: 'Dispositivos recomendados:\n• Disco duro externo (HDD): Gran capacidad a buen precio. Ideal para backups grandes y poco frecuentes.\n• SSD externo: Mas rapido y resistente a golpes, pero mas caro por gigabyte.\n• USB Flash: Practico para archivos pequenos y rapidos, no recomendado para backups completos.\n\nSoftware de respaldo:\n• Windows: Historial de archivos, copia de seguridad de Windows.\n• Mac: Time Machine (automático y completo).\n• Terceros: Acronis True Image, Clonezilla (imagenes de disco).',
+    pros: ['Velocidad maxima de transferencia (USB 3.0/3.1).', 'Control total: nadie mas tiene acceso a tus datos.', 'Sin coste recurrente: pagas una vez el dispositivo.'],
+    cons: ['Vulnerable a robo, fuego o desastre natural en la misma ubicacion.', 'No accesible remotamente si no estas en el mismo lugar.', 'Riesgo de que el disco falle si no se reemplaza cada cierto tiempo.'],
+    examples: 'Un disco duro externo de 2TB conectado por USB al que Windows hace backup automatico cada noche.',
+    tips: ['Desconecta el disco de respaldo despues de hacer la copia si quieres protegerte de ransomware.', 'No guardes el unico backup junto al ordenador portatil si vas a viajar.']
+  },
+  cloud_backup: {
+    id: 'cloud_backup', name: 'Respaldo en la Nube', category: 'Medios Remotos', icon: Cloud, color: 'purple',
+    desc: 'El respaldo en la nube sincroniza tus archivos con servidores ubicados en centros de datos de empresas como Google, Microsoft o Amazon. Permite acceder a tus datos desde cualquier dispositivo con conexion a internet.\n\nEs la pieza fundamental de la regla 3-2-1, ya que proporciona la copia "offsite" que te protege de desastres locales.',
+    details: 'Servicios principales:\n• Google Drive: 15GB gratuitos, integracion con Google Docs.\n• OneDrive: 5GB gratuitos, integracion profunda con Windows.\n• Dropbox: 2GB gratuitos, simple y fiable.\n• iCloud: Para ekosistem Apple exclusivamente.\n• Backblaze: Backup ilimitado por muy poco al ano (para ordenadores).\n\nSincronizacion vs Backup:\n• Sincronizacion (Dropbox, Drive): Los archivos son los mismos en todos lados. Si se corrompen en uno, se corrompen en todos.\n• Backup real: Mantiene versiones historicas y permite recuperar estados anteriores.',
+    pros: ['Acceso desde cualquier dispositivo con internet.', 'Proteccion contra desastres locales (robo, fuego).', ' versioning: puedes recuperar versiones anteriores de archivos.'],
+    cons: ['Dependencia de conexion a internet para acceder a todo.', 'Costes recurrentes para grandes cantidades de datos.', 'Privacidad: tus datos estan en servidores de terceros.'],
+    examples: 'Google Drive como respaldo automatico de la carpeta de documentos, con versioning habilitado para recuperar archivos borrados hace 30 dias.',
+    tips: ['Usa servicios de marcas reconocidas con buena reputacion de seguridad.', 'Habilita la autenticacion de dos factores en todos los servicios de almacenamiento en nube.', 'No guardes passwords o documentos sensibles sin encriptar antes de subirlos.']
+  },
+  restore_recovery: {
+    id: 'restore_recovery', name: 'Restauracion y Recuperacion', category: 'Proceso', icon: Rotate3D, color: 'amber',
+    desc: 'Tener un backup no sirve de nada si no sabes como recuperar los datos cuando los necesitas. La restauracion es la parte mas importante del proceso, y necesita planificación.\n\nDebes saber que quieres recuperar, donde esta la copia, y como restaurarla sin perder lo que has trabajado desde entonces.',
+    details: 'Escenarios de recuperacion:\n• Archivo individual: Ir a la papelera, usar version anterior o restaurar desde sincronizacion.\n• Carpeta completa: Usar software de backup o restaurar desde Time Machine/Historial.\n• Sistema completo: Usar imagen de disco para restaurar todo el equipo en un disco nuevo.\n\nTiempo de recuperacion (RTO - Recovery Time Objective):\n• Define cuanto tiempo puedes estar sin acceso a tus datos.\n• Un particular puede esperar horas; una empresa minutos.\n• Elige la estrategia de backup segun tu RTO.',
+    pros: ['Saber recuperar te da confianza para trabajar sin miedo.', 'La restauracion selectiva es rapida y no requiere reinstalar todo.', 'Una buena estrategia minimiza el tiempo de inactividad ante desastres.'],
+    cons: ['La restauracion completa de sistema puede tomar horas.', 'A veces las versiones antiguas no son compatibles con software nuevo.', 'Si el backup esta danado, la recuperacion sera incompleta.'],
+    examples: 'Un disco SSD falla y tienes que restaurar desde la imagen que hiciste hace una semana. En 2 horas tienes el equipo funcionando exactamente como estaba.',
+    tips: ['Haz una prueba de restauracion al menos una vez para verificar que funciona.', 'Documenta los pasos de restauracion para no tener que buscarlos bajo presion.', 'Considera usar un disco de emergencia con sistema operativo portable para casos extremos.']
+  },
+  ransomware_protection: {
+    id: 'ransomware_protection', name: 'Proteccion contra Ransomware', category: 'Seguridad', icon: ShieldAlert, color: 'red',
+    desc: 'El ransomware es el tipo de malware mas lucrativo y devastador. Encripta todos tus archivos y exige un rescate, normalmente en criptomonedas, para recuperar el acceso.\n\nLa unica defensa real es tener backups que el atacante no pueda cifrar o destruir.',
+    details: 'Como funciona el ransomware:\n• Infiltracion: Usually through phishing emails, malicious downloads, or vulnerabilities.\n• Escalada: Se extiende por toda la red local.\n• Encriptacion: Cambia las extensiones de archivos y los hace ilegibles.\n• Rescate: Mensaje con instrucciones para pagar en 24-72 horas.\n\nMedidas de proteccion:\n• No abrir archivos adjuntos sospechosos.\n• Mantener el sistema y antivirus actualizados.\n•备份 separados y desconectados de la red.\n• Principio de menor privilegio: no uses cuenta de administrador para tareas cotidianas.\n• Desactivar macros automaticos en Office.',
+    pros: ['Un backup limpio y desconectado es la unica defensa real contra ransomware.', 'Minimiza el impacto financiero y operativo de un ataque.', 'Permite recuperar sin pagar rescates, que no garantizan recuperacion.'],
+    cons: ['El ransomware puede encriptar backups conectados en red.', 'Ataques avanzados pueden permanecer dormidos meses antes de activate.', 'Si el backup es reciente pero ya estaba infectado, no servira.'],
+    examples: 'Una empresa de contabilidad pago 40.000 euros en Bitcoin y nunca recuperaron todos los archivos. Otra empresa similar restauro todo en 2 horas desde su backup en la nube porque lo tenian desconectado.',
+    tips: ['Nunca pagues el rescate: no hay garantia de recuperacion y incentiva mas ataques.', 'Los backups en la nube con versioning son muy efectivos porque guardan estados anteriores.', 'Habilita alertas de proteccion en tiempo real de tu antivirus.']
+  }
+};
+
+// ==========================================
+// 8. BASE DE DATOS: DISPOSITIVOS MOVILES
+// ==========================================
+const mobileData = {
+  android_basics: {
+    id: 'android_basics', name: 'Android', category: 'Sistema', icon: Smartphone, color: 'emerald',
+    desc: 'Android es el sistema operativo movil mas extendido del mundo, instalado en dispositivos de Samsung, Xiaomi, Google Pixel, OnePlus y cientos de marcas mas.\n\nEntender como funciona Android te permite controlar tu privacidad, gestionar aplicaciones y aprovechar las capacidades de tu dispositivo.',
+    details: 'Estructura de Android:\n• Sistema operativo basado en Linux.\n• Interfaz diferente segun fabricante (Samsung One UI, Xiaomi MIUI, stock Android).\n• Apps instaladas desde Google Play Store o archivos APK externos.\n\nConceptos clave:\n• Permisos: Las apps deben pedir permiso para acceder a camara, ubicacion, contactos.\n• Bateria: Android gestiona el uso en segundo plano para optimizar autonomia.\n• Almacenamiento: Internoy externo (microSD).',
+    pros: ['Gran variedad de dispositivos a diferentes precios.', 'Alta personalizacion de interfaz y funcionamiento.', 'Integracion con servicios de Google.'],
+    cons: ['La fragmentacion significa que no todos los dispositivos reciben actualizaciones.', 'Las capas de fabricacion pueden dificultar las actualizaciones de sistema.', 'Rendimiento variable segun rango de precio.'],
+    examples: 'Configurar un Samsung Galaxy nuevo: transferir datos, instalar apps esenciales, ajustar permisos y personalizar la pantalla de inicio.',
+    tips: ['Instala apps solo de Google Play Store para minimizar malware.', 'Revisa los permisos de las apps regularmente y elimina los que parezcan excesivos.', 'Mantén el sistema actualizado para tener los ultimos parches de seguridad.']
+  },
+  ios_basics: {
+    id: 'ios_basics', name: 'iOS', category: 'Sistema', icon: Smartphone, color: 'slate',
+    desc: 'iOS es el sistema operativo de Apple para iPhone y iPad. Es conocido por su estabilidad, seguridad y coherencia de usuario.\n\nA diferencia de Android, iOS es un ecosistema cerrado con контроль estricto sobre hardware y software.',
+    details: 'Caracteristicas distintivas:\n• Actualizaciones garantizadas durante 5-6 anos para cada dispositivo.\n• App Store como unica fuente de aplicaciones (sin sideloading).\n• Integracion total con el ecosistema Apple (AirDrop, iCloud, Continuity).\n\nConceptos clave:\n• Face ID / Touch ID: Autenticacion biometrica.\n• iCloud: Almacenamiento y sincronizacion en la nube de Apple.\n• Control Center: Acceso rapido a ajustes frecuentes.',
+    pros: ['Actualizaciones de seguridad durante muchos anos.', 'Ecosistema muy bien integrado entre dispositivos Apple.', 'Rendimiento optimizado gracias al control hardware-software.'],
+    cons: ['Menos personalizacion que Android.', 'Dependencia del ecosistema Apple para algunas funciones.', 'Precio mas alto de dispositivos.'],
+    examples: 'Configurar un iPhone nuevo: restaurar desde backup de iCloud, configurar Face ID, elegir que apps pueden enviar notificaciones.',
+    tips: ['Usa iCloud+ para ampliar almacenamiento y tener fotos, documentos y settings sincronizados.', 'Activa Encontrar mi iPhone por si pierdes o te roban el dispositivo.', 'Ajusta los permisos de rastreo de apps en Privacidad para mayor privacidad.']
+  },
+  mobile_privacy: {
+    id: 'mobile_privacy', name: 'Privacidad y Permisos', category: 'Seguridad', icon: ShieldCheck, color: 'blue',
+    desc: 'Los dispositivos moviles saben mucho de nosotros: donde estamos, con quien hablamos, que paginas visitamos. Por eso es crucial entender como proteger tu privacidad.\n\nLos permisos que concedemos a las apps son la primera linea de defensa.',
+    details: 'Permisos criticos:\n• Ubicacion: Siempre, solo mientras usas la app, o nunca.\n• Camara y microfono: Solo cuando la app esta abierta.\n• Contactos y calendario: Acceso de lectura o modificacion.\n• Telefono y SMS: Leer llamadas, enviar SMS premium.\n\nAjustes de privacidad:\n• Android: Ajustes > Privacidad > Gestor de permisos.\n• iOS: Ajustes > Privacidad y seguridad.\n\nPublicidad y rastreo:\n• Android usa tu identificador de publicidad para mostrarte anuncios personalizados.\n• iOS tiene App Tracking Transparency: cada app debe pedir permiso explicito.',
+    pros: ['Restringir permisos reduce la exposicion de datos personales.', 'Los sistemas modernos piden permiso explicito para rastreo.', 'La ubicacion solo cuando es necesario ahorra bateria.'],
+    cons: ['Algunas apps necesitan permisos para funcionar (una linterna no necesita contactos).', 'Negar permisos puede limitar funcionalidad de apps legitimas.', 'Los permisos una vez concedidos no se revisan automaticamente.'],
+    examples: 'Una app de linterna pide acceso a contactos, ubicacion y microfono. Esto es desproporcionado y deberia hacerte desconfiar de esa app.',
+    tips: ['Antes de instalar, revisa que permisos pide la app. Si una linterna pide ubicacion, busca otra.', ' quarterly audits of granted permissions to remove unneeded access.', 'Usa el modo de ubicacion aproximada cuando sea posible: la app sabe la zona pero no tu ubicacion exacta.']
+  },
+  mobile_productivity: {
+    id: 'mobile_productivity', name: 'Productividad Movil', category: 'Uso Practico', icon: Briefcase, color: 'purple',
+    desc: 'Tu movil puede ser una herramienta de productividad poderosa si lo configuras bien. No tiene que ser solo un dispositivo de distraccion.\n\nLas mismas apps que usas en el ordenador tienen versiones moviles optimizadas.',
+    details: 'Apps esenciales de productividad:\n• Correo: Gmail, Outlook (sincroniza con tu cuenta de email).\n• Documentos: Google Docs, Microsoft Office (edicion de documentos).\n• Notas: Apple Notes, Samsung Notes, Notion (capturar ideas rapido).\n• Calendario: Google Calendar, Apple Calendar (organizar tiempo).\n• Tareas: Todoist, Things (gestionar pendientes).\n\nConfiguracion para productividad:\n• Notificaciones: Silencia todo excepto lo importante.\n• Modo No Molestar: Programado para horas de concentracion.\n• Focus en iOS / Modo trabajo en Android.',
+    pros: ['Puedes trabajar desde cualquier lugar con conexion.', 'Captura rapida de ideas, fotos y notas.', 'Sincronizacion con tu ordenador para continuidad.'],
+    cons: ['Pantalla pequena para trabajo prolongado.', 'Mas facil distraerse con redes sociales.', 'Dependencia de bateria y conectividad.'],
+    examples: 'Usar Google Calendar para planificar tu semana, con eventos de estudio, trabajo y descanso. Recibir notificaciones solo de eventos importantes.',
+    tips: ['Desactiva las notificaciones de redes sociales durante horas de trabajo.', 'Usa el modo oscuro para reducir fatiga visual en pantallas OLED.', 'Aprende los gestos de navegacion de tu sistema para moverte mas rapido.']
+  },
+  mobile_security: {
+    id: 'mobile_security', name: 'Seguridad Movil', category: 'Proteccion', icon: Lock, color: 'red',
+    desc: 'Los moviles son objetivos atractivos para atacantes porque contienen todo: acceso a cuentas, datos personales, aplicaciones de banco, y nuestra ubicacion constante.\n\nProteger tu movil es tan importante como proteger tu ordenador.',
+    details: 'Amenazas principales:\n• Malware：通过 apps descargadas fuera de tiendas oficiales.\n• Phishing: SMS con enlaces fraudulentos (smishing) o llamadas de soporte falso.\n• Robo de dispositivo: Acceso fisico a tu informacion.\n\nMedidas de proteccion:\n• Pantalla de bloqueo con PIN, huella o reconocimiento facial.\n• Cifrado del dispositivo (activado por defecto en sistemas modernos).\n• Encontrar mi dispositivo: Localiza, bloquea o borra remotamente.\n• No conectar a cargadores USB publicos sin proteccion (juice jacking).',
+    pros: ['Los sistemas moviles modernos tienen seguridad muy robusta.', 'El cifrado por hardware protege datos incluso si roban el dispositivo.', 'Las actualizaciones de seguridad son frecuentes.'],
+    cons: ['Usuarios que deshabilitan medidas de seguridad por comodidad.', 'Las apps pueden pedir permisos excesivos sin control.', 'La perdida fisica sigue siendo un riesgo si no hay bloqueo.'],
+    examples: 'Pierdes el telefono en un restaurante. Si tienes Encontrar mi dispositivo activo, puedes localizarlo, hacerlo sonar, o borrar todos los datos remotamente.',
+    tips: ['Nunca dejes el movil desprotegido con PIN 1234 o 0000.', 'Activa la autenticacion de dos factores en todas las apps importantes.', 'No uses WiFi publicas para acceder a banca o compras: usa datos moviles o una VPN.']
+  }
+};
+
+// ==========================================
+// 9. BASE DE DATOS: REDES CABLEADAS
+// ==========================================
+const ethernetData = {
+  ethernet_basics: {
+    id: 'ethernet_basics', name: 'Fundamentos Ethernet', category: 'Conceptos', icon: Cable, color: 'blue',
+    desc: 'Ethernet es el estandar de red cableado que conecta ordenadores, impresoras, servidores y otros dispositivos en redes locales (LAN).\n\nMientras el WiFi es comodo para moviles y portatiles, Ethernet sigue siendo la eleccion para gaming, trabajo remoto de alto rendimiento y servidores.',
+    details: 'Componentes de una red Ethernet:\n• Router o switch: El cerebro que dirige el trafico de datos.\n• Cables Ethernet: Los cables que transportan los datos (categorias 5e, 6, 7, 8).\n• NIC (Tarjeta de interfaz de red): El adaptador en tu ordenador que conecta al cable.\n\nCategorias de cables:\n• Cat 5e: Hasta 1 Gbps, 100m maximo.\n• Cat 6: Hasta 10 Gbps, mejor contra interferencias.\n• Cat 6a / 7: Hasta 10 Gbps con mayor distancia.\n• Cat 8: Hasta 40 Gbps para centros de datos.',
+    pros: ['Velocidad maxima y estable sin fluctuaciones de WiFi.', 'Latencia minima: ideal para gaming competitivo y conferencias.', 'Mas seguro: nadie puede "escuchar" sin acceso fisico al cable.'],
+    cons: ['Requiere cableado fisico, menos flexible.', 'Instalacion mas compleja en edificios existentes.', 'Los cables pueden ser visibles y menos esteticos.'],
+    examples: 'Un escritorio con un PC de gaming conectado por cable Cat 6 al router, logrando 1Gbps con 1ms de latencia para gaming online.',
+    tips: ['Para la mayoria de usos domesticos, Cat 5e o Cat 6 es suficiente.', 'No estires demasiado los cables ni los dobles en angulos Sharp.', 'Usa cables de longitud adecuada: muy largos pueden degradar la señal.']
+  },
+  home_network_setup: {
+    id: 'home_network_setup', name: 'Red Domestica Cableada', category: 'Instalacion', icon: Network, color: 'emerald',
+    desc: 'Montar una red cableada en casa es mas sencillo de lo que parece. Con un poco de planificacion puedes tener conexiones rapidas y fiables en todas las habitaciones.\n\nEl resultado: streaming 4K sin buffering, gaming online sin lag, y videollamadas perfectas.',
+    details: 'Diseno de red domestica:\n• Router en centro de la casa o donde esta la conexion a internet.\n• Switch ethernet en cada habitacion o zona de trabajo.\n• Tomas de red RJ45 en pared (cableadas desde el switch central).\n\nPasos de instalacion:\n1. Planificar donde necesitas conexiones.\n2. Pasar cables desde el switch central a cada toma.\n3. Instalar las tomas RJ45 en cada habitacion.\n4. Conectar dispositivos con cables cortos a las tomas.\n\nHerramientas basicas:\n• Ponchadora para crimpar cables.\n• Testador de cables para verificar conexiones.\n• Canaletas para esconder cables visibles.',
+    pros: ['Rendimiento consistente sin importar la distancia al router.', 'Descarga de archivos grandes en segundos.', 'Todos los dispositivos conectados comparten archivos y impresoras facilmente.'],
+    cons: ['Inversion inicial en cables, switches y herramientas.', 'Requiere trabajo de instalacion si quieres algo limpio.', 'Menos flexible si mudas de casa o cambias espacios.'],
+    examples: 'Una oficina en casa con escritorio, NAS, Smart TV y consola conectados todos por cable a un switch, que a su vez conecta al router.',
+    tips: ['Planifica para el futuro: pasa cables extra aunque ahora no los necesites.', 'Usa switches con puertos suficientes (mas de los que crees necesarios).', 'Etiqueta cada cable y toma para saber que va donde.']
+  },
+  network_diagnostics: {
+    id: 'network_diagnostics', name: 'Diagnostico de Red', category: 'Solucion de Problemas', icon: Settings2, color: 'amber',
+    desc: 'Cuando algo no funciona en tu red, necesitas saber diagnosticarlo. Los problemas pueden estar en el cable, el switch, el router o la configuracion del ordenador.\n\nAprender a diagnosticarte te ahorra llamadas a soporte tecnico y tiempo de espera.',
+    details: 'Comandos esenciales (Windows):\n• ipconfig: Ver configuracion IP de tu adaptador.\n• ipconfig /all: Informacion completa including MAC address.\n• ping 8.8.8.8: Probar conectividad a internet.\n• ping google.com: Probar resolucion DNS.\n• tracert google.com: Ver por donde pasan tus datos.\n\nComandos esenciales (Mac/Linux):\n• ifconfig: Similar a ipconfig.\n• ping: Igual que en Windows.\n• traceroute: Similar a tracert.\n• network: Ver estado de conexiones en Mac.',
+    pros: ['Ahorra tiempo diagnosticando problemas comunes.', 'Permite identificar si el problema es local o de tu ISP.', 'No necesitas conocimientos avanzados, solo saber interpretar los resultados.'],
+    cons: ['Algunos comandos requieren saber que buscar.', 'La salida puede ser tecnica y confusa al principio.', 'No todos los problemas tienen solucion desde el usuario final.'],
+    examples: 'Si ping a google.com no funciona pero ping a 8.8.8.8 si, el problema esta en la resolucion DNS. Solucion: cambiar DNS a 8.8.8.8.',
+    tips: ['Aprende los basicos: ipconfig y ping cubren el 80% de los problemas.', 'Guarda los resultados de ipconfig /all cuando la red funcione bien, como referencia.', 'Si todos los dispositivos de tu red tienen problemas, el router es probablemente el culpable.']
+  },
+  nas_network_storage: {
+    id: 'nas_network_storage', name: 'Almacenamiento en Red (NAS)', category: 'Dispositivos', icon: HardDrive, color: 'purple',
+    desc: 'Un NAS (Network Attached Storage) es un dispositivo de almacenamiento conectado a tu red local que funciona como un disco duro compartido para todos tus dispositivos.\n\nEs la solucion ideal para tener un servidor de archivos domestico con acceso desde movil, TV, ordenador y tablet.',
+    details: 'Que es un NAS:\n• Dispositivo con uno o mas discos duros en RAID.\n• Sistema operativo propio (normalmente Linux).\n• Acceso por red ethernet, desde cualquier dispositivo.\n• Servicios adicionales: backup, multimedia streaming, VPN, hosting.\n\nMarcas populares:\n• Synology: Interfaz amigable, muchas apps.\n• QNAP: Mas potente, mejor para empresas pequenas.\n• TerraMaster: Opcion economica.\n• Asustor: Buena relacion precio-caracteristicas.\n\nRAID basico:\n• RAID 1: Duplicacion exacta (2 discos iguales, uno es espejo del otro).\n• RAID 5: Distribuye datos y paridad, aguanta fallo de un disco.',
+    pros: ['Acceso simultaneo desde multiples dispositivos.', 'Copia de seguridad centralizada para toda la casa.', 'Funciona como servidor multimedia para streaming.'],
+    cons: ['Inversion inicial moderada-alta (200-800 euros).', 'Requiere configuracion inicial y mantenimiento.', 'Rendimiento depende de tu red (WiFi sera mas lento que ethernet).'],
+    examples: 'Un NAS Synology con 2 discos de 4TB en RAID 1, sirviendo como libreria de fotos, backup de todos los ordendores y servidor de Plex para peliculas.',
+    tips: ['Empieza con 2 bahias y RAID 1 para proteccion de datos.', 'Los discos dedicados para NAS (como WD Red) duran mas que los de escritorio.', 'Accede desde fuera de casa con VPN o los servicios de sincronizacion del fabricante.']
+  },
+  vpn_basics: {
+    id: 'vpn_basics', name: 'VPN (Red Privada Virtual)', category: 'Seguridad', icon: ShieldCheck, color: 'cyan',
+    desc: 'Una VPN crea un tunel encriptado entre tu dispositivo e internet, ocultando tu actividad de tu proveedor de internet, redes publicas y posibles atacantes.\n\nEs especialmente util en WiFis publicos, para privacidad, y para acceder a contenidos como si estuvieras en otro pais.',
+    details: 'Como funciona una VPN:\n• Tu trafico se encripta en tu dispositivo.\n• Viaja por un tunel seguro hasta el servidor VPN.\n• El servidor VPN descifra y envia tu peticion a internet.\n• Las webs ven la IP del servidor VPN, no la tuya.\n\nCasos de uso:\n• WiFi publico: Protege contra snooping en cafes, aeropuertos.\n• Privacidad: Tu ISP no puede ver que webs visitas.\n• Geo-restricciones: Acceder a contenidos de otros paises.\n• Trabajo remoto: Conectar a la red de tu empresa de forma segura.\n\nServicios populares:\n• NordVPN, ExpressVPN, Surfshark, ProtonVPN.\n• Servicios gratuitos: ProtonVPN Free, Windscribe (limitados).',
+    pros: ['Seguridad en redes publicas sin exposing your data.', 'Privacidad frente a ISP y rastreo de paginas web.', 'Acceso a contenido bloqueado por region.'],
+    cons: ['Puede reducir velocidad de navegacion (especialmente gratis).', 'Algunas webs bloquean VPNSknown .', 'Las VPNS gratuitas pueden vender tus datos.'],
+    examples: 'Trabajar desde una cafeteria conectandose a la VPN de la empresa para acceder a archivos internos de forma segura.',
+    tips: ['Para privacidad maxima, usa VPN sin logs (no guardan historial).', 'WireGuard es el protocolo mas moderno y rapido.', 'No todas las VPNS son iguales: investiga la reputacion antes de confiarles tus datos.']
+  }
+};
+
+// ==========================================
+// 10. BASE DE DATOS: COMUNICACION DIGITAL
+// ==========================================
+const communicationData = {
+  messaging_apps: {
+    id: 'messaging_apps', name: 'Apps de Mensajeria', category: 'Herramientas', icon: MessageSquare, color: 'emerald',
+    desc: 'La mensajeria instantanea ha revolucionado la comunicacion. WhatsApp, Telegram, Signal y iMessage permiten comunicacion en tiempo real con individuos y grupos.\n\nCada app tiene sus ventajas y limitaciones en cuanto a privacidad, caracteristicas y compatibilidad.',
+    details: 'Principales apps:\n• WhatsApp: La mas popular globally, owned by Meta. Cifrado de extremo a extremo por defecto.\n• Telegram: Mas funciones (canales, bots, archivos grandes) pero cifrado opcional.\n• Signal: Maximum privacy, open source, minimal data collection.\n• iMessage: Solo Apple, muy integrado en el ecosistema.\n• Discord: Orientada a comunidades y gaming, muy versatil.\n\nFactores a considerar:\n• Privacidad: Signal > Telegram > WhatsApp > SMS.\n• Caracteristicas: Telegram > Discord > WhatsApp > Signal.\n• Compatibilidad: WhatsApp > Telegram > Signal > iMessage.',
+    pros: ['Comunicacion instantanea y gratuita globally.', 'Grupos para coordinacion familiar, trabajo o proyectos.', 'Envio de archivos, fotos, documentos.'],
+    cons: ['Puede ser intrusivo y generar estres por notificaciones.', 'Informacion se comparte rapidamente y sin reflexion.', 'Grupos grandes pueden ser caoticos.'],
+    examples: 'Usar WhatsApp para familia, Telegram para grupos de proyecto y Signal para conversaciones sensibles.',
+    tips: ['Usa mensajes temporales en chats que no necesitas archivar.', 'Revisa la configuracion de privacidad en cada app.', 'No compartas informacion sensible sin verificar quien esta en el grupo.']
+  },
+  video_conferencing: {
+    id: 'video_conferencing', name: 'Videoconferencia', category: 'Reuniones', icon: Video, color: 'blue',
+    desc: 'Las herramientas de videoconferencia permiten reuniones cara a cara virtuales, esenciales para trabajo remoto, educacion a distancia y mantener contacto con personas lejanas.\n\nDesde Zoom y Google Meet hasta Microsoft Teams, cada plataforma tiene sus fortalezas.',
+    details: 'Plataformas principales:\n• Zoom: Muy popular para reuniones pequeñas y grandes, facilita compartir pantalla.\n• Google Meet: Integrado con Google Workspace, acesso directo desde Calendar.\n• Microsoft Teams: Ideal para empresas con Microsoft 365, incluye chat y archivos.\n• Jitsi: Open source, no requiere cuenta, gratuito.\n\nCaracteristicas utiles:\n• Compartir pantalla para presentaciones y demostraciones.\n• Grabacion de sesiones para quienes no pudieron asistir.\n• Salas de grupos pequenos (breakout rooms).\n• Fondo virtual para privacidad.\n• Transcripcion automatica (en algunas plataformas).',
+    pros: ['Reuniones efectivas sin necesidad de estar fisicamente.', 'Permite trabajar desde cualquier lugar del mundo.', 'Grabaciones para revision posterior o formación.'],
+    cons: ['Fatiga de videoconferencia (Zoom fatigue) por estimulacion excesiva.', 'Dependencia de buena conexion a internet.', 'Dificultad para leer lenguaje corporal y crear conexion humana.'],
+    examples: 'Una reunion de equipo semanal por Google Meet con grabacion automatica para que los que no pudieron asistir vean la grabacion.',
+    tips: ['Mantén la camara encendida cuando sea posible para mayor conexion.', 'Silencia el microfono cuando no hables para evitar ruido de fondo.', 'Usa un fondo virtual o asegurate de que tu entorno sea profesional.']
+  },
+  collaborative_workspace: {
+    id: 'collaborative_workspace', name: 'Espacios de Trabajo Colaborativo', category: 'Productividad', icon: Users, color: 'purple',
+    desc: 'Los espacios de trabajo colaborativo como Slack, Microsoft Teams y Notion centralizan la comunicacion, los archivos y el trabajo en equipo en un solo lugar.\n\nReemplazan al email para comunicacion interna y permiten trabajo asincrono eficiente.',
+    details: 'Plataformas principales:\n• Slack: Canales tematicos, integraciones con otras apps, busqueda excelente.\n• Microsoft Teams:chat + videollamadas + archivos de Office 365 integrados.\n• Notion: Base de datos + notas + wiki + proyecto, todo en uno.\n• Discord: Originalmente gaming, pero muy usado para comunidades y trabajo.\n\nConceptos clave:\n• Canales: Lugares tematicos para conversaciones (ej. #marketing, #soporte).\n• Mensajes directos: Conversacion 1a1 o con pequenos grupos.\n• Hilos: Conversaciones derivadas para no saturar canales principales.\n• Integraciones: Conectar con otras herramientas (GitHub, Google Calendar, etc.).',
+    pros: ['Comunicacion organizada por temas en canales, no todo en una cadena de email.', 'Buscar en el historial es rapido y efectivo.', 'Integraciones automatizan flujos de trabajo.'],
+    cons: ['Puede generar sobrecarga de notificaciones si no se configura bien.', 'Informacion dispersa en muchas herramientas si no hay disciplina.', 'Curva de aprendizaje para equipos que vienen del email.'],
+    examples: 'Un equipo de marketing usa Slack con canales para #redes-sociales, #campanas, #analitica y #random. Las reuniones de equipo son en Teams.',
+    tips: ['Establece normas de uso: que se comunica por email vs por Slack.', 'Usa hilos para conversaciones que no interesan a todos.', 'Configura horas de silencio para no ser molestado fuera del horario.']
+  },
+  digital_identity: {
+    id: 'digital_identity', name: 'Identidad Digital', category: 'Presencia', icon: User, color: 'slate',
+    desc: 'Tu identidad digital es como te presentan online: tu nombre, foto, biografia y presencia en redes sociales y otras plataformas.\n\nGestionar bien tu identidad digital es importante tanto para tu vida personal como profesional.',
+    details: 'Componentes de la identidad digital:\n• Perfiles en redes sociales (LinkedIn, Twitter, Instagram).\n• Presencia profesional (web personal, blog, portfolio).\n• Reputacion online: Lo que otros dicen de ti cuando te buscan.\n\nGestion de presencia:\n• Busca tu nombre regularmente para ver que aparece.\n• Configura la privacidad de tus perfiles segun tu comodidad.\n• Separa lo personal de lo profesional cuando sea necesario.\n\nHuella digital:\n• Todo lo que公共 en internet se queda: fotos, comentarios, publicaciones antiguas.\n• Antes de publicar, pregúrate si te gustaria quefuture empleadores lo vieran.\n• Los motores de busqueda guardan cache de paginas eliminadas.',
+    pros: ['Una buena presencia online puede abrir oportunidades profesionales.', 'Control de tu narrativa: si no controlas tu identidad, otros lo haran.', 'Conexion con personas y comunidades de intereses similares.'],
+    cons: ['Informacion mal gestionada puede afectar oportunidades de empleo.', 'Dificil eliminar informacion una vez publicada.', 'Riesgo de suplantacion de identidad si no proteges tus datos.'],
+    examples: 'Un profesional que mantiene un perfil de LinkedIn actualizado, con certificaciones y recomendaciones, y que googlea periodicamente su nombre para monitorizar su reputacion online.',
+    tips: ['Google yourself al menos una vez al mes.', 'Usa diferentes correos y perfiles segun el contexto (personal, trabajo, comunidades).', 'No aceptes conexiones de desconocidos sin verificar su perfil.']
+  },
+  netiquette_advanced: {
+    id: 'netiquette_advanced', name: 'Netiqueta y Comunicacion', category: 'Etiqueta Digital', icon: MessageCircle, color: 'amber',
+    desc: 'La netiqueta es el conjunto de normas de comportamiento para comunicacion digital. Tan importante como saber escribir es saber cuando, a quien y como comunicarte digitalmente.\n\nEl tono se pierde en texto, los emoji pueden malinterpretarse, y las respuestas instantaneas no siempre son necesarias.',
+    details: 'Principios de netiqueta:\n• Respeta el tiempo de los demas: no todos estan disponibles 24/7.\n• Usa el canal adecuado: email formal vs mensaje rapido vs llamada.\n• Cuidado con el tono: lo que parece cortante en texto puede ser neutral.\n• Piensa antes de enviar: un mensaje impulsivo puede causar problemas.\n\nEmail vs Mensajeria vs Llamada:\n• Email: Para temas formales, que requieren registro escrito, o cuando no hay urgencia.\n• Mensajeria (Slack/Teams): Para comunicacion rapida de equipo, preguntas cortas.\n• Llamada/videollamada: Para temas complejos, conflictos, o cuando la urgencia es alta.\n\nTiempo de respuesta esperado:\n• Email profesional: 24-48 horas.\n• Mensajeria de trabajo: Dentro del horario laboral, unas pocas horas.\n• Urgencias criticas: Llamada telefonica.',
+    pros: ['Buena netiqueta mejora relaciones profesionales y personales.', 'Reduce malentendidos y conflictos innecesarios.', 'Te hace parecer mas profesional y considerado.'],
+    cons: ['Normas pueden variar entre culturas y organizaciones.', 'Lo que es aceptable en un equipo puede no serlo en otro.', 'La tecnologia cambia rapidamente y las normas evolucionan.'],
+    examples: 'No enviar un email a las 11pm esperando respuesta inmediata. No usar emojis en comunicaciones formales con clientes.',
+    tips: ['Lee tu mensaje antes de enviarlo imagining como lo recibiria el receptor.', 'Si estas enfadado, escribe el mensaje y dejalo reposar 10 minutos antes de enviarlo.', 'Adapta tu comunicacion al canal y al receptor.']
+  }
+};
+
 const contentTools = {
   canva: { name: 'Canva', category: 'Diseño', description: 'Diseño gráfico rápido para RRSS, presentations y más.', url: 'canva.com', logo: SoftwareLogos.canva },
   capcut: { name: 'CapCut', category: 'Video', description: 'Edición de vídeo profesional en móvil y desktop.', url: 'capcut.com', logo: SoftwareLogos.capcut },
@@ -1343,9 +1548,31 @@ const tabConfig = [
     idleClass: 'bg-white text-slate-500 hover:bg-blue-50 hover:text-blue-700 border-slate-200 shadow-sm',
   },
   {
+    id: 'backup',
+    group: 'Datos y Seguridad',
+    step: '06',
+    title: 'Respaldo',
+    subtitle: 'Copias de seguridad y recuperacion',
+    description: 'Aprende a proteger tus datos con estrategias de respaldo locales y en la nube.',
+    icon: Database,
+    activeClass: 'bg-teal-600 text-white shadow-xl border-teal-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-teal-50 hover:text-teal-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'mobile',
+    group: 'Datos y Seguridad',
+    step: '07',
+    title: 'Moviles',
+    subtitle: 'Android, iOS y seguridad movil',
+    description: 'Gestiona la privacidad, permisos y productividad en dispositivos moviles.',
+    icon: Smartphone,
+    activeClass: 'bg-indigo-600 text-white shadow-xl border-indigo-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-indigo-50 hover:text-indigo-700 border-slate-200 shadow-sm',
+  },
+  {
     id: 'internet',
     group: 'Navegacion y Comunicacion',
-    step: '06',
+    step: '08',
     title: 'Navegacion',
     subtitle: 'Buscar, contrastar y protegerse',
     description: 'Aprende a moverte por Internet con criterio y seguridad.',
@@ -1356,18 +1583,18 @@ const tabConfig = [
   {
     id: 'navegadores',
     group: 'Navegacion y Comunicacion',
-    step: '07',
+    step: '09',
     title: 'Navegadores',
     subtitle: 'Buscadores y navegacion web',
     description: 'Domina navegadores, buscadores y tecnicas de busqueda efectiva.',
     icon: AppWindow,
-    activeClass: 'bg-indigo-600 text-white shadow-xl border-indigo-800 scale-105 z-10',
-    idleClass: 'bg-white text-slate-500 hover:bg-indigo-50 hover:text-indigo-700 border-slate-200 shadow-sm',
+    activeClass: 'bg-violet-600 text-white shadow-xl border-violet-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-violet-50 hover:text-violet-700 border-slate-200 shadow-sm',
   },
   {
     id: 'security',
     group: 'Navegacion y Comunicacion',
-    step: '08',
+    step: '10',
     title: 'Seguridad',
     subtitle: 'Proteccion y autocuidado digital',
     description: 'Aprende a proteger cuentas, detectar fraudes y mantener tus datos a salvo.',
@@ -1378,7 +1605,7 @@ const tabConfig = [
   {
     id: 'email',
     group: 'Navegacion y Comunicacion',
-    step: '09',
+    step: '11',
     title: 'Correo',
     subtitle: 'Comunicacion y bandeja segura',
     description: 'Domina email, adjuntos, destinatarios y netiqueta para estudiar y trabajar mejor.',
@@ -1389,40 +1616,51 @@ const tabConfig = [
   {
     id: 'desktop',
     group: 'Entorno de Trabajo',
-    step: '10',
+    step: '12',
     title: 'Escritorio',
     subtitle: 'Interfaz y elementos del SO',
     description: 'Aprende a moverte por el escritorio, barra de tareas, iconos, ventanas y menus.',
     icon: Monitor,
-    activeClass: 'bg-violet-600 text-white shadow-xl border-violet-800 scale-105 z-10',
-    idleClass: 'bg-white text-slate-500 hover:bg-violet-50 hover:text-violet-700 border-slate-200 shadow-sm',
-  },
-  {
-    id: 'red_instalacion',
-    group: 'Entorno de Trabajo',
-    step: '11',
-    title: 'Redes WiFi',
-    subtitle: 'Instalacion y configuracion',
-    description: 'Aprende a instalar, configurar y optimizar redes WiFi en casa.',
-    icon: Wifi,
     activeClass: 'bg-cyan-600 text-white shadow-xl border-cyan-800 scale-105 z-10',
     idleClass: 'bg-white text-slate-500 hover:bg-cyan-50 hover:text-cyan-700 border-slate-200 shadow-sm',
   },
   {
-    id: 'red_basicos',
+    id: 'red_instalacion',
     group: 'Entorno de Trabajo',
-    step: '12',
-    title: 'Internet',
-    subtitle: 'Fundamentos y conexion',
-    description: 'Comprende como funciona Internet: protocolos, DNS, IP y mas.',
-    icon: Globe,
-    activeClass: 'bg-teal-600 text-white shadow-xl border-teal-800 scale-105 z-10',
-    idleClass: 'bg-white text-slate-500 hover:bg-teal-50 hover:text-teal-700 border-slate-200 shadow-sm',
+    step: '13',
+    title: 'Redes WiFi',
+    subtitle: 'Instalacion y configuracion',
+    description: 'Aprende a instalar, configurar y optimizar redes WiFi en casa.',
+    icon: Wifi,
+    activeClass: 'bg-emerald-600 text-white shadow-xl border-emerald-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'ethernet',
+    group: 'Entorno de Trabajo',
+    step: '14',
+    title: 'Redes Cableadas',
+    subtitle: 'Ethernet y red domestica',
+    description: 'Comprende las redes cableadas, diagnostico y dispositivos de red.',
+    icon: Cable,
+    activeClass: 'bg-amber-600 text-white shadow-xl border-amber-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-amber-50 hover:text-amber-700 border-slate-200 shadow-sm',
+  },
+  {
+    id: 'communication',
+    group: 'Comunicacion Digital',
+    step: '15',
+    title: 'Comunicacion',
+    subtitle: 'Mensajeria, videollamadas y colaboracion',
+    description: 'Domina las herramientas de comunicacion digital profesional y personal.',
+    icon: MessageSquare,
+    activeClass: 'bg-pink-600 text-white shadow-xl border-pink-800 scale-105 z-10',
+    idleClass: 'bg-white text-slate-500 hover:bg-pink-50 hover:text-pink-700 border-slate-200 shadow-sm',
   },
   {
     id: 'office',
     group: 'Productividad',
-    step: '13',
+    step: '16',
     title: 'Ofimatica',
     subtitle: 'Documentos, calculo y presentacion',
     description: 'Elige la herramienta adecuada para redactar, calcular, presentar y compartir.',
@@ -1433,7 +1671,7 @@ const tabConfig = [
   {
     id: 'keyboard',
     group: 'Productividad',
-    step: '14',
+    step: '17',
     title: 'Atajos',
     subtitle: 'Productividad con teclado',
     description: 'Domina combinaciones para navegar y trabajar con mas fluidez.',
@@ -1444,7 +1682,7 @@ const tabConfig = [
   {
     id: 'content',
     group: 'Productividad',
-    step: '15',
+    step: '18',
     title: 'Contenido',
     subtitle: 'Creacion de contenido digital',
     description: 'Aprende a crear contenido efectivo: copywriting, blogs, redes sociales, video, podcast y buenas practicas.',
@@ -1455,7 +1693,7 @@ const tabConfig = [
   {
     id: 'ai_basics',
     group: 'Tecnologias Emergentes',
-    step: '16',
+    step: '19',
     title: 'Fundamentos IA',
     subtitle: 'Contexto, prompts y limitaciones',
     description: 'Aprende como funcionan los LLM, como escribir buenos prompts y entender sus limitaciones.',
@@ -1466,7 +1704,7 @@ const tabConfig = [
   {
     id: 'ai',
     group: 'Tecnologias Emergentes',
-    step: '17',
+    step: '20',
     title: 'Inteligencia IA',
     subtitle: 'Herramientas y usos reales',
     description: 'Explora modelos, asistentes y creadores multimedia.',
@@ -1477,7 +1715,7 @@ const tabConfig = [
   {
     id: 'assessment',
     group: 'Evaluacion Final',
-    step: '18',
+    step: '21',
     title: 'Ponte a prueba',
     subtitle: 'Retos, orden y clasificacion',
     description: 'Reune todo lo aprendido en quizzes, arrastre, orden y retos finales.',
@@ -1491,19 +1729,22 @@ const tabDataMap = {
   home: {},
   hardware: hardwareData,
   peripherals: peripheralData,
-  cloud: cloudData,
   software: softwareData,
+  files: filesData,
+  cloud: cloudData,
+  backup: backupData,
+  mobile: mobileData,
   internet: internetData,
+  navegadores: navegadoresData,
   security: securityData,
   email: emailData,
   desktop: {},
   red_instalacion: redInstalacionData,
-  red_basicos: redBasicosData,
-  navegadores: navegadoresData,
-  content: contentData,
-  files: filesData,
-  keyboard: keyboardData,
+  ethernet: ethernetData,
+  communication: communicationData,
   office: officeData,
+  keyboard: keyboardData,
+  content: contentData,
   ai_basics: aiBasicsData,
   ai: aiData,
   assessment: assessmentData,
@@ -1517,19 +1758,25 @@ const sectionGroupMeta = {
     summary: 'Hardware, perifericos y software: entiende como funciona el equipo por dentro.',
   },
   'Almacenamiento y Datos': {
-    summary: 'Archivos, carpetas y la diferencia entre trabajar en local o en la nube.',
+    summary: 'Archivos, carpetas, nube y como proteger tus datos con backups.',
+  },
+  'Datos y Seguridad': {
+    summary: 'Dispositivos moviles, privacidad, permisos y estrategias de respaldo.',
   },
   'Navegacion y Comunicacion': {
     summary: 'Internet, navegadores, seguridad, correo y busqueda con criterio.',
   },
   'Entorno de Trabajo': {
-    summary: 'Escritorio del sistema, redes WiFi e fundamentos de Internet.',
+    summary: 'Escritorio del sistema, redes WiFi, Ethernet y comunicacion digital.',
+  },
+  'Comunicacion Digital': {
+    summary: 'Mensajeria, videoconferencia, espacios colaborativos y netiqueta.',
   },
   Productividad: {
     summary: 'Ofimatica, atajos de teclado y creacion de contenido digital.',
   },
   'Tecnologias Emergentes': {
-    summary: 'Herramientas de inteligencia artificial para ampliar tus capacidades.',
+    summary: 'Fundamentos de IA, herramientas de inteligencia artificial y usos reales.',
   },
   'Evaluacion Final': {
     summary: 'Practica y verifica todo lo aprendido con quizzes y retos.',
@@ -4854,6 +5101,78 @@ export default function App() {
           {activeTab === 'files' && renderFilesTab()}
           {activeTab === 'keyboard' && renderKeyboardTab()}
           {activeTab === 'office' && renderOfficeTab()}
+          {activeTab === 'backup' && (
+            <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
+              <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
+                <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
+                  <Database className="text-teal-400" size={32} />
+                  <div>
+                    <h2 className="text-2xl font-black text-white">Copia de Seguridad y Recuperacion</h2>
+                    <p className="text-slate-400 mt-1 text-sm font-medium">Estrategias para proteger tus datos: reglas 3-2-1, backups locales, en la nube y recuperacion.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {Object.keys(backupData).map(id => (
+                    <InteractiveButton key={id} id={id} dataSet={backupData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {activeTab === 'mobile' && (
+            <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
+              <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
+                <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
+                  <Smartphone className="text-indigo-400" size={32} />
+                  <div>
+                    <h2 className="text-2xl font-black text-white">Dispositivos Moviles</h2>
+                    <p className="text-slate-400 mt-1 text-sm font-medium">Android, iOS, privacidad, permisos y productividad en dispositivos moviles.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {Object.keys(mobileData).map(id => (
+                    <InteractiveButton key={id} id={id} dataSet={mobileData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {activeTab === 'ethernet' && (
+            <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
+              <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
+                <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
+                  <Cable className="text-amber-400" size={32} />
+                  <div>
+                    <h2 className="text-2xl font-black text-white">Redes Cableadas Ethernet</h2>
+                    <p className="text-slate-400 mt-1 text-sm font-medium">Fundamentos de redes cableadas, configuracion domestica, diagnostico y NAS.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {Object.keys(ethernetData).map(id => (
+                    <InteractiveButton key={id} id={id} dataSet={ethernetData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {activeTab === 'communication' && (
+            <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
+              <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
+                <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
+                  <MessageSquare className="text-pink-400" size={32} />
+                  <div>
+                    <h2 className="text-2xl font-black text-white">Comunicacion Digital</h2>
+                    <p className="text-slate-400 mt-1 text-sm font-medium">Apps de mensajeria, videoconferencia, espacios colaborativos y netiqueta.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {Object.keys(communicationData).map(id => (
+                    <InteractiveButton key={id} id={id} dataSet={communicationData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
           {activeTab === 'assessment' && renderAssessmentTab()}
           {activeTab === 'ai_basics' && renderAIBasicsTab()}
           {activeTab === 'ai' && renderAITab()}
