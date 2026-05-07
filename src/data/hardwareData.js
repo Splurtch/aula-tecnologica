@@ -1,0 +1,67 @@
+import { CircuitBoard, Cpu, Microchip, Gamepad2, HardDrive, Plug, Fan } from 'lucide-react';
+
+export const hardwareData = {
+  motherboard: {
+    id: 'motherboard', name: 'Placa Base (Motherboard)', category: 'Componente Interno Central', icon: CircuitBoard, color: 'emerald',
+    desc: 'La placa base es la "columna vertebral" o el "sistema nervioso central" del ordenador. Físicamente es una gran tarjeta de circuito impreso (PCB) a la que se conectan todos los demás componentes del equipo para poder comunicarse entre sí.\n\nSin la placa base, el procesador no podría enviar datos a la memoria, ni la tarjeta gráfica podría enviar la imagen al monitor. Actúa como el gran centro de comunicaciones.',
+    details: 'Elementos clave que incluye:\n• El "Socket" o zócalo: Es la ranura específica donde se encaja el Procesador.\n• Ranuras DIMM: Donde se conectan los módulos de memoria RAM.\n• Ranuras PCIe (PCI Express): Utilizadas principalmente para conectar tarjetas gráficas potentes o tarjetas de red.\n• Puertos SATA/M.2: Para conectar los discos duros y unidades de almacenamiento SSD.\n• El Chipset: Un conjunto de circuitos que controla el flujo de datos entre el procesador y el resto de dispositivos.',
+    pros: ['Conecta todos los componentes permitiendo comunicacion entre ellos', 'Determina que tipo de procesador y memoria puedes usar', 'Los chipsets modernos incluyen audio, red y graficos integrados'],
+    cons: ['Si falla, hay que remplacer toda la placa', 'Limita las posibilidades de actualizacion del sistema', 'Modelos cheap pueden limitar el rendimiento de componentes buenos'],
+    examples: ['Una placa ATX con 4 ranuras DIMM permite hasta 128GB de RAM. Una mini-ITX solo tiene 2 ranuras y espacio para una tarjeta grafica.'],
+    tips: ['Mira el numero de puertos USB que tiene antes de comprar', 'Asegurate de que el socket del procesador sea compatible con tu CPU', 'Las placas con WiFi integrado ahorran usar un adaptador'],
+  },
+  cpu: {
+    id: 'cpu', name: 'Procesador (CPU)', category: 'Motor de Cálculo', icon: Cpu, color: 'blue',
+    desc: 'La Unidad Central de Processing (CPU) es indiscutiblemente el "cerebro" del ordenador. Su trabajo consiste en recibir órdenes, interpretarlas, realizar cálculos matemáticos complejos a una velocidad vertiginosa y enviar los resultados para que todo funcione.\n\nImagina que es el jefe de cocina de un restaurante: recibe las comandas (instrucciones de los programas), organiza a los cocineros y se asegura de que los platos salgan a tiempo.',
+    details: 'Especificaciones a tener en cuenta:\n• Velocidad de Reloj (Frecuencia): Medida en Gigahercios (GHz). Indica cuántas operaciones puede hacer por segundo (ej. 3.5 GHz son 3.500 millones de ciclos por segundo).\n• Núcleos (Cores): Un procesador moderno no tiene un solo "cerebro", sino varios (ej. 4, 8, 16 núcleos). Esto le permite hacer muchas tareas de forma simultánea (multitarea) sin atascarse.\n• Fabricantes principales: Intel (familias Core i3, i5, i7, i9) y AMD (familias Ryzen 3, 5, 7, 9).',
+    pros: ['Ejecuta todas las instrucciones de los programas', 'Mas nucleos = mas tareas simultaneas sin relentizacion', 'Los modernos incluyen graficos integrados para ofimatica basica'],
+    cons: ['Es el componente mas caro del sistema', 'Consume mucha energia y genera calor', 'Rendimiento limitado por otros componentes (RAM, disco)'],
+    examples: ['Un Intel Core i9-14900K tiene 24 nucleos (8 Performance + 16 Efficiency) y alcanza 6GHz de velocidad de reloj.'],
+    tips: ['Para gaming, prioriza velocidad de reloj sobre nucleos', 'Para editing de video, busca muchos nucleos (8+)', 'No compres el mas caro si no tienes una placa base y refrigeracion adecuada'],
+  },
+  ram: {
+    id: 'ram', name: 'Memoria RAM', category: 'Almacenamiento Temporal', icon: Microchip, color: 'purple',
+    desc: 'La RAM (Memoria de Acceso Aleatorio) es la memoria de trabajo a muy corto plazo del ordenador. Esurier much mas rapida que un disco duro, pero tiene una particularidad: es "volatil". Esto significa que cuando apagas el ordenador, todo lo que hay en la RAM se borra para siempre.\n\nAnalogia: Imagina que el disco duro es un gran archivo en el sotano y la RAM es tu mesa de escritorio. Para trabajar con un documento, debes subirlo del sotano y ponerlo en la mesa. Cuanto mas grande sea tu mesa (mas GB de RAM), mas documentos podras tener abiertos al mismo tiempo sin tener que bajar al sotano constantemente (lo que haria que el PC fuera lentisimo).',
+    details: 'Datos tecnicos:\n• Capacidad: Se mide en Gigabytes (GB). Hoy en dia, 8 GB es el minimo vital para ofimatica, 16 GB es el estandar recomendado para trabajar comodamente, y 32 GB o mas se usan para edicion de video profesional o diseno 3D.\n• Generaciones: DDR4 y la mas moderna DDR5. Cada generacion es mas rapida y consume menos energia que la anterior.',
+    pros: ['Acceso a datos a velocidad extrema (miles de veces mas rapido que SSD)', 'Permite multitasking fluido sin relentizaciones', 'Mas RAM = mas paginas de navegador, mas apps abiertas simultaneamente'],
+    cons: ['Es volatil: se borra al apagar el equipo', 'Consumo energetico aunque el equipo este idle', 'Precio por GB ha bajado mucho pero sigue siendo relevante'],
+    examples: ['16GB DDR5-6000 permite editar video 4K sin problemas. 32GB es ideal para desarrollo de software o diseno 3D.'],
+    tips: ['Verifica que tu placa base soporte la velocidad de RAM que compres', 'Activa XMP en la BIOS para alcanzar velocidades anunciadas', '8GB es insuficiente hoy para cualquier tarea seria'],
+  },
+  gpu: {
+    id: 'gpu', name: 'Tarjeta Grafica (GPU)', category: 'Procesamiento Visual', icon: Gamepad2, color: 'red',
+    desc: 'La GPU (Unidad de Procesamiento Grafico) es un procesador especializado unica y exclusivamente en crear las imagenes que ves en tu monitor. Mientras la CPU es un genio matematico que hace de todo, la GPU es como un batallon de miles de trabajadores sincronizados pintando pixeles en la pantalla.\n\nEs el componente mas importante para los videojuegos, el diseno 3D, la edicion de video y, mas recientemente, para entrenar Inteligencias Artificiales.',
+    details: 'Tipos de Graficas:\n• Integradas (iGPU): Vienen incrustadas dentro del propio procesador. Son economicas, consumen poco y sirven perfectamente para ofimatica, ver Netflix o navegar.\n• Dedicadas (Tarjetas externas): Son placas enormes con sus propios ventiladores y su propia memoria exclusiva (VRAM). Fabricadas principalmente por NVIDIA (ej. serie RTX) o AMD (serie Radeon). Son obligatorias para tareas pesadas o gaming de alto rendimiento.',
+    pros: ['Renderiza graficos 3D y videojuegos con fps altos', 'Acelera edición de video y diseno 3D drasticamente', 'Necesario para gaming competitivo y experiencias de realidad virtual'],
+    cons: ['Consumo energetico muy alto (300-450W en modelos potentes)', 'Genera mucho calor y requiere buena refrigeracion', 'Precio elevado si quieres rendimiento serio'],
+    examples: ['NVIDIA RTX 4090 es la grafica mas potente para consumidores en 2024. AMD RX 7900 XTX es su alternativa directa.'],
+    tips: ['Para gaming 1080p, una RTX 4060 es suficiente', 'Asegurate de que tu fuente de alimentacion aguante la grafica', 'No compres la grafica mas cara si tu monitor es 1080p 60Hz'],
+  },
+  storage: {
+    id: 'storage', name: 'Unidad de Almacenamiento', category: 'Memoria Permanente', icon: HardDrive, color: 'amber',
+    desc: 'A diferencia de la RAM, el almacenamiento es "no volatil": guarda tus datos de forma permanente incluso cuando no hay electricidad. Aqui es donde "viven" tu sistema operativo (Windows, macOS), tus programas instalados, tus fotos y tus documentos.\n\nEs tu gran biblioteca personal y la "caja fuerte" de tu informacion digital.',
+    details: 'Evolucion tecnologica:\n• HDD (Discos Duros Mecanicos): Son los antiguos. Tienen platos magneticos que giran y una aguja que los lee. Son lentos, ruidosos y fragiles ante los golpes, pero muy baratos para almacenar masivamente.\n• SSD (Unidades de Estado Solido): Usan chips de memoria flash (como un pendrive gigante). No tienen partes moviles. Son increiblemente mas rapidos. Cambiar un HDD por un SSD es la mejora mas drastica que se le puede hacer a un ordenador antiguo.\n• SSD NVMe M.2: La evolucion del SSD. Son pequenas tarjetas que se conectan directamente a la placa base y alcanzan velocidades alucinantes (hasta 7.000 MB/s, frente a los 100 MB/s de un HDD clasico).',
+    pros: ['Almacena datos permanentemente incluso sin electricidad', 'Capacidad disponible hasta terabytes a precios razonables', 'Los SSD NVMe son drasticamente mas rapidos que HDD'],
+    cons: ['HDD es muy lento comparado con cualquier SSD', 'Los SSD tienen vida util limitada en escrituras', 'Perder datos por fallo es mas comun de lo que parece'],
+    examples: ['Un SSD NVMe de 1TB como el Samsung 980 Pro alcanza 7.000 MB/s de lectura. Un HDD de 4TB apenas supera 150 MB/s.'],
+    tips: ['Instala Windows en SSD NVMe para maximo rendimiento', 'HDD sigue siendo bueno para almacenamiento masivo de datos que no uses a menudo', 'Haz copias de seguridad de lo importante'],
+  },
+  psu: {
+    id: 'psu', name: 'Fuente de Alimentacion (PSU)', category: 'Energia', icon: Plug, color: 'zinc',
+    desc: 'La Fuente de Alimentacion es el "corazon" que bombea electricidad al sistema. Su trabajo es tomar la corriente alterna (AC) de alto voltaje que sale del enchufe de tu pared (230V en Europa) y convertirla en corriente continua (DC) de bajo voltaje (3.3V, 5V, 12V) que los componentes delicados del ordenador pueden usar sin quemarse.\n\nEs un componente a menudo ignorado, pero si compras una de mala calidad y falla, puede freir y destruir el resto de piezas caras de tu ordenador (procesador, placa, grafica...).',
+    details: 'Como elegirla:\n• Potencia: Se mide en Vatios (Watts). Un PC de oficina funciona con 300W, mientras que uno de diseno con una tarjeta grafica potente puede requerir 750W o incluso 1000W.\n• Certificacion 80 PLUS: Es un sello que garantiza la eficiencia energetica. Una fuente "80 Plus Gold" desperdicia muy poca energia en forma de calor, lo que ahorra en la factura de la luz a largo plazo.',
+    pros: ['Alimenta todos los componentes del sistema de forma estable', 'Certificaciones 80 PLUS garantizan eficiencia y bajo consumo', 'Fuente de calidad protege contra picos de tension'],
+    cons: ['Una fuente mala puede destruir todos los componentes', 'Calidad varia muchisimo entre fabricantes', 'Potencia minima necesaria depende de grafica y procesador'],
+    examples: ['Una RTX 4090 requiere minimo 850W. Un PC de oficina basico funciona con 450W.'],
+    tips: ['Nunca escatimes en la fuente: es la unica que puede matar todo el sistema', 'Busca certificacion 80 Plus Gold o superior', 'Deja margen: si necesitas 600W, compra 750W'],
+  },
+  cooling: {
+    id: 'cooling', name: 'Refrigeracion', category: 'Mantenimiento Termico', icon: Fan, color: 'cyan',
+    desc: 'La electricidad genera calor por friccion al pasar por los circuitos. Los componentes modernos (CPU y GPU) trabajan tan rapido que pueden superar los 100C en segundos y derretirse literalmente si no se enfrían.\n\nEl sistema de refrigeracion se encarga de disipar ese calor y expulsarlo fuera de la caja de la torre, manteniendo el ordenador a temperaturas seguras (normalmente entre 40C y 80C).',
+    details: 'Metodos principales:\n• Refrigeracion por Aire: Usa bloques de metal (disipadores) de aluminio o cobre unidos a la CPU, y ventiladores que soplan aire a traves de ellos.\n• Refrigeracion Liquida (AIO): Funciona de manera similar al radiador de un coche. Una bomba hace circular un liquido refrigerante por unos tubos. El liquido absorbe el calor del procesador y lo lleva a un radiador grande donde los ventiladores lo enfrian. Es mas silenciosa y eficiente para equipos de alto rendimiento.',
+    pros: ['Mantiene temperaturas operativas seguras para el hardware', 'Refrigeracion liquida es mas eficiente y silenciosa', 'Buena refrigeracion permite mayor rendimiento sostenido'],
+    cons: ['Refrigeracion por aire basica puede ser ruidosa', 'Refrigeracion liquida requiere mantenimiento periodico', 'El calor extremo reduce la vida util de los componentes'],
+    examples: ['Un Intel i9 sin refrigeracion puede alcanzar 100C en segundos y hacer thermal throttling (reducir velocidad). Con un buen disipador se mantiene bajo 80C.'],
+    tips: ['Limpia el polvo de ventiladores cada 6 meses', 'Asegura que la pasta termica no este seca (cada 3-5 anos)', 'Si ves temperaturas arriba de 90C, invierte en mejor refrigeracion'],
+  }
+};
