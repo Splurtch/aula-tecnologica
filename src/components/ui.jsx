@@ -396,7 +396,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
           </h4>
           <div className="space-y-3">
             {selectedItem.desc.split('\n\n').map((paragraph, idx) => {
-              if (paragraph.startsWith('Â«') && paragraph.endsWith('Â».')) {
+              if (paragraph.startsWith('«') && paragraph.endsWith('».')) {
                 return (
                   <div key={idx} className={`p-3.5 rounded-sm font-medium italic ${isDark ? 'bg-blue-500/10 border border-blue-500/20 text-blue-200' : `${colors.bgLight} ${colors.text} border ${colors.borderLight}`}`}>
                     {paragraph}
@@ -422,7 +422,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
             </h4>
             <div className="space-y-2.5">
               {selectedItem.details.split('\n').map((line, idx) => {
-                if (line.startsWith('â€¢')) {
+                if (line.startsWith('•')) {
                   return (
                     <div key={idx} className="flex gap-3 items-start">
                       <span className={`mt-0.5 font-semibold ${accentTextClass}`}>→</span>
