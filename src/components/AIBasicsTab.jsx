@@ -369,7 +369,7 @@ export default function AIBasicsTab() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_380px] gap-6">
         <div className="bg-slate-900 rounded-sm border border-slate-800 shadow-xl overflow-hidden">
           <LLMSimulatorSidebar chats={chats} showChatHistory={true} onToggleSidebar={() => {}} />
         </div>
@@ -443,10 +443,10 @@ export default function AIBasicsTab() {
             </p>
           </div>
         </div>
-      </div>
 
-      <div className="mt-4 rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)]">
-        {renderPanelExplicativo()}
+        <div className="rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)] overflow-y-auto" style={{ maxHeight: '580px' }}>
+          {renderPanelExplicativo()}
+        </div>
       </div>
     </div>
   );
