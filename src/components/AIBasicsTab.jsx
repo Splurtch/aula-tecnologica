@@ -533,16 +533,17 @@ function LLMSimulatorSidebar({ chats, showChatHistory, onToggleSidebar }) {
 
 function LLMSimulatorContextWindow() {
   const llmContextWindows = [
-    { name: 'GPT-4 Turbo', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
-    { name: 'GPT-4o', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
-    { name: 'Claude 3.5 Sonnet', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
-    { name: 'Claude 3 Opus', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
-    { name: 'Gemini 1.5 Pro', tokens: '1,000,000', provider: 'Google', color: '#3b82f6' },
+    { name: 'GPT-4.5', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
+    { name: 'o4', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
+    { name: 'Claude 4 Opus', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
+    { name: 'Claude 4 Sonnet', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
+    { name: 'Gemini 2.0 Ultra', tokens: '1,000,000', provider: 'Google', color: '#3b82f6' },
     { name: 'Gemini 2.0 Flash', tokens: '1,000,000', provider: 'Google', color: '#3b82f6' },
-    { name: 'Llama 3.1 70B', tokens: '128,000', provider: 'Meta', color: '#a78bfa' },
-    { name: 'Mistral Large', tokens: '128,000', provider: 'Mistral', color: '#fb7185' },
-    { name: 'Grok 2', tokens: '131,072', provider: 'xAI', color: '#fb923c' },
-    { name: 'DeepSeek V3', tokens: '128,000', provider: 'DeepSeek', color: '#22d3ee' },
+    { name: 'Llama 4', tokens: '1,000,000', provider: 'Meta', color: '#a78bfa' },
+    { name: 'Grok 3', tokens: '131,072', provider: 'xAI', color: '#fb923c' },
+    { name: 'Mistral Large 3', tokens: '128,000', provider: 'Mistral', color: '#fb7185' },
+    { name: 'Qwen 3', tokens: '128,000', provider: 'Alibaba', color: '#f472b6' },
+    { name: 'DeepSeek V4', tokens: '256,000', provider: 'DeepSeek', color: '#22d3ee' },
   ];
 
   return (
