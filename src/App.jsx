@@ -17,6 +17,7 @@ import {
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
 import AIBasicsTab from './components/AIBasicsTab.jsx';
+import { useTheme } from './context/ThemeContext.jsx';
 
 const BrowserLogos = {
   chrome: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/chrome/chrome.svg',
@@ -1750,9 +1751,9 @@ const colorMap = {
 };
 
 export default function App() {
+  const { isDark, toggleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('home');
   const [selectedItem, setSelectedItem] = useState(null);
-  const [theme, setTheme] = useState('light');
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -1772,7 +1773,6 @@ export default function App() {
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
   const itemCount = currentItems.length;
-  const isDark = theme === 'dark';
   const hasActiveDetail = Boolean(selectedItem && currentDataSet[selectedItem.id]);
   const sectionGroups = tabConfig.reduce((acc, tab) => {
     if (!acc[tab.group]) acc[tab.group] = [];
@@ -2184,21 +2184,6 @@ export default function App() {
   };
 
   const handleClearSelection = () => setSelectedItem(null);
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem('aula-theme');
-    if (storedTheme === 'light' || storedTheme === 'dark') {
-      setTheme(storedTheme);
-      return;
-    }
-
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(prefersDark ? 'dark' : 'light');
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem('aula-theme', theme);
-  }, [theme]);
 
   useEffect(() => {
     setExpandedSectionGroup(activeTabMeta.group);
@@ -4871,7 +4856,7 @@ export default function App() {
               </button>
 
               <button
-                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                onClick={toggleTheme}
                 className={`rounded-sm border p-2.5 transition-all duration-300 ${
                   isDark || isScrolled ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
@@ -5013,7 +4998,7 @@ export default function App() {
                 ☕
               </a>
               <button
-                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                onClick={toggleTheme}
                 className={`rounded-full border p-2.5 transition-colors ${
                   isDark ? 'border-white/10 bg-white/5 text-white hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 }`}
