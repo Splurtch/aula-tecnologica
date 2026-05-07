@@ -369,7 +369,7 @@ export default function AIBasicsTab() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_380px] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_36%] gap-6">
         <div className="bg-slate-900 rounded-sm border border-slate-800 shadow-xl overflow-hidden">
           <LLMSimulatorSidebar chats={chats} showChatHistory={true} onToggleSidebar={() => {}} />
         </div>
