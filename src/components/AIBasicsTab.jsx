@@ -55,7 +55,9 @@ const playSound = (type) => {
         oscillator.stop(audioContext.currentTime + 0.2);
         break;
     }
-  } catch (e) {}
+  } catch {
+    // Sound playback not critical
+  }
 };
 
 export default function AIBasicsTab() {
@@ -65,7 +67,7 @@ export default function AIBasicsTab() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [showChatHistory, setShowChatHistory] = useState(true);
-  const [chats, setChats] = useState([
+  const [chats] = useState([
     { id: 1, title: '¿Qué es un LLM?', active: true },
     { id: 2, title: 'Ventana de contexto', active: false },
     { id: 3, title: 'Prompt engineering', active: false },
@@ -247,7 +249,7 @@ export default function AIBasicsTab() {
             <div className="space-y-2.5">
               <p className="text-[14px] font-medium mb-1.5 text-slate-200">Características:</p>
               {info.details.split('\n').map((line, i) => (
-                <p key={i} className="text-[14px] font-medium text-slate-400">• {line.replace(/^[•\-]\s*/, '')}</p>
+                <p key={i} className="text-[14px] font-medium text-slate-400">• {line.replace(/^[•-]\s*/, '')}</p>
               ))}
             </div>
           </section>
@@ -492,7 +494,7 @@ function LLMSimulatorInput({ inputValue, onInputChange, onSend }) {
   );
 }
 
-function LLMSimulatorSidebar({ chats, showChatHistory, onToggleSidebar }) {
+function LLMSimulatorSidebar({ chats, showChatHistory }) {
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700">

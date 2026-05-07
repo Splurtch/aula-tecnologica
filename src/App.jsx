@@ -573,13 +573,6 @@ const softwareOsDetails = {
   },
 };
 
-const softwareDriverFlow = [
-  { label: 'Aplicacion', helper: 'Word, navegador o Zoom', icon: Blocks },
-  { label: 'Sistema Operativo', helper: 'Gestiona la orden', icon: Monitor },
-  { label: 'Driver', helper: 'Traduce para el dispositivo', icon: Plug },
-  { label: 'Hardware', helper: 'Impresora, audio o grafica', icon: Cpu },
-];
-
 const softwareLicenseModels = {
   closed: {
     id: 'closed', name: 'Código Cerrado', label: 'Codigo cerrado', summary: 'El fabricante controla el codigo, las funciones y la licencia de uso.', color: 'indigo', examples: [
@@ -813,19 +806,6 @@ const officeTaskSuggestions = {
   cv: { tool: 'Procesador de texto', why: 'Es la mejor opcion para redactar y dar formato a un CV profesional.' },
   budget: { tool: 'Hoja de calculo', why: 'Permite sumar, ordenar y comparar cifras con facilidad.' },
   slides: { tool: 'Presentacion', why: 'Ayuda a explicar ideas con estructura visual y apoyo para una exposicion.' },
-};
-
-const officeComparisonSets = {
-  docs: [
-    { name: 'Word', type: 'Cerrado', note: 'Muy extendido en trabajo y educacion.' },
-    { name: 'LibreOffice Writer', type: 'Abierto', note: 'Alternativa libre para documentos y cartas.' },
-    { name: 'Google Docs', type: 'Web', note: 'Muy util para colaboracion y comentarios.' },
-  ],
-  sheets: [
-    { name: 'Excel', type: 'Cerrado', note: 'Muy potente para formulas, tablas y analisis.' },
-    { name: 'LibreOffice Calc', type: 'Abierto', note: 'Alternativa libre para calculo y tablas.' },
-    { name: 'Google Sheets', type: 'Web', note: 'Ideal para trabajo compartido y seguimiento.' },
-  ],
 };
 
 const officeWorkspaceViews = {
@@ -1844,8 +1824,6 @@ export default function App() {
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
-  const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
-  const [selectedSoftwareOs, setSelectedSoftwareOs] = useState('windows');
   const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
   const [securityQuizSelections, setSecurityQuizSelections] = useState({});
   const [emailQuizSelections, setEmailQuizSelections] = useState({});
@@ -1926,7 +1904,7 @@ export default function App() {
           oscillator.stop(audioContext.currentTime + 0.08);
           break;
       }
-    } catch (e) {
+    } catch {
       // Silently fail if audio not supported
     }
   };
@@ -1936,8 +1914,6 @@ export default function App() {
     const saved = localStorage.getItem('aula-tour-done');
     return saved ? -1 : 0;
   });
-
-  const [tourTarget, setTourTarget] = useState(null);
 
   const tourSteps = [
     { target: 'logo', title: 'Bienvenido', desc: 'Este es el aula virtual de Competencias Digitales. Haz clic aqui para volver al inicio.' },
@@ -1949,7 +1925,6 @@ export default function App() {
 
   const startTour = () => {
     setTourStep(0);
-    setTourTarget(document.querySelector('[data-tour="logo"]'));
     playSound('success');
   };
 
@@ -1973,19 +1948,10 @@ export default function App() {
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
 
   // Estado para progreso persistente de módulos
-  const [moduleProgress, setModuleProgress] = useState(() => {
+  const [moduleProgress, _setModuleProgress] = useState(() => {
     const saved = localStorage.getItem('aula-module-progress');
     return saved ? JSON.parse(saved) : {};
   });
-
-  // Función para marcar módulo como completado
-  const completeModule = (moduleId) => {
-    setModuleProgress(prev => {
-      const newProgress = { ...prev, [moduleId]: { completed: true, timestamp: Date.now() } };
-      localStorage.setItem('aula-module-progress', JSON.stringify(newProgress));
-      return newProgress;
-    });
-  };
 
   // Función para obtener progreso de un módulo
   const isModuleCompleted = (moduleId) => {
@@ -2147,26 +2113,6 @@ export default function App() {
     });
   };
 
-  // Seguimiento de precisión en assessments (para Perfectionist)
-  const [assessmentAccuracy, setAssessmentAccuracy] = useState(() => {
-    const saved = localStorage.getItem('aula-assessment-accuracy');
-    return saved ? JSON.parse(saved) : { correct: 0, total: 0 };
-  });
-
-  const recordAssessmentAnswer = (correct) => {
-    setAssessmentAccuracy(prev => {
-      const newAccuracy = { correct: prev.correct + (correct ? 1 : 0), total: prev.total + 1 };
-      localStorage.setItem('aula-assessment-accuracy', JSON.stringify(newAccuracy));
-      if (newAccuracy.total >= 20 && newAccuracy.correct / newAccuracy.total >= 0.95 && !achievements.perfectionist) {
-        unlockAchievement('perfectionist');
-      }
-      return newAccuracy;
-    });
-  };
-
-  // Función helper para obtener módulo por defecto
-  const getDefaultAchievement = () => null;
-
   // Verificar achievements al cambiar de tab
   useEffect(() => {
     if (activeTab === 'home') return;
@@ -2263,11 +2209,6 @@ export default function App() {
     playSound('tabChange');
   };
 
-  const handleOpenGroupMenu = (group) => {
-    setExpandedSectionGroup(group);
-    setIsSectionMenuOpen(true);
-  };
-
   const handleSoftwareQuizSelect = (itemId, answer) => {
     setSoftwareQuizSelections((prev) => ({ ...prev, [itemId]: answer }));
   };
@@ -2331,10 +2272,6 @@ export default function App() {
   }, [activeTabMeta.group]);
 
   useEffect(() => {
-    if (selectedItem?.id === 'operating_systems') {
-      setSelectedSoftwareOs((prev) => prev || 'windows');
-    }
-
     if (officeData[selectedItem?.id] && officeWorkspaceViews[selectedItem.id]) {
       setOfficeWorkspaceZone(officeWorkspaceViews[selectedItem.id].zones[0].id);
     }
@@ -2398,40 +2335,37 @@ export default function App() {
             <div className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-bold uppercase tracking-widest mb-4 pixel-border">
                 <Sparkles size={12} className="animate-pulse-slow" />
-                <span>Bienvenido al Aula Tecnologica</span>
+                <span>Aula Tecnológica Integral · Modo aventura activado</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
-                Tu Viaje Hacia el{' '}
+                Aprende tecnología subiendo de nivel,{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-400">
-                  Dominio Digital
+                  no sufrir tutoriales eternos
                 </span>
               </h1>
-              
+
               <p className="mt-6 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Esto no es un curso normal. Esto es una <strong className="text-white font-bold">Transformation</strong>. 
-                Voy a darte todas las herramientas, atajos y mentalidad que necesitas para convertirte en alguien 
-                que realmente <strong className="text-white font-bold">domine su entorno digital</strong>.
+                Un aula interactiva y gamificada para recorrer el viaje hacia la digitalización paso a paso: desde los fundamentos del ordenador hasta la nube, la seguridad digital, la IA, la productividad y la creación de contenido.
               </p>
-              
+
               <p className="mt-4 text-base text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Trabajo, estudio, comunicación, creación de contenido, inteligencia artificial... 
-                todo pasa por aqui. Y lo mejor: vas a aprender haciendo, no escuchando.
+                Todo explicado con claridad, práctica y humor, porque bastante drama tiene ya la vida como para que un pendrive también te juzgue.
               </p>
 
               {/* CTA Button with Pixel Animation */}
               <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-                <button 
+                <button
                   onClick={() => handleTabChange('hardware')}
                   className="group relative px-8 py-4 rounded-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white font-black text-lg shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 pixel-btn animate-pixel-flicker"
                 >
                   <span className="relative z-10 flex items-center gap-3 font-pixel uppercase tracking-wider">
-                    EMPEZAR EL VIAJE
+                    EMPEZAR LA MISIÓN
                     <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300 animate-pixel-bounce" />
                   </span>
                 </button>
                 <p className="text-xs text-slate-500 font-medium tracking-wider uppercase font-pixel">
-                  13 modulos / 70+ temas / Aprendizaje real
+                  21 módulos · 70+ temas · retos, logros y aprendizaje real
                 </p>
               </div>
             </div>
@@ -2440,7 +2374,7 @@ export default function App() {
             <div className="lg:w-80 w-full grid grid-cols-2 gap-4">
               <div className="rounded-sm border border-slate-700 bg-slate-900/80 p-4 text-center backdrop-blur-sm pixel-card">
                 <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 font-pixel">{totalModules}</p>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Modulos Totales</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Módulos Totales</p>
               </div>
               <div className="rounded-sm border border-slate-700 bg-slate-900/80 p-4 text-center backdrop-blur-sm pixel-card">
                 <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400 font-pixel">{completedModules}</p>
@@ -2466,7 +2400,7 @@ export default function App() {
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-500 mt-2 font-pixel">
-                  {completedModules === 0 ? 'Pulsa EMPEZAR para comenzar' : `${completedModules} modulos completados`}
+                  {completedModules === 0 ? 'Pulsa EMPEZAR para comenzar' : `${completedModules} módulos completados`}
                 </p>
               </div>
             </div>
@@ -2481,27 +2415,27 @@ export default function App() {
             </div>
             <h3 className="text-white font-black text-lg font-pixel tracking-wider">Juego Largo</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              No busques atajos. Cada modulo que completes te hace mas valioso. Invierte en ti mismo cada dia.
+              No necesitas convertirte en hacker de película en una tarde. Completa módulos, practica un poco cada día y verás cómo lo digital deja de parecer magia negra con WiFi.
             </p>
           </div>
-          
+
           <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-violet-500/40 transition-all duration-300 pixel-card">
             <div className="w-12 h-12 rounded-sm bg-violet-500/20 flex items-center justify-center mb-4 border border-violet-500/30">
               <Brain size={24} className="text-violet-400" />
             </div>
-            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Document, Don't Create</h3>
+            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Aprender Tocando</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              Este aula es tu dokumentacion. Vuelve aqui cuando necesites recordar cualquier konzept.
+              Aquí no vienes a mirar una pared de teoría. Vienes a probar, equivocarte, desbloquear conceptos y entenderlos de verdad. Cómo debe ser. Qué locura, aprender haciendo.
             </p>
           </div>
-          
+
           <div className="rounded-sm border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-cyan-500/40 transition-all duration-300 pixel-card">
             <div className="w-12 h-12 rounded-sm bg-cyan-500/20 flex items-center justify-center mb-4 border border-cyan-500/30">
               <Trophy size={24} className="text-cyan-400" />
             </div>
-            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Empezar Antes que Ser Perfecto</h3>
+            <h3 className="text-white font-black text-lg font-pixel tracking-wider">Progreso Antes que Perfección</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              No esperes a estar preparado. Nadie lo esta. Salta al primer modulo y aprende sobre la marcha.
+              No esperes a "estar preparado". Empieza por el primer módulo, desbloquea tu primer logro y sigue avanzando. El botón no muerde. Normalmente.
             </p>
           </div>
         </div>

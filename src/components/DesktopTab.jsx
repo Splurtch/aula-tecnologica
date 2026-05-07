@@ -131,7 +131,7 @@ export default function DesktopTab() {
             <div className="space-y-2.5">
               <p className="text-[14px] font-medium mb-1.5 text-slate-200">Características:</p>
               {selectedItem.details.split('\n').map((line, i) => (
-                <p key={i} className="text-[14px] font-medium text-slate-400">• {line.replace(/^[•\-]\s*/, '')}</p>
+                <p key={i} className="text-[14px] font-medium text-slate-400">• {line.replace(/^[•-]\s*/, '')}</p>
               ))}
             </div>
           </section>
@@ -355,7 +355,7 @@ function DesktopIcon({ item, isSelected, onClick, onDoubleClick, onContextMenu, 
   );
 }
 
-function ContextMenu({ x, y, item, onClose }) {
+function ContextMenu({ x, y, item }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -736,7 +736,7 @@ function SimulatorExplorador() {
   );
 }
 
-function SimulatorMenuInicio({ onOpenExplorer }) {
+function SimulatorMenuInicio() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 pb-3 border-b border-slate-700">
