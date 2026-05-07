@@ -4697,23 +4697,64 @@ export default function App() {
                   'Evaluacion Final': 'Evaluacion'
                 }[group] || group;
                 return (
-                  <button
-                    key={group}
-                    onMouseEnter={() => !isSingleTab && handleOpenGroupMenu(group)}
-                    onClick={() => !isSingleTab && handleOpenGroupMenu(group)}
-                    className={`group flex items-center gap-1 px-2.5 py-2 text-xs font-semibold transition-all duration-300 rounded-sm whitespace-nowrap ${
-                      isActiveGroup
-                        ? isDark || !isScrolled
-                          ? 'text-white bg-white/10'
-                          : 'text-white bg-slate-900/10'
-                        : isDark || !isScrolled
-                          ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-white/5'
-                    }`}
-                  >
-                    <span>{groupLabel}</span>
-                    {!isSingleTab && <ChevronDown size={10} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
-                  </button>
+                  <div key={group} className="relative">
+                    {isSingleTab ? (
+                      <button
+                        onClick={() => handleTabChange(tabs[0].id)}
+                        className={`flex items-center gap-1 px-2.5 py-2 text-xs font-semibold transition-all duration-300 rounded-sm whitespace-nowrap ${
+                          isActiveGroup
+                            ? isDark || !isScrolled
+                              ? 'text-white bg-white/10'
+                              : 'text-white bg-slate-900/10'
+                            : isDark || !isScrolled
+                              ? 'text-slate-400 hover:text-white hover:bg-white/5'
+                              : 'text-slate-600 hover:text-slate-900 hover:bg-white/5'
+                        }`}
+                      >
+                        <span>{groupLabel}</span>
+                      </button>
+                    ) : (
+                      <button
+                        onMouseEnter={() => { setExpandedSectionGroup(group); setIsSectionMenuOpen(true); }}
+                        onClick={() => { setExpandedSectionGroup(group); setIsSectionMenuOpen(true); }}
+                        className={`group flex items-center gap-1 px-2.5 py-2 text-xs font-semibold transition-all duration-300 rounded-sm whitespace-nowrap ${
+                          isActiveGroup
+                            ? isDark || !isScrolled
+                              ? 'text-white bg-white/10'
+                              : 'text-white bg-slate-900/10'
+                            : isDark || !isScrolled
+                              ? 'text-slate-400 hover:text-white hover:bg-white/5'
+                              : 'text-slate-600 hover:text-slate-900 hover:bg-white/5'
+                        }`}
+                      >
+                        <span>{groupLabel}</span>
+                        <ChevronDown size={10} className={`transition-transform duration-300 ${isSectionMenuOpen && expandedSectionGroup === group ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                    {isSectionMenuOpen && expandedSectionGroup === group && !isSingleTab && (
+                      <div 
+                        className={`absolute top-full left-0 mt-1 py-2 rounded-sm border shadow-xl min-w-[180px] z-50 ${
+                          isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+                        }`}
+                        onMouseLeave={() => setIsSectionMenuOpen(false)}
+                      >
+                        {tabs.map((tab) => (
+                          <button
+                            key={tab.id}
+                            onClick={() => { handleTabChange(tab.id); setIsSectionMenuOpen(false); }}
+                            className={`w-full px-3 py-2 text-xs text-left flex items-center gap-2 transition-colors ${
+                              activeTab === tab.id
+                                ? isDark ? 'text-white bg-white/10' : 'text-slate-900 bg-slate-100'
+                                : isDark ? 'text-slate-400 hover:text-white hover:bg-white/5' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                            }`}
+                          >
+                            <tab.icon size={14} />
+                            <span>{tab.title}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </nav>
