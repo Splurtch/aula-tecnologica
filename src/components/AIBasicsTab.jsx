@@ -532,6 +532,19 @@ function LLMSimulatorSidebar({ chats, showChatHistory, onToggleSidebar }) {
 }
 
 function LLMSimulatorContextWindow() {
+  const llmContextWindows = [
+    { name: 'GPT-4 Turbo', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
+    { name: 'GPT-4o', tokens: '128,000', provider: 'OpenAI', color: '#34d399' },
+    { name: 'Claude 3.5 Sonnet', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
+    { name: 'Claude 3 Opus', tokens: '200,000', provider: 'Anthropic', color: '#fbbf24' },
+    { name: 'Gemini 1.5 Pro', tokens: '1,000,000', provider: 'Google', color: '#3b82f6' },
+    { name: 'Gemini 2.0 Flash', tokens: '1,000,000', provider: 'Google', color: '#3b82f6' },
+    { name: 'Llama 3.1 70B', tokens: '128,000', provider: 'Meta', color: '#a78bfa' },
+    { name: 'Mistral Large', tokens: '128,000', provider: 'Mistral', color: '#fb7185' },
+    { name: 'Grok 2', tokens: '131,072', provider: 'xAI', color: '#fb923c' },
+    { name: 'DeepSeek V3', tokens: '128,000', provider: 'DeepSeek', color: '#22d3ee' },
+  ];
+
   return (
     <div className="space-y-4">
       <p className="text-xs text-slate-400 mb-3">Visualización de la ventana de contexto</p>
@@ -558,6 +571,28 @@ function LLMSimulatorContextWindow() {
           <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Salida</p>
           <p className="text-lg font-bold text-white">~1,647</p>
           <p className="text-[10px] text-slate-400">tokens generados</p>
+        </div>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-slate-700">
+        <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <Hash size={14} className="text-cyan-400" />
+          Contextos de LLMs Populares
+        </h4>
+        <div className="space-y-2 max-h-[200px] overflow-y-auto pr-2">
+          {llmContextWindows.map((llm) => (
+            <div key={llm.name} className="flex items-center justify-between p-2.5 bg-slate-800/70 rounded-lg border border-slate-700/50">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: llm.color }}></div>
+                <span className="text-sm text-slate-200">{llm.name}</span>
+                <span className="text-[10px] text-slate-500">{llm.provider}</span>
+              </div>
+              <div className="text-right">
+                <span className="text-sm font-bold text-white">{llm.tokens}</span>
+                <span className="text-[10px] text-slate-500 ml-1">tokens</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
