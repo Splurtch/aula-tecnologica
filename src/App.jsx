@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
+import AIBasicsTab from './components/AIBasicsTab.jsx';
 
 const BrowserLogos = {
   chrome: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/chrome/chrome.svg',
@@ -4442,24 +4443,7 @@ export default function App() {
     </div>
   );
 
-  const renderAIBasicsTab = () => (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
-      <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800">
-        <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
-          <BrainCircuit className="text-violet-400" size={32} />
-          <div>
-            <h2 className="text-2xl font-black text-white">Fundamentos de la Inteligencia Artificial</h2>
-            <p className="text-slate-400 mt-1 text-sm font-medium">Aprende como funcionan los LLM, como escribir mejores prompts y entender sus limitaciones.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Object.keys(aiBasicsData).map(id => (
-            <InteractiveButton key={id} id={id} dataSet={aiBasicsData} extraClass="bg-slate-800 border-slate-700 text-slate-200" selectedItem={selectedItem} onSelect={handleSelect} colorMap={colorMap} isDark={isDark} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  const renderAIBasicsTab = () => <AIBasicsTab />;
 
   const renderAITab = () => {
     const generalistas = ['chatgpt', 'claude', 'gemini', 'copilot', 'grok'];
@@ -4652,7 +4636,7 @@ export default function App() {
               : 'rounded-sm border border-white/20 bg-[#0f1229]/90 shadow-[0_28px_70px_rgba(0,0,0,0.25)] backdrop-blur-2xl'
             : 'rounded-sm border border-white/10 bg-slate-950/70 shadow-[0_14px_40px_rgba(0,0,0,0.15)] backdrop-blur-xl'
         }`}>
-          <div className={`flex items-center justify-between gap-4 transition-all duration-500 ${isScrolled ? 'px-4 py-3 sm:px-5 md:px-6' : 'px-3 py-2.5 sm:px-4 md:px-5'}`}>
+          <div className={`flex items-center justify-between gap-4 transition-all duration-500 min-w-0 ${isScrolled ? 'px-4 py-3 sm:px-5 md:px-6' : 'px-3 py-2.5 sm:px-4 md:px-5'}`}>
             <button onClick={() => handleTabChange('home')} data-tour="logo" className="flex items-center gap-4 group min-w-0 text-left">
               <div className="relative w-10 h-10 shrink-0">
                 <div className="absolute inset-0 bg-blue-500 blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
@@ -4680,7 +4664,7 @@ export default function App() {
               </div>
             </button>
 
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1 min-w-0">
               {orderedSectionGroups.map(([group, tabs]) => {
                 const isActiveGroup = activeTabMeta.group === group;
                 const isSingleTab = tabs.length === 1;
@@ -4760,7 +4744,7 @@ export default function App() {
             </nav>
 
             {/* Progress Bar in Navbar */}
-            <div data-tour="progress" className="hidden lg:flex items-center gap-3 mx-4">
+            <div data-tour="progress" className="hidden lg:flex items-center gap-3 mx-4 shrink-0">
               <div className="w-32 h-2 bg-slate-800 rounded-full overflow-hidden relative">
                 <div 
                   className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-500"
