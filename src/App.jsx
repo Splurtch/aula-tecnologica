@@ -435,6 +435,14 @@ const navegadoresData = {
     examples: 'MacBook Pro con 10 pestañas: Safari consume 3% CPU vs Chrome 12%. iPhone: Safari es obligatorio por App Store.',
     tips: ['En Windows, Edge es buena opción si Chrome consume demasiada RAM', 'En Mac, Safari + Bitwarden es combo privacidad+velocidad', 'iPhone/iPad: Safari es obligatorio por requisitos App Store'],
   },
+  brave: {
+    id: 'brave', name: 'Brave', category: 'Navegador Centrado en Privacidad', icon: ShieldAlert, color: 'amber',
+    desc: 'Brave es un navegador creado por Brendan Eich (cofundador de Mozilla) que prioriza la privacidad radical del usuario por encima de todo.\n\nSu característica más innovadora es que bloquea automáticamente todos los anuncios y trackers de terceros, y además ofrece un sistema de "Brave Rewards" donde puedes ganar criptomonedas por ver anuncios respetuosos con tu privacidad.',
+    pros: ['Bloqueo automático de anuncios y trackers (más rápido que Chrome).', 'Navegación privada activada por defecto.', 'Brave Rewards: gana criptotokens por ver publicidad opcional.', 'Integración de Tor en pestañas privadas para máxima anonimato.', 'Sincronización entre dispositivos cifrada de extremo a extremo.', 'Importa marcadores de Chrome/Firefox fácilmente.'],
+    cons: ['Los Brave Rewards pueden resultar confusos al principio.', 'Algunos sitios web no cargan correctamente por el bloqueo agresivo de scripts.', 'El sistema de criptorecompensas es opcional y no muy intuitivo.', 'Menor cantidad de extensiones disponibles comparado con Chrome.', 'Consumo de batería algo mayor que Firefox en móviles.'],
+    examples: 'Usuario que quiere máxima privacidad sin configuración manual → Brave. Periodista o investigador que necesita anonimato → Brave con Tor. Usuario cansado de rastreo publicitario → Brave con Rewards.',
+    tips: ['Activa Brave Rewards en configuración para ganar Basic Attention Tokens (BAT).', 'Usa la pestaña Tor (ctrl+shift+n) para navegación completamente anónima.', 'Sincroniza tus dispositivos desde Ajustes > Sincronización para tener tus marcadores en todas partes.'],
+  },
   busqueda_avanzada: {
     id: 'busqueda_avanzada', name: 'Búsqueda Avanzada y Operadores', category: 'Técnicas de Búsqueda', icon: Search, color: 'cyan',
     desc: 'La mayoría usa Google mal: escribe frases completas como si hablaran con humano. Los operadores booleanos filtran resultados.\n\nGoogle procesa ~3.500 millones de búsquedas/día. Saber buscar te separa del 99% que pierde tiempo.',
@@ -1835,6 +1843,7 @@ export default function App() {
   const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showAchievementsModal, setShowAchievementsModal] = useState(false);
   const [softwareLicenseView, setSoftwareLicenseView] = useState('closed');
   const [selectedSoftwareOs, setSelectedSoftwareOs] = useState('windows');
   const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
@@ -1987,7 +1996,7 @@ export default function App() {
   const [achievements, setAchievements] = useState(() => {
     const saved = localStorage.getItem('aula-achievements');
     return saved ? JSON.parse(saved) : {
-      // Logros básicos
+      // Logros básicos de progreso
       firstStep: false,
       tenPercent: false,
       quarterCourse: false,
@@ -2013,6 +2022,10 @@ export default function App() {
       speedRunner: false,
       perfectionist: false,
       explorer: false,
+      // Logros de racha
+      streak3: false,
+      streak7: false,
+      streak30: false,
     };
   });
 
@@ -2023,9 +2036,136 @@ export default function App() {
       const newAchievements = { ...prev, [achievementId]: true };
       localStorage.setItem('aula-achievements', JSON.stringify(newAchievements));
       playSound('achievement');
+      setXpNotification({ show: true, amount: 0, type: 'achievement', name: achievementId });
       return newAchievements;
     });
   };
+
+  // XP y Sistema de Niveles
+  const LEVELS = [
+    { level: 1, name: 'Principiante', xpRequired: 0 },
+    { level: 2, name: 'Aprendiz', xpRequired: 100 },
+    { level: 3, name: 'Intermedio', xpRequired: 300 },
+    { level: 4, name: 'Avanzado', xpRequired: 600 },
+    { level: 5, name: 'Experto', xpRequired: 1000 },
+    { level: 6, name: 'Maestro', xpRequired: 1500 },
+  ];
+
+  const [xp, setXp] = useState(() => {
+    const saved = localStorage.getItem('aula-xp');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+
+  const [xpNotification, setXpNotification] = useState({ show: false, amount: 0, type: '', name: '' });
+
+  const currentLevel = LEVELS.reduce((acc, l) => xp >= l.xpRequired ? l : acc, LEVELS[0]);
+  const nextLevel = LEVELS.find(l => l.xpRequired > xp) || LEVELS[LEVELS.length - 1];
+  const levelProgress = nextLevel ? ((xp - currentLevel.xpRequired) / (nextLevel.xpRequired - currentLevel.xpRequired)) * 100 : 100;
+
+  const awardXp = (amount, reason) => {
+    setXp(prev => {
+      const newXp = prev + amount;
+      localStorage.setItem('aula-xp', newXp.toString());
+      return newXp;
+    });
+    setXpNotification({ show: true, amount, type: 'xp', reason });
+    setTimeout(() => setXpNotification(prev => ({ ...prev, show: false })), 2500);
+  };
+
+  // Sistema de Rachas
+  const [streak, setStreak] = useState(() => {
+    const saved = localStorage.getItem('aula-streak');
+    if (saved) {
+      const data = JSON.parse(saved);
+      const today = new Date().toDateString();
+      const lastLogin = new Date(data.lastLogin).toDateString();
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      if (lastLogin !== today && lastLogin !== yesterday) {
+        return { current: 0, best: data.best, lastLogin: data.lastLogin };
+      }
+      return data;
+    }
+    return { current: 0, best: 0, lastLogin: null };
+  });
+
+  const checkStreak = () => {
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    const lastLogin = streak.lastLogin ? new Date(streak.lastLogin).toDateString() : null;
+
+    if (lastLogin === today) return;
+
+    if (!lastLogin || lastLogin === yesterday) {
+      const newCurrent = streak.current + 1;
+      const newBest = Math.max(newCurrent, streak.best);
+      const newStreak = { current: newCurrent, best: newBest, lastLogin: new Date().toISOString() };
+      setStreak(newStreak);
+      localStorage.setItem('aula-streak', JSON.stringify(newStreak));
+
+      if (newCurrent === 3) { awardXp(50, 'Racha de 3 días'); unlockAchievement('streak3'); }
+      if (newCurrent === 7) { awardXp(150, 'Racha de 7 días'); unlockAchievement('streak7'); }
+      if (newCurrent === 30) { awardXp(500, 'Racha de 30 días'); unlockAchievement('streak30'); }
+    } else {
+      const newStreak = { current: 1, best: streak.best, lastLogin: new Date().toISOString() };
+      setStreak(newStreak);
+      localStorage.setItem('aula-streak', JSON.stringify(newStreak));
+    }
+  };
+
+  useEffect(() => { checkStreak(); }, []);
+
+  // Seguimiento de tiempo por módulo (para Speed Runner)
+  const [moduleStartTime, setModuleStartTime] = useState({});
+
+  const startModuleTimer = (moduleId) => {
+    if (!moduleStartTime[moduleId]) {
+      setModuleStartTime(prev => ({ ...prev, [moduleId]: Date.now() }));
+    }
+  };
+
+  const getModuleTime = (moduleId) => {
+    if (!moduleStartTime[moduleId]) return Infinity;
+    return Date.now() - moduleStartTime[moduleId];
+  };
+
+  // Items visitados por módulo (para Explorer)
+  const [visitedItems, setVisitedItems] = useState(() => {
+    const saved = localStorage.getItem('aula-visited-items');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const markItemVisited = (moduleId, itemId) => {
+    setVisitedItems(prev => {
+      const moduleItems = prev[moduleId] || new Set();
+      const newModuleItems = new Set(moduleItems);
+      newModuleItems.add(itemId);
+      const newVisited = { ...prev, [moduleId]: newModuleItems };
+      localStorage.setItem('aula-visited-items', JSON.stringify(
+        Object.fromEntries(Object.entries(newVisited).map(([k, v]) => [k, Array.from(v)]))
+      ));
+      return newVisited;
+    });
+  };
+
+  // Seguimiento de precisión en assessments (para Perfectionist)
+  const [assessmentAccuracy, setAssessmentAccuracy] = useState(() => {
+    const saved = localStorage.getItem('aula-assessment-accuracy');
+    return saved ? JSON.parse(saved) : { correct: 0, total: 0 };
+  });
+
+  const recordAssessmentAnswer = (correct) => {
+    setAssessmentAccuracy(prev => {
+      const newAccuracy = { correct: prev.correct + (correct ? 1 : 0), total: prev.total + 1 };
+      localStorage.setItem('aula-assessment-accuracy', JSON.stringify(newAccuracy));
+      if (newAccuracy.total >= 20 && newAccuracy.correct / newAccuracy.total >= 0.95 && !achievements.perfectionist) {
+        unlockAchievement('perfectionist');
+      }
+      return newAccuracy;
+    });
+  };
+
+  // Función helper para obtener módulo por defecto
+  const getDefaultAchievement = () => null;
 
   // Verificar achievements al cambiar de tab
   useEffect(() => {
@@ -2041,14 +2181,45 @@ export default function App() {
     const totalModules = tabConfig.filter(t => t.id !== 'home').length;
 
     // Logros de progreso
-    if (completedCount >= 1 && !achievements.tenPercent) unlockAchievement('tenPercent');
-    if (completedCount >= Math.floor(totalModules * 0.25) && !achievements.quarterCourse) unlockAchievement('quarterCourse');
-    if (completedCount >= Math.floor(totalModules * 0.5) && !achievements.halfCourse) unlockAchievement('halfCourse');
-    if (completedCount >= Math.floor(totalModules * 0.75) && !achievements.threeQuarters) unlockAchievement('threeQuarters');
-    if (completedCount >= totalModules - 1 && !achievements.almostThere) unlockAchievement('almostThere');
-    if (completedCount >= totalModules && !achievements.fullCourse) unlockAchievement('fullCourse');
+    if (completedCount >= 1 && !achievements.tenPercent) { unlockAchievement('tenPercent'); awardXp(50, 'Inicio - 1 módulo'); }
+    if (completedCount >= Math.floor(totalModules * 0.25) && !achievements.quarterCourse) { unlockAchievement('quarterCourse'); awardXp(75, 'Cuarto - 25%'); }
+    if (completedCount >= Math.floor(totalModules * 0.5) && !achievements.halfCourse) { unlockAchievement('halfCourse'); awardXp(100, 'Mitad - 50%'); }
+    if (completedCount >= Math.floor(totalModules * 0.75) && !achievements.threeQuarters) { unlockAchievement('threeQuarters'); awardXp(150, 'Casi - 75%'); }
+    if (completedCount >= totalModules - 1 && !achievements.almostThere) { unlockAchievement('almostThere'); awardXp(200, 'Casi - N-1'); }
+    if (completedCount >= totalModules && !achievements.fullCourse) { unlockAchievement('fullCourse'); awardXp(500, 'Graduado'); }
 
-    // Logro de completar módulo actual
+    // Verificar logros de maestría (explorer) y velocidad (speedRunner)
+    const currentData = tabDataMap[activeTab];
+    if (currentData) {
+      const moduleItems = Object.keys(currentData);
+      const visitedInModule = visitedItems[activeTab] || [];
+
+      // Award XP por explorar items
+      moduleItems.forEach(itemId => {
+        if (visitedInModule.includes(itemId)) {
+          // Ya visitado
+        }
+      });
+
+      // Verificar si completó todos los items (Explorer)
+      const allVisited = moduleItems.every(itemId => visitedInModule.includes(itemId));
+      if (allVisited && moduleItems.length > 0 && !achievements.explorer) {
+        unlockAchievement('explorer');
+        awardXp(100, 'Explorer - Todo explorado');
+      }
+
+      // Verificar si completó el módulo actual
+      if (moduleProgress[activeTab]?.completed) {
+        const timeSpent = getModuleTime(activeTab);
+        // Speed Runner: completar módulo en menos de 5 minutos (300000ms)
+        if (timeSpent < 300000 && !achievements.speedRunner) {
+          unlockAchievement('speedRunner');
+          awardXp(75, 'Speed Runner');
+        }
+      }
+    }
+
+    // Logro de completar módulo actual (maestría real)
     const moduleAchievementMap = {
       hardware: 'hardwareMaster',
       peripherals: 'peripheralsMaster',
@@ -2067,16 +2238,25 @@ export default function App() {
 
     const achievementKey = moduleAchievementMap[activeTab];
     if (achievementKey && !achievements[achievementKey]) {
-      // Verificar si el módulo tiene todos los items seleccionados/completados
       const currentData = tabDataMap[activeTab];
-      if (currentData && Object.keys(currentData).length > 0 && selectedItem) {
-        // Por ahora desbloqueamos si han visto al menos 3 items del módulo
-        unlockAchievement(achievementKey);
+      if (currentData) {
+        const moduleItems = Object.keys(currentData);
+        const visitedInModule = visitedItems[activeTab] || [];
+        // Desbloquear maestría solo si ha visitado TODOS los items
+        const allVisited = moduleItems.length > 0 && moduleItems.every(itemId => visitedInModule.includes(itemId));
+        if (allVisited) {
+          unlockAchievement(achievementKey);
+          awardXp(200, `Maestría ${activeTab}`);
+        }
       }
     }
-  }, [activeTab, selectedItem, moduleProgress]);
+  }, [activeTab, selectedItem, moduleProgress, visitedItems]);
 
   const handleTabChange = (tab) => {
+    if (tab !== 'home' && tab !== activeTab) {
+      startModuleTimer(tab);
+      awardXp(10, 'Visitar módulo');
+    }
     setActiveTab(tab);
     setSelectedItem(null);
     setIsSectionMenuOpen(false);
@@ -2116,6 +2296,10 @@ export default function App() {
   const handleSelect = (id, e, dataSet) => {
     if (e && e.stopPropagation) e.stopPropagation();
     setSelectedItem((prev) => (prev?.id === id ? null : dataSet[id]));
+    if (id && activeTab !== 'home') {
+      markItemVisited(activeTab, id);
+      awardXp(5, 'Ver detalle');
+    }
     playSound('click');
   };
 
@@ -3157,6 +3341,7 @@ export default function App() {
               { id: 'chromeMozilla', name: 'Chrome', logo: BrowserLogos.chrome },
               { id: 'chromeMozilla', name: 'Firefox', logo: BrowserLogos.firefox },
               { id: 'edgeSafari', name: 'Edge', logo: BrowserLogos.edge },
+              { id: 'brave', name: 'Brave', logo: BrowserLogos.brave },
               { id: 'edgeSafari', name: 'Safari', logo: BrowserLogos.safari },
             ].map((browser) => (
               <button
@@ -4784,18 +4969,37 @@ export default function App() {
             </div>
 
             <div className="ml-auto flex items-center gap-3 shrink-0">
+              {/* Streak indicator */}
+              {streak.current > 0 && (
+                <div className={`flex items-center gap-1.5 px-2 py-1 rounded-sm text-xs font-bold ${
+                  isDark || isScrolled ? 'bg-orange-500/20 text-orange-300' : 'bg-orange-100 text-orange-600'
+                }`}>
+                  <Flame size={14} />
+                  <span>{streak.current}</span>
+                </div>
+              )}
+
+              {/* XP and Level indicator */}
+              <div className={`hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-sm text-xs font-bold ${
+                isDark || isScrolled ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-100 text-emerald-600'
+              }`}>
+                <Zap size={14} />
+                <span>{xp} XP</span>
+                <span className={`opacity-60 text-[10px]`}>• L{currentLevel.level}</span>
+              </div>
+
               {/* Achievements indicator */}
               <button
-                onClick={() => alert('Achievements: ' + Object.values(achievements).filter(Boolean).length + '/24 unlocked')}
+                onClick={() => setShowAchievementsModal(true)}
                 className={`rounded-sm border px-3 py-2 transition-all duration-300 flex items-center gap-2 ${
-                  isDark || isScrolled 
-                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20' 
+                  isDark || isScrolled
+                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20'
                     : 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100'
                 }`}
               >
                 <Trophy size={16} />
                 <span className="text-xs font-bold">
-                  {Object.values(achievements).filter(Boolean).length}/24
+                  {Object.values(achievements).filter(Boolean).length}/27
                 </span>
               </button>
 
@@ -5402,6 +5606,203 @@ export default function App() {
         >
           <HelpCircle size={24} />
         </button>
+      )}
+
+      {/* XP Notification Popup */}
+      {xpNotification.show && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] animate-in slide-in-from-top-4 fade-in duration-300">
+          <div className={`px-4 py-3 rounded-sm border shadow-xl ${
+            xpNotification.type === 'achievement'
+              ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-400'
+              : 'bg-emerald-500 text-white border-emerald-400'
+          }`}>
+            <div className="flex items-center gap-2">
+              {xpNotification.type === 'achievement' ? <Trophy size={18} /> : <Zap size={18} />}
+              <span className="font-bold text-sm">
+                {xpNotification.type === 'achievement'
+                  ? `¡Logro: ${xpNotification.name}!`
+                  : `+${xpNotification.amount} XP${xpNotification.reason ? ` - ${xpNotification.reason}` : ''}`
+                }
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Achievements Modal */}
+      {showAchievementsModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setShowAchievementsModal(false)}
+        >
+          <div
+            className={`w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-sm border shadow-2xl ${
+              isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={`sticky top-0 p-4 border-b flex items-center justify-between ${
+              isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+            }`}>
+              <div className="flex items-center gap-3">
+                <Trophy size={24} className="text-amber-400" />
+                <h2 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  Progreso y Logros
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowAchievementsModal(false)}
+                className={`p-2 rounded-sm ${isDark ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-500'}`}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-6">
+              {/* Stats Cards */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className={`p-4 rounded-sm border text-center ${isDark ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-emerald-50 border-emerald-200'}`}>
+                  <Zap size={24} className="mx-auto text-emerald-400 mb-2" />
+                  <p className={`text-2xl font-black ${isDark ? 'text-emerald-300' : 'text-emerald-600'}`}>{xp}</p>
+                  <p className={`text-xs ${isDark ? 'text-emerald-400' : 'text-emerald-500'}`}>XP Total</p>
+                </div>
+                <div className={`p-4 rounded-sm border text-center ${isDark ? 'bg-violet-500/10 border-violet-500/30' : 'bg-violet-50 border-violet-200'}`}>
+                  <Star size={24} className="mx-auto text-violet-400 mb-2" />
+                  <p className={`text-2xl font-black ${isDark ? 'text-violet-300' : 'text-violet-600'}`}>L{currentLevel.level}</p>
+                  <p className={`text-xs ${isDark ? 'text-violet-400' : 'text-violet-500'}`}>{currentLevel.name}</p>
+                </div>
+                <div className={`p-4 rounded-sm border text-center ${isDark ? 'bg-orange-500/10 border-orange-500/30' : 'bg-orange-50 border-orange-200'}`}>
+                  <Flame size={24} className="mx-auto text-orange-400 mb-2" />
+                  <p className={`text-2xl font-black ${isDark ? 'text-orange-300' : 'text-orange-600'}`}>{streak.current}</p>
+                  <p className={`text-xs ${isDark ? 'text-orange-400' : 'text-orange-500'}`}>Racha</p>
+                </div>
+              </div>
+
+              {/* Level Progress */}
+              <div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
+                    {nextLevel ? `Siguiente: ${nextLevel.name}` : '¡Nivel máximo!'}
+                  </span>
+                  <span className={`font-bold ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                    {Math.round(levelProgress)}%
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
+                  <div
+                    className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-500"
+                    style={{ width: `${levelProgress}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Progress Achievements */}
+              <div>
+                <h3 className={`text-sm font-bold uppercase tracking-wider mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Progreso
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {[
+                    { id: 'firstStep', icon: Zap, name: 'Primer Paso', xp: 10 },
+                    { id: 'tenPercent', icon: Flame, name: 'Inicio', xp: 50 },
+                    { id: 'quarterCourse', icon: Star, name: 'Cuarto', xp: 75 },
+                    { id: 'halfCourse', icon: Crown, name: 'Mitad', xp: 100 },
+                    { id: 'threeQuarters', icon: Star, name: 'Casi', xp: 150 },
+                    { id: 'almostThere', icon: Star, name: 'Casi-full', xp: 200 },
+                    { id: 'fullCourse', icon: Trophy, name: 'Graduado', xp: 500 },
+                  ].map((a) => {
+                    const Icon = a.icon;
+                    const unlocked = achievements[a.id];
+                    return (
+                      <div
+                        key={a.id}
+                        className={`p-3 rounded-sm border text-center transition-all ${
+                          unlocked
+                            ? isDark ? 'border-amber-500/40 bg-amber-500/10' : 'border-amber-300 bg-amber-50'
+                            : isDark ? 'border-slate-700 bg-slate-800/50 opacity-50' : 'border-slate-200 bg-slate-50 opacity-50'
+                        }`}
+                      >
+                        <Icon size={18} className={`mx-auto ${unlocked ? 'text-amber-400' : 'text-slate-500'}`} />
+                        <p className={`text-[10px] font-bold mt-1 ${unlocked ? 'text-amber-300' : 'text-slate-500'}`}>{a.name}</p>
+                        {unlocked && <p className={`text-[9px] ${isDark ? 'text-emerald-400' : 'text-emerald-500'}`}>+{a.xp} XP</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Mastery Achievements */}
+              <div>
+                <h3 className={`text-sm font-bold uppercase tracking-wider mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Maestría
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {[
+                    { id: 'hardwareMaster', name: 'Hardware' },
+                    { id: 'peripheralsMaster', name: 'Periféricos' },
+                    { id: 'cloudMaster', name: 'Nube' },
+                    { id: 'softwareMaster', name: 'Software' },
+                    { id: 'internetMaster', name: 'Internet' },
+                    { id: 'securityMaster', name: 'Seguridad' },
+                    { id: 'keyboardMaster', name: 'Teclado' },
+                    { id: 'officeMaster', name: 'Oficina' },
+                    { id: 'aiMaster', name: 'IA' },
+                  ].map((a) => {
+                    const unlocked = achievements[a.id];
+                    return (
+                      <div
+                        key={a.id}
+                        className={`p-3 rounded-sm border text-center transition-all ${
+                          unlocked
+                            ? isDark ? 'border-violet-500/40 bg-violet-500/10' : 'border-violet-300 bg-violet-50'
+                            : isDark ? 'border-slate-700 bg-slate-800/50 opacity-50' : 'border-slate-200 bg-slate-50 opacity-50'
+                        }`}
+                      >
+                        <BadgeCheck size={18} className={`mx-auto ${unlocked ? 'text-violet-400' : 'text-slate-500'}`} />
+                        <p className={`text-[10px] font-bold mt-1 ${unlocked ? 'text-violet-300' : 'text-slate-500'}`}>{a.name}</p>
+                        {unlocked && <p className={`text-[9px] ${isDark ? 'text-emerald-400' : 'text-emerald-500'}`}>+200 XP</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Special Achievements */}
+              <div>
+                <h3 className={`text-sm font-bold uppercase tracking-wider mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Especiales
+                </h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: 'speedRunner', name: 'Speed Runner', desc: 'Completa módulo en <5 min', icon: Zap },
+                    { id: 'explorer', name: 'Explorer', desc: 'Explora todo el contenido', icon: Globe },
+                    { id: 'perfectionist', name: 'Perfeccionista', desc: '95%+ precisión en tests', icon: CheckCircle2 },
+                    { id: 'streak3', name: '3 Días', desc: 'Racha de 3 días', icon: Flame },
+                    { id: 'streak7', name: '7 Días', desc: 'Racha de 7 días', icon: Flame },
+                    { id: 'streak30', name: '30 Días', desc: 'Racha de 30 días', icon: Flame },
+                  ].map((a) => {
+                    const Icon = a.icon;
+                    const unlocked = achievements[a.id];
+                    return (
+                      <div
+                        key={a.id}
+                        className={`p-3 rounded-sm border text-center transition-all ${
+                          unlocked
+                            ? isDark ? 'border-cyan-500/40 bg-cyan-500/10' : 'border-cyan-300 bg-cyan-50'
+                            : isDark ? 'border-slate-700 bg-slate-800/50 opacity-50' : 'border-slate-200 bg-slate-50 opacity-50'
+                        }`}
+                        title={a.desc}
+                      >
+                        <Icon size={18} className={`mx-auto ${unlocked ? 'text-cyan-400' : 'text-slate-500'}`} />
+                        <p className={`text-[10px] font-bold mt-1 ${unlocked ? 'text-cyan-300' : 'text-slate-500'}`}>{a.name}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       <style dangerouslySetInnerHTML={{__html: `
