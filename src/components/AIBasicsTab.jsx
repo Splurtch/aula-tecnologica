@@ -8,6 +8,56 @@ import {
   Hash, Flame
 } from 'lucide-react';
 
+const playSound = (type) => {
+  if (typeof window === 'undefined') return;
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    switch (type) {
+      case 'click':
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        gainNode.gain.value = 0.1;
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+        break;
+      case 'success':
+        oscillator.frequency.value = 523;
+        oscillator.type = 'sine';
+        gainNode.gain.value = 0.15;
+        oscillator.start(audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        oscillator.stop(audioContext.currentTime + 0.3);
+        break;
+      case 'achievement':
+        oscillator.frequency.value = 392;
+        oscillator.type = 'sine';
+        gainNode.gain.value = 0.2;
+        oscillator.start(audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(523, audioContext.currentTime + 0.15);
+        oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.25);
+        oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.35);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        oscillator.stop(audioContext.currentTime + 0.5);
+        break;
+      case 'error':
+        oscillator.frequency.value = 200;
+        oscillator.type = 'sine';
+        gainNode.gain.value = 0.15;
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.2);
+        break;
+    }
+  } catch (e) {}
+};
+
 export default function AIBasicsTab() {
   const [selectedSection, setSelectedSection] = useState(null);
   const [messages, setMessages] = useState([
@@ -29,19 +79,22 @@ export default function AIBasicsTab() {
     { id: 'token_usage', name: 'Uso de Tokens', icon: Network, color: 'cyan' },
     { id: 'system_prompt', name: 'Prompt de Sistema', icon: Settings, color: 'rose' },
     { id: 'temperature', name: 'Temperatura', icon: Thermometer, color: 'orange' },
-    { id: ' hallucinations', name: 'Alucinaciones', icon: AlertTriangle, color: 'red' },
+    { id: 'hallucinations', name: 'Alucinaciones', icon: AlertTriangle, color: 'red' },
   ];
 
   const handleSendMessage = useCallback(() => {
     if (!inputValue.trim()) return;
+    playSound('click');
     setMessages(prev => [...prev, { role: 'user', content: inputValue }]);
     setInputValue('');
     setTimeout(() => {
+      playSound('success');
       setMessages(prev => [...prev, { role: 'assistant', content: 'Entiendo. ¿Puedo ayudarte con más detalles sobre este tema?' }]);
     }, 1500);
   }, [inputValue]);
 
   const handleSelectSection = useCallback((section) => {
+    playSound('click');
     setSelectedSection(section);
   }, []);
 
@@ -305,7 +358,7 @@ export default function AIBasicsTab() {
               onClick={() => handleSelectSection(section)}
               className={`flex flex-col items-center gap-2 p-3 rounded-lg border transition-all ${
                 selectedSection?.id === section.id
-                  ? `bg-${section.color}-500/20 border-${section.color}-500/50 text-${section.color}-300`
+                  ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
                   : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700'
               }`}
             >
@@ -316,7 +369,7 @@ export default function AIBasicsTab() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr_340px] gap-6">
         <div className="bg-slate-900 rounded-sm border border-slate-800 shadow-xl overflow-hidden">
           <LLMSimulatorSidebar chats={chats} showChatHistory={true} onToggleSidebar={() => {}} />
         </div>
@@ -328,10 +381,10 @@ export default function AIBasicsTab() {
               <span className="text-sm font-semibold text-white">ChatGPT</span>
             </div>
             <div className="flex items-center gap-2">
-              <button className="p-2 rounded hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+              <button onClick={() => playSound('click')} className="p-2 rounded hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
                 <Plus size={16} />
               </button>
-              <button className="p-2 rounded hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+              <button onClick={() => playSound('click')} className="p-2 rounded hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
                 <Settings size={16} />
               </button>
             </div>
@@ -390,10 +443,10 @@ export default function AIBasicsTab() {
             </p>
           </div>
         </div>
-      </div>
 
-      <div className="mt-4 rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)]">
-        {renderPanelExplicativo()}
+        <div className="rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)] overflow-y-auto" style={{ maxHeight: '580px' }}>
+          {renderPanelExplicativo()}
+        </div>
       </div>
     </div>
   );
