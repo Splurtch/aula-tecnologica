@@ -4680,10 +4680,11 @@ export default function App() {
               </div>
             </button>
 
-            <nav className="hidden xl:flex items-center gap-0.5 overflow-x-auto">
+            <nav className="hidden lg:flex items-center gap-1">
               {orderedSectionGroups.map(([group, tabs]) => {
                 const isActiveGroup = activeTabMeta.group === group;
-                const groupAbbrev = {
+                const isSingleTab = tabs.length === 1;
+                const groupLabel = isSingleTab ? tabs[0].title : {
                   'Inicio': 'Inicio',
                   'Fundamentos del Ordenador': 'Fundamentos',
                   'Almacenamiento y Datos': 'Almacenamiento',
@@ -4698,9 +4699,9 @@ export default function App() {
                 return (
                   <button
                     key={group}
-                    onMouseEnter={() => handleOpenGroupMenu(group)}
-                    onClick={() => handleOpenGroupMenu(group)}
-                    className={`group flex items-center gap-1 px-2 py-2 text-xs font-bold transition-all duration-300 rounded-sm whitespace-nowrap ${
+                    onMouseEnter={() => !isSingleTab && handleOpenGroupMenu(group)}
+                    onClick={() => !isSingleTab && handleOpenGroupMenu(group)}
+                    className={`group flex items-center gap-1 px-2.5 py-2 text-xs font-semibold transition-all duration-300 rounded-sm whitespace-nowrap ${
                       isActiveGroup
                         ? isDark || !isScrolled
                           ? 'text-white bg-white/10'
@@ -4710,15 +4711,15 @@ export default function App() {
                           : 'text-slate-600 hover:text-slate-900 hover:bg-white/5'
                     }`}
                   >
-                    <span>{groupAbbrev}</span>
-                    {tabs.length > 1 && <ChevronDown size={10} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
+                    <span>{groupLabel}</span>
+                    {!isSingleTab && <ChevronDown size={10} className={`transition-transform duration-300 ${expandedSectionGroup === group && isSectionMenuOpen ? 'rotate-180' : 'group-hover:translate-y-[1px]'}`} />}
                   </button>
                 );
               })}
             </nav>
 
             {/* Progress Bar in Navbar */}
-            <div data-tour="progress" className="hidden xl:flex items-center gap-3 mx-4">
+            <div data-tour="progress" className="hidden lg:flex items-center gap-3 mx-4">
               <div className="w-32 h-2 bg-slate-800 rounded-full overflow-hidden relative">
                 <div 
                   className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-400 rounded-full transition-all duration-500"
