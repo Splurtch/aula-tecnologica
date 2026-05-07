@@ -18,6 +18,7 @@ import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem 
 import DesktopTab from './components/DesktopTab.jsx';
 import AIBasicsTab from './components/AIBasicsTab.jsx';
 import { useTheme } from './context/ThemeContext.jsx';
+import { useApp } from './context/AppContext.jsx';
 
 const BrowserLogos = {
   chrome: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/chrome/chrome.svg',
@@ -1752,12 +1753,16 @@ const colorMap = {
 
 export default function App() {
   const { isDark, toggleTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState('home');
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isSectionMenuOpen, setIsSectionMenuOpen] = useState(false);
-  const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [showAchievementsModal, setShowAchievementsModal] = useState(false);
+  const {
+    activeTab, setActiveTab,
+    selectedItem, setSelectedItem,
+    isSectionMenuOpen, setIsSectionMenuOpen,
+    expandedSectionGroup, setExpandedSectionGroup,
+    isScrolled, setIsScrolled,
+    showAchievementsModal, setShowAchievementsModal,
+    handleClearSelection,
+  } = useApp();
+
   const [softwareQuizSelections, setSoftwareQuizSelections] = useState({});
   const [securityQuizSelections, setSecurityQuizSelections] = useState({});
   const [emailQuizSelections, setEmailQuizSelections] = useState({});
@@ -2182,8 +2187,6 @@ export default function App() {
     setSelectedItem(currentItems[0]);
     playSound('success');
   };
-
-  const handleClearSelection = () => setSelectedItem(null);
 
   useEffect(() => {
     setExpandedSectionGroup(activeTabMeta.group);
