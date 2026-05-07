@@ -374,7 +374,7 @@ export default function AIBasicsTab() {
           <LLMSimulatorSidebar chats={chats} showChatHistory={true} onToggleSidebar={() => {}} />
         </div>
 
-        <div className={`bg-slate-900 rounded-sm border border-slate-800 shadow-xl flex flex-col transition-all duration-300`} style={{ minHeight: '500px' }}>
+        <div className="bg-slate-900 rounded-sm border border-slate-800 shadow-xl flex flex-col" style={{ minHeight: '500px' }}>
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700">
             <div className="flex items-center gap-2">
               <Bot size={18} className="text-emerald-400" />
@@ -445,7 +445,7 @@ export default function AIBasicsTab() {
         </div>
       </div>
 
-      <div className={`rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)] overflow-y-auto transition-all duration-300 ${selectedSection ? 'max-h-none' : 'max-h-[580px]'}`} style={{ maxHeight: selectedSection ? 'none' : '580px' }}>
+      <div className="mt-4 rounded-sm border border-slate-800 bg-slate-900 shadow-[0_8px_30px_rgba(15,23,42,0.15)]">
         {renderPanelExplicativo()}
       </div>
     </div>
