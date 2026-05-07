@@ -1174,9 +1174,9 @@ const backupData = {
   ransomware_protection: {
     id: 'ransomware_protection', name: 'Proteccion contra Ransomware', category: 'Seguridad', icon: ShieldAlert, color: 'red',
     desc: 'El ransomware es el tipo de malware mas lucrativo y devastador. Encripta todos tus archivos y exige un rescate, normalmente en criptomonedas, para recuperar el acceso.\n\nLa unica defensa real es tener backups que el atacante no pueda cifrar o destruir.',
-    details: 'Como funciona el ransomware:\n• Infiltracion: Usually through phishing emails, malicious downloads, or vulnerabilities.\n• Escalada: Se extiende por toda la red local.\n• Encriptacion: Cambia las extensiones de archivos y los hace ilegibles.\n• Rescate: Mensaje con instrucciones para pagar en 24-72 horas.\n\nMedidas de proteccion:\n• No abrir archivos adjuntos sospechosos.\n• Mantener el sistema y antivirus actualizados.\n•备份 separados y desconectados de la red.\n• Principio de menor privilegio: no uses cuenta de administrador para tareas cotidianas.\n• Desactivar macros automaticos en Office.',
+    details: 'Como funciona el ransomware:\n• Infiltracion: A traves de correos de phishing, descargas maliciosas o vulnerabilidades.\n• Escalada: Se extiende por toda la red local.\n• Encriptacion: Cambia las extensiones de archivos y los hace ilegibles.\n• Rescate: Mensaje con instrucciones para pagar en 24-72 horas.\n\nMedidas de proteccion:\n• No abrir archivos adjuntos sospechosos.\n• Mantener el sistema y antivirus actualizados.\n• Backups separados y desconectados de la red.\n• Principio de menor privilegio: no uses cuenta de administrador para tareas cotidianas.\n• Desactivar macros automaticos en Office.',
     pros: ['Un backup limpio y desconectado es la unica defensa real contra ransomware.', 'Minimiza el impacto financiero y operativo de un ataque.', 'Permite recuperar sin pagar rescates, que no garantizan recuperacion.'],
-    cons: ['El ransomware puede encriptar backups conectados en red.', 'Ataques avanzados pueden permanecer dormidos meses antes de activate.', 'Si el backup es reciente pero ya estaba infectado, no servira.'],
+    cons: ['El ransomware puede encriptar backups conectados en red.', 'Ataques avanzados pueden permanecer dormidos meses antes de activarse.', 'Si el backup es reciente pero ya estaba infectado, no servira.'],
     examples: 'Una empresa de contabilidad pago 40.000 euros en Bitcoin y nunca recuperaron todos los archivos. Otra empresa similar restauro todo en 2 horas desde su backup en la nube porque lo tenian desconectado.',
     tips: ['Nunca pagues el rescate: no hay garantia de recuperacion y incentiva mas ataques.', 'Los backups en la nube con versioning son muy efectivos porque guardan estados anteriores.', 'Habilita alertas de proteccion en tiempo real de tu antivirus.']
   }
@@ -1197,7 +1197,7 @@ const mobileData = {
   },
   ios_basics: {
     id: 'ios_basics', name: 'iOS', category: 'Sistema', icon: Smartphone, color: 'slate',
-    desc: 'iOS es el sistema operativo de Apple para iPhone y iPad. Es conocido por su estabilidad, seguridad y coherencia de usuario.\n\nA diferencia de Android, iOS es un ecosistema cerrado con контроль estricto sobre hardware y software.',
+    desc: 'iOS es el sistema operativo de Apple para iPhone y iPad. Es conocido por su estabilidad, seguridad y coherencia de usuario.\n\nA diferencia de Android, iOS es un ecosistema cerrado con control estricto sobre hardware y software.',
     details: 'Caracteristicas distintivas:\n• Actualizaciones garantizadas durante 5-6 anos para cada dispositivo.\n• App Store como unica fuente de aplicaciones (sin sideloading).\n• Integracion total con el ecosistema Apple (AirDrop, iCloud, Continuity).\n\nConceptos clave:\n• Face ID / Touch ID: Autenticacion biometrica.\n• iCloud: Almacenamiento y sincronizacion en la nube de Apple.\n• Control Center: Acceso rapido a ajustes frecuentes.',
     pros: ['Actualizaciones de seguridad durante muchos anos.', 'Ecosistema muy bien integrado entre dispositivos Apple.', 'Rendimiento optimizado gracias al control hardware-software.'],
     cons: ['Menos personalizacion que Android.', 'Dependencia del ecosistema Apple para algunas funciones.', 'Precio mas alto de dispositivos.'],
@@ -1211,7 +1211,7 @@ const mobileData = {
     pros: ['Restringir permisos reduce la exposicion de datos personales.', 'Los sistemas modernos piden permiso explicito para rastreo.', 'La ubicacion solo cuando es necesario ahorra bateria.'],
     cons: ['Algunas apps necesitan permisos para funcionar (una linterna no necesita contactos).', 'Negar permisos puede limitar funcionalidad de apps legitimas.', 'Los permisos una vez concedidos no se revisan automaticamente.'],
     examples: 'Una app de linterna pide acceso a contactos, ubicacion y microfono. Esto es desproporcionado y deberia hacerte desconfiar de esa app.',
-    tips: ['Antes de instalar, revisa que permisos pide la app. Si una linterna pide ubicacion, busca otra.', ' quarterly audits of granted permissions to remove unneeded access.', 'Usa el modo de ubicacion aproximada cuando sea posible: la app sabe la zona pero no tu ubicacion exacta.']
+    tips: ['Antes de instalar, revisa que permisos pide la app. Si una linterna pide ubicacion, busca otra.', 'Revisa los permisos concedidos trimestralmente para eliminar accesos innecesarios.', 'Usa el modo de ubicacion aproximada cuando sea posible: la app sabe la zona pero no tu ubicacion exacta.']
   },
   mobile_productivity: {
     id: 'mobile_productivity', name: 'Productividad Movil', category: 'Uso Practico', icon: Briefcase, color: 'purple',
@@ -1225,7 +1225,7 @@ const mobileData = {
   mobile_security: {
     id: 'mobile_security', name: 'Seguridad Movil', category: 'Proteccion', icon: Lock, color: 'red',
     desc: 'Los moviles son objetivos atractivos para atacantes porque contienen todo: acceso a cuentas, datos personales, aplicaciones de banco, y nuestra ubicacion constante.\n\nProteger tu movil es tan importante como proteger tu ordenador.',
-    details: 'Amenazas principales:\n• Malware：通过 apps descargadas fuera de tiendas oficiales.\n• Phishing: SMS con enlaces fraudulentos (smishing) o llamadas de soporte falso.\n• Robo de dispositivo: Acceso fisico a tu informacion.\n\nMedidas de proteccion:\n• Pantalla de bloqueo con PIN, huella o reconocimiento facial.\n• Cifrado del dispositivo (activado por defecto en sistemas modernos).\n• Encontrar mi dispositivo: Localiza, bloquea o borra remotamente.\n• No conectar a cargadores USB publicos sin proteccion (juice jacking).',
+    details: 'Amenazas principales:\n• Malware: A traves de apps descargadas fuera de tiendas oficiales.\n• Phishing: SMS con enlaces fraudulentos (smishing) o llamadas de soporte falso.\n• Robo de dispositivo: Acceso fisico a tu informacion.\n\nMedidas de proteccion:\n• Pantalla de bloqueo con PIN, huella o reconocimiento facial.\n• Cifrado del dispositivo (activado por defecto en sistemas modernos).\n• Encontrar mi dispositivo: Localiza, bloquea o borra remotamente.\n• No conectar a cargadores USB publicos sin proteccion (juice jacking).',
     pros: ['Los sistemas moviles modernos tienen seguridad muy robusta.', 'El cifrado por hardware protege datos incluso si roban el dispositivo.', 'Las actualizaciones de seguridad son frecuentes.'],
     cons: ['Usuarios que deshabilitan medidas de seguridad por comodidad.', 'Las apps pueden pedir permisos excesivos sin control.', 'La perdida fisica sigue siendo un riesgo si no hay bloqueo.'],
     examples: 'Pierdes el telefono en un restaurante. Si tienes Encontrar mi dispositivo activo, puedes localizarlo, hacerlo sonar, o borrar todos los datos remotamente.',
@@ -1258,7 +1258,7 @@ const ethernetData = {
   network_diagnostics: {
     id: 'network_diagnostics', name: 'Diagnostico de Red', category: 'Solucion de Problemas', icon: Settings2, color: 'amber',
     desc: 'Cuando algo no funciona en tu red, necesitas saber diagnosticarlo. Los problemas pueden estar en el cable, el switch, el router o la configuracion del ordenador.\n\nAprender a diagnosticarte te ahorra llamadas a soporte tecnico y tiempo de espera.',
-    details: 'Comandos esenciales (Windows):\n• ipconfig: Ver configuracion IP de tu adaptador.\n• ipconfig /all: Informacion completa including MAC address.\n• ping 8.8.8.8: Probar conectividad a internet.\n• ping google.com: Probar resolucion DNS.\n• tracert google.com: Ver por donde pasan tus datos.\n\nComandos esenciales (Mac/Linux):\n• ifconfig: Similar a ipconfig.\n• ping: Igual que en Windows.\n• traceroute: Similar a tracert.\n• network: Ver estado de conexiones en Mac.',
+    details: 'Comandos esenciales (Windows):\n• ipconfig: Ver configuracion IP de tu adaptador.\n• ipconfig /all: Informacion completa incluyendo direccion MAC.\n• ping 8.8.8.8: Probar conectividad a internet.\n• ping google.com: Probar resolucion DNS.\n• tracert google.com: Ver por donde pasan tus datos.\n\nComandos esenciales (Mac/Linux):\n• ifconfig: Similar a ipconfig.\n• ping: Igual que en Windows.\n• traceroute: Similar a tracert.\n• network: Ver estado de conexiones en Mac.',
     pros: ['Ahorra tiempo diagnosticando problemas comunes.', 'Permite identificar si el problema es local o de tu ISP.', 'No necesitas conocimientos avanzados, solo saber interpretar los resultados.'],
     cons: ['Algunos comandos requieren saber que buscar.', 'La salida puede ser tecnica y confusa al principio.', 'No todos los problemas tienen solucion desde el usuario final.'],
     examples: 'Si ping a google.com no funciona pero ping a 8.8.8.8 si, el problema esta en la resolucion DNS. Solucion: cambiar DNS a 8.8.8.8.',
@@ -1276,11 +1276,11 @@ const ethernetData = {
   vpn_basics: {
     id: 'vpn_basics', name: 'VPN (Red Privada Virtual)', category: 'Seguridad', icon: ShieldCheck, color: 'cyan',
     desc: 'Una VPN crea un tunel encriptado entre tu dispositivo e internet, ocultando tu actividad de tu proveedor de internet, redes publicas y posibles atacantes.\n\nEs especialmente util en WiFis publicos, para privacidad, y para acceder a contenidos como si estuvieras en otro pais.',
-    details: 'Como funciona una VPN:\n• Tu trafico se encripta en tu dispositivo.\n• Viaja por un tunel seguro hasta el servidor VPN.\n• El servidor VPN descifra y envia tu peticion a internet.\n• Las webs ven la IP del servidor VPN, no la tuya.\n\nCasos de uso:\n• WiFi publico: Protege contra snooping en cafes, aeropuertos.\n• Privacidad: Tu ISP no puede ver que webs visitas.\n• Geo-restricciones: Acceder a contenidos de otros paises.\n• Trabajo remoto: Conectar a la red de tu empresa de forma segura.\n\nServicios populares:\n• NordVPN, ExpressVPN, Surfshark, ProtonVPN.\n• Servicios gratuitos: ProtonVPN Free, Windscribe (limitados).',
-    pros: ['Seguridad en redes publicas sin exposing your data.', 'Privacidad frente a ISP y rastreo de paginas web.', 'Acceso a contenido bloqueado por region.'],
-    cons: ['Puede reducir velocidad de navegacion (especialmente gratis).', 'Algunas webs bloquean VPNSknown .', 'Las VPNS gratuitas pueden vender tus datos.'],
+    details: 'Como funciona una VPN:\n• Tu trafico se encripta en tu dispositivo.\n• Viaja por un tunel seguro hasta el servidor VPN.\n• El servidor VPN descifra y envia tu peticion a internet.\n• Las webs ven la IP del servidor VPN, no la tuya.\n\nCasos de uso:\n• WiFi publico: Protege contra escuchas en cafes, aeropuertos.\n• Privacidad: Tu ISP no puede ver que webs visitas.\n• Geo-restricciones: Acceder a contenidos de otros paises.\n• Trabajo remoto: Conectar a la red de tu empresa de forma segura.\n\nServicios populares:\n• NordVPN, ExpressVPN, Surfshark, ProtonVPN.\n• Servicios gratuitos: ProtonVPN Free, Windscribe (limitados).',
+    pros: ['Seguridad en redes publicas sin exponer tus datos.', 'Privacidad frente a ISP y rastreo de paginas web.', 'Acceso a contenido bloqueado por region.'],
+    cons: ['Puede reducir velocidad de navegacion (especialmente gratis).', 'Algunas webs bloquean VPNs conocidas.', 'Las VPNs gratuitas pueden vender tus datos.'],
     examples: 'Trabajar desde una cafeteria conectandose a la VPN de la empresa para acceder a archivos internos de forma segura.',
-    tips: ['Para privacidad maxima, usa VPN sin logs (no guardan historial).', 'WireGuard es el protocolo mas moderno y rapido.', 'No todas las VPNS son iguales: investiga la reputacion antes de confiarles tus datos.']
+    tips: ['Para privacidad maxima, usa VPN sin logs (no guardan historial).', 'WireGuard es el protocolo mas moderno y rapido.', 'No todas las VPNs son iguales: investiga la reputacion antes de confiarles tus datos.']
   }
 };
 
@@ -1291,8 +1291,8 @@ const communicationData = {
   messaging_apps: {
     id: 'messaging_apps', name: 'Apps de Mensajeria', category: 'Herramientas', icon: MessageSquare, color: 'emerald',
     desc: 'La mensajeria instantanea ha revolucionado la comunicacion. WhatsApp, Telegram, Signal y iMessage permiten comunicacion en tiempo real con individuos y grupos.\n\nCada app tiene sus ventajas y limitaciones en cuanto a privacidad, caracteristicas y compatibilidad.',
-    details: 'Principales apps:\n• WhatsApp: La mas popular globally, owned by Meta. Cifrado de extremo a extremo por defecto.\n• Telegram: Mas funciones (canales, bots, archivos grandes) pero cifrado opcional.\n• Signal: Maximum privacy, open source, minimal data collection.\n• iMessage: Solo Apple, muy integrado en el ecosistema.\n• Discord: Orientada a comunidades y gaming, muy versatil.\n\nFactores a considerar:\n• Privacidad: Signal > Telegram > WhatsApp > SMS.\n• Caracteristicas: Telegram > Discord > WhatsApp > Signal.\n• Compatibilidad: WhatsApp > Telegram > Signal > iMessage.',
-    pros: ['Comunicacion instantanea y gratuita globally.', 'Grupos para coordinacion familiar, trabajo o proyectos.', 'Envio de archivos, fotos, documentos.'],
+    details: 'Principales apps:\n• WhatsApp: La mas popular a nivel mundial, propiedad de Meta. Cifrado de extremo a extremo por defecto.\n• Telegram: Mas funciones (canales, bots, archivos grandes) pero cifrado opcional.\n• Signal: maxima privacidad, codigo abierto, recopilacion minima de datos.\n• iMessage: Solo Apple, muy integrado en el ecosistema.\n• Discord: Orientada a comunidades y gaming, muy versatil.\n\nFactores a considerar:\n• Privacidad: Signal > Telegram > WhatsApp > SMS.\n• Caracteristicas: Telegram > Discord > WhatsApp > Signal.\n• Compatibilidad: WhatsApp > Telegram > Signal > iMessage.',
+    pros: ['Comunicacion instantanea y gratuita a nivel mundial.', 'Grupos para coordinacion familiar, trabajo o proyectos.', 'Envio de archivos, fotos, documentos.'],
     cons: ['Puede ser intrusivo y generar estres por notificaciones.', 'Informacion se comparte rapidamente y sin reflexion.', 'Grupos grandes pueden ser caoticos.'],
     examples: 'Usar WhatsApp para familia, Telegram para grupos de proyecto y Signal para conversaciones sensibles.',
     tips: ['Usa mensajes temporales en chats que no necesitas archivar.', 'Revisa la configuracion de privacidad en cada app.', 'No compartas informacion sensible sin verificar quien esta en el grupo.']
@@ -1315,23 +1315,23 @@ const communicationData = {
     examples: 'Un equipo de marketing usa Slack con canales para #redes-sociales, #campanas, #analitica y #random. Las reuniones de equipo son en Teams.',
     tips: ['Establece normas de uso: que se comunica por email vs por Slack.', 'Usa hilos para conversaciones que no interesan a todos.', 'Configura horas de silencio para no ser molestado fuera del horario.']
   },
-  digital_identity: {
+digital_identity: {
     id: 'digital_identity', name: 'Identidad Digital', category: 'Presencia', icon: User, color: 'slate',
     desc: 'Tu identidad digital es como te presentan online: tu nombre, foto, biografia y presencia en redes sociales y otras plataformas.\n\nGestionar bien tu identidad digital es importante tanto para tu vida personal como profesional.',
-    details: 'Componentes de la identidad digital:\n• Perfiles en redes sociales (LinkedIn, Twitter, Instagram).\n• Presencia profesional (web personal, blog, portfolio).\n• Reputacion online: Lo que otros dicen de ti cuando te buscan.\n\nGestion de presencia:\n• Busca tu nombre regularmente para ver que aparece.\n• Configura la privacidad de tus perfiles segun tu comodidad.\n• Separa lo personal de lo profesional cuando sea necesario.\n\nHuella digital:\n• Todo lo que公共 en internet se queda: fotos, comentarios, publicaciones antiguas.\n• Antes de publicar, pregúrate si te gustaria quefuture empleadores lo vieran.\n• Los motores de busqueda guardan cache de paginas eliminadas.',
+    details: 'Componentes de la identidad digital:\n• Perfiles en redes sociales (LinkedIn, Twitter, Instagram).\n• Presencia profesional (web personal, blog, portfolio).\n• Reputacion online: Lo que otros dicen de ti cuando te buscan.\n\nGestion de presencia:\n• Busca tu nombre regularmente para ver que aparece.\n• Configura la privacidad de tus perfiles segun tu comodidad.\n• Separa lo personal de lo profesional cuando sea necesario.\n\nHuella digital:\n• Todo lo que se publica en internet se queda: fotos, comentarios, publicaciones antiguas.\n• Antes de publicar, preguntate si te gustaria que futuros empleadores lo vieran.\n• Los motores de busqueda guardan cache de paginas eliminadas.',
     pros: ['Una buena presencia online puede abrir oportunidades profesionales.', 'Control de tu narrativa: si no controlas tu identidad, otros lo haran.', 'Conexion con personas y comunidades de intereses similares.'],
     cons: ['Informacion mal gestionada puede afectar oportunidades de empleo.', 'Dificil eliminar informacion una vez publicada.', 'Riesgo de suplantacion de identidad si no proteges tus datos.'],
     examples: 'Un profesional que mantiene un perfil de LinkedIn actualizado, con certificaciones y recomendaciones, y que googlea periodicamente su nombre para monitorizar su reputacion online.',
     tips: ['Google yourself al menos una vez al mes.', 'Usa diferentes correos y perfiles segun el contexto (personal, trabajo, comunidades).', 'No aceptes conexiones de desconocidos sin verificar su perfil.']
   },
-  netiquette_advanced: {
+netiquette_advanced: {
     id: 'netiquette_advanced', name: 'Netiqueta y Comunicacion', category: 'Etiqueta Digital', icon: MessageCircle, color: 'amber',
     desc: 'La netiqueta es el conjunto de normas de comportamiento para comunicacion digital. Tan importante como saber escribir es saber cuando, a quien y como comunicarte digitalmente.\n\nEl tono se pierde en texto, los emoji pueden malinterpretarse, y las respuestas instantaneas no siempre son necesarias.',
     details: 'Principios de netiqueta:\n• Respeta el tiempo de los demas: no todos estan disponibles 24/7.\n• Usa el canal adecuado: email formal vs mensaje rapido vs llamada.\n• Cuidado con el tono: lo que parece cortante en texto puede ser neutral.\n• Piensa antes de enviar: un mensaje impulsivo puede causar problemas.\n\nEmail vs Mensajeria vs Llamada:\n• Email: Para temas formales, que requieren registro escrito, o cuando no hay urgencia.\n• Mensajeria (Slack/Teams): Para comunicacion rapida de equipo, preguntas cortas.\n• Llamada/videollamada: Para temas complejos, conflictos, o cuando la urgencia es alta.\n\nTiempo de respuesta esperado:\n• Email profesional: 24-48 horas.\n• Mensajeria de trabajo: Dentro del horario laboral, unas pocas horas.\n• Urgencias criticas: Llamada telefonica.',
     pros: ['Buena netiqueta mejora relaciones profesionales y personales.', 'Reduce malentendidos y conflictos innecesarios.', 'Te hace parecer mas profesional y considerado.'],
     cons: ['Normas pueden variar entre culturas y organizaciones.', 'Lo que es aceptable en un equipo puede no serlo en otro.', 'La tecnologia cambia rapidamente y las normas evolucionan.'],
     examples: 'No enviar un email a las 11pm esperando respuesta inmediata. No usar emojis en comunicaciones formales con clientes.',
-    tips: ['Lee tu mensaje antes de enviarlo imagining como lo recibiria el receptor.', 'Si estas enfadado, escribe el mensaje y dejalo reposar 10 minutos antes de enviarlo.', 'Adapta tu comunicacion al canal y al receptor.']
+    tips: ['Lee tu mensaje antes de enviarlo imaginando como lo recibiria el receptor.', 'Si estas enfadado, escribe el mensaje y dejalo reposar 10 minutos antes de enviarlo.', 'Adapta tu comunicacion al canal y al receptor.']
   }
 };
 
