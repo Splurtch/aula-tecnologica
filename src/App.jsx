@@ -17,6 +17,7 @@ import {
 import { InteractiveButton, KeyboardKey, Layer3D, PanelDerecho, SectionMenuItem } from './components/ui.jsx';
 import DesktopTab from './components/DesktopTab.jsx';
 import AIBasicsTab from './components/AIBasicsTab.jsx';
+import KeyboardView from './views/KeyboardView.jsx';
 import { useTheme } from './context/ThemeContext.jsx';
 import { useApp } from './context/AppContext.jsx';
 
@@ -4578,6 +4579,7 @@ export default function App() {
       </div>
     );
   };
+/*
   const renderKeyboardTab = () => (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className={`rounded-sm border p-5 md:p-6 overflow-hidden relative ${
@@ -4686,9 +4688,10 @@ export default function App() {
           ))}
         </div>
       </div>
-    </div>
+      </div>
     </div>
   );
+*/
 
   return (
     <div className={`min-h-screen font-sans flex flex-col transition-colors duration-500 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#1a1f3c] text-slate-100'}`}>
@@ -5223,7 +5226,12 @@ export default function App() {
           {activeTab === 'navegadores' && renderNavegadoresTab()}
           {activeTab === 'content' && renderContentTab()}
           {activeTab === 'files' && renderFilesTab()}
-          {activeTab === 'keyboard' && renderKeyboardTab()}
+          {activeTab === 'keyboard' && <KeyboardView
+            selectedItem={selectedItem}
+            onSelect={handleSelect}
+            isDark={isDark}
+            colorMap={colorMap}
+          />}
           {activeTab === 'office' && renderOfficeTab()}
           {activeTab === 'backup' && (
             <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
