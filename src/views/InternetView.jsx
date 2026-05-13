@@ -1,9 +1,8 @@
 import React from 'react';
 import { Globe, ShieldCheck, ShieldAlert, MailWarning, Bug, AlertOctagon } from 'lucide-react';
-import { internetData } from '../data/internetData.js';
 import { InteractiveButton } from '../components/ui.jsx';
 
-export default function InternetView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function InternetView({ selectedItem, onSelect, isDark, colorMap, internetData }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className="bg-white rounded-3xl p-8 shadow-2xl border border-slate-200">

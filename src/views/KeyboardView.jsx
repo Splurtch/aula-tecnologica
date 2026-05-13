@@ -1,7 +1,6 @@
-import { keyboardData, keyboardLayout } from '../data/keyboardData.js';
 import { InteractiveButton } from '../components/ui.jsx';
 
-export default function KeyboardView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function KeyboardView({ selectedItem, onSelect, isDark, colorMap, keyboardData, keyboardLayout }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500 h-full">
       <div className={`rounded-sm border p-5 md:p-6 overflow-hidden relative ${isDark ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 border-slate-800 shadow-[0_24px_80px_rgba(15,23,42,0.55)]' : 'bg-gradient-to-br from-[#eef1ff] via-[#dddff7] to-[#f5f2ff] border-white/70 shadow-[0_24px_80px_rgba(79,70,229,0.16)]'}`}>

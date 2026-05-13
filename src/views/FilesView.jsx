@@ -1,8 +1,7 @@
 import { HardDrive, Usb, Cloud, FolderOpen, FileText } from 'lucide-react';
-import { filesData } from '../data/filesData.js';
 import { InteractiveButton } from '../components/ui.jsx';
 
-export default function FilesView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function FilesView({ selectedItem, onSelect, isDark, colorMap, filesData }) {
   return (
     <div className="bg-slate-900 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl border border-slate-800 animate-in fade-in duration-500 h-full">
       <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">

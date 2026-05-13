@@ -2776,33 +2776,19 @@ export default function App() {
         <div className={`w-full flex flex-col gap-6 min-w-0 transition-all duration-300 ${hasActiveDetail ? 'xl:w-[64%]' : 'xl:w-full'}`}>
           {activeTab === 'home' && <HomeView tabConfig={tabConfig} achievements={achievements} isDark={isDark} handleTabChange={handleTabChange} />}
           {activeTab === 'hardware' && <HardwareView selectedItem={selectedItem} onSelect={handleSelect} hardwareData={hardwareData} colorMap={colorMap} isDark={isDark} />}
-          {activeTab === 'peripherals' && <PeripheralsView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} />}
-          {activeTab === 'cloud' && <CloudView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} />}
-          {activeTab === 'software' && <SoftwareView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} />}
-          {activeTab === 'internet' && <InternetView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
-          {activeTab === 'security' && <SecurityView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
-          {activeTab === 'email' && <EmailView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
+          {activeTab === 'peripherals' && <PeripheralsView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} peripheralData={peripheralData} />}
+          {activeTab === 'cloud' && <CloudView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} cloudData={cloudData} />}
+          {activeTab === 'software' && <SoftwareView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} softwareData={softwareData} softwareOsExamples={softwareOsExamples} softwareOsDetails={softwareOsDetails} softwareLicenseModels={softwareLicenseModels} />}
+          {activeTab === 'internet' && <InternetView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} internetData={internetData} />}
+          {activeTab === 'security' && <SecurityView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} securityData={securityData} securityPasswordExamples={securityPasswordExamples} securityPermissionCards={securityPermissionCards} />}
+          {activeTab === 'email' && <EmailView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} emailData={emailData} emailInboxMock={emailInboxMock} emailRecipientCases={emailRecipientCases} />}
           {activeTab === 'desktop' && <DesktopTab />}
-          {activeTab === 'red_instalacion' && <RedInstalacionView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
-          {activeTab === 'red_basicos' && <RedBasicosView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
-          {activeTab === 'navegadores' && <NavegadoresView
-            selectedItem={selectedItem}
-            onSelect={handleSelect}
-            isDark={isDark}
-          />}
-          {activeTab === 'content' && <ContentView
-            selectedItem={selectedItem}
-            onSelect={handleSelect}
-            isDark={isDark}
-            colorMap={colorMap}
-          />}
-          {activeTab === 'files' && <FilesView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} />}
-          {activeTab === 'keyboard' && <KeyboardView
-            selectedItem={selectedItem}
-            onSelect={handleSelect}
-            isDark={isDark}
-            colorMap={colorMap}
-          />}
+          {activeTab === 'red_instalacion' && <RedInstalacionView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} redInstalacionData={redInstalacionData} />}
+          {activeTab === 'red_basicos' && <RedBasicosView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} redBasicosData={redBasicosData} />}
+          {activeTab === 'navegadores' && <NavegadoresView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} navegadoresData={navegadoresData} />}
+          {activeTab === 'content' && <ContentView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} contentSteps={contentSteps} contentData={contentData} contentTools={contentTools} SoftwareLogos={SoftwareLogos} ContentImages={ContentImages} />}
+          {activeTab === 'files' && <FilesView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} filesData={filesData} />}
+          {activeTab === 'keyboard' && <KeyboardView selectedItem={selectedItem} onSelect={handleSelect} isDark={isDark} colorMap={colorMap} keyboardData={keyboardData} keyboardLayout={keyboardLayout} />}
           {activeTab === 'office' && <OfficeView
               selectedItem={selectedItem}
               onSelect={handleSelect}

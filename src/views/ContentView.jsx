@@ -1,8 +1,7 @@
 import { Cog } from 'lucide-react';
 import { InteractiveButton } from '../components/ui.jsx';
-import { contentSteps, contentData, contentTools, SoftwareLogos, ContentImages } from '../data/contentData.js';
 
-export default function ContentView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function ContentView({ selectedItem, onSelect, isDark, colorMap, contentSteps, contentData, contentTools, SoftwareLogos, ContentImages }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <section className={`rounded-sm border p-5 sm:p-6 md:p-7 ${isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950/20 border-slate-800' : 'bg-white border-slate-200 shadow-cyber-lg'}`}>

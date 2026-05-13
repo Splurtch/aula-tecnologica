@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Keyboard, Monitor, Usb, HardDrive, Speaker, Plug } from 'lucide-react';
-import { peripheralData } from '../data/peripheralData.js';
 
-export default function PeripheralsTab({ selectedItem, onSelect, isDark }) {
+export default function PeripheralsView({ selectedItem, onSelect, isDark, peripheralData }) {
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
 
   const peripheralCategories = [

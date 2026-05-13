@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { emailData, emailInboxMock, emailRecipientCases } from '../data/emailData.js';
 
-const emailEtiquetteExamples = {
-  good: {
-    subject: 'Entrega del presupuesto actualizado',
-    body: 'Hola Ana, te envio el presupuesto revisado en PDF. Si te encaja, lo comentamos manana. Gracias.',
-  },
-  bad: {
-    subject: 'hola',
-    body: 'te mando eso mira a ver y me dices',
-  },
-};
-
-export default function EmailView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function EmailView({ selectedItem, onSelect, isDark, colorMap, emailData, emailInboxMock, emailRecipientCases }) {
   const [emailRecipientView, setEmailRecipientView] = useState('para');
+
+  const emailEtiquetteExamples = {
+    good: {
+      subject: 'Entrega del presupuesto actualizado',
+      body: 'Hola Ana, te envio el presupuesto revisado en PDF. Si te encaja, lo comentamos manana. Gracias.',
+    },
+    bad: {
+      subject: 'hola',
+      body: 'te mando eso mira a ver y me dices',
+    },
+  };
 
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">

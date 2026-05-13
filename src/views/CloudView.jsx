@@ -1,8 +1,7 @@
 import React from 'react';
 import { Globe, Wifi, Laptop, Cloud } from 'lucide-react';
-import { cloudData } from '../data/cloudData.js';
 
-export default function CloudView({ selectedItem, onSelect, isDark }) {
+export default function CloudView({ selectedItem, onSelect, isDark, cloudData }) {
   return (
     <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
       isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'

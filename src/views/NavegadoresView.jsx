@@ -1,5 +1,4 @@
 import { AppWindow, AlertTriangle, User, Calendar, Zap, FileQuestion } from 'lucide-react';
-import { navegadoresData } from '../data/navegadoresData.js';
 
 const BrowserLogos = {
   chrome: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/chrome/chrome.svg',
@@ -9,7 +8,7 @@ const BrowserLogos = {
   brave: 'https://cdnjs.cloudflare.com/ajax/libs/browser-logos/75.0.1/brave/brave.svg',
 };
 
-export default function NavegadoresView({ selectedItem, onSelect, isDark }) {
+export default function NavegadoresView({ selectedItem, onSelect, isDark, navegadoresData }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>

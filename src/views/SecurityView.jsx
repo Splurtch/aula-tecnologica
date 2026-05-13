@@ -1,7 +1,6 @@
-import { securityData, securityPasswordExamples, securityPermissionCards } from '../data/securityData.js';
 import { InteractiveButton } from '../components/ui.jsx';
 
-export default function SecurityView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function SecurityView({ selectedItem, onSelect, isDark, colorMap, securityData, securityPasswordExamples, securityPermissionCards }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>

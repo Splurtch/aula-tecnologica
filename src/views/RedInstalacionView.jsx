@@ -1,7 +1,6 @@
 import { Radio, Wifi, Gauge, Network, Signal } from 'lucide-react';
-import { redInstalacionData } from '../data/redInstalacionData.js';
 
-export default function RedInstalacionView({ selectedItem, onSelect, isDark, colorMap }) {
+export default function RedInstalacionView({ selectedItem, onSelect, isDark, colorMap, redInstalacionData }) {
   return (
     <div className="flex flex-col gap-6 animate-in fade-in duration-500">
       <div className={`rounded-sm border p-5 sm:p-6 md:p-8 ${isDark ? 'border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40' : 'border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.12)]'}`}>

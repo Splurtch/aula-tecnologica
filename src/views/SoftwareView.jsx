@@ -1,8 +1,7 @@
 import React from 'react';
 import { Layers, Cpu, Monitor, Plug, Blocks } from 'lucide-react';
-import { softwareData, softwareOsExamples, softwareOsDetails, softwareLicenseModels } from '../data/softwareData.js';
 
-export default function SoftwareView({ selectedItem, onSelect, isDark }) {
+export default function SoftwareView({ selectedItem, onSelect, isDark, softwareData, softwareOsExamples, softwareOsDetails, softwareLicenseModels }) {
   return (
     <div className={`relative overflow-hidden rounded-sm border animate-in fade-in duration-500 ${
       isDark ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border-slate-800' : 'bg-white border-slate-200 shadow-[0_22px_60px_rgba(15,23,42,0.12)]'
