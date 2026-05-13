@@ -1710,6 +1710,7 @@ const tabDataMap = {
   email: emailData,
   desktop: {},
   red_instalacion: redInstalacionData,
+  red_basicos: redBasicosData,
   ethernet: ethernetData,
   communication: communicationData,
   office: officeData,
