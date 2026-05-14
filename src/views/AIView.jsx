@@ -76,7 +76,7 @@ function InteractiveButton({ id, dataSet, extraClass, selectedItem, onSelect, co
 
   return (
     <button
-      onClick={() => onSelect(data)}
+      onClick={() => onSelect(id, null, dataSet)}
       className={`rounded-sm border p-4 text-left transition-all ${bgClass} ${extraClass} hover:border-blue-400/50`}
     >
       <div className="flex flex-col gap-2">

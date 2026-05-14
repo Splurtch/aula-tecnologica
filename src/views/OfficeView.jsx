@@ -11,7 +11,7 @@ export default function OfficeView({
   const activeOfficeZone = activeOfficeView.zones.find((zone) => zone.id === officeWorkspaceZone) || activeOfficeView.zones[0];
 
   const handleOfficeProgramSelect = (id) => {
-    onSelect(officeData[id]);
+    onSelect(id, null, officeData);
     setOfficeWorkspaceZone(officeWorkspaceViews[id].zones[0].id);
   };
 

@@ -30,11 +30,11 @@ export default function NavegadoresView({ selectedItem, onSelect, isDark, navega
         <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Comparativa de Navegadores</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { id: 'chromeMozilla', name: 'Chrome', logo: BrowserLogos.chrome },
-            { id: 'chromeMozilla', name: 'Firefox', logo: BrowserLogos.firefox },
-            { id: 'edgeSafari', name: 'Edge', logo: BrowserLogos.edge },
+            { id: 'google_chrome', name: 'Chrome', logo: BrowserLogos.chrome },
+            { id: 'mozilla_firefox', name: 'Firefox', logo: BrowserLogos.firefox },
+            { id: 'microsoft_edge', name: 'Edge', logo: BrowserLogos.edge },
             { id: 'brave', name: 'Brave', logo: BrowserLogos.brave },
-            { id: 'edgeSafari', name: 'Safari', logo: BrowserLogos.safari },
+            { id: 'apple_safari', name: 'Safari', logo: BrowserLogos.safari },
           ].map((browser) => (
             <button
               key={browser.name}
