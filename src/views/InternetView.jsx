@@ -34,7 +34,6 @@ export default function InternetView({ selectedItem, onSelect, isDark, colorMap,
               <span className={`text-[17px] ${selectedItem?.id === 'search_engine' ? 'text-purple-800 font-bold' : 'text-slate-400 font-medium'}`}>Escribe tus palabras clave aquí... (ej. "cursos gratuitos")</span>
             </button>
             <div className="flex flex-wrap justify-center gap-4 mt-10 z-10">
-              <InteractiveButton id="scenario_personal" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={onSelect} colorMap={colorMap} isDark={isDark} />
               <InteractiveButton id="scenario_work" dataSet={internetData} extraClass="px-6 py-3" selectedItem={selectedItem} onSelect={onSelect} colorMap={colorMap} isDark={isDark} />
             </div>
           </div>
