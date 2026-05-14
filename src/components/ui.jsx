@@ -247,27 +247,30 @@ export const SectionMenuItem = ({ tab, isActive, onClick, isDark = false }) => {
   );
 };
 
+const theme3D = {
+  emerald: 'bg-emerald-900/90 border border-emerald-400 text-emerald-200',
+  blue: 'bg-blue-600/95 border border-blue-300 text-blue-100',
+  purple: 'bg-purple-700/95 border border-purple-400 text-purple-100',
+  red: 'bg-red-600/80 border border-red-400 text-red-100 backdrop-blur-sm',
+  amber: 'bg-amber-700/95 border border-amber-400 text-amber-100',
+  zinc: 'bg-zinc-800/95 border border-zinc-500 text-zinc-200',
+  cyan: 'bg-cyan-900/60 border border-cyan-400 text-cyan-200 backdrop-blur-md',
+};
+
 export const Layer3D = ({ id, style, baseZ, children, customClass = "", selectedItem, onSelect, hardwareData, colorMap }) => {
-  const comp = hardwareData[id];
+  const comp = hardwareData?.[id];
+  if (!comp) return null;
   const isSelected = selectedItem?.id === id;
   const currentZ = isSelected ? baseZ + 40 : baseZ;
-  const glow = colorMap[comp.color]?.glow || '';
-
-  const theme3D = {
-    emerald: `bg-emerald-900/90 border border-emerald-400 ${glow} text-emerald-200`,
-    blue: `bg-blue-600/95 border border-blue-300 ${glow} text-blue-100`,
-    purple: `bg-purple-700/95 border border-purple-400 ${glow} text-purple-100`,
-    red: `bg-red-600/80 border border-red-400 ${glow} text-red-100 backdrop-blur-sm`,
-    amber: `bg-amber-700/95 border border-amber-400 ${glow} text-amber-100`,
-    zinc: `bg-zinc-800/95 border border-zinc-500 ${glow} text-zinc-200`,
-    cyan: `bg-cyan-900/60 border border-cyan-400 ${glow} text-cyan-200 backdrop-blur-md`,
-  };
+  const glow = colorMap?.[comp.color]?.glow || '';
+  const baseClass = theme3D[comp.color] || theme3D.zinc;
+  const glowClass = glow ? ` ${glow}` : '';
 
   return (
     <div
       onClick={(e) => onSelect(id, e, hardwareData)}
       style={{ ...style, transform: `translateZ(${currentZ}px)`, transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-      className={`absolute rounded-sm flex flex-col items-center justify-center cursor-pointer group hover:brightness-125 ${theme3D[comp.color]} ${customClass}`}
+      className={`absolute rounded-sm flex flex-col items-center justify-center cursor-pointer group hover:brightness-125 ${baseClass}${glowClass} ${customClass}`}
       title={comp.name}
     >
       {children || (
