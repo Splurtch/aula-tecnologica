@@ -7,7 +7,7 @@ export default function OfficeView({
 }) {
   const officeProgramIds = ['text_docs', 'spreadsheets', 'presentations_tools', 'pdf_export', 'collaboration_templates'];
   const activeOfficeId = officeData[selectedItem?.id] ? selectedItem.id : 'text_docs';
-  const activeOfficeView = officeWorkspaceViews[activeOfficeId];
+  const activeOfficeView = officeWorkspaceViews[activeOfficeId] || { zones: [{ id: 'toolbar' }] };
   const activeOfficeZone = activeOfficeView.zones.find((zone) => zone.id === officeWorkspaceZone) || activeOfficeView.zones[0];
 
   const handleOfficeProgramSelect = (id) => {

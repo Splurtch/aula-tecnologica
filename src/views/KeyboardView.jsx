@@ -66,7 +66,7 @@ export default function KeyboardView({ selectedItem, onSelect, isDark, colorMap,
             </div>
           </div>
           <div className="space-y-3">
-            {(selectedItem?.shortcutList || keyboardData.shortcut_basics.shortcutList).slice(0, 5).map((shortcut) => (
+            {(selectedItem?.shortcutList || keyboardData?.shortcut_basics?.shortcutList || []).slice(0, 5).map((shortcut) => (
               <article key={shortcut.combo} className={`rounded-sm border p-4 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
                 <div className="flex items-center justify-between gap-3 mb-3">
                   <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-widest ${isDark ? 'bg-indigo-500/20 text-indigo-100' : 'bg-indigo-100 text-indigo-700'}`}>{shortcut.combo}</span>

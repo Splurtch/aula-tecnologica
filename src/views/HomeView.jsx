@@ -15,7 +15,7 @@ export default function HomeView({
 }) {
   const totalModules = tabConfig.filter(t => t.id !== 'home').length;
   const completedModules = new Set(
-    Object.keys(localStorage || {})
+    Object.keys(typeof window !== 'undefined' ? localStorage : {})
       .filter(k => k.startsWith('module_') && localStorage.getItem(k) === 'completed')
   ).size;
   const progressPercent = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;

@@ -194,7 +194,7 @@ export default function PeripheralsView({ selectedItem, onSelect, isDark, periph
                 {cat.name}
               </p>
               <h3 className={`mt-1 text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                {peripheralData[cat.id].name}
+                {peripheralData[cat.id]?.name || cat.name}
               </h3>
               <p className={`mt-2 text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                 {cat.description}

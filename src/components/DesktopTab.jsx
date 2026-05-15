@@ -362,7 +362,7 @@ function ContextMenu({ x, y, item }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       className="fixed z-[100] bg-white rounded-lg shadow-xl border border-slate-200 py-1 min-w-[180px]"
-      style={{ left: Math.min(x, window.innerWidth - 200), top: Math.min(y, window.innerHeight - 200) }}
+      style={{ left: Math.min(x, (typeof window !== 'undefined' ? window.innerWidth : 800) - 200), top: Math.min(y, (typeof window !== 'undefined' ? window.innerHeight : 600) - 200) }}
       onClick={(e) => e.stopPropagation()}
     >
       <div className="px-3 py-2 border-b border-slate-100">
