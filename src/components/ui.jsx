@@ -398,7 +398,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
             Concepto
           </h4>
           <div className="space-y-3">
-            {selectedItem.desc.split('\n\n').map((paragraph, idx) => {
+            {selectedItem.desc?.split('\n\n').map((paragraph, idx) => {
               if (paragraph.startsWith('«') && paragraph.endsWith('».')) {
                 return (
                   <div key={idx} className={`p-3.5 rounded-sm font-medium italic ${isDark ? 'bg-blue-500/10 border border-blue-500/20 text-blue-200' : `${colors.bgLight} ${colors.text} border ${colors.borderLight}`}`}>
@@ -424,7 +424,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
               <Info size={16} /> Profundización
             </h4>
             <div className="space-y-2.5">
-              {selectedItem.details.split('\n').map((line, idx) => {
+              {selectedItem.details?.split('\n').map((line, idx) => {
                 if (line.startsWith('•')) {
                   return (
                     <div key={idx} className="flex gap-3 items-start">
@@ -449,7 +449,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
           </section>
         )}
 
-        {selectedItem.pros && (
+        {selectedItem.pros && Array.isArray(selectedItem.pros) && (
           <section className="space-y-4">
             <div className="grid grid-cols-1 gap-3">
               <div className={`p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow ${
@@ -470,23 +470,25 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
                 </ul>
               </div>
 
-              <div className={`p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow ${
-                isDark ? 'bg-red-500/10 border border-red-500/20' : 'bg-red-50 border border-red-200'
-              }`}>
-                <h4 className={`text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 ${
-                  isDark ? 'text-red-300' : 'text-red-800'
+              {selectedItem.cons && Array.isArray(selectedItem.cons) && (
+                <div className={`p-4 rounded-sm shadow-sm hover:shadow-md transition-shadow ${
+                  isDark ? 'bg-red-500/10 border border-red-500/20' : 'bg-red-50 border border-red-200'
                 }`}>
-                  <XCircle size={16} className={isDark ? 'text-red-400' : 'text-red-600'} />
-                  Contras
-                </h4>
-                <ul className="space-y-2.5">
-                  {selectedItem.cons.map((c, i) => (
-                    <li key={i} className={`text-[14px] flex items-start gap-2.5 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                      <span className="text-red-500 mt-0.5"><AlertTriangle size={14} /></span>{c}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <h4 className={`text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 ${
+                    isDark ? 'text-red-300' : 'text-red-800'
+                  }`}>
+                    <XCircle size={16} className={isDark ? 'text-red-400' : 'text-red-600'} />
+                    Contras
+                  </h4>
+                  <ul className="space-y-2.5">
+                    {selectedItem.cons.map((c, i) => (
+                      <li key={i} className={`text-[14px] flex items-start gap-2.5 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                        <span className="text-red-500 mt-0.5"><AlertTriangle size={14} /></span>{c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </section>
         )}
