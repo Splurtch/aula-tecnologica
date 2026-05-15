@@ -125,3 +125,24 @@ export const softwareLicenseModels = {
     ],
   },
 };
+
+export const softwareQuizItems = [
+  {
+    id: 'quiz-driver',
+    label: 'Controlador de impresora HP',
+    answer: 'driver',
+    explanation: 'Es un driver porque traduce la orden del sistema para que la impresora concreta pueda ejecutarla.',
+  },
+  {
+    id: 'quiz-system',
+    label: 'Windows 11',
+    answer: 'system',
+    explanation: 'Es un sistema operativo porque coordina el equipo completo y permite arrancar, gestionar memoria y abrir programas.',
+  },
+  {
+    id: 'quiz-app',
+    label: 'LibreOffice Writer',
+    answer: 'app',
+    explanation: 'Es una aplicacion porque sirve para una tarea concreta: redactar documentos.',
+  },
+];

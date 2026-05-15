@@ -36,3 +36,8 @@ export function useApp() {
   }
   return context;
 }
+
+export function useSelection() {
+  const { selectedItem, handleClearSelection } = useApp();
+  return { selectedItem, clearSelection: handleClearSelection };
+}

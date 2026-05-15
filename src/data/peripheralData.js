@@ -20,7 +20,7 @@ export const peripheralData = {
   output_devices: {
     id: 'output_devices', name: 'Perifericos de Salida', category: 'Salida de informacion', icon: Monitor, color: 'emerald',
     desc: 'Los perifericos de salida muestran o reproducen la informacion que procesa el ordenador. Son la forma en la que el sistema devuelve resultados al usuario.\n\nSin ellos, el equipo puede trabajar internamente, pero el usuario no podria ver, escuchar ni interpretar facilmente lo que ocurre.',
-    details: 'Ejemplos clave:\n• Monitor o pantalla: Muestra imagenes, interfaces y documentos.\n• Alt speakers y auriculares: Reproducen sonido, avisos, musica o clases.\n• Impresora: Transforma contenido digital en papel.\n• Proyector: Amplia la salida visual para grupos o aulas.',
+    details: 'Ejemplos clave:\n• Monitor o pantalla: Muestra imagenes, interfaces y documentos.\n• Altavoces y auriculares: Reproducen sonido, avisos, musica o clases.\n• Impresora: Transforma contenido digital en papel.\n• Proyector: Amplia la salida visual para grupos o aulas.',
     pros: [
       'Hacen visible y comprensible la informacion procesada.',
       'Permiten adaptar la experiencia a lectura, audio o presentacion.',
@@ -36,7 +36,7 @@ export const peripheralData = {
   io_devices: {
     id: 'io_devices', name: 'Entrada y Salida', category: 'Intercambio bidireccional', icon: Usb, color: 'purple',
     desc: 'Hay perifericos que no se limitan a una sola direccion de informacion. Algunos envian y reciben datos, o permiten una comunicacion continua entre usuario y equipo.\n\nEste grupo es importante porque refleja que muchos dispositivos modernos cumplen varias funciones a la vez.',
-    details: 'Ejemplos mixtos:\n• Pantalla tactil: Muestra informacion y tambien recibe pulsaciones.\n• Cascos con microfono: Reproducen sonido y capturan voz.\n• Impresora multifuncion: Imprime, escanea y a veces copia o envia documentos.\n• Mandos y tablettes digitalizadoras: Reciben accion del usuario y devuelven respuesta visual.',
+    details: 'Ejemplos mixtos:\n• Pantalla tactil: Muestra informacion y tambien recibe pulsaciones.\n• Cascos con microfono: Reproducen sonido y capturan voz.\n• Impresora multifuncion: Imprime, escanea y a veces copia o envia documentos.\n• Mandos y tabletas digitalizadoras: Reciben accion del usuario y devuelven respuesta visual.',
     pros: [
       'Reducen equipos separados al combinar varias funciones.',
       'Mejoran la fluidez en videollamadas, aulas digitales y puestos compactos.',
