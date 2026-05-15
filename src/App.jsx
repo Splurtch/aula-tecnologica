@@ -2095,7 +2095,7 @@ export default function App() {
     const currentData = tabDataMap[activeTab];
     if (currentData) {
       const moduleItems = Object.keys(currentData);
-      const visitedInModule = visitedItems[activeTab] || [];
+      const visitedInModule = Array.isArray(visitedItems[activeTab]) ? visitedItems[activeTab] : [];
 
       // Award XP por explorar items
       moduleItems.forEach(itemId => {
@@ -2144,7 +2144,7 @@ export default function App() {
       const currentData = tabDataMap[activeTab];
       if (currentData) {
         const moduleItems = Object.keys(currentData);
-        const visitedInModule = visitedItems[activeTab] || [];
+        const visitedInModule = Array.isArray(visitedItems[activeTab]) ? visitedItems[activeTab] : [];
         // Desbloquear maestría solo si ha visitado TODOS los items
         const allVisited = moduleItems.length > 0 && moduleItems.every(itemId => visitedInModule.includes(itemId));
         if (allVisited) {
