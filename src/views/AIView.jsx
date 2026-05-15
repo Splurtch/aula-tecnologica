@@ -1,4 +1,5 @@
 import { Bot, Brain, Library, Blocks, Video } from 'lucide-react';
+import { InteractiveButton } from '../components/ui.jsx';
 
 export default function AIView({ selectedItem, onSelect, colorMap, isDark, aiData }) {
   const generalistas = ['chatgpt', 'claude', 'gemini', 'copilot', 'grok'];
@@ -64,26 +65,5 @@ export default function AIView({ selectedItem, onSelect, colorMap, isDark, aiDat
         </div>
       </div>
     </div>
-  );
-}
-
-function InteractiveButton({ id, dataSet, extraClass, selectedItem, onSelect, colorMap, isDark }) {
-  const data = dataSet?.[id];
-  if (!data) return null;
-  const isSelected = selectedItem?.id === id;
-  const bgClass = isSelected ? 'bg-blue-500/20 border-blue-400' : 'bg-slate-800 border-slate-700';
-  const Icon = data.icon;
-
-  return (
-    <button
-      onClick={() => onSelect(id, null, dataSet)}
-      className={`rounded-sm border p-4 text-left transition-all ${bgClass} ${extraClass} hover:border-blue-400/50`}
-    >
-      <div className="flex flex-col gap-2">
-        <Icon size={20} className={isSelected ? 'text-blue-400' : 'text-slate-400'} />
-        <span className="text-xs font-black uppercase tracking-wider">{data.category}</span>
-        <span className="text-sm font-bold">{data.name}</span>
-      </div>
-    </button>
   );
 }
