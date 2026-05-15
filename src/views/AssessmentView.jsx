@@ -12,7 +12,14 @@ export default function AssessmentView({
   assessmentMixedQuizItems, softwareQuizItems, assessmentData,
   resetAssessmentArea
 }) {
-  const { quizScore, recordQuizAnswer, resetQuizScore } = useGamification();
+  const { quizScore, recordQuizAnswer, resetQuizScore, markModuleComplete, isModuleCompleted, awardXp } = useGamification();
+  const isAssessmentComplete = isModuleCompleted('assessment');
+  const hasAnsweredAll = Object.keys(securityQuizSelections).length > 0 &&
+    Object.keys(emailQuizSelections).length > 0 &&
+    Object.keys(officeQuizSelections).length > 0 &&
+    Object.keys(softwareQuizSelections).length > 0;
+  const hasDraggedItems = Object.keys(assessmentAssignments).length > 0;
+  const canComplete = hasAnsweredAll && hasDraggedItems && !isAssessmentComplete;
   const categoryMeta = {
     system: { label: 'Sistema operativo', accent: isDark ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-200' : 'border-indigo-200 bg-indigo-50 text-indigo-700' },
     driver: { label: 'Driver o controlador', accent: isDark ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-200' : 'border-cyan-200 bg-cyan-50 text-cyan-700' },
@@ -67,6 +74,15 @@ export default function AssessmentView({
             <div className={`px-4 py-2 rounded-full text-sm font-black ${isDark ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}`}>
               {quizScore.correct}/{quizScore.total} correctas
             </div>
+          )}
+          {isAssessmentComplete ? (
+            <div className={`px-4 py-2 rounded-full text-sm font-black ${isDark ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+              ✓ Completado
+            </div>
+          ) : canComplete && (
+            <button onClick={() => { markModuleComplete('assessment'); awardXp(100, 'Evaluación completada'); }} className={`rounded-full px-5 py-3 text-sm font-black uppercase tracking-widest ${isDark ? 'bg-emerald-500 text-white hover:bg-emerald-400' : 'bg-emerald-600 text-white hover:bg-emerald-500'}`}>
+              Marcar como completada
+            </button>
           )}
         </div>
       </section>

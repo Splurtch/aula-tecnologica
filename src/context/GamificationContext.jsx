@@ -126,6 +126,14 @@ export function GamificationProvider({ children }) {
     }
   }, [streak, awardXp, unlockAchievement]);
 
+  const markModuleComplete = useCallback((moduleId) => {
+    setModuleProgress((prev) => {
+      const updated = { ...prev, [moduleId]: { ...prev[moduleId], completed: true, completedAt: new Date().toISOString() } };
+      localStorage.setItem('aula-module-progress', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   const isModuleCompleted = useCallback((moduleId) => {
     return moduleProgress[moduleId]?.completed || false;
   }, [moduleProgress]);
@@ -135,7 +143,7 @@ export function GamificationProvider({ children }) {
     xp, awardXp, levelProgress, currentLevel, nextLevel,
     xpNotification, setXpNotification,
     streak, checkStreak,
-    moduleProgress, isModuleCompleted,
+    moduleProgress, isModuleCompleted, markModuleComplete,
     hoveredPeripheral, setHoveredPeripheral,
     quizScore, recordQuizAnswer, resetQuizScore,
     LEVELS,
