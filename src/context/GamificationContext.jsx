@@ -63,6 +63,7 @@ export function GamificationProvider({ children }) {
   const [streak, setStreak] = useState(getInitialStreak);
   const [moduleProgress, _setModuleProgress] = useState(getInitialModuleProgress);
   const [hoveredPeripheral, setHoveredPeripheral] = useState(null);
+  const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
 
   const currentLevel = LEVELS.reduce((acc, l) => xp >= l.xpRequired ? l : acc, LEVELS[0]);
   const nextLevel = LEVELS.find(l => l.xpRequired > xp) || LEVELS[LEVELS.length - 1];
@@ -85,6 +86,20 @@ export function GamificationProvider({ children }) {
     });
     setXpNotification({ show: true, amount, type: 'xp', reason });
     setTimeout(() => setXpNotification(prev => ({ ...prev, show: false })), 2500);
+  }, []);
+
+  const recordQuizAnswer = useCallback((isCorrect) => {
+    setQuizScore(prev => {
+      const newScore = { correct: prev.correct + (isCorrect ? 1 : 0), total: prev.total + 1 };
+      if (isCorrect) {
+        awardXp(10, 'Respuesta correcta');
+      }
+      return newScore;
+    });
+  }, [awardXp]);
+
+  const resetQuizScore = useCallback(() => {
+    setQuizScore({ correct: 0, total: 0 });
   }, []);
 
   const checkStreak = useCallback(() => {
@@ -122,6 +137,7 @@ export function GamificationProvider({ children }) {
     streak, checkStreak,
     moduleProgress, isModuleCompleted,
     hoveredPeripheral, setHoveredPeripheral,
+    quizScore, recordQuizAnswer, resetQuizScore,
     LEVELS,
   };
 

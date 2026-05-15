@@ -1,3 +1,5 @@
+import { useGamification } from '../context/GamificationContext.jsx';
+
 export default function AssessmentView({
   selectedItem, onSelect, isDark, colorMap,
   assessmentOrder, assessmentAssignments, draggingAssessmentItem, draggingOrderItem,
@@ -10,13 +12,15 @@ export default function AssessmentView({
   assessmentMixedQuizItems, softwareQuizItems, assessmentData,
   resetAssessmentArea
 }) {
+  const { quizScore, recordQuizAnswer, resetQuizScore } = useGamification();
   const categoryMeta = {
     system: { label: 'Sistema operativo', accent: isDark ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-200' : 'border-indigo-200 bg-indigo-50 text-indigo-700' },
     driver: { label: 'Driver o controlador', accent: isDark ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-200' : 'border-cyan-200 bg-cyan-50 text-cyan-700' },
     app: { label: 'Aplicacion', accent: isDark ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200' : 'border-emerald-200 bg-emerald-50 text-emerald-700' },
   };
 
-  const handleAssessmentQuiz = (itemId, answer) => {
+  const handleAssessmentQuiz = (itemId, answer, isCorrect) => {
+    recordQuizAnswer(isCorrect);
     if (itemId === 'security-bool') handleSecurityQuizSelect(itemId, answer === 'safe');
     if (itemId === 'email-recipient') handleEmailQuizSelect(itemId, answer);
     if (itemId === 'office-tool') handleOfficeQuizSelect(itemId, answer);
@@ -58,7 +62,12 @@ export default function AssessmentView({
             <h2 className={`mt-3 text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>Ponte a prueba con todo el aula</h2>
             <p className={`mt-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Hemos reunido aqui los retos para que el repaso sea mas divertido: preguntas cortas, clasificacion por arrastre y orden de procesos reales.</p>
           </div>
-          <button onClick={resetAssessmentArea} className={`rounded-full border px-4 py-3 text-sm font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}>Reiniciar retos</button>
+          <button onClick={() => { resetAssessmentArea(); resetQuizScore(); }} className={`rounded-full border px-4 py-3 text-sm font-black uppercase tracking-widest ${isDark ? 'border-slate-700 text-slate-200 hover:bg-slate-800' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}>Reiniciar retos</button>
+          {quizScore.total > 0 && (
+            <div className={`px-4 py-2 rounded-full text-sm font-black ${isDark ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}`}>
+              {quizScore.correct}/{quizScore.total} correctas
+            </div>
+          )}
         </div>
       </section>
 
@@ -73,7 +82,7 @@ export default function AssessmentView({
                 <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</h4>
                 <div className="grid grid-cols-2 gap-3 mt-5">
                   {item.options.map((option) => (
-                    <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value)} className={`rounded-[18px] px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
+                    <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value, option.value === item.answer)} className={`rounded-[18px] px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
                   ))}
                 </div>
                 {selected && <div className={`mt-4 rounded-sm border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}
