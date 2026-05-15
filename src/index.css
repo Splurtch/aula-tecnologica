@@ -44,6 +44,20 @@
 }
 
 @layer utilities {
+  /* Design Tokens - Border Radius */
+  .radius-sm { border-radius: 0.375rem; }    /* 6px - small elements */
+  .radius-md { border-radius: 0.75rem; }     /* 12px - cards, buttons */
+  .radius-lg { border-radius: 1.25rem; }      /* 20px - large cards */
+  .radius-xl { border-radius: 1.5rem; }       /* 24px - modals, panels */
+  .radius-2xl { border-radius: 1.75rem; }     /* 28px - section containers */
+
+  /* Design Tokens - Shadows */
+  .shadow-card { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
+  .shadow-card-hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
+  .shadow-panel { box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12); }
+  .shadow-panel-dark { box-shadow: 0 22px 60px rgba(15, 23, 42, 0.35); }
+  .shadow-cyber { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+
   .glass {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);

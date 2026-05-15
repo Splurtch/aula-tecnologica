@@ -77,12 +77,12 @@ export default function AssessmentView({
             const selected = getAssessmentSelection(item.id);
             const isCorrect = selected === item.answer;
             return (
-              <article key={item.id} className={`rounded-[26px] border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
+              <article key={item.id} className={`rounded-xl border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.label}</p>
                 <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</h4>
                 <div className="grid grid-cols-2 gap-3 mt-5">
                   {item.options.map((option) => (
-                    <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value, option.value === item.answer)} className={`rounded-[18px] px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
+                    <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value, option.value === item.answer)} className={`rounded-lg px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
                   ))}
                 </div>
                 {selected && <div className={`mt-4 rounded-sm border p-4 ${isCorrect ? isDark ? 'border-emerald-500/25 bg-emerald-500/10' : 'border-emerald-200 bg-emerald-50' : isDark ? 'border-amber-500/25 bg-amber-500/10' : 'border-amber-200 bg-amber-50'}`}><p className={`text-sm font-black uppercase tracking-widest ${isCorrect ? isDark ? 'text-emerald-300' : 'text-emerald-700' : isDark ? 'text-amber-300' : 'text-amber-700'}`}>{isCorrect ? 'Correcto' : 'Revisa la pista'}</p><p className={`mt-2 text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{item.explanation}</p></div>}
@@ -96,7 +96,7 @@ export default function AssessmentView({
         <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-5">
           <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-3">
             {softwareQuizItems.map((item) => (
-              <div key={item.id} draggable onDragStart={() => setDraggingAssessmentItem(item.id)} className={`cursor-grab rounded-[22px] border px-4 py-4 ${isDark ? 'border-slate-800 bg-slate-950 text-slate-100' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
+              <div key={item.id} draggable onDragStart={() => setDraggingAssessmentItem(item.id)} className={`cursor-grab rounded-lg border px-4 py-4 ${isDark ? 'border-slate-800 bg-slate-950 text-slate-100' : 'border-slate-200 bg-slate-50 text-slate-900'}`}>
                 <p className="text-sm font-black">{item.label}</p>
               </div>
             ))}
@@ -104,7 +104,7 @@ export default function AssessmentView({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {Object.entries(categoryMeta).map(([key, meta]) => (
-              <div key={key} onDragOver={(event) => event.preventDefault()} onDrop={() => handleAssessmentDrop(key)} className={`min-h-[240px] rounded-[26px] border p-4 ${meta.accent}`}>
+              <div key={key} onDragOver={(event) => event.preventDefault()} onDrop={() => handleAssessmentDrop(key)} className={`min-h-[240px] rounded-xl border p-4 ${meta.accent}`}>
                 <p className="text-sm font-black uppercase tracking-widest">{meta.label}</p>
                 <div className="mt-4 space-y-3">
                   {softwareQuizItems.filter((item) => assessmentAssignments[item.id] === key).map((item) => (
