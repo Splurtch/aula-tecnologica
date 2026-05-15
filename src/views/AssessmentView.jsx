@@ -80,7 +80,7 @@ export default function AssessmentView({
               <article key={item.id} className={`rounded-xl border p-5 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'}`}>
                 <p className={`text-[11px] font-black uppercase tracking-[0.24em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.label}</p>
                 <h4 className={`mt-3 text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.prompt}</h4>
-                <div className="grid grid-cols-2 gap-3 mt-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
                   {item.options.map((option) => (
                     <button key={option.value} onClick={() => handleAssessmentQuiz(item.id, option.value, option.value === item.answer)} className={`rounded-lg px-4 py-4 text-left text-sm font-black transition-colors ${selected === option.value ? option.value === item.answer ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white' : isDark ? 'bg-slate-900 text-slate-300 hover:bg-slate-800' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>{option.label}</button>
                   ))}

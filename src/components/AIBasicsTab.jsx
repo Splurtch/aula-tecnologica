@@ -564,7 +564,7 @@ function LLMSimulatorContextWindow() {
           <span className="text-[10px] text-slate-500">128k</span>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="bg-slate-800 rounded-lg p-3 border border-slate-700">
           <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Entrada</p>
           <p className="text-lg font-bold text-white">~1,200</p>

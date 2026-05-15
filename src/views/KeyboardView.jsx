@@ -50,7 +50,7 @@ export default function KeyboardView({ selectedItem, onSelect, isDark, colorMap,
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6">
         <div className={`rounded-sm border p-5 md:p-6 ${isDark ? 'bg-slate-900/86 border-slate-800' : 'bg-white/78 border-white/80 backdrop-blur-xl'}`}>
           <h3 className={`${isDark ? 'text-white' : 'text-slate-900'} text-lg font-black mb-4`}>Bloques de Aprendizaje</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <InteractiveButton id="shortcut_basics" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={onSelect} colorMap={colorMap} isDark={isDark} />
             <InteractiveButton id="navigation_flow" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={onSelect} colorMap={colorMap} isDark={isDark} />
             <InteractiveButton id="editing_power" dataSet={keyboardData} extraClass="min-h-[92px]" selectedItem={selectedItem} onSelect={onSelect} colorMap={colorMap} isDark={isDark} />

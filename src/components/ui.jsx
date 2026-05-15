@@ -306,7 +306,7 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
           </div>
 
           <div className={`p-5 sm:p-6 md:p-7 space-y-4 ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className={`rounded-sm border p-3.5 ${isDark ? 'border-slate-800/50 bg-slate-800/30' : 'border-slate-200 bg-slate-50/80'}`}>
                 <p className={`text-[9px] uppercase tracking-widest font-semibold ${isDark ? 'text-slate-400' : 'text-slate-400'}`}>Conceptos</p>
                 <p className={`text-2xl font-semibold mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{itemCount}</p>

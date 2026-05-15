@@ -446,7 +446,7 @@ function ExploradorSimulator({ onClose, onSelect }) {
         </div>
         <button onClick={onClose} className="w-7 h-7 rounded hover:bg-slate-200 flex items-center justify-center text-slate-500 text-lg">✕</button>
       </div>
-      <div className="p-4 grid grid-cols-2 gap-3">
+      <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
         {carpetas.map((c) => (
           <button key={c.name} onClick={() => onSelect({ ...desktopData.files, name: c.name })}
             className="flex items-center gap-3 p-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all text-left">
@@ -611,7 +611,7 @@ function SimulatorArchivos({ onOpenExplorer }) {
         <FolderOpen size={20} className="text-amber-400" />
         <span className="font-bold text-white text-lg">Carpeta de Archivos Personales</span>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {[
           { name: 'Documentos', icon: FileText, count: 12, color: 'blue' },
           { name: 'Proyectos', icon: FolderOpen, count: 5, color: 'emerald' },
