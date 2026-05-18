@@ -2240,6 +2240,39 @@ export default function App() {
     };
   }, [isSectionMenuOpen]);
 
+  // === Keyboard Shortcuts ===
+  useEffect(() => {
+    const handleKeyboard = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (isSectionMenuOpen) return;
+      
+      const allTabs = tabConfig.filter(t => t.id !== 'home');
+      const currentIndex = allTabs.findIndex(t => t.id === activeTab);
+      
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        e.preventDefault();
+        handleTabChange(allTabs[currentIndex - 1].id);
+        playSound('tabChange');
+      } else if (e.key === 'ArrowRight' && currentIndex < allTabs.length - 1) {
+        e.preventDefault();
+        handleTabChange(allTabs[currentIndex + 1].id);
+        playSound('tabChange');
+      } else if (e.key === 'Escape' && selectedItem) {
+        e.preventDefault();
+        handleClearSelection();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        handleTabChange('home');
+      } else if (e.key === '?') {
+        e.preventDefault();
+        setShowAchievementsModal(true);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyboard);
+    return () => window.removeEventListener('keydown', handleKeyboard);
+  }, [activeTab, selectedItem, isSectionMenuOpen]);
+
   // === Lógica Drag 3D ===
   const handleDragStart = (x, y) => { setIsDragging(true); setStartPos({ x, y }); };
   const handleDragMove = (x, y) => {
