@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   AlertTriangle,
   ChevronRight,
@@ -13,12 +13,12 @@ import {
   Zap,
 } from 'lucide-react';
 
-export const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, onSelect, colorMap, isDark = false }) => {
+export const InteractiveButton = React.memo(({ id, dataSet, extraClass = "", selectedItem, onSelect, colorMap, isDark = false }) => {
   const comp = dataSet[id];
   if (!comp) return null;
 
   const isSelected = selectedItem?.id === id;
-  const colors = colorMap[comp.color] || colorMap.slate;
+  const colors = useMemo(() => colorMap[comp.color] || colorMap.slate, [colorMap, comp.color]);
 
   const activeClass = isSelected
     ? `ring-2 ${colors.ring} shadow-cyber-hover -translate-y-0.5 ${isDark ? 'bg-slate-900 text-white border-white/10' : `${colors.bgLight} ${colors.text} ${colors.borderHeavy}`} z-10`
@@ -127,7 +127,7 @@ export const InteractiveButton = ({ id, dataSet, extraClass = "", selectedItem, 
       )}
     </button>
   );
-};
+});
 
 const renderKeyLabel = (label) => {
   const keyMap = {
