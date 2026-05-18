@@ -9,6 +9,7 @@ export function AppProvider({ children }) {
   const [expandedSectionGroup, setExpandedSectionGroup] = useState('Base tecnologica');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClearSelection = () => setSelectedItem(null);
 
@@ -19,6 +20,7 @@ export function AppProvider({ children }) {
     expandedSectionGroup, setExpandedSectionGroup,
     isScrolled, setIsScrolled,
     showAchievementsModal, setShowAchievementsModal,
+    searchQuery, setSearchQuery,
     handleClearSelection,
   };
 

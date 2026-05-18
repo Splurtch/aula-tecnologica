@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   AlertTriangle,
   ChevronRight,
@@ -5,7 +6,9 @@ import {
   FileText,
   Info,
   Keyboard,
+  Search,
   ShieldCheck,
+  X,
   XCircle,
   Zap,
 } from 'lucide-react';
@@ -558,5 +561,57 @@ export const PanelDerecho = ({ selectedItem, activeTabMeta, itemCount, onStartMo
         )}
       </div>
     </div>
+  );
+};
+
+export const SearchBar = ({ value, onChange, onClear, placeholder = 'Buscar...', isDark = false }) => {
+  return (
+    <div className="relative">
+      <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className={`w-full rounded-sm border pl-9 pr-8 py-2.5 text-sm transition-colors ${
+          isDark
+            ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none'
+            : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-blue-500 focus:outline-none'
+        }`}
+      />
+      {value && (
+        <button
+          onClick={onClear}
+          className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+        >
+          <X size={14} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export const Breadcrumbs = ({ items, isDark = false }) => {
+  if (!items || items.length === 0) return null;
+  return (
+    <nav className="flex items-center gap-1.5 text-xs">
+      {items.map((item, index) => (
+        <React.Fragment key={item.label}>
+          {index > 0 && <ChevronRight size={12} className={isDark ? 'text-slate-600' : 'text-slate-400'} />}
+          {item.onClick ? (
+            <button
+              onClick={item.onClick}
+              className={`font-medium transition-colors ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-700'}`}
+            >
+              {item.label}
+            </button>
+          ) : (
+            <span className={`font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              {item.label}
+            </span>
+          )}
+        </React.Fragment>
+      ))}
+    </nav>
   );
 };

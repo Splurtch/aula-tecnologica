@@ -1793,6 +1793,7 @@ export default function App() {
   const [draggingAssessmentItem, setDraggingAssessmentItem] = useState(null);
   const [assessmentOrder, setAssessmentOrder] = useState(() => shuffleArray(assessmentOrderBase));
   const [draggingOrderItem, setDraggingOrderItem] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const activeTabMeta = tabConfig.find((tab) => tab.id === activeTab) || tabConfig[0];
   const currentDataSet = tabDataMap[activeTab] || {};
   const currentItems = Object.values(currentDataSet);
@@ -2443,6 +2444,26 @@ export default function App() {
                   <ChevronDown size={16} />
                 </span>
               </button>
+
+              <div className="hidden md:block w-48 lg:w-64">
+                <div className="relative">
+                  <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Buscar..."
+                    className={`w-full rounded-sm border pl-9 pr-8 py-2.5 text-sm transition-colors ${
+                      isDark ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none' : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-blue-500 focus:outline-none'
+                    }`}
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-slate-600'}`}>
+                      <X size={14} />
+                    </button>
+                  )}
+                </div>
+              </div>
 
               <a
                 href="https://buymeacoffee.com/digitalsynapse"
